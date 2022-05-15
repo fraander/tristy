@@ -22,11 +22,34 @@ struct ListDetailView: View {
             Section {
                 TextField("Title", text: $list.title)
             }
+            
+            Section {
+                List(/*selection: $selectedItems*/) {
+                    ForEach($list.items) { $item in
+                        TextField("...", text: $item.title)
+                            .onChange(of: item.title) { newValue in
+                                if (list.items.last?.title.count ?? 0) > 0 {
+                                    addNewItem()
+                                }
+                            }
+                    }
+                }
+            }
         }
         .navigationTitle(list.title)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         #endif
+        .toolbar {
+            Button("New item") {
+                addNewItem()
+            }
+        }
+    }
+    
+    func addNewItem() {
+        let newItem = TristyListItem()
+        list.items.append(newItem)
     }
 }
 

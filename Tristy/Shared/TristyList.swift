@@ -26,11 +26,11 @@ struct TristyList: Codable, Identifiable, Hashable {
     var title = "New List"
     
     /// The items in the list
-    var items: [TristyListItem] = []
+    var items: [TristyListItem] = [TristyListItem()]
 
     /// The SF Symbol icon name to use for this list.
     var icon: String {
-        if items.count <= 0 {
+        if items.count <= 1 {
             return "list.bullet.circle"
         } else {
             return "list.bullet.circle.fill"
