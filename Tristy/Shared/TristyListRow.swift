@@ -12,24 +12,24 @@
 import SwiftUI
 
 /// Displays a single item from the list in `ContentView`.
-struct ItemRow: View {
+struct TristyListRow: View {
     /// A live binding to the item we're trying to show. This comes direct from our view model.
-    @Binding var item: TristyList
+    @Binding var list: TristyList
 
     var body: some View {
         NavigationLink {
-            DetailView(item: $item)
+            ListDetailView(list: $list)
         } label: {
-            Label(item.title, systemImage: item.icon)
-                .animation(nil, value: item)
+            Label(list.title, systemImage: list.icon)
+                .animation(nil, value: list)
         }
-        .tag(item)
-        .accessibilityValue(item.accessibilityValue)
+        .tag(list)
+        .accessibilityValue(list.accessibilityValue)
     }
 }
 
 struct ItemRow_Previews: PreviewProvider {
     static var previews: some View {
-        ItemRow(item: .constant(.example))
+        TristyListRow(list: .constant(.example))
     }
 }

@@ -18,6 +18,9 @@ struct TristyList: Codable, Identifiable, Hashable {
 
     /// A unique, random identifier for this list.
     var id = UUID()
+    
+    /// Date of the list's creation
+    var dateCreated = Date()
 
     /// The user-facing title of this list.
     var title = "New List"

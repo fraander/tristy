@@ -12,24 +12,26 @@
 import SwiftUI
 
 /// A view to let the user edit values inside a `ToDoItem`
-struct DetailView: View {
+struct ListDetailView: View {
     /// A live binding to the item we're trying to edit. This comes direct from our view model, so changes
     /// made here are automatically saved to persistent storage.
-    @Binding var item: TristyList
+    @Binding var list: TristyList
 
     var body: some View {
         Form {
             Section {
-                TextField("Title", text: $item.title)
+                TextField("Title", text: $list.title)
             }
         }
-        .navigationTitle(item.title)
+        .navigationTitle(list.title)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(item: .constant(.example))
+        ListDetailView(list: .constant(.example))
     }
 }

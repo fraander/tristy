@@ -23,6 +23,9 @@ struct TristyListItem: Codable, Identifiable, Hashable {
     /// A unique, random identifier for this item
     var id = UUID()
     
+    /// Date of the item's creation
+    var dateCreated = Date()
+    
     /// The user-facing title of this item
     var title = ""
     
