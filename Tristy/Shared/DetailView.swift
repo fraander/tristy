@@ -15,23 +15,12 @@ import SwiftUI
 struct DetailView: View {
     /// A live binding to the item we're trying to edit. This comes direct from our view model, so changes
     /// made here are automatically saved to persistent storage.
-    @Binding var item: ToDoItem
+    @Binding var item: TristyList
 
     var body: some View {
         Form {
             Section {
                 TextField("Title", text: $item.title)
-
-                Picker("Priority", selection: $item.priority) {
-                    ForEach(ToDoItem.Priority.allCases, id: \.self) { priority in
-                        Text(priority.rawValue).tag(priority)
-                    }
-                }
-                .pickerStyle(.segmented)
-            }
-
-            Section {
-                Toggle("Mark completed", isOn: $item.isComplete)
             }
         }
         .navigationTitle(item.title)

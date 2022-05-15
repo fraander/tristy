@@ -21,10 +21,12 @@
 		BDAC2C752831A26C0042DE67 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C692831A26C0042DE67 /* DetailView.swift */; };
 		BDAC2C762831A26C0042DE67 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6A2831A26C0042DE67 /* ContentView.swift */; };
 		BDAC2C772831A26C0042DE67 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6A2831A26C0042DE67 /* ContentView.swift */; };
-		BDAC2C782831A26C0042DE67 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* ToDoItem.swift */; };
-		BDAC2C792831A26C0042DE67 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* ToDoItem.swift */; };
+		BDAC2C782831A26C0042DE67 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* TristyList.swift */; };
+		BDAC2C792831A26C0042DE67 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* TristyList.swift */; };
 		BDAC2C7C2831A26C0042DE67 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6D2831A26C0042DE67 /* ItemRow.swift */; };
 		BDAC2C7D2831A26C0042DE67 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6D2831A26C0042DE67 /* ItemRow.swift */; };
+		BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
+		BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +40,9 @@
 		BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		BDAC2C692831A26C0042DE67 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		BDAC2C6A2831A26C0042DE67 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "../../../../Downloads/simple-swiftui-main/SimpleToDo/SimpleToDo/ContentView.swift"; sourceTree = "<group>"; };
-		BDAC2C6B2831A26C0042DE67 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		BDAC2C6B2831A26C0042DE67 /* TristyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BDAC2C6D2831A26C0042DE67 /* ItemRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
+		BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +81,8 @@
 				BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */,
 				BDAC2C6D2831A26C0042DE67 /* ItemRow.swift */,
 				BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */,
-				BDAC2C6B2831A26C0042DE67 /* ToDoItem.swift */,
+				BDAC2C6B2831A26C0042DE67 /* TristyList.swift */,
+				BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */,
 				BDAC2C662831A26C0042DE67 /* ViewModel.swift */,
 				BDAC2C472831A1570042DE67 /* Assets.xcassets */,
 			);
@@ -201,7 +205,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAC2C722831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
-				BDAC2C782831A26C0042DE67 /* ToDoItem.swift in Sources */,
+				BDAC2C782831A26C0042DE67 /* TristyList.swift in Sources */,
+				BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */,
 				BDAC2C762831A26C0042DE67 /* ContentView.swift in Sources */,
 				BDAC2C702831A26C0042DE67 /* SelectSomethingView.swift in Sources */,
 				BDAC2C742831A26C0042DE67 /* DetailView.swift in Sources */,
@@ -216,7 +221,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAC2C732831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
-				BDAC2C792831A26C0042DE67 /* ToDoItem.swift in Sources */,
+				BDAC2C792831A26C0042DE67 /* TristyList.swift in Sources */,
+				BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */,
 				BDAC2C772831A26C0042DE67 /* ContentView.swift in Sources */,
 				BDAC2C712831A26C0042DE67 /* SelectSomethingView.swift in Sources */,
 				BDAC2C752831A26C0042DE67 /* DetailView.swift in Sources */,

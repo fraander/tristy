@@ -14,7 +14,7 @@ import SwiftUI
 /// Displays a single item from the list in `ContentView`.
 struct ItemRow: View {
     /// A live binding to the item we're trying to show. This comes direct from our view model.
-    @Binding var item: ToDoItem
+    @Binding var item: TristyList
 
     var body: some View {
         NavigationLink {
