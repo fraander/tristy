@@ -32,12 +32,29 @@ struct ListDetailView: View {
             Section {
                 List(/*selection: $selectedItems*/) {
                     ForEach($list.items) { $item in
-                        TextField("...", text: $item.title)
-                            .onChange(of: item.title) { newValue in
-                                if (list.items.last?.title.count ?? 0) > 0 {
-                                    addNewItem()
+                        HStack {
+                            Button {
+                                item.isComplete.toggle()
+                            } label: {
+                                if (list.items.last?.title.count ?? 0) <= 0 && item.id == list.items.last?.id {
+                                    Label("",
+                                          systemImage: "checkmark.circle")
+                                        .labelStyle(.iconOnly)
+                                        .foregroundColor(.clear)
+                                } else {
+                                    Label("\(item.isComplete ? "Unmark Item" : "Mark Item")",
+                                          systemImage: "\(item.isComplete ? "checkmark.circle.fill" : "checkmark.circle")")
+                                        .labelStyle(.iconOnly)
                                 }
                             }
+                            
+                            TextField("New item ...", text: $item.title)
+                                .onChange(of: item.title) { newValue in
+                                    if (list.items.last?.title.count ?? 0) > 0 {
+                                        addNewItem()
+                                    }
+                                }
+                        }
                     }
                 }
             }
