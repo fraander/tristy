@@ -27,6 +27,8 @@
 		BDAC2C7D2831A26C0042DE67 /* TristyListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */; };
 		BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
 		BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
+		BDE96D0D28328CAE00E71A43 /* ListItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */; };
+		BDE96D0E28328CAE00E71A43 /* ListItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,7 @@
 		BDAC2C6B2831A26C0042DE67 /* TristyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListRow.swift; sourceTree = "<group>"; };
 		BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyListItem.swift; sourceTree = "<group>"; };
+		BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,7 @@
 				BDAC2C452831A1570042DE67 /* TristyApp.swift */,
 				BDAC2C6B2831A26C0042DE67 /* TristyList.swift */,
 				BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */,
+				BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */,
 				BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */,
 				BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */,
 				BDAC2C662831A26C0042DE67 /* ViewModel.swift */,
@@ -212,6 +216,7 @@
 				BDAC2C742831A26C0042DE67 /* TristyListDetailView.swift in Sources */,
 				BDAC2C7C2831A26C0042DE67 /* TristyListRow.swift in Sources */,
 				BDAC2C6E2831A26C0042DE67 /* ViewModel.swift in Sources */,
+				BDE96D0D28328CAE00E71A43 /* ListItemRowView.swift in Sources */,
 				BDAC2C552831A1570042DE67 /* TristyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +233,7 @@
 				BDAC2C752831A26C0042DE67 /* TristyListDetailView.swift in Sources */,
 				BDAC2C7D2831A26C0042DE67 /* TristyListRow.swift in Sources */,
 				BDAC2C6F2831A26C0042DE67 /* ViewModel.swift in Sources */,
+				BDE96D0E28328CAE00E71A43 /* ListItemRowView.swift in Sources */,
 				BDAC2C562831A1570042DE67 /* TristyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
