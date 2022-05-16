@@ -20,7 +20,7 @@ struct SelectSomethingView: View {
                 .font(.largeTitle)
                 .foregroundColor(.accentColor)
 
-            Text("Welcome to SimpleToDo!")
+            Text("Welcome to Tristy!")
                 .font(.title)
 
             Text("Please select an item to view.")

@@ -15,10 +15,12 @@ import SwiftUI
 struct TristyListRow: View {
     /// A live binding to the item we're trying to show. This comes direct from our view model.
     @Binding var list: TristyList
+    
+    @Binding var selectedItems: Set<AnyHashable>
 
     var body: some View {
         NavigationLink {
-            ListDetailView(list: $list)
+            ListDetailView(list: $list, selectedItems: $selectedItems)
         } label: {
             Label(list.title, systemImage: list.icon)
                 .animation(nil, value: list)
@@ -30,6 +32,6 @@ struct TristyListRow: View {
 
 struct ItemRow_Previews: PreviewProvider {
     static var previews: some View {
-        TristyListRow(list: .constant(.example))
+        TristyListRow(list: .constant(.example), selectedItems: .constant(Set()))
     }
 }

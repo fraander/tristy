@@ -16,11 +16,17 @@ struct ListDetailView: View {
     /// A live binding to the item we're trying to edit. This comes direct from our view model, so changes
     /// made here are automatically saved to persistent storage.
     @Binding var list: TristyList
-
+    
+    @Binding var selectedItems: Set<AnyHashable>
+    
     var body: some View {
         Form {
             Section {
-                TextField("Title", text: $list.title)
+                HStack {
+                    TextField("Title", text: $list.title)
+                        .font(Font.system(.largeTitle, design: .rounded).bold())
+                        .textFieldStyle(.plain)
+                }
             }
             
             Section {
@@ -37,14 +43,9 @@ struct ListDetailView: View {
             }
         }
         .navigationTitle(list.title)
-        #if os(iOS)
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-        #endif
-        .toolbar {
-            Button("New item") {
-                addNewItem()
-            }
-        }
+#endif
     }
     
     func addNewItem() {
@@ -55,6 +56,6 @@ struct ListDetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ListDetailView(list: .constant(.example))
+        ListDetailView(list: .constant(.example), selectedItems: .constant(Set()))
     }
 }
