@@ -38,22 +38,6 @@ struct TristyListItem: Codable, Identifiable, Hashable {
     /// Whether this item has been completed or not.
     var isComplete = false
     
-    /// The icon to use for this item
-    var icon: String {
-        if isComplete {
-            return "checkmark.square"
-        } else {
-            switch priority {
-                case .low:
-                    return "arrow.down.square"
-                case .medium:
-                    return "square"
-                default:
-                    return "exclamationmark.square"
-            }
-        }
-    }
-    
     /// The value of the item, to convey this information to assistive technologies.
     var accessibilityValue: String {
         if isComplete {
@@ -61,11 +45,11 @@ struct TristyListItem: Codable, Identifiable, Hashable {
         } else {
             switch priority {
                 case .none:
-                    return title
+                    return "" // no label for default to prevent verbosity
                 case .low:
                     return "low priority"
                 case .medium:
-                    return "" // To prevent verbosity, don't set a specific value for the default priority.
+                    return "medium priority"
                 case .high:
                     return "high priority"
             }
