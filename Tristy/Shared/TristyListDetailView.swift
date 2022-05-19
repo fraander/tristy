@@ -17,26 +17,44 @@ struct ListDetailView: View {
     /// made here are automatically saved to persistent storage.
     @Binding var list: TristyList
     
-    @Binding var selectedItems: Set<AnyHashable>
+    @State var selectedItems = Set<TristyListItem>()
     
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    TextField("Title", text: $list.title)
-                        .font(Font.system(.largeTitle, design: .rounded).bold())
-                        .textFieldStyle(.plain)
-                }
-            }
-            
-            Section {
-                List(/*selection: $selectedItems*/) {
-                    ForEach($list.items) { $item in
-                        ListItemRowView(item: $item, list: $list, addNewItem: {addNewItem()})
-                    }
-                }
+        
+        VStack {
+            ForEach(Array(selectedItems)) { item in
+                Text(item.title)
             }
         }
+        //        Section {
+        //            HStack {
+        //                TextField("Title", text: $list.title)
+        //                    .font(Font.system(.largeTitle, design: .rounded).bold())
+        //                    .textFieldStyle(.plain)
+        //                    .labelsHidden()
+        //            }
+        //        }
+        //
+        //        Section {
+        List(selection: $selectedItems) {
+            ForEach($list.items) { $item in
+                ListItemRowView(item: $item, list: $list, addNewItem: {addNewItem()})
+                    .overlay(selectedItems.contains(item) ? Color(.green) : Color(.clear))
+            }
+            .onDelete {indexSet in
+                indexSet.forEach({list.items.remove(at: $0)})
+            }
+            .onMove(perform: { indices, newOffset in
+                withAnimation {
+                    list.items.move(fromOffsets: indices, toOffset: newOffset)
+                    // TODO: the hack with the last item being empty doesn't work anymore. Find a new way to do this (if after forEach)
+                }
+            })
+        }
+#if os(macOS)
+        .listStyle(.inset(alternatesRowBackgrounds: true))
+#endif
+        //        }
         .navigationTitle(list.title)
 #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
@@ -51,6 +69,6 @@ struct ListDetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ListDetailView(list: .constant(.example), selectedItems: .constant(Set()))
+        ListDetailView(list: .constant(.example))
     }
 }

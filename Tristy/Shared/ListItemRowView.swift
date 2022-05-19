@@ -20,9 +20,8 @@ struct ListItemRowView: View {
                 item.isComplete.toggle()
             } label: {
                 if (list.items.last?.title.count ?? 0) <= 0 && item.id == list.items.last?.id {
-                    Label("",
-                          systemImage: "checkmark.circle")
-                        .labelStyle(.iconOnly)
+                    Image(systemName: "checkmark.circle")
+                        .font(Font.body.weight(.bold))
                         .foregroundColor(.clear)
                 } else {
                     Label("\(item.isComplete ? "Unmark Item" : "Mark Item")",
@@ -30,6 +29,16 @@ struct ListItemRowView: View {
                         .labelStyle(.iconOnly)
                 }
             }
+#if os(macOS)
+            .buttonStyle(.plain)
+#endif
+            
+            //            ZStack(alignment: .leading) {
+            //                if item == list.items.last {
+            //                    Text("Click to add new item ...")
+            //                        .foregroundColor(.secondary)
+            //                        .allowsHitTesting(false)
+            //                }
             
             TextField("New item ...", text: $item.title)
                 .onChange(of: item.title) { newValue in
@@ -37,6 +46,10 @@ struct ListItemRowView: View {
                         addNewItem()
                     }
                 }
+                .labelsHidden()
+            
+            Spacer()
+            //            }
         }
     }
 }

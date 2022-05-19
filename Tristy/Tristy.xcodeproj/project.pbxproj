@@ -37,11 +37,11 @@
 		BDAC2C4C2831A1570042DE67 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAC2C522831A1570042DE67 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAC2C542831A1570042DE67 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		BDAC2C662831A26C0042DE67 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = "../../../../Downloads/simple-swiftui-main/SimpleToDo/SimpleToDo/ViewModel.swift"; sourceTree = "<group>"; };
+		BDAC2C662831A26C0042DE67 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSomethingView.swift; sourceTree = "<group>"; };
 		BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListDetailView.swift; sourceTree = "<group>"; };
-		BDAC2C6A2831A26C0042DE67 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "../../../../Downloads/simple-swiftui-main/SimpleToDo/SimpleToDo/ContentView.swift"; sourceTree = "<group>"; };
+		BDAC2C6A2831A26C0042DE67 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDAC2C6B2831A26C0042DE67 /* TristyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListRow.swift; sourceTree = "<group>"; };
 		BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyListItem.swift; sourceTree = "<group>"; };

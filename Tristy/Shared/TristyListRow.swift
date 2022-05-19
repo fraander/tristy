@@ -16,11 +16,11 @@ struct TristyListRow: View {
     /// A live binding to the item we're trying to show. This comes direct from our view model.
     @Binding var list: TristyList
     
-    @Binding var selectedItems: Set<AnyHashable>
+    @Binding var selectedItems: Set<TristyList>
 
     var body: some View {
         NavigationLink {
-            ListDetailView(list: $list, selectedItems: $selectedItems)
+            ListDetailView(list: $list)
         } label: {
             Label(list.title, systemImage: list.icon)
                 .animation(nil, value: list)
