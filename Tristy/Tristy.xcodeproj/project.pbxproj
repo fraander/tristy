@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD2DDBFA2836B1D800647634 /* EditListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2DDBF92836B1D800647634 /* EditListTitleView.swift */; };
+		BD2DDBFB2836B1D800647634 /* EditListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2DDBF92836B1D800647634 /* EditListTitleView.swift */; };
+		BD79085B2837404A003212C2 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD79085A2837404A003212C2 /* CloudKit.framework */; };
 		BDAC2C552831A1570042DE67 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C452831A1570042DE67 /* TristyApp.swift */; };
 		BDAC2C562831A1570042DE67 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C452831A1570042DE67 /* TristyApp.swift */; };
 		BDAC2C592831A1570042DE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDAC2C472831A1570042DE67 /* Assets.xcassets */; };
@@ -32,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD2DDBF92836B1D800647634 /* EditListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListTitleView.swift; sourceTree = "<group>"; };
+		BD79085828374049003212C2 /* Tristy (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tristy (iOS).entitlements"; sourceTree = "<group>"; };
+		BD79085A2837404A003212C2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		BDAC2C452831A1570042DE67 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDAC2C472831A1570042DE67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDAC2C4C2831A1570042DE67 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD79085B2837404A003212C2 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,29 +73,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD7908592837404A003212C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD79085A2837404A003212C2 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BDAC2C3F2831A1570042DE67 = {
 			isa = PBXGroup;
 			children = (
+				BD79085828374049003212C2 /* Tristy (iOS).entitlements */,
 				BDAC2C442831A1570042DE67 /* Shared */,
 				BDAC2C532831A1570042DE67 /* macOS */,
 				BDAC2C4D2831A1570042DE67 /* Products */,
+				BD7908592837404A003212C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		BDAC2C442831A1570042DE67 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				BDAC2C472831A1570042DE67 /* Assets.xcassets */,
 				BDAC2C6A2831A26C0042DE67 /* ContentView.swift */,
+				BD2DDBF92836B1D800647634 /* EditListTitleView.swift */,
 				BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */,
+				BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */,
 				BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */,
 				BDAC2C452831A1570042DE67 /* TristyApp.swift */,
 				BDAC2C6B2831A26C0042DE67 /* TristyList.swift */,
 				BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */,
-				BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */,
 				BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */,
 				BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */,
 				BDAC2C662831A26C0042DE67 /* ViewModel.swift */,
+				BDAC2C472831A1570042DE67 /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -209,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAC2C722831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
+				BD2DDBFA2836B1D800647634 /* EditListTitleView.swift in Sources */,
 				BDAC2C782831A26C0042DE67 /* TristyList.swift in Sources */,
 				BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */,
 				BDAC2C762831A26C0042DE67 /* ContentView.swift in Sources */,
@@ -226,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDAC2C732831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
+				BD2DDBFB2836B1D800647634 /* EditListTitleView.swift in Sources */,
 				BDAC2C792831A26C0042DE67 /* TristyList.swift in Sources */,
 				BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */,
 				BDAC2C772831A26C0042DE67 /* ContentView.swift in Sources */,
@@ -357,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Tristy (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
@@ -387,6 +408,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Tristy (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
@@ -426,6 +448,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,6 +477,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

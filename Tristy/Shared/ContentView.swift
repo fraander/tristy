@@ -34,18 +34,15 @@ struct ContentView: View {
     var body: some View {
         List(selection: $selectedList) {
             ForEach($model.items) { $list in
-                TristyListRow(list: $list, selectedItems: $selectedList)
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            model.items.removeAll { list.id == $0.id }
-                            model.save()
-                        } label: {
-                            Label("Delete List", systemImage: "trash")
-                        }
-
-                    }
+                TristyListRow(list: $list, selectedItems: $selectedList, deleteList: deleteList)
             }
-            .onDelete(perform: model.delete)
+            .onDelete { offsets in
+                offsets.forEach {
+                    let i = model.items.remove(at: $0)
+                    selectedList.remove(i)
+                }
+//                model.delete(offsets)
+            }
             .onMove(perform: { indices, newOffset in
                 withAnimation {
                     model.items.move(fromOffsets: indices, toOffset: newOffset)
@@ -57,13 +54,21 @@ struct ContentView: View {
         .toolbar {
 #if os(iOS)
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: model.add) {
+                Button {
+                    model.add()
+                } label: {
                     Label("Add List", systemImage: "plus")
                 }
             }
 #elseif os(macOS)
             Button {
                 model.add()
+                if let m = model.items.last {
+//                    selectedList.
+                    print("f")
+                } else {
+                    print("g")
+                }
             } label: {
                 Label("New List", systemImage: "text.badge.plus")
             }
@@ -75,6 +80,11 @@ struct ContentView: View {
 #if os(iOS)
         .environment(\.editMode, $editMode)
 #endif
+    }
+    
+    func deleteList(list: TristyList) {
+        model.items.removeAll { list.id == $0.id }
+        model.save()
     }
 }
 

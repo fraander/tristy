@@ -26,16 +26,7 @@ struct ListDetailView: View {
                 Text(item.title)
             }
         }
-        //        Section {
-        //            HStack {
-        //                TextField("Title", text: $list.title)
-        //                    .font(Font.system(.largeTitle, design: .rounded).bold())
-        //                    .textFieldStyle(.plain)
-        //                    .labelsHidden()
-        //            }
-        //        }
-        //
-        //        Section {
+        
         List(selection: $selectedItems) {
             ForEach($list.items) { $item in
                 ListItemRowView(item: $item, list: $list, addNewItem: {addNewItem()})
@@ -56,9 +47,6 @@ struct ListDetailView: View {
 #endif
         //        }
         .navigationTitle(list.title)
-#if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-#endif
     }
     
     func addNewItem() {
