@@ -26,30 +26,17 @@ struct ListItemRowView: View {
                 } else {
                     Label("\(item.isComplete ? "Unmark Item" : "Mark Item")",
                           systemImage: "\(item.isComplete ? "checkmark.circle.fill" : "checkmark.circle")")
-                        .labelStyle(.iconOnly)
+                    .labelStyle(.iconOnly)
                 }
             }
 #if os(macOS)
             .buttonStyle(.plain)
 #endif
             
-            //            ZStack(alignment: .leading) {
-            //                if item == list.items.last {
-            //                    Text("Click to add new item ...")
-            //                        .foregroundColor(.secondary)
-            //                        .allowsHitTesting(false)
-            //                }
-            
             TextField("New item ...", text: $item.title)
-                .onChange(of: item.title) { newValue in
-                    if (list.items.last?.title.count ?? 0) > 0 {
-                        addNewItem()
-                    }
-                }
                 .labelsHidden()
             
             Spacer()
-            //            }
         }
     }
 }

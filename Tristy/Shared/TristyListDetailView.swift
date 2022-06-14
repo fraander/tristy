@@ -17,17 +17,18 @@ struct ListDetailView: View {
     /// made here are automatically saved to persistent storage.
     @Binding var list: TristyList
     
+    @State var newItemTitle = ""
+    
     @State var selectedItems = Set<TristyListItem>()
     
     var body: some View {
         
-        VStack {
-            ForEach(Array(selectedItems)) { item in
-                Text(item.title)
-            }
-        }
-        
         List(selection: $selectedItems) {
+            if ($list.items.count == 0) {
+                Text("Use the Add Bar at the bottom of the screen to add items")
+                    .padding(20)
+            }
+            
             ForEach($list.items) { $item in
                 ListItemRowView(item: $item, list: $list, addNewItem: {addNewItem()})
                     .overlay(selectedItems.contains(item) ? Color(.green) : Color(.clear))
@@ -47,10 +48,67 @@ struct ListDetailView: View {
 #endif
         //        }
         .navigationTitle(list.title)
+        .toolbar {
+            ToolbarItem {
+                Button("Rename List") {
+                    // do something ... // TODO:
+                }
+            }
+        }
+        .overlay {
+            VStack {
+                Spacer()
+                
+                ZStack {
+                    HStack {
+                        ZStack(alignment: .leading) {
+                            TextField("", text: $newItemTitle)
+                                .foregroundColor(Color.white)
+                                .accentColor(.white)
+                                .onSubmit {
+                                    if (!newItemTitle.isEmpty) {
+                                        addNewItem(title: newItemTitle)
+                                        newItemTitle = ""
+                                    }
+                                }
+                            if newItemTitle.isEmpty {
+                                Text("New item ...")
+                                    .foregroundColor(.white)
+                                    .opacity(0.6)
+                                    .allowsHitTesting(false)
+                            }
+                        }
+                        
+                        Button {
+                            if (!newItemTitle.isEmpty) {
+                                addNewItem(title: newItemTitle)
+                                newItemTitle = ""
+                            }
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                        }
+
+                    }
+                        .padding(.all)
+                        .background {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.accentColor)
+                                .shadow(radius: 2)
+                        }
+                        .padding(.all)
+                }
+            }
+        }
     }
     
-    func addNewItem() {
-        let newItem = TristyListItem()
+    func addNewItem(title: String? = nil) {
+        var newItem = TristyListItem()
+        
+        if let title {
+            newItem.title = title
+        }
+        
         list.items.append(newItem)
     }
 }
