@@ -18,40 +18,56 @@ struct ListDetailView: View {
     @Binding var list: TristyList
     
     @State var newItemTitle = ""
-    
     @State var selectedItems = Set<TristyListItem>()
+    @FocusState private var focus: Bool
     
     var body: some View {
-        
-        List(selection: $selectedItems) {
-            if ($list.items.count == 0) {
-                Text("Use the Add Bar at the bottom of the screen to add items")
-                    .padding(20)
-            }
-            
-            ForEach($list.items) { $item in
+        ZStack {
+            List($list.items, edits: [.delete, .move], selection: $selectedItems) { $item in
                 ListItemRowView(item: $item, list: $list, addNewItem: {addNewItem()})
                     .overlay(selectedItems.contains(item) ? Color(.green) : Color(.clear))
             }
-            .onDelete {indexSet in
-                indexSet.forEach({list.items.remove(at: $0)})
-            }
-            .onMove(perform: { indices, newOffset in
-                withAnimation {
-                    list.items.move(fromOffsets: indices, toOffset: newOffset)
-                    // TODO: the hack with the last item being empty doesn't work anymore. Find a new way to do this (if after forEach)
-                }
-            })
-        }
 #if os(macOS)
-        .listStyle(.inset(alternatesRowBackgrounds: true))
+            .listStyle(.inset(alternatesRowBackgrounds: true))
 #endif
-        //        }
-        .navigationTitle(list.title)
-        .toolbar {
-            ToolbarItem {
-                Button("Rename List") {
-                    // do something ... // TODO:
+            if (list.items.count == 0) {
+                Text("Use the **Add Bar** below to add items to your list.")
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle($list.title) {
+            RenameButton()
+            
+            Button {
+                list.items.removeAll()
+            } label: {
+                Label("Clear", systemImage:
+                        "scribble.variable")
+            }
+            
+            Divider()
+            
+            Section {
+                Button {
+                    list.items = list.items.sorted { lhs, rhs in
+                        lhs.title < rhs.title
+                    }
+                } label: {
+                    Label("By Name", systemImage: "a.magnify")
+                }
+                
+                Button {
+                    list.items = list.items.sorted { lhs, rhs in
+                        lhs.dateCreated < rhs.dateCreated
+                    }
+                } label: {
+                    Label("By Date", systemImage: "calendar")
+                }
+                
+                Button {
+                    list.items = list.items.filter { $0.isComplete } + list.items.filter { !$0.isComplete }
+                } label: {
+                    Label("By Status", systemImage: "checkmark.circle.fill")
                 }
             }
         }
@@ -71,6 +87,10 @@ struct ListDetailView: View {
                                         newItemTitle = ""
                                     }
                                 }
+                                .focused($focus)
+                                .task {
+                                    focus = true
+                                }
                             if newItemTitle.isEmpty {
                                 Text("New item ...")
                                     .foregroundColor(.white)
@@ -88,16 +108,21 @@ struct ListDetailView: View {
                             Image(systemName: "plus")
                                 .foregroundColor(.white)
                         }
-
+                        
                     }
-                        .padding(.all)
-                        .background {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.accentColor)
-                                .shadow(radius: 2)
-                        }
-                        .padding(.all)
+                    .padding(.all)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.accentColor)
+                            .shadow(radius: 2)
+                    }
+                    .padding(.all)
                 }
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: ToolbarItemPlacement.primaryAction) {
+                EditButton()
             }
         }
     }

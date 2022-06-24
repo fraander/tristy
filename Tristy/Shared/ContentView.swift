@@ -50,9 +50,9 @@ struct ContentView: View {
             })
         }
         .listStyle(.sidebar)
-        .navigationTitle("Tristy")
         .toolbar {
 #if os(iOS)
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     model.add()

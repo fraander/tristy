@@ -22,9 +22,9 @@ struct SimpleToDoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack {
                 ContentView(model: model)
-                SelectSomethingView()
+//                SelectSomethingView()
             }
         }
         .onChange(of: scenePhase) { phase in
