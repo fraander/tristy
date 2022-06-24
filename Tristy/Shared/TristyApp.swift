@@ -13,26 +13,14 @@ import SwiftUI
 /// The main struct for our app, responsible for creating the view model, setting up our
 /// basic user interface, and also triggering a save when the app moves to the background.
 @main
-struct SimpleToDoApp: App {
-    /// The main shared instance of our view model, created here once and sent into `ContentView`.
-    @StateObject private var model = ViewModel()
+struct Tristy: App {
     
-    /// Used to detect when the app moves all scenes to the background, so we can trigger a save.
-    @Environment(\.scenePhase) var scenePhase
+    let persistenceController = PersistenceController.shared
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                ContentView(model: model)
-//                SelectSomethingView()
-            }
-        }
-        .onChange(of: scenePhase) { phase in
-            // When all our scenes have moved to the background, we force a save
-            // immediately in case the user is about to terminate the app.
-            if phase == .background {
-                model.save()
-            }
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

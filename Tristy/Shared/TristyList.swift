@@ -10,35 +10,29 @@
 //
 
 import Foundation
+import SwiftUI
 
-/// One list.
-struct TristyList: Codable, Identifiable, Hashable {
+extension TristyList {
+    //    static let example = TristyListItem(id: UUID(), title: "New list item that has a long name that's annoyingly long", notes: "New list item that has a long name that's annoyingly long's description.", priority: .none, isComplete: false)
     
-    static let example = TristyList(id: UUID(), title: "New list that has a long name")
-
-    /// A unique, random identifier for this list.
-    var id = UUID()
-    
-    /// Date of the list's creation
-    var dateCreated = Date()
-
-    /// The user-facing title of this list.
-    var title = "New List"
-    
-    /// The items in the list
-    var items: [TristyListItem] = [TristyListItem()]
-
-    /// The SF Symbol icon name to use for this list.
-    var icon: String {
-        if items.count <= 1 {
-            return "list.bullet.circle"
+    var _id: UUID { return id ?? UUID() }
+    var _dateCreated: Date { return dateCreated ?? Date() }
+    var _title: String { return title ?? "" }
+    var _icon: Image {
+        let done = _items.reduce(0) {
+            $0 + ($1._isComplete ? 1 : 0)
+        }
+        
+        let total = _items.count
+        
+        if done == total {
+            return Image(systemName: "list.bullet.circle.fill")
         } else {
-            return "list.bullet.circle.fill"
+            return Image(systemName: "list.bullet.circle")
         }
     }
-
-    /// The value of the item, to convey this information to assistive technologies.
-    var accessibilityValue: String {
-        return title
+    var _order: Int { return Int(order) }
+    var _items: [TristyListItem] {
+        return items?.sorted(by: {($0 as! TristyListItem)._dateCreated < ($1 as! TristyListItem)._dateCreated}) as! [TristyListItem]
     }
 }

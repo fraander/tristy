@@ -7,43 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD2DDBFA2836B1D800647634 /* EditListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2DDBF92836B1D800647634 /* EditListTitleView.swift */; };
-		BD2DDBFB2836B1D800647634 /* EditListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2DDBF92836B1D800647634 /* EditListTitleView.swift */; };
-		BD79085B2837404A003212C2 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD79085A2837404A003212C2 /* CloudKit.framework */; };
-		BDAC2C552831A1570042DE67 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C452831A1570042DE67 /* TristyApp.swift */; };
-		BDAC2C562831A1570042DE67 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C452831A1570042DE67 /* TristyApp.swift */; };
-		BDAC2C592831A1570042DE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDAC2C472831A1570042DE67 /* Assets.xcassets */; };
-		BDAC2C5A2831A1570042DE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDAC2C472831A1570042DE67 /* Assets.xcassets */; };
-		BDAC2C6E2831A26C0042DE67 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C662831A26C0042DE67 /* ViewModel.swift */; };
-		BDAC2C6F2831A26C0042DE67 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C662831A26C0042DE67 /* ViewModel.swift */; };
-		BDAC2C702831A26C0042DE67 /* SelectSomethingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */; };
-		BDAC2C712831A26C0042DE67 /* SelectSomethingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */; };
-		BDAC2C722831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */; };
-		BDAC2C732831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */; };
-		BDAC2C742831A26C0042DE67 /* TristyListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */; };
-		BDAC2C752831A26C0042DE67 /* TristyListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */; };
-		BDAC2C762831A26C0042DE67 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6A2831A26C0042DE67 /* ContentView.swift */; };
-		BDAC2C772831A26C0042DE67 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6A2831A26C0042DE67 /* ContentView.swift */; };
-		BDAC2C782831A26C0042DE67 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* TristyList.swift */; };
-		BDAC2C792831A26C0042DE67 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6B2831A26C0042DE67 /* TristyList.swift */; };
-		BDAC2C7C2831A26C0042DE67 /* TristyListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */; };
-		BDAC2C7D2831A26C0042DE67 /* TristyListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */; };
-		BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
-		BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */; };
-		BDE96D0D28328CAE00E71A43 /* ListItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */; };
-		BDE96D0E28328CAE00E71A43 /* ListItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */; };
+		BDD96858286648D60085ECE7 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD96857286648D60085ECE7 /* TristyApp.swift */; };
+		BDD9685A286648D60085ECE7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD96859286648D60085ECE7 /* Persistence.swift */; };
+		BDD9685D286648D60085ECE7 /* Tristy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */; };
+		BDD9685F286648D60085ECE7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD9685E286648D60085ECE7 /* ContentView.swift */; };
+		BDD96861286648D70085ECE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD96860286648D70085ECE7 /* Assets.xcassets */; };
+		BDD96865286648D70085ECE7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD96864286648D70085ECE7 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BD2DDBF92836B1D800647634 /* EditListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListTitleView.swift; sourceTree = "<group>"; };
 		BD79085828374049003212C2 /* Tristy (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tristy (iOS).entitlements"; sourceTree = "<group>"; };
 		BD79085A2837404A003212C2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		BD8A80662866402900F8A1A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		BDAC2C452831A1570042DE67 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDAC2C472831A1570042DE67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BDAC2C4C2831A1570042DE67 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDAC2C522831A1570042DE67 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAC2C542831A1570042DE67 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		BDAC2C662831A26C0042DE67 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSomethingView.swift; sourceTree = "<group>"; };
 		BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListDetailView.swift; sourceTree = "<group>"; };
@@ -51,19 +30,21 @@
 		BDAC2C6B2831A26C0042DE67 /* TristyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListRow.swift; sourceTree = "<group>"; };
 		BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyListItem.swift; sourceTree = "<group>"; };
+		BDD9684E286647000085ECE7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		BDD96855286648D60085ECE7 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDD96857286648D60085ECE7 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
+		BDD96859286648D60085ECE7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tristy.xcdatamodel; sourceTree = "<group>"; };
+		BDD9685E286648D60085ECE7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BDD96860286648D70085ECE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDD96862286648D70085ECE7 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
+		BDD96864286648D70085ECE7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BDD96869286649280085ECE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BDAC2C492831A1570042DE67 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BD79085B2837404A003212C2 /* CloudKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BDAC2C4F2831A1570042DE67 /* Frameworks */ = {
+		BDD96852286648D60085ECE7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -87,6 +68,7 @@
 				BD79085828374049003212C2 /* Tristy (iOS).entitlements */,
 				BDAC2C442831A1570042DE67 /* Shared */,
 				BDAC2C532831A1570042DE67 /* macOS */,
+				BDD96856286648D60085ECE7 /* Tristy */,
 				BDAC2C4D2831A1570042DE67 /* Products */,
 				BD7908592837404A003212C2 /* Frameworks */,
 			);
@@ -96,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				BDAC2C6A2831A26C0042DE67 /* ContentView.swift */,
+				BDD9684E286647000085ECE7 /* Persistence.swift */,
 				BD2DDBF92836B1D800647634 /* EditListTitleView.swift */,
 				BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */,
 				BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */,
@@ -105,7 +88,7 @@
 				BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */,
 				BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */,
 				BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */,
-				BDAC2C662831A26C0042DE67 /* ViewModel.swift */,
+				BD8A80652866402900F8A1A4 /* Model.xcdatamodeld */,
 				BDAC2C472831A1570042DE67 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -114,8 +97,7 @@
 		BDAC2C4D2831A1570042DE67 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BDAC2C4C2831A1570042DE67 /* Tristy.app */,
-				BDAC2C522831A1570042DE67 /* Tristy.app */,
+				BDD96855286648D60085ECE7 /* Tristy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,41 +110,47 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
+		BDD96856286648D60085ECE7 /* Tristy */ = {
+			isa = PBXGroup;
+			children = (
+				BDD96869286649280085ECE7 /* Info.plist */,
+				BDD96857286648D60085ECE7 /* TristyApp.swift */,
+				BDD96859286648D60085ECE7 /* Persistence.swift */,
+				BDD9685E286648D60085ECE7 /* ContentView.swift */,
+				BDD96860286648D70085ECE7 /* Assets.xcassets */,
+				BDD96862286648D70085ECE7 /* Tristy.entitlements */,
+				BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */,
+				BDD96863286648D70085ECE7 /* Preview Content */,
+			);
+			path = Tristy;
+			sourceTree = "<group>";
+		};
+		BDD96863286648D70085ECE7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BDD96864286648D70085ECE7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BDAC2C4B2831A1570042DE67 /* Tristy (iOS) */ = {
+		BDD96854286648D60085ECE7 /* Tristy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BDAC2C5D2831A1570042DE67 /* Build configuration list for PBXNativeTarget "Tristy (iOS)" */;
+			buildConfigurationList = BDD96866286648D70085ECE7 /* Build configuration list for PBXNativeTarget "Tristy" */;
 			buildPhases = (
-				BDAC2C482831A1570042DE67 /* Sources */,
-				BDAC2C492831A1570042DE67 /* Frameworks */,
-				BDAC2C4A2831A1570042DE67 /* Resources */,
+				BDD96851286648D60085ECE7 /* Sources */,
+				BDD96852286648D60085ECE7 /* Frameworks */,
+				BDD96853286648D60085ECE7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Tristy (iOS)";
-			productName = "Tristy (iOS)";
-			productReference = BDAC2C4C2831A1570042DE67 /* Tristy.app */;
-			productType = "com.apple.product-type.application";
-		};
-		BDAC2C512831A1570042DE67 /* Tristy (macOS) */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BDAC2C602831A1570042DE67 /* Build configuration list for PBXNativeTarget "Tristy (macOS)" */;
-			buildPhases = (
-				BDAC2C4E2831A1570042DE67 /* Sources */,
-				BDAC2C4F2831A1570042DE67 /* Frameworks */,
-				BDAC2C502831A1570042DE67 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Tristy (macOS)";
-			productName = "Tristy (macOS)";
-			productReference = BDAC2C522831A1570042DE67 /* Tristy.app */;
+			name = Tristy;
+			productName = Tristy;
+			productReference = BDD96855286648D60085ECE7 /* Tristy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -172,14 +160,11 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
-					BDAC2C4B2831A1570042DE67 = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
-					BDAC2C512831A1570042DE67 = {
-						CreatedOnToolsVersion = 13.2.1;
+					BDD96854286648D60085ECE7 = {
+						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
@@ -196,65 +181,32 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BDAC2C4B2831A1570042DE67 /* Tristy (iOS) */,
-				BDAC2C512831A1570042DE67 /* Tristy (macOS) */,
+				BDD96854286648D60085ECE7 /* Tristy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		BDAC2C4A2831A1570042DE67 /* Resources */ = {
+		BDD96853286648D60085ECE7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDAC2C592831A1570042DE67 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BDAC2C502831A1570042DE67 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BDAC2C5A2831A1570042DE67 /* Assets.xcassets in Resources */,
+				BDD96865286648D70085ECE7 /* Preview Assets.xcassets in Resources */,
+				BDD96861286648D70085ECE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BDAC2C482831A1570042DE67 /* Sources */ = {
+		BDD96851286648D60085ECE7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDAC2C722831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
-				BD2DDBFA2836B1D800647634 /* EditListTitleView.swift in Sources */,
-				BDAC2C782831A26C0042DE67 /* TristyList.swift in Sources */,
-				BDAC2C7F2831A4EF0042DE67 /* TristyListItem.swift in Sources */,
-				BDAC2C762831A26C0042DE67 /* ContentView.swift in Sources */,
-				BDAC2C702831A26C0042DE67 /* SelectSomethingView.swift in Sources */,
-				BDAC2C742831A26C0042DE67 /* TristyListDetailView.swift in Sources */,
-				BDAC2C7C2831A26C0042DE67 /* TristyListRow.swift in Sources */,
-				BDAC2C6E2831A26C0042DE67 /* ViewModel.swift in Sources */,
-				BDE96D0D28328CAE00E71A43 /* ListItemRowView.swift in Sources */,
-				BDAC2C552831A1570042DE67 /* TristyApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BDAC2C4E2831A1570042DE67 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BDAC2C732831A26C0042DE67 /* FileManager-DocumentsDirectory.swift in Sources */,
-				BD2DDBFB2836B1D800647634 /* EditListTitleView.swift in Sources */,
-				BDAC2C792831A26C0042DE67 /* TristyList.swift in Sources */,
-				BDAC2C802831A4EF0042DE67 /* TristyListItem.swift in Sources */,
-				BDAC2C772831A26C0042DE67 /* ContentView.swift in Sources */,
-				BDAC2C712831A26C0042DE67 /* SelectSomethingView.swift in Sources */,
-				BDAC2C752831A26C0042DE67 /* TristyListDetailView.swift in Sources */,
-				BDAC2C7D2831A26C0042DE67 /* TristyListRow.swift in Sources */,
-				BDAC2C6F2831A26C0042DE67 /* ViewModel.swift in Sources */,
-				BDE96D0E28328CAE00E71A43 /* ListItemRowView.swift in Sources */,
-				BDAC2C562831A1570042DE67 /* TristyApp.swift in Sources */,
+				BDD9685D286648D60085ECE7 /* Tristy.xcdatamodeld in Sources */,
+				BDD96858286648D60085ECE7 /* TristyApp.swift in Sources */,
+				BDD9685F286648D60085ECE7 /* ContentView.swift in Sources */,
+				BDD9685A286648D60085ECE7 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,128 +330,75 @@
 			};
 			name = Release;
 		};
-		BDAC2C5E2831A1570042DE67 /* Debug */ = {
+		BDD96867286648D70085ECE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Tristy (iOS).entitlements";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = Tristy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
-				PRODUCT_NAME = Tristy;
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		BDAC2C5F2831A1570042DE67 /* Release */ = {
+		BDD96868286648D70085ECE7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Tristy (iOS).entitlements";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_FILE = Tristy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
-				PRODUCT_NAME = Tristy;
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		BDAC2C612831A1570042DE67 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 6ZT823VK2T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
-				PRODUCT_NAME = Tristy;
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		BDAC2C622831A1570042DE67 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 6ZT823VK2T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
-				PRODUCT_NAME = Tristy;
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -515,25 +414,39 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BDAC2C5D2831A1570042DE67 /* Build configuration list for PBXNativeTarget "Tristy (iOS)" */ = {
+		BDD96866286648D70085ECE7 /* Build configuration list for PBXNativeTarget "Tristy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BDAC2C5E2831A1570042DE67 /* Debug */,
-				BDAC2C5F2831A1570042DE67 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BDAC2C602831A1570042DE67 /* Build configuration list for PBXNativeTarget "Tristy (macOS)" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BDAC2C612831A1570042DE67 /* Debug */,
-				BDAC2C622831A1570042DE67 /* Release */,
+				BDD96867286648D70085ECE7 /* Debug */,
+				BDD96868286648D70085ECE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BD8A80652866402900F8A1A4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD8A80662866402900F8A1A4 /* Model.xcdatamodel */,
+			);
+			currentVersion = BD8A80662866402900F8A1A4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */,
+			);
+			currentVersion = BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */;
+			path = Tristy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BDAC2C402831A1570042DE67 /* Project object */;
 }
