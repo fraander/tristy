@@ -3,132 +3,78 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BDD96858286648D60085ECE7 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD96857286648D60085ECE7 /* TristyApp.swift */; };
-		BDD9685A286648D60085ECE7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD96859286648D60085ECE7 /* Persistence.swift */; };
-		BDD9685D286648D60085ECE7 /* Tristy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */; };
-		BDD9685F286648D60085ECE7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD9685E286648D60085ECE7 /* ContentView.swift */; };
-		BDD96861286648D70085ECE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD96860286648D70085ECE7 /* Assets.xcassets */; };
-		BDD96865286648D70085ECE7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD96864286648D70085ECE7 /* Preview Assets.xcassets */; };
+		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
+		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
+		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
+		BDDBD4DB28F2591100B42693 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */; };
+		BDDBD4E328F2598900B42693 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E228F2598900B42693 /* FirebaseAuth */; };
+		BDDBD4E528F2598900B42693 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */; };
+		BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E628F2598900B42693 /* FirebaseFirestore */; };
+		BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */; };
+		BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD2DDBF92836B1D800647634 /* EditListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListTitleView.swift; sourceTree = "<group>"; };
-		BD79085828374049003212C2 /* Tristy (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tristy (iOS).entitlements"; sourceTree = "<group>"; };
-		BD79085A2837404A003212C2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		BD8A80662866402900F8A1A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		BDAC2C452831A1570042DE67 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
-		BDAC2C472831A1570042DE67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BDAC2C542831A1570042DE67 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSomethingView.swift; sourceTree = "<group>"; };
-		BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
-		BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListDetailView.swift; sourceTree = "<group>"; };
-		BDAC2C6A2831A26C0042DE67 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BDAC2C6B2831A26C0042DE67 /* TristyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
-		BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyListRow.swift; sourceTree = "<group>"; };
-		BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyListItem.swift; sourceTree = "<group>"; };
-		BDD9684E286647000085ECE7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		BDD96855286648D60085ECE7 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDD96857286648D60085ECE7 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
-		BDD96859286648D60085ECE7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tristy.xcdatamodel; sourceTree = "<group>"; };
-		BDD9685E286648D60085ECE7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BDD96860286648D70085ECE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BDD96862286648D70085ECE7 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
-		BDD96864286648D70085ECE7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BDD96869286649280085ECE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemRowView.swift; sourceTree = "<group>"; };
+		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
+		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDDBD4D828F2591100B42693 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
+		BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BDD96852286648D60085ECE7 /* Frameworks */ = {
+		BDDBD4CC28F2591000B42693 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */,
+				BDDBD4E328F2598900B42693 /* FirebaseAuth in Frameworks */,
+				BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				BDDBD4E528F2598900B42693 /* FirebaseAuthCombine-Community in Frameworks */,
+				BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BD7908592837404A003212C2 /* Frameworks */ = {
+		BDDBD4C628F2591000B42693 = {
 			isa = PBXGroup;
 			children = (
-				BD79085A2837404A003212C2 /* CloudKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BDAC2C3F2831A1570042DE67 = {
-			isa = PBXGroup;
-			children = (
-				BD79085828374049003212C2 /* Tristy (iOS).entitlements */,
-				BDAC2C442831A1570042DE67 /* Shared */,
-				BDAC2C532831A1570042DE67 /* macOS */,
-				BDD96856286648D60085ECE7 /* Tristy */,
-				BDAC2C4D2831A1570042DE67 /* Products */,
-				BD7908592837404A003212C2 /* Frameworks */,
+				BDDBD4D128F2591000B42693 /* Tristy */,
+				BDDBD4D028F2591000B42693 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		BDAC2C442831A1570042DE67 /* Shared */ = {
+		BDDBD4D028F2591000B42693 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BDAC2C6A2831A26C0042DE67 /* ContentView.swift */,
-				BDD9684E286647000085ECE7 /* Persistence.swift */,
-				BD2DDBF92836B1D800647634 /* EditListTitleView.swift */,
-				BDAC2C682831A26C0042DE67 /* FileManager-DocumentsDirectory.swift */,
-				BDE96D0C28328CAE00E71A43 /* ListItemRowView.swift */,
-				BDAC2C672831A26C0042DE67 /* SelectSomethingView.swift */,
-				BDAC2C452831A1570042DE67 /* TristyApp.swift */,
-				BDAC2C6B2831A26C0042DE67 /* TristyList.swift */,
-				BDAC2C692831A26C0042DE67 /* TristyListDetailView.swift */,
-				BDAC2C7E2831A4EF0042DE67 /* TristyListItem.swift */,
-				BDAC2C6D2831A26C0042DE67 /* TristyListRow.swift */,
-				BD8A80652866402900F8A1A4 /* Model.xcdatamodeld */,
-				BDAC2C472831A1570042DE67 /* Assets.xcassets */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BDAC2C4D2831A1570042DE67 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BDD96855286648D60085ECE7 /* Tristy.app */,
+				BDDBD4CF28F2591000B42693 /* Tristy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BDAC2C532831A1570042DE67 /* macOS */ = {
+		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
-				BDAC2C542831A1570042DE67 /* macOS.entitlements */,
-			);
-			path = macOS;
-			sourceTree = "<group>";
-		};
-		BDD96856286648D60085ECE7 /* Tristy */ = {
-			isa = PBXGroup;
-			children = (
-				BDD96869286649280085ECE7 /* Info.plist */,
-				BDD96857286648D60085ECE7 /* TristyApp.swift */,
-				BDD96859286648D60085ECE7 /* Persistence.swift */,
-				BDD9685E286648D60085ECE7 /* ContentView.swift */,
-				BDD96860286648D70085ECE7 /* Assets.xcassets */,
-				BDD96862286648D70085ECE7 /* Tristy.entitlements */,
-				BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */,
-				BDD96863286648D70085ECE7 /* Preview Content */,
+				BDDBD4D228F2591000B42693 /* TristyApp.swift */,
+				BDDBD4D428F2591000B42693 /* ContentView.swift */,
+				BDDBD4D628F2591100B42693 /* Assets.xcassets */,
+				BDDBD4D828F2591100B42693 /* Tristy.entitlements */,
+				BDDBD4D928F2591100B42693 /* Preview Content */,
 			);
 			path = Tristy;
 			sourceTree = "<group>";
 		};
-		BDD96863286648D70085ECE7 /* Preview Content */ = {
+		BDDBD4D928F2591100B42693 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				BDD96864286648D70085ECE7 /* Preview Assets.xcassets */,
+				BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -136,91 +82,98 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BDD96854286648D60085ECE7 /* Tristy */ = {
+		BDDBD4CE28F2591000B42693 /* Tristy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BDD96866286648D70085ECE7 /* Build configuration list for PBXNativeTarget "Tristy" */;
+			buildConfigurationList = BDDBD4DE28F2591100B42693 /* Build configuration list for PBXNativeTarget "Tristy" */;
 			buildPhases = (
-				BDD96851286648D60085ECE7 /* Sources */,
-				BDD96852286648D60085ECE7 /* Frameworks */,
-				BDD96853286648D60085ECE7 /* Resources */,
+				BDDBD4CB28F2591000B42693 /* Sources */,
+				BDDBD4CC28F2591000B42693 /* Frameworks */,
+				BDDBD4CD28F2591000B42693 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Tristy;
+			packageProductDependencies = (
+				BDDBD4E228F2598900B42693 /* FirebaseAuth */,
+				BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */,
+				BDDBD4E628F2598900B42693 /* FirebaseFirestore */,
+				BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */,
+				BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */,
+			);
 			productName = Tristy;
-			productReference = BDD96855286648D60085ECE7 /* Tristy.app */;
+			productReference = BDDBD4CF28F2591000B42693 /* Tristy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BDAC2C402831A1570042DE67 /* Project object */ = {
+		BDDBD4C728F2591000B42693 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
-					BDD96854286648D60085ECE7 = {
+					BDDBD4CE28F2591000B42693 = {
 						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
-			buildConfigurationList = BDAC2C432831A1570042DE67 /* Build configuration list for PBXProject "Tristy" */;
-			compatibilityVersion = "Xcode 13.0";
+			buildConfigurationList = BDDBD4CA28F2591000B42693 /* Build configuration list for PBXProject "Tristy" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = BDAC2C3F2831A1570042DE67;
-			productRefGroup = BDAC2C4D2831A1570042DE67 /* Products */;
+			mainGroup = BDDBD4C628F2591000B42693;
+			packageReferences = (
+				BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = BDDBD4D028F2591000B42693 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BDD96854286648D60085ECE7 /* Tristy */,
+				BDDBD4CE28F2591000B42693 /* Tristy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		BDD96853286648D60085ECE7 /* Resources */ = {
+		BDDBD4CD28F2591000B42693 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDD96865286648D70085ECE7 /* Preview Assets.xcassets in Resources */,
-				BDD96861286648D70085ECE7 /* Assets.xcassets in Resources */,
+				BDDBD4DB28F2591100B42693 /* Preview Assets.xcassets in Resources */,
+				BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BDD96851286648D60085ECE7 /* Sources */ = {
+		BDDBD4CB28F2591000B42693 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDD9685D286648D60085ECE7 /* Tristy.xcdatamodeld in Sources */,
-				BDD96858286648D60085ECE7 /* TristyApp.swift in Sources */,
-				BDD9685F286648D60085ECE7 /* ContentView.swift in Sources */,
-				BDD9685A286648D60085ECE7 /* Persistence.swift in Sources */,
+				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
+				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		BDAC2C5B2831A1570042DE67 /* Debug */ = {
+		BDDBD4DC28F2591100B42693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -247,7 +200,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -265,8 +217,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,14 +225,13 @@
 			};
 			name = Debug;
 		};
-		BDAC2C5C2831A1570042DE67 /* Release */ = {
+		BDDBD4DD28F2591100B42693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -309,7 +258,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -321,8 +269,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -330,12 +276,11 @@
 			};
 			name = Release;
 		};
-		BDD96867286648D70085ECE7 /* Debug */ = {
+		BDDBD4DF28F2591100B42693 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -344,19 +289,22 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tristy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -366,12 +314,11 @@
 			};
 			name = Debug;
 		};
-		BDD96868286648D70085ECE7 /* Release */ = {
+		BDDBD4E028F2591100B42693 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -380,19 +327,22 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tristy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = frank.Tristy;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -405,48 +355,64 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BDAC2C432831A1570042DE67 /* Build configuration list for PBXProject "Tristy" */ = {
+		BDDBD4CA28F2591000B42693 /* Build configuration list for PBXProject "Tristy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BDAC2C5B2831A1570042DE67 /* Debug */,
-				BDAC2C5C2831A1570042DE67 /* Release */,
+				BDDBD4DC28F2591100B42693 /* Debug */,
+				BDDBD4DD28F2591100B42693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BDD96866286648D70085ECE7 /* Build configuration list for PBXNativeTarget "Tristy" */ = {
+		BDDBD4DE28F2591100B42693 /* Build configuration list for PBXNativeTarget "Tristy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BDD96867286648D70085ECE7 /* Debug */,
-				BDD96868286648D70085ECE7 /* Release */,
+				BDDBD4DF28F2591100B42693 /* Debug */,
+				BDDBD4E028F2591100B42693 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCVersionGroup section */
-		BD8A80652866402900F8A1A4 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				BD8A80662866402900F8A1A4 /* Model.xcdatamodel */,
-			);
-			currentVersion = BD8A80662866402900F8A1A4 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+/* Begin XCRemoteSwiftPackageReference section */
+		BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
 		};
-		BDD9685B286648D60085ECE7 /* Tristy.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */,
-			);
-			currentVersion = BDD9685C286648D60085ECE7 /* Tristy.xcdatamodel */;
-			path = Tristy.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDDBD4E228F2598900B42693 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
-/* End XCVersionGroup section */
+		BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		BDDBD4E628F2598900B42693 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = BDAC2C402831A1570042DE67 /* Project object */;
+	rootObject = BDDBD4C728F2591000B42693 /* Project object */;
 }
