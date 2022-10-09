@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
+		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
 		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
 		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -16,15 +18,29 @@
 		BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E628F2598900B42693 /* FirebaseFirestore */; };
 		BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */; };
 		BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */; };
+		BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */; };
+		BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */; };
+		BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F528F2600500B42693 /* GroceryRepository.swift */; };
+		BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* Grocery.swift */; };
+		BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */; };
+		BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDDBD4D828F2591100B42693 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
+		BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListViewModel.swift; sourceTree = "<group>"; };
+		BDDBD4F528F2600500B42693 /* GroceryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
+		BDDBD4F728F260A100B42693 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
+		BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryViewModel.swift; sourceTree = "<group>"; };
+		BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +78,14 @@
 		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
+				BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */,
 				BDDBD4D228F2591000B42693 /* TristyApp.swift */,
 				BDDBD4D428F2591000B42693 /* ContentView.swift */,
+				BDDBD4FC28F2618E00B42693 /* Services */,
+				BDDBD4F928F260A500B42693 /* Models */,
+				BDDBD4F428F25F6600B42693 /* Repositories */,
+				BDDBD4F128F25EA800B42693 /* ViewModels */,
+				BDDBD4EE28F25E8100B42693 /* Views */,
 				BDDBD4D628F2591100B42693 /* Assets.xcassets */,
 				BDDBD4D828F2591100B42693 /* Tristy.entitlements */,
 				BDDBD4D928F2591100B42693 /* Preview Content */,
@@ -77,6 +99,49 @@
 				BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BDDBD4EE28F25E8100B42693 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */,
+				BD4A3B9D28F2658700D63484 /* GroceryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BDDBD4F128F25EA800B42693 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */,
+				BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BDDBD4F428F25F6600B42693 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				BDDBD4F528F2600500B42693 /* GroceryRepository.swift */,
+			);
+			name = Repositories;
+			path = ViewModels/Repositories;
+			sourceTree = "<group>";
+		};
+		BDDBD4F928F260A500B42693 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BDDBD4F728F260A100B42693 /* Grocery.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BDDBD4FC28F2618E00B42693 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +214,7 @@
 			files = (
 				BDDBD4DB28F2591100B42693 /* Preview Assets.xcassets in Resources */,
 				BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */,
+				BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,8 +225,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */,
+				BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */,
+				BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */,
 				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
+				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
+				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
+				BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */,
+				BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
