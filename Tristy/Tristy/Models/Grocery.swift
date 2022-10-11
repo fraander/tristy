@@ -18,7 +18,7 @@ struct Grocery: Identifiable, Codable {
 }
 
 #if DEBUG
-let testData = (1...10).map { i in
+let examples = (1...10).map { i in
     Grocery(title: "grocery: #\(i)")
 }
 #endif

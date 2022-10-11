@@ -21,7 +21,7 @@ struct GroceryView: View {
 
 struct GroceryView_Previews: PreviewProvider {
     static var previews: some View {
-        let grocery = testData[0]
+        let grocery = examples[0]
         return GroceryView(groceryVM: GroceryViewModel(grocery: grocery))
     }
 }

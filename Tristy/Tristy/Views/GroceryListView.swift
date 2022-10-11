@@ -43,14 +43,15 @@ struct GroceryListView: View {
         let grocery = Grocery(title: "\(groceryListVM.groceryVMs.count)")
         groceryListVM.add(grocery)
     }
-    
-    private func removeGrocery() {
-        // TODO: remove
-    }
 }
 
 struct GroceryListView_Previews: PreviewProvider {
+    static let listOfVM = examples.reduce([GroceryViewModel]()) { partialResult, grocery in
+        let groceryVM = GroceryViewModel(grocery: grocery)
+        return partialResult + [groceryVM]
+    }
+    
     static var previews: some View {
-        GroceryListView()
+        GroceryListView(groceryListVM: GroceryListViewModel(listOfVM))
     }
 }

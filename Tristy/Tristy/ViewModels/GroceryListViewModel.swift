@@ -12,6 +12,10 @@ class GroceryListViewModel: ObservableObject {
     @Published var groceryVMs: [GroceryViewModel] = []
     private var cancellables: Set<AnyCancellable> = []
     
+    init(_ listOfVM: [GroceryViewModel]) {
+        self.groceryVMs = listOfVM
+    }
+    
     init() {
         groceryRepository.$groceries
             .map { groceries in
