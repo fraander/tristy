@@ -14,7 +14,7 @@ import SwiftUI
 struct Grocery: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
-    var tags: [Tag] = []
+    var completed: Bool = false
     var userId: String?
 }
 

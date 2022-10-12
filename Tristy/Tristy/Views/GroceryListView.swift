@@ -29,7 +29,22 @@ struct GroceryListView: View {
     var listOfGrocery: some View {
         List {
             ForEach(groceryListVM.groceryVMs) { groceryVM in
-                GroceryView(groceryVM: groceryVM)
+                NavigationLink {
+                    GroceryDetailView(groceryVM: GroceryDetailViewModel(grocery: groceryVM.grocery))
+                } label: {
+                    GroceryView(groceryVM: groceryVM)
+                }
+                .swipeActions(edge: .leading) {
+                    Button {
+                        groceryVM.grocery.completed.toggle()
+                        groceryVM.update(grocery: groceryVM.grocery)
+                    } label: {
+                        Label("\(groceryVM.grocery.completed ? "Uncheck" : "Check off")",
+                              systemImage: "\(groceryVM.grocery.completed ? "xmark" : "checkmark")")
+                    }
+                    .tint(Color.mint)
+                }
+
             }
             .onDelete(perform: deleteItems)
         }

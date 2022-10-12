@@ -15,10 +15,12 @@ class GroceryRepository: ObservableObject {
     private let authenticationService = AuthenticationService()
     private var cancellables: Set<AnyCancellable> = []
     
-    private let path: String = "groceries"
+    private let groceryPath: String = "groceries"
+    private let tagPath: String = "tags"
     private let store = Firestore.firestore()
     
     @Published var groceries: [Grocery] = []
+    @Published var tags: [Tag] = []
     
     init() {
         authenticationService.$user
@@ -31,17 +33,24 @@ class GroceryRepository: ObservableObject {
         authenticationService.$user
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.get()
+                self?.getGroceries()
+            }
+            .store(in: &cancellables)
+        
+        authenticationService.$user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.getTags()
             }
             .store(in: &cancellables)
     }
     
-    func get() {
-        store.collection(path)
+    func getGroceries() {
+        store.collection(groceryPath)
             .whereField("userId", isEqualTo: userId)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error getting cards: \(error.localizedDescription)")
+                    print("Error getting groceries: \(error.localizedDescription)")
                     return
                 }
                 
@@ -51,30 +60,45 @@ class GroceryRepository: ObservableObject {
             }
     }
     
-    func add(_ grocery: Grocery) {
+    func getTags() {
+        store.collection(tagPath)
+            .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error getting tags: \(error.localizedDescription)")
+                    return
+                }
+                
+                self.tags = querySnapshot?.documents.compactMap { document in
+                    try? document.data(as: Tag.self)
+                } ?? []
+            }
+    }
+    
+    func addGroceries(_ grocery: Grocery) {
         do {
             var newGrocery = grocery
             newGrocery.userId = userId
-            _ = try store.collection(path).addDocument(from: newGrocery)
+            _ = try store.collection(groceryPath).addDocument(from: newGrocery)
         } catch {
             fatalError("Unable to add grocery: \(error.localizedDescription)")
         }
     }
     
-    func update(_ grocery: Grocery) {
+    func updateGroceries(_ grocery: Grocery) {
         guard let groceryId = grocery.id else { return }
         
         do {
-            try store.collection(path).document(groceryId).setData(from: grocery)
+            try store.collection(groceryPath).document(groceryId).setData(from: grocery)
         } catch {
             fatalError("Unable to update grocery: \(error.localizedDescription).")
         }
     }
     
-    func remove(_ grocery: Grocery) {
+    func removeGroceries(_ grocery: Grocery) {
         guard let groceryId = grocery.id else { return }
         
-        store.collection(path).document(groceryId).delete { error in
+        store.collection(groceryPath).document(groceryId).delete { error in
             if let error = error {
                 print("Unable to remove grocery: \(error.localizedDescription)")
             }

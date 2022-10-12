@@ -10,6 +10,8 @@
 		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
 		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
 		BDAE380F28F64C130005470A /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAE380E28F64C130005470A /* Tag.swift */; };
+		BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAE381228F64FE80005470A /* GroceryDetailView.swift */; };
+		BDAE381528F650110005470A /* GroceryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAE381428F650110005470A /* GroceryDetailViewModel.swift */; };
 		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
 		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
 		BDAE380E28F64C130005470A /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		BDAE381228F64FE80005470A /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
+		BDAE381428F650110005470A /* GroceryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailViewModel.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 		BDDBD4EE28F25E8100B42693 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BDAE381228F64FE80005470A /* GroceryDetailView.swift */,
 				BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */,
 				BD4A3B9D28F2658700D63484 /* GroceryView.swift */,
 			);
@@ -115,6 +120,7 @@
 		BDDBD4F128F25EA800B42693 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				BDAE381428F650110005470A /* GroceryDetailViewModel.swift */,
 				BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */,
 				BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */,
 			);
@@ -233,8 +239,10 @@
 				BDAE380F28F64C130005470A /* Tag.swift in Sources */,
 				BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */,
 				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
+				BDAE381528F650110005470A /* GroceryDetailViewModel.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
 				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
+				BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */,
 				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
 				BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */,
 				BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */,

@@ -12,6 +12,8 @@ struct GroceryView: View {
     
     var body: some View {
         Text(groceryVM.grocery.title)
+            .strikethrough(groceryVM.grocery.completed)
+            .foregroundColor(groceryVM.grocery.completed ? .secondary : .primary)
     }
     
     func update(grocery: Grocery) {

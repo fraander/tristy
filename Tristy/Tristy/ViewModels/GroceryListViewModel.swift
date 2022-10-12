@@ -26,6 +26,6 @@ class GroceryListViewModel: ObservableObject {
     }
     
     func add(_ grocery: Grocery) {
-        groceryRepository.add(grocery)
+        groceryRepository.addGroceries(grocery)
     }
 }
