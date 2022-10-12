@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
 		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
+		BDAE380F28F64C130005470A /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAE380E28F64C130005470A /* Tag.swift */; };
 		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
 		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
+		BDAE380E28F64C130005470A /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		BDDBD4F928F260A500B42693 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BDAE380E28F64C130005470A /* Tag.swift */,
 				BDDBD4F728F260A100B42693 /* Grocery.swift */,
 			);
 			path = Models;
@@ -227,6 +230,7 @@
 			files = (
 				BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */,
 				BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */,
+				BDAE380F28F64C130005470A /* Tag.swift in Sources */,
 				BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */,
 				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
