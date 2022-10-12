@@ -42,9 +42,9 @@ struct GroceryListView: View {
                         Label("\(groceryVM.grocery.completed ? "Uncheck" : "Check off")",
                               systemImage: "\(groceryVM.grocery.completed ? "xmark" : "checkmark")")
                     }
-                    .tint(Color.mint)
+                    .tint(groceryVM.grocery.completed ? Color.pink : Color.mint)
                 }
-
+                
             }
             .onDelete(perform: deleteItems)
         }
@@ -95,7 +95,26 @@ struct GroceryListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
             .toolbarTitleMenu {
+                
+                Button {
+                    let _ = groceryListVM.groceryVMs.map { groceryVM in
+                        groceryVM.grocery.completed = false
+                        groceryVM.update(grocery: groceryVM.grocery)
+                    }
+                } label: {
+                    Label("Uncheck all", systemImage: "xmark")
+                }
+                Button {
+                    let _ = groceryListVM.groceryVMs.map { groceryVM in
+                        groceryVM.grocery.completed = true
+                        groceryVM.update(grocery: groceryVM.grocery)
+                    }
+                } label: {
+                    Label("Check off all", systemImage: "checkmark")
+                }
+                
                 clearAllButton
+                
             }
         }
     }
