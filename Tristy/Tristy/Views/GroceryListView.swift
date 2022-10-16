@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// TODO: create focus manager
+// TODO: refactor
+
 struct GroceryListView: View {
     
     enum Focus {
@@ -29,21 +32,20 @@ struct GroceryListView: View {
     var listOfGrocery: some View {
         List {
             ForEach(groceryListVM.groceryVMs) { groceryVM in
-                NavigationLink {
-                    GroceryDetailView(groceryVM: GroceryDetailViewModel(grocery: groceryVM.grocery))
-                } label: {
-                    GroceryView(groceryVM: groceryVM)
-                }
-                .swipeActions(edge: .leading) {
-                    Button {
-                        groceryVM.grocery.completed.toggle()
-                        groceryVM.update(grocery: groceryVM.grocery)
-                    } label: {
-                        Label("\(groceryVM.grocery.completed ? "Uncheck" : "Check off")",
-                              systemImage: "\(groceryVM.grocery.completed ? "xmark" : "checkmark")")
+                GroceryView(groceryVM: groceryVM)
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            
+                        } label: {
+                            Label {
+                                Text("Edit Tags")
+                            } icon: {
+                                Image(systemName: "tag")
+                            }
+                            
+                        }
+                        .tint(Color.accentColor)
                     }
-                    .tint(groceryVM.grocery.completed ? Color.pink : Color.mint)
-                }
                 
             }
             .onDelete(perform: deleteItems)
@@ -91,6 +93,7 @@ struct GroceryListView: View {
                 
                 addGroceryButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
@@ -110,7 +113,7 @@ struct GroceryListView: View {
                         groceryVM.update(grocery: groceryVM.grocery)
                     }
                 } label: {
-                    Label("Check off all", systemImage: "checkmark")
+                    Label("Complete all", systemImage: "checkmark")
                 }
                 
                 clearAllButton
