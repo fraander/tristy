@@ -15,6 +15,7 @@ struct Grocery: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
     var completed: Bool = false
+    var groupId: String?
     var userId: String?
 }
 

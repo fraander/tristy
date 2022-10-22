@@ -16,11 +16,9 @@ class GroceryRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     private let groceryPath: String = "groceries"
-    private let tagPath: String = "tags"
     private let store = Firestore.firestore()
     
     @Published var groceries: [Grocery] = []
-    @Published var tags: [Tag] = []
     
     init() {
         authenticationService.$user
@@ -36,13 +34,6 @@ class GroceryRepository: ObservableObject {
                 self?.getGroceries()
             }
             .store(in: &cancellables)
-        
-        authenticationService.$user
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.getTags()
-            }
-            .store(in: &cancellables)
     }
     
     func getGroceries() {
@@ -56,21 +47,6 @@ class GroceryRepository: ObservableObject {
                 
                 self.groceries = querySnapshot?.documents.compactMap { document in
                     try? document.data(as: Grocery.self)
-                } ?? []
-            }
-    }
-    
-    func getTags() {
-        store.collection(tagPath)
-            .whereField("userId", isEqualTo: userId)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    print("Error getting tags: \(error.localizedDescription)")
-                    return
-                }
-                
-                self.tags = querySnapshot?.documents.compactMap { document in
-                    try? document.data(as: Tag.self)
                 } ?? []
             }
     }
