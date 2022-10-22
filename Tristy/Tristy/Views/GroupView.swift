@@ -17,6 +17,10 @@ struct Group: Identifiable, Codable {
     var users: [String]
 }
 
+// TODO: move group ids to each grocery item
+// TODO: show settings on homepage to allow for setup
+// TODO: test!!
+
 class GroupViewModel: ObservableObject {
     private let store = Firestore.firestore()
     private let groupPath: String = "groups"
