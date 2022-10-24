@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BD1440B92904AE08009ACA69 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1440B82904AE08009ACA69 /* GroupView.swift */; };
+		BD28BDF92907289C00F8717B /* TristyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28BDF82907289C00F8717B /* TristyGroup.swift */; };
+		BD28BDFB290728DE00F8717B /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28BDFA290728DE00F8717B /* GroupViewModel.swift */; };
 		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
 		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
 		BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAE381228F64FE80005470A /* GroceryDetailView.swift */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		BD1440B82904AE08009ACA69 /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
+		BD28BDF82907289C00F8717B /* TristyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyGroup.swift; sourceTree = "<group>"; };
+		BD28BDFA290728DE00F8717B /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
 		BDAE381228F64FE80005470A /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 		BDDBD4F128F25EA800B42693 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				BD28BDFA290728DE00F8717B /* GroupViewModel.swift */,
 				BDAE381428F650110005470A /* GroceryDetailViewModel.swift */,
 				BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */,
 				BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */,
@@ -140,6 +145,7 @@
 		BDDBD4F928F260A500B42693 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BD28BDF82907289C00F8717B /* TristyGroup.swift */,
 				BDDBD4F728F260A100B42693 /* TristyGrocery.swift */,
 			);
 			path = Models;
@@ -242,8 +248,10 @@
 				BDAE381528F650110005470A /* GroceryDetailViewModel.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
 				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
+				BD28BDFB290728DE00F8717B /* GroupViewModel.swift in Sources */,
 				BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */,
 				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
+				BD28BDF92907289C00F8717B /* TristyGroup.swift in Sources */,
 				BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */,
 				BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */,
 			);

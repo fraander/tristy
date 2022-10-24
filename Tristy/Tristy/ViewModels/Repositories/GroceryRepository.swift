@@ -11,7 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class GroceryRepository: ObservableObject {
-    var userId = ""
+    @Published var userId = ""
+    @Published var groupId = ""
     private let authenticationService = AuthenticationService()
     private var cancellables: Set<AnyCancellable> = []
     

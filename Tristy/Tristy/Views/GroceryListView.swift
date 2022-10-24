@@ -124,6 +124,8 @@ struct GroceryListView: View {
                 addGroceryButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
+                
+                Text("GROUPID: \(groceryListVM.groceryRepository.groupId)")
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
@@ -131,7 +133,7 @@ struct GroceryListView: View {
                 toolbarMenu
             }
             .sheet(isPresented: $showGroupSettings) {
-                GroupView()
+                GroupView(groupViewModel: GroupViewModel(), groceryRepository: groceryListVM.groceryRepository)
             }
         }
     }

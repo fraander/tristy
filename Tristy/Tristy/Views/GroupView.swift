@@ -6,73 +6,15 @@
 //
 
 import SwiftUI
-import Combine
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-
-struct TristyGroup: Identifiable, Codable {
-    @DocumentID var id: String?
-    var groupId: String
-    var users: [String]
-}
 
 // TODO: move group ids to each grocery item
 // TODO: show settings on homepage to allow for setup
 // TODO: test!!
 
-class GroupViewModel: ObservableObject {
-    private let store = Firestore.firestore()
-    private let groupPath: String = "groups"
-    
-    @Published var groupCode = ""
-    @Published var groups: [TristyGroup] = []
-    
-    func joinGroup() {
-        // TODO: write group code to group db
-    }
-    
-    func getGroups() {
-        store.collection(groupPath)
-            .whereField("groupId", isEqualTo: groupCode)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    print("Error getting groceries: \(error.localizedDescription)")
-                    return
-                }
-                
-                self.groups = querySnapshot?.documents.compactMap { document in
-                    try? document.data(as: TristyGroup.self)
-                } ?? []
-            }
-    }
-    
-    func fetchData() {
-        store.collection("groups").whereField("groupId", isEqualTo: groupCode).addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
-            }
-            
-            self.groups = documents.map { (queryDocumentSnapshot) -> TristyGroup in
-                let data = queryDocumentSnapshot.data()
-                let groupId = data["groupId"] as? String ?? ""
-                let users = data["users"] as? [String] ?? []
-                
-                print(groupId)
-                print(users)
-                
-                return TristyGroup(groupId: groupId, users: users)
-            }
-            
-            print(self.groups)
-        }
-    }
-}
-
 struct GroupView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var groupViewModel = GroupViewModel()
+    @ObservedObject var groupViewModel: GroupViewModel
+    @ObservedObject var groceryRepository: GroceryRepository
     
     var body: some View {
         NavigationStack {
@@ -94,7 +36,21 @@ struct GroupView: View {
                     Section("Groups") {
                         List(groupViewModel.groups) { group in
                             
-                            Text(group.groupId)
+                            HStack {
+                                Text(group.groupId)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    groceryRepository.groupId = group.groupId // TODO: fix publishing from within
+                                    // TODO: write to userdefaults and then get from userdefaults on launch
+                                    
+                                    // TODO: simplify architecture of app (possible rewrite)
+                                } label: {
+                                    Text("Join")
+                                }
+
+                            }
                             
                             // TODO: add "join" button that changes id to groupID and stores in UserDefaults.
                             // TODO: when writing a code, use auth value and value in userdefaults.
@@ -113,6 +69,6 @@ struct GroupView: View {
 
 struct GroupView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupView()
+        GroupView(groupViewModel: GroupViewModel(), groceryRepository: GroceryRepository())
     }
 }
