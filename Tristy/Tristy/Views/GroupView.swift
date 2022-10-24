@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Group: Identifiable, Codable {
+struct TristyGroup: Identifiable, Codable {
     @DocumentID var id: String?
     var groupId: String
     var users: [String]
@@ -26,7 +26,7 @@ class GroupViewModel: ObservableObject {
     private let groupPath: String = "groups"
     
     @Published var groupCode = ""
-    @Published var groups: [Group] = []
+    @Published var groups: [TristyGroup] = []
     
     func joinGroup() {
         // TODO: write group code to group db
@@ -42,7 +42,7 @@ class GroupViewModel: ObservableObject {
                 }
                 
                 self.groups = querySnapshot?.documents.compactMap { document in
-                    try? document.data(as: Group.self)
+                    try? document.data(as: TristyGroup.self)
                 } ?? []
             }
     }
@@ -54,7 +54,7 @@ class GroupViewModel: ObservableObject {
                 return
             }
             
-            self.groups = documents.map { (queryDocumentSnapshot) -> Group in
+            self.groups = documents.map { (queryDocumentSnapshot) -> TristyGroup in
                 let data = queryDocumentSnapshot.data()
                 let groupId = data["groupId"] as? String ?? ""
                 let users = data["users"] as? [String] ?? []
@@ -62,7 +62,7 @@ class GroupViewModel: ObservableObject {
                 print(groupId)
                 print(users)
                 
-                return Group(groupId: groupId, users: users)
+                return TristyGroup(groupId: groupId, users: users)
             }
             
             print(self.groups)
@@ -71,17 +71,41 @@ class GroupViewModel: ObservableObject {
 }
 
 struct GroupView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var groupViewModel = GroupViewModel()
     
     var body: some View {
-        VStack {
-            TextField("Group code", text: $groupViewModel.groupCode)
-                .onSubmit {
-                    groupViewModel.fetchData()
+        NavigationStack {
+            Form {
+                Section("Find group") {
+                    TextField("Group code", text: $groupViewModel.groupCode)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                        .textCase(.lowercase)
+                        .onSubmit {
+                            if !groupViewModel.groupCode.isEmpty {
+                                groupViewModel.fetchData()
+                                groupViewModel.groupCode = ""
+                            }
+                        }
                 }
-            
-            List(groupViewModel.groups) { group in
-                Text(group.groupId)
+                
+                if (!groupViewModel.groups.isEmpty) {
+                    Section("Groups") {
+                        List(groupViewModel.groups) { group in
+                            
+                            Text(group.groupId)
+                            
+                            // TODO: add "join" button that changes id to groupID and stores in UserDefaults.
+                            // TODO: when writing a code, use auth value and value in userdefaults.
+                        }
+                    }
+                }
+            }
+            .toolbar {
+                Button("Done") {
+                    dismiss()
+                }
             }
         }
     }

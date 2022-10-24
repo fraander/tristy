@@ -18,7 +18,7 @@ class GroceryRepository: ObservableObject {
     private let groceryPath: String = "groceries"
     private let store = Firestore.firestore()
     
-    @Published var groceries: [Grocery] = []
+    @Published var groceries: [TristyGrocery] = []
     
     init() {
         authenticationService.$user
@@ -46,12 +46,12 @@ class GroceryRepository: ObservableObject {
                 }
                 
                 self.groceries = querySnapshot?.documents.compactMap { document in
-                    try? document.data(as: Grocery.self)
+                    try? document.data(as: TristyGrocery.self)
                 } ?? []
             }
     }
     
-    func addGroceries(_ grocery: Grocery) {
+    func addGroceries(_ grocery: TristyGrocery) {
         do {
             var newGrocery = grocery
             newGrocery.userId = userId
@@ -61,7 +61,7 @@ class GroceryRepository: ObservableObject {
         }
     }
     
-    func updateGroceries(_ grocery: Grocery) {
+    func updateGroceries(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
         do {
@@ -71,7 +71,7 @@ class GroceryRepository: ObservableObject {
         }
     }
     
-    func removeGroceries(_ grocery: Grocery) {
+    func removeGroceries(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
         store.collection(groceryPath).document(groceryId).delete { error in

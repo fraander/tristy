@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import SwiftUI
 
-struct Grocery: Identifiable, Codable {
+struct TristyGrocery: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
     var completed: Bool = false
@@ -21,6 +21,6 @@ struct Grocery: Identifiable, Codable {
 
 #if DEBUG
 let examples = (1...10).map { i in
-    Grocery(title: "grocery: #\(i)")
+    TristyGrocery(title: "grocery: #\(i)")
 }
 #endif

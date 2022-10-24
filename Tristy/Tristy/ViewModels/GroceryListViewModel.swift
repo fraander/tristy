@@ -25,7 +25,7 @@ class GroceryListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func add(_ grocery: Grocery) {
+    func add(_ grocery: TristyGrocery) {
         groceryRepository.addGroceries(grocery)
     }
 }

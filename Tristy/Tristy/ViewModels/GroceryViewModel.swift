@@ -9,11 +9,11 @@ import Combine
 
 class GroceryViewModel: ObservableObject, Identifiable {
     private let groceryRepository = GroceryRepository()
-    @Published var grocery: Grocery
+    @Published var grocery: TristyGrocery
     private var cancellables: Set<AnyCancellable> = []
     var id = ""
     
-    init(grocery: Grocery) {
+    init(grocery: TristyGrocery) {
         self.grocery = grocery
         
         $grocery
@@ -22,7 +22,7 @@ class GroceryViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
     }
     
-    func update(grocery: Grocery) {
+    func update(grocery: TristyGrocery) {
         groceryRepository.updateGroceries(grocery)
     }
     

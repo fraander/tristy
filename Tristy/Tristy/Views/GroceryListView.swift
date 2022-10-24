@@ -20,6 +20,7 @@ struct GroceryListView: View {
     @ObservedObject var groceryListVM = GroceryListViewModel()
     @State var text = ""
     @FocusState var focusState: Focus?
+    @State var showGroupSettings: Bool = false
     
     var clearAllButton: some View {
         Button(role: .destructive) {
@@ -86,6 +87,35 @@ struct GroceryListView: View {
         .padding()
     }
     
+    var toolbarMenu: some View {
+        Group {
+            Button {
+                let _ = groceryListVM.groceryVMs.map { groceryVM in
+                    groceryVM.grocery.completed = false
+                    groceryVM.update(grocery: groceryVM.grocery)
+                }
+            } label: {
+                Label("Uncheck All", systemImage: "xmark")
+            }
+            Button {
+                let _ = groceryListVM.groceryVMs.map { groceryVM in
+                    groceryVM.grocery.completed = true
+                    groceryVM.update(grocery: groceryVM.grocery)
+                }
+            } label: {
+                Label("Complete All", systemImage: "checkmark")
+            }
+            
+            clearAllButton
+            
+            Button {
+                showGroupSettings.toggle()
+            } label: {
+                Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -98,26 +128,10 @@ struct GroceryListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
             .toolbarTitleMenu {
-                
-                Button {
-                    let _ = groceryListVM.groceryVMs.map { groceryVM in
-                        groceryVM.grocery.completed = false
-                        groceryVM.update(grocery: groceryVM.grocery)
-                    }
-                } label: {
-                    Label("Uncheck all", systemImage: "xmark")
-                }
-                Button {
-                    let _ = groceryListVM.groceryVMs.map { groceryVM in
-                        groceryVM.grocery.completed = true
-                        groceryVM.update(grocery: groceryVM.grocery)
-                    }
-                } label: {
-                    Label("Complete all", systemImage: "checkmark")
-                }
-                
-                clearAllButton
-                
+                toolbarMenu
+            }
+            .sheet(isPresented: $showGroupSettings) {
+                GroupView()
             }
         }
     }
@@ -128,7 +142,7 @@ struct GroceryListView: View {
     
     private func addGrocery(title: String) {
         if (!text.isEmpty) {
-            let grocery = Grocery(title: title)
+            let grocery = TristyGrocery(title: title)
             groceryListVM.add(grocery)
             text = ""
             focusState = GroceryListView.Focus.none

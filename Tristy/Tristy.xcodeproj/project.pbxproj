@@ -24,7 +24,7 @@
 		BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */; };
 		BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */; };
 		BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F528F2600500B42693 /* GroceryRepository.swift */; };
-		BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* Grocery.swift */; };
+		BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* TristyGrocery.swift */; };
 		BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */; };
 		BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */; };
 /* End PBXBuildFile section */
@@ -44,7 +44,7 @@
 		BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
 		BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListViewModel.swift; sourceTree = "<group>"; };
 		BDDBD4F528F2600500B42693 /* GroceryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
-		BDDBD4F728F260A100B42693 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
+		BDDBD4F728F260A100B42693 /* TristyGrocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyGrocery.swift; sourceTree = "<group>"; };
 		BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryViewModel.swift; sourceTree = "<group>"; };
 		BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,7 +140,7 @@
 		BDDBD4F928F260A500B42693 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BDDBD4F728F260A100B42693 /* Grocery.swift */,
+				BDDBD4F728F260A100B42693 /* TristyGrocery.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -244,7 +244,7 @@
 				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
 				BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */,
 				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
-				BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */,
+				BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */,
 				BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
