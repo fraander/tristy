@@ -124,8 +124,6 @@ struct GroceryListView: View {
                 addGroceryButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
-                
-                Text("GROUPID: \(groceryListVM.groceryRepository.groupId)")
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")

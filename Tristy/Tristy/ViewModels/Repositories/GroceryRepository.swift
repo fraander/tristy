@@ -34,6 +34,13 @@ class GroceryRepository: ObservableObject {
             .assign(to: \.groupId, on: self)
             .store(in: &cancellables)
         
+        groupService.$groupId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.getGroceries()
+            }
+            .store(in: &cancellables)
+        
         authenticationService.$user
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
