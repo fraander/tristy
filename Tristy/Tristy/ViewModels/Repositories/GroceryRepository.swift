@@ -14,6 +14,7 @@ class GroceryRepository: ObservableObject {
     @Published var userId = ""
     @Published var groupId = ""
     private let authenticationService = AuthenticationService()
+    private let groupService = GroupService.shared
     private var cancellables: Set<AnyCancellable> = []
     
     private let groceryPath: String = "groceries"
@@ -29,6 +30,10 @@ class GroceryRepository: ObservableObject {
             .assign(to: \.userId, on: self)
             .store(in: &cancellables)
         
+        groupService.$groupId
+            .assign(to: \.groupId, on: self)
+            .store(in: &cancellables)
+        
         authenticationService.$user
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -39,7 +44,7 @@ class GroceryRepository: ObservableObject {
     
     func getGroceries() {
         store.collection(groceryPath)
-            .whereField("userId", isEqualTo: userId)
+            .whereField("groupId", isEqualTo: groupId)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     print("Error getting groceries: \(error.localizedDescription)")
@@ -55,6 +60,7 @@ class GroceryRepository: ObservableObject {
     func addGroceries(_ grocery: TristyGrocery) {
         do {
             var newGrocery = grocery
+            newGrocery.groupId = groupId
             newGrocery.userId = userId
             _ = try store.collection(groceryPath).addDocument(from: newGrocery)
         } catch {

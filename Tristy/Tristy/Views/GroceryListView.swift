@@ -133,7 +133,7 @@ struct GroceryListView: View {
                 toolbarMenu
             }
             .sheet(isPresented: $showGroupSettings) {
-                GroupView(groupViewModel: GroupViewModel(), groceryRepository: groceryListVM.groceryRepository)
+                GroupSettingsView()
             }
         }
     }

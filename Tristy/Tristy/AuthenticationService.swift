@@ -7,8 +7,6 @@
 
 import Firebase
 
-// TODO: do some sort of group auth to allow people to join groups and share (accounts + other auth)
-
 class AuthenticationService: ObservableObject {
     @Published var user: User?
     private var authenticationStateHandler: AuthStateDidChangeListenerHandle?
