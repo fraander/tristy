@@ -30,24 +30,42 @@ struct GroceryListView: View {
         }
     }
     
+    var emptyListView: some View {
+        GroupBox {
+            VStack(spacing: 12) {
+                Text("Your list is clear!")
+                    .font(.system(.headline, design: .rounded))
+                
+                Group {
+                    Text("Either join a group by typing in your ")
+                    + Text("Group ID").bold()
+                    + Text(" or use the ")
+                    + Text("Add Bar").bold()
+                    + Text(" at the bottom of the screen to add some groceries to your list.")
+                }
+                .font(.system(.caption, design: .rounded))
+                .multilineTextAlignment(.center)
+                
+                Button {
+                    showGroupSettings.toggle()
+                } label: {
+                    Text("Join Group")
+                }
+                .padding()
+                .font(.system(.body, design: .rounded, weight: .medium))
+                .buttonStyle(.bordered)
+                .tint(.accentColor)
+                
+            }
+            .padding(.horizontal)
+        }
+        .padding(40)
+    }
+    
     var listOfGrocery: some View {
         List {
             ForEach(groceryListVM.groceryVMs) { groceryVM in
                 GroceryView(groceryVM: groceryVM)
-                    .swipeActions(edge: .leading) {
-                        Button {
-                            
-                        } label: {
-                            Label {
-                                Text("Edit Tags")
-                            } icon: {
-                                Image(systemName: "tag")
-                            }
-                            
-                        }
-                        .tint(Color.accentColor)
-                    }
-                
             }
             .onDelete(perform: deleteItems)
         }
@@ -68,8 +86,6 @@ struct GroceryListView: View {
                     addGrocery(title: text)
                 }
                 .submitLabel(.done)
-            
-            // add ways to change attributes of the text
         }
         .padding()
         .background {
@@ -89,50 +105,67 @@ struct GroceryListView: View {
     
     var toolbarMenu: some View {
         Group {
-            Button {
-                let _ = groceryListVM.groceryVMs.map { groceryVM in
-                    groceryVM.grocery.completed = false
-                    groceryVM.update(grocery: groceryVM.grocery)
-                }
-            } label: {
-                Label("Uncheck All", systemImage: "xmark")
-            }
-            Button {
-                let _ = groceryListVM.groceryVMs.map { groceryVM in
-                    groceryVM.grocery.completed = true
-                    groceryVM.update(grocery: groceryVM.grocery)
-                }
-            } label: {
-                Label("Complete All", systemImage: "checkmark")
-            }
-            
-            clearAllButton
-            
+            Text("Group: \(GroupService.shared.groupId)")
             Button {
                 showGroupSettings.toggle()
             } label: {
                 Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
             }
+            
+            Divider()
+            
+            if (groceryListVM.groceryVMs.contains { $0.grocery.completed == true }) {
+                Button {
+                    let _ = groceryListVM.groceryVMs.map { groceryVM in
+                        groceryVM.grocery.completed = false
+                        groceryVM.update(grocery: groceryVM.grocery)
+                    }
+                } label: {
+                    Label("Uncheck All", systemImage: "xmark")
+                }
+            }
+            
+            if (groceryListVM.groceryVMs.contains { $0.grocery.completed == false }) {
+                Button {
+                    let _ = groceryListVM.groceryVMs.map { groceryVM in
+                        groceryVM.grocery.completed = true
+                        groceryVM.update(grocery: groceryVM.grocery)
+                    }
+                } label: {
+                    Label("Complete All", systemImage: "checkmark")
+                }
+            }
+            
+            Divider()
+            
+            if (!groceryListVM.groceryVMs.isEmpty) {
+                clearAllButton                
+            }
+            
         }
     }
     
     var body: some View {
         NavigationStack {
             ZStack {
-                listOfGrocery
+                if (groceryListVM.groceryVMs.isEmpty) {
+                    emptyListView
+                } else {
+                    listOfGrocery
+                }
                 
                 addGroceryButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
+//                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
-            .toolbarTitleMenu {
-                toolbarMenu
-            }
-            .sheet(isPresented: $showGroupSettings) {
-                GroupSettingsView()
-            }
+            #if os(macOS)
+            .navigationSubtitle(GroupService.shared.groupId)
+            #endif
+            .toolbarTitleMenu { toolbarMenu }
+            .alert("Group ID", isPresented: $showGroupSettings, actions: { GroupSettingsView() },
+                   message: { Text("Current Group ID: \(GroupService.shared.groupId)") })
         }
     }
     

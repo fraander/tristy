@@ -12,14 +12,24 @@ struct GroupSettingsView: View {
     @State var groupIdBeforeSet = ""
     
     var body: some View {
-        Text("Group ID: \(groupService.groupId)")
-        
+                
         TextField("groupId", text: $groupIdBeforeSet)
             .onSubmit {
-                if !groupIdBeforeSet.isEmpty {
-                    groupService.setGroupId(id: groupIdBeforeSet)
-                }
+                commitAction()
             }
+        #if os(iOS)
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
+        #endif
+        
+        Button("Cancel", role: .cancel) {}
+        Button("Done", action: commitAction)
+    }
+    
+    func commitAction() {
+        if !groupIdBeforeSet.isEmpty {
+            groupService.setGroupId(id: groupIdBeforeSet)
+        }
     }
 }
 

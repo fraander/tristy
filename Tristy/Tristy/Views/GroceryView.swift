@@ -38,7 +38,9 @@ struct GroceryView: View {
                     }
                 }
                 .focused($focus, equals: .item)
+                #if os(iOS)
                 .scrollDismissesKeyboard(.immediately)
+                #endif
                 
                 Text(groceryVM.grocery.title)
                     .opacity(0.0)
@@ -57,7 +59,7 @@ struct GroceryView: View {
             .allowsHitTesting(!groceryVM.grocery.completed)
             .foregroundColor(groceryVM.grocery.completed ? .secondary : .primary)
         }
-        .font(.system(.body, design: .rounded, weight: .regular))
+        .font(.system(.body, design: .rounded))
         .onChange(of: focus) { newValue in
             if newValue == .item {
                 initialValue = groceryVM.grocery.title

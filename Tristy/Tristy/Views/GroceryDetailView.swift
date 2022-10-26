@@ -23,6 +23,7 @@ struct GroceryDetailView: View {
         .onDisappear {
             groceryVM.update()
         }
+        #if os(iOS)
         .toolbarTitleMenu {
             Button {
                 groceryVM.remove()
@@ -32,6 +33,17 @@ struct GroceryDetailView: View {
             }
 
         }
+        #elseif os(macOS)
+        .toolbar {
+            Button {
+                groceryVM.remove()
+                dismiss()
+            } label: {
+                Label("Delete Item", systemImage: "trash")
+            }
+
+        }
+        #endif
     }
 }
 
