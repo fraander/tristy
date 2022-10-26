@@ -29,6 +29,8 @@
 		BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* TristyGrocery.swift */; };
 		BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */; };
 		BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */; };
+		BDED5B092908E0DF006568A3 /* TristyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED5B082908E0DF006568A3 /* TristyTag.swift */; };
+		BDED5B0B2908E311006568A3 /* TagSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED5B0A2908E311006568A3 /* TagSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		BDDBD4F728F260A100B42693 /* TristyGrocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyGrocery.swift; sourceTree = "<group>"; };
 		BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryViewModel.swift; sourceTree = "<group>"; };
 		BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		BDED5B082908E0DF006568A3 /* TristyTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyTag.swift; sourceTree = "<group>"; };
+		BDED5B0A2908E311006568A3 /* TagSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 		BDDBD4EE28F25E8100B42693 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BDED5B0A2908E311006568A3 /* TagSettingsView.swift */,
 				BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */,
 				BDAE381228F64FE80005470A /* GroceryDetailView.swift */,
 				BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */,
@@ -146,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				BDDBD4F728F260A100B42693 /* TristyGrocery.swift */,
+				BDED5B082908E0DF006568A3 /* TristyTag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,8 +251,10 @@
 				BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */,
 				BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */,
 				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
+				BDED5B092908E0DF006568A3 /* TristyTag.swift in Sources */,
 				BDAE381528F650110005470A /* GroceryDetailViewModel.swift in Sources */,
 				BD316DF62908269A00C1BA53 /* GroupSettingsView.swift in Sources */,
+				BDED5B0B2908E311006568A3 /* TagSettingsView.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
 				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
 				BDAE381328F64FE80005470A /* GroceryDetailView.swift in Sources */,

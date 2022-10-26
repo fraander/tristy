@@ -1,8 +1,8 @@
 //
-//  Grocery.swift
+//  TristyTag.swift
 //  Tristy
 //
-//  Created by Frank Anderson on 10/8/22.
+//  Created by Frank Anderson on 10/25/22.
 //
 
 import Foundation
@@ -11,17 +11,15 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import SwiftUI
 
-struct TristyGrocery: Identifiable, Codable {
+struct TristyTag: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
-    var completed: Bool = false
     var groupId: String?
     var userId: String?
-    var tags: [TristyTag] = []
 }
 
 #if DEBUG
-let examples = (1...10).map { i in
-    TristyGrocery(title: "grocery: #\(i)")
+let tagExamples = (1...10).map { i in
+    TristyTag(title: "grocery: #\(i)")
 }
 #endif

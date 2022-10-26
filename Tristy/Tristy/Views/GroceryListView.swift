@@ -16,11 +16,17 @@ struct GroceryListView: View {
         case addField, none
     }
     
+    enum SheetType: Identifiable {
+        case groups, tags
+        
+        var id: Int { self.hashValue }
+    }
+    
     @Environment(\.colorScheme) var colorMode
     @ObservedObject var groceryListVM = GroceryListViewModel()
     @State var text = ""
     @FocusState var focusState: Focus?
-    @State var showGroupSettings: Bool = false
+    @State var sheetType: SheetType? = nil
     
     var clearAllButton: some View {
         Button(role: .destructive) {
@@ -47,7 +53,7 @@ struct GroceryListView: View {
                 .multilineTextAlignment(.center)
                 
                 Button {
-                    showGroupSettings.toggle()
+                    sheetType = .groups
                 } label: {
                     Text("Join Group")
                 }
@@ -107,7 +113,7 @@ struct GroceryListView: View {
         Group {
             Text("Group: \(GroupService.shared.groupId)")
             Button {
-                showGroupSettings.toggle()
+                sheetType = .groups
             } label: {
                 Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
             }
@@ -160,12 +166,17 @@ struct GroceryListView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")
-            #if os(macOS)
+#if os(macOS)
             .navigationSubtitle(GroupService.shared.groupId)
-            #endif
+#endif
             .toolbarTitleMenu { toolbarMenu }
-            .alert("Group ID", isPresented: $showGroupSettings, actions: { GroupSettingsView() },
-                   message: { Text("Current Group ID: \(GroupService.shared.groupId)") })
+            .sheet(item: $sheetType) { st in
+                if (st == .groups) {
+                    GroupSettingsView()
+                } else if (st == .tags) {
+                    TagSettingsView() // TODO: Implement me :) Check that tags are working also and make a way to add/remove them
+                }
+            }
         }
     }
     
