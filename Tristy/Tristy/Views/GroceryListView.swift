@@ -9,6 +9,7 @@ import SwiftUI
 
 // TODO: create focus manager
 // TODO: refactor
+// TODO: add search for tags, and way to create new one if the one they want isn't there
 
 struct GroceryListView: View {
     
@@ -83,77 +84,75 @@ struct GroceryListView: View {
         GeometryReader { geo in
             VStack {
                 Spacer()
-                    
-                VStack {
+                
+                VStack(spacing: 0) {
                     List(groceryListVM.groceryRepository.tags) { tag in
-                            Button {
-                                if (tags.contains {
+                        Button {
+                            if (tags.contains {
+                                tag.id == $0.id
+                            }) {
+                                tags.removeAll {
                                     tag.id == $0.id
-                                }) {
-                                    tags.removeAll {
-                                        tag.id == $0.id
-                                    }
-                                } else {
-                                    tags.append(tag)
                                 }
-                            } label: {
-                                HStack {
-                                    Text(tag.title)
-                                        .fixedSize()
-                                    
-                                    Spacer()
-                                    
-                                    if (tags.contains { tag.id == $0.id }) {
-                                        Image(systemName: "checkmark")
-                                            .foregroundColor(.accentColor)
-                                    }
+                            } else {
+                                tags.append(tag)
+                            }
+                        } label: {
+                            HStack {
+                                Text(tag.title)
+                                    .fixedSize()
+                                
+                                Spacer()
+                                
+                                if (tags.contains { tag.id == $0.id }) {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.accentColor)
                                 }
                             }
                         }
+                    }
                     .listStyle(.plain)
-                    .overlay {
-                        VStack(spacing: 0) {
-                            Spacer()
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    ForEach(tags) { tag in
-                                        Button {
-                                            tags.removeAll { $0.id == tag.id }
-                                        } label: {
-                                            Text(tag.title.lowercased())
-                                                .font(.system(.caption, design: .rounded))
-                                        }
-                                        .buttonStyle(.bordered)
-                                        .tint(.accentColor)
+                    
+                    if (!tags.isEmpty) {
+                        Divider()
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(tags) { tag in
+                                    Button {
+                                        tags.removeAll { $0.id == tag.id }
+                                    } label: {
+                                        Text(tag.title.lowercased())
+                                            .font(.system(.caption, design: .rounded))
                                     }
+                                    .buttonStyle(.bordered)
+                                    .tint(.accentColor)
                                 }
-                                .padding()
                             }
-                            .background {
-                                Rectangle()
-                                    .fill(.background)
-                            }
+                            .padding(8)
+                        }
+                        .background {
+                            Rectangle()
+                                .fill(.background)
                         }
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                    .frame(maxWidth: .infinity, maxHeight: showTagsForAdd ? .infinity : 0, alignment: .bottom)
-                    .background {
-                        RoundedRectangle(cornerRadius: 10.0)
-                            .strokeBorder(Color.secondary, lineWidth: 1)
-                            .background {
-                                RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
-                            }
-                            .shadow(
-                                color: focusState == .addField ? Color.secondary : Color.clear,
-                                radius: focusState == .addField ? 3 : 0
-                            )
-                            .animation(Animation.easeInOut(duration: 0.25), value: focusState)
-                    }
-                    .frame(height: geo.size.height / 3)
-//                    .transition(.asymmetric(insertion: .push(from: .bottom), removal: .move(edge: .bottom)))
-                    .opacity(showTagsForAdd ? 1 : 0)
-                    .animation(.default, value: showTagsForAdd)
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                .frame(maxWidth: .infinity, maxHeight: showTagsForAdd ? .infinity : 0, alignment: .bottom)
+                .background {
+                    RoundedRectangle(cornerRadius: 10.0)
+                        .strokeBorder(Color.secondary, lineWidth: 1)
+                        .background {
+                            RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                        }
+                        .shadow(
+                            color: focusState == .addField ? Color.secondary : Color.clear,
+                            radius: focusState == .addField ? 3 : 0
+                        )
+                        .animation(Animation.easeInOut(duration: 0.25), value: focusState)
+                }
+                .frame(height: geo.size.height * 0.4)
+                .opacity(showTagsForAdd ? 1 : 0)
+                .animation(.default, value: showTagsForAdd)
                 
                 HStack {
                     Button {
@@ -165,8 +164,15 @@ struct GroceryListView: View {
                     
                     TextField("Add item...", text: $text)
                         .focused($focusState, equals: .addField)
+                        .onChange(of: focusState) { _ in
+                            if (focusState == nil) {
+                                showTagsForAdd = false
+                            }
+                        }
                         .onSubmit {
                             addGrocery(title: text)
+                            tags = []
+                            showTagsForAdd = false
                         }
                         .submitLabel(.done)
                     
@@ -242,7 +248,7 @@ struct GroceryListView: View {
             Divider()
             
             if (!groceryListVM.groceryVMs.isEmpty) {
-                clearAllButton                
+                clearAllButton
             }
             
         }
@@ -259,7 +265,7 @@ struct GroceryListView: View {
                 
                 addGroceryButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-//                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
+                //                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Groceries")

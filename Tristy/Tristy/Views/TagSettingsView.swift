@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// TODO: Implement me :) Check that tags are working also and make a way to add/remove them
-
 struct TagSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var groceryRepository: GroceryRepository
