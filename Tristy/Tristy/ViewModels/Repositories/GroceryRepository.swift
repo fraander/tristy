@@ -38,6 +38,7 @@ class GroceryRepository: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.getGroceries()
+                self?.getTags()
             }
             .store(in: &cancellables)
         
@@ -49,6 +50,7 @@ class GroceryRepository: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.getGroceries()
+                self?.getTags()
             }
             .store(in: &cancellables)
     }

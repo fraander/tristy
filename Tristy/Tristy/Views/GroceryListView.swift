@@ -25,8 +25,10 @@ struct GroceryListView: View {
     @Environment(\.colorScheme) var colorMode
     @ObservedObject var groceryListVM = GroceryListViewModel()
     @State var text = ""
+    @State var tags: [TristyTag] = []
     @FocusState var focusState: Focus?
     @State var sheetType: SheetType? = nil
+    @State var showTagsForAdd = false
     
     var clearAllButton: some View {
         Button(role: .destructive) {
@@ -78,33 +80,120 @@ struct GroceryListView: View {
     }
     
     var addGroceryButton: some View {
-        HStack {
-            Button {
-                addGrocery(title: text)
-            } label: {
-                Image(systemName: "plus")
-            }
-            .tint(focusState == .addField ? Color.accentColor : Color.secondary)
-            
-            TextField("Add item...", text: $text)
-                .focused($focusState, equals: .addField)
-                .onSubmit {
-                    addGrocery(title: text)
+        GeometryReader { geo in
+            VStack {
+                Spacer()
+                    
+                VStack {
+                    List(groceryListVM.groceryRepository.tags) { tag in
+                            Button {
+                                if (tags.contains {
+                                    tag.id == $0.id
+                                }) {
+                                    tags.removeAll {
+                                        tag.id == $0.id
+                                    }
+                                } else {
+                                    tags.append(tag)
+                                }
+                            } label: {
+                                HStack {
+                                    Text(tag.title)
+                                        .fixedSize()
+                                    
+                                    Spacer()
+                                    
+                                    if (tags.contains { tag.id == $0.id }) {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.accentColor)
+                                    }
+                                }
+                            }
+                        }
+                    .listStyle(.plain)
+                    .overlay {
+                        VStack(spacing: 0) {
+                            Spacer()
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(tags) { tag in
+                                        Button {
+                                            tags.removeAll { $0.id == tag.id }
+                                        } label: {
+                                            Text(tag.title.lowercased())
+                                                .font(.system(.caption, design: .rounded))
+                                        }
+                                        .buttonStyle(.bordered)
+                                        .tint(.accentColor)
+                                    }
+                                }
+                                .padding()
+                            }
+                            .background {
+                                Rectangle()
+                                    .fill(.background)
+                            }
+                        }
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                    .frame(maxWidth: .infinity, maxHeight: showTagsForAdd ? .infinity : 0, alignment: .bottom)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10.0)
+                            .strokeBorder(Color.secondary, lineWidth: 1)
+                            .background {
+                                RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                            }
+                            .shadow(
+                                color: focusState == .addField ? Color.secondary : Color.clear,
+                                radius: focusState == .addField ? 3 : 0
+                            )
+                            .animation(Animation.easeInOut(duration: 0.25), value: focusState)
+                    }
+                    .frame(height: geo.size.height / 3)
+//                    .transition(.asymmetric(insertion: .push(from: .bottom), removal: .move(edge: .bottom)))
+                    .opacity(showTagsForAdd ? 1 : 0)
+                    .animation(.default, value: showTagsForAdd)
                 }
-                .submitLabel(.done)
-        }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 10.0)
-                .strokeBorder(Color.secondary, lineWidth: 1)
+                
+                HStack {
+                    Button {
+                        addGrocery(title: text)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .tint(focusState == .addField ? Color.accentColor : Color.secondary)
+                    
+                    TextField("Add item...", text: $text)
+                        .focused($focusState, equals: .addField)
+                        .onSubmit {
+                            addGrocery(title: text)
+                        }
+                        .submitLabel(.done)
+                    
+                    Button {
+                        focusState = .addField
+                        withAnimation {
+                            showTagsForAdd.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "\(showTagsForAdd ? "tag.fill" : "tag")")
+                    }
+                    .tint(focusState == .addField ? Color.accentColor : Color.secondary)
+                }
+                .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                    RoundedRectangle(cornerRadius: 10.0)
+                        .strokeBorder(Color.secondary, lineWidth: 1)
+                        .background {
+                            RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                        }
+                        .shadow(
+                            color: focusState == .addField ? Color.accentColor : Color.clear,
+                            radius: focusState == .addField ? 3 : 0
+                        )
+                        .animation(Animation.easeInOut(duration: 0.25), value: focusState)
                 }
-                .shadow(
-                    color: focusState == .addField ? Color.accentColor : Color.clear,
-                    radius: focusState == .addField ? 3 : 0
-                )
-                .animation(Animation.easeInOut(duration: 0.25), value: focusState)
+            }
         }
         .padding()
     }
@@ -116,6 +205,14 @@ struct GroceryListView: View {
                 sheetType = .groups
             } label: {
                 Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
+            }
+            
+            Divider()
+            
+            Button {
+                sheetType = .tags
+            } label: {
+                Label("Edit Tags", systemImage: "tag.fill")
             }
             
             Divider()
@@ -171,11 +268,14 @@ struct GroceryListView: View {
 #endif
             .toolbarTitleMenu { toolbarMenu }
             .sheet(item: $sheetType) { st in
-                if (st == .groups) {
-                    GroupSettingsView()
-                } else if (st == .tags) {
-                    TagSettingsView() // TODO: Implement me :) Check that tags are working also and make a way to add/remove them
+                Group {
+                    if (st == .groups) {
+                        GroupSettingsView()
+                    } else if (st == .tags) {
+                        TagSettingsView(groceryRepository: groceryListVM.groceryRepository)
+                    }
                 }
+                .presentationDetents([.fraction(2/5), .large])
             }
         }
     }
@@ -189,7 +289,11 @@ struct GroceryListView: View {
             let grocery = TristyGrocery(title: title)
             groceryListVM.add(grocery)
             text = ""
-            focusState = GroceryListView.Focus.none
+            tags = []
+            withAnimation {
+                focusState = GroceryListView.Focus.none
+                showTagsForAdd = false
+            }
         }
     }
 }
