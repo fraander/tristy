@@ -1,15 +1,11 @@
 //
-//  GroceryListView.swift
+//  NewGroceryListView.swift
 //  Tristy
 //
-//  Created by Frank Anderson on 10/8/22.
+//  Created by Frank Anderson on 11/2/22.
 //
 
 import SwiftUI
-
-// TODO: create focus manager
-// TODO: refactor
-// TODO: add search for tags, and way to create new one if the one they want isn't there
 
 struct GroceryListView: View {
     
@@ -23,21 +19,12 @@ struct GroceryListView: View {
         var id: Int { self.hashValue }
     }
     
-    @Environment(\.colorScheme) var colorMode
-    @ObservedObject var groceryListVM = GroceryListViewModel()
+    @ObservedObject var repository = GroceryRepository.shared
+    @State var sheetType: SheetType? = nil
     @State var text = ""
     @State var tags: [TristyTag] = []
     @FocusState var focusState: Focus?
-    @State var sheetType: SheetType? = nil
     @State var showTagsForAdd = false
-    
-    var clearAllButton: some View {
-        Button(role: .destructive) {
-            groceryListVM.groceryVMs.forEach{$0.remove()}
-        } label: {
-            Label("Clear All", systemImage: "eraser.line.dashed")
-        }
-    }
     
     var emptyListView: some View {
         GroupBox {
@@ -71,22 +58,43 @@ struct GroceryListView: View {
         .padding(40)
     }
     
-    var listOfGrocery: some View {
+    var populatedListView: some View {
         List {
-            ForEach(groceryListVM.groceryVMs) { groceryVM in
-                GroceryView(groceryVM: groceryVM)
+            ForEach(GroceryRepository.shared.groceries) { grocery in
+                GroceryView(grocery: grocery)
             }
             .onDelete(perform: deleteItems)
         }
     }
     
-    var addGroceryButton: some View {
+    private func deleteItems(items: IndexSet) {
+        items.forEach {
+            let grocery = GroceryRepository.shared.groceries[$0]
+            GroceryRepository.shared.remove(grocery)
+        }
+    }
+    
+    var listOfGroceries: some View {
+        Group {
+            if (GroceryRepository.shared.groceries.isEmpty) {
+                emptyListView
+            } else {
+                populatedListView
+            }
+        }
+    }
+    
+    var addBar: some View {
         GeometryReader { geo in
             VStack {
                 Spacer()
                 
                 VStack(spacing: 0) {
-                    List(groceryListVM.groceryRepository.tags) { tag in
+                    List( GroceryRepository.shared.tags.contains {
+                        $0.title.contains(text)
+                    } ? GroceryRepository.shared.tags.filter { // TODO: replace with better algo that uses # and search indicator
+                        $0.title.contains(text)
+                    } : GroceryRepository.shared.tags) { tag in
                         Button {
                             if (tags.contains {
                                 tag.id == $0.id
@@ -204,96 +212,10 @@ struct GroceryListView: View {
         .padding()
     }
     
-    var toolbarMenu: some View {
-        Group {
-            Text("Group: \(GroupService.shared.groupId)")
-            Button {
-                sheetType = .groups
-            } label: {
-                Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
-            }
-            
-            Divider()
-            
-            Button {
-                sheetType = .tags
-            } label: {
-                Label("Edit Tags", systemImage: "tag.fill")
-            }
-            
-            Divider()
-            
-            if (groceryListVM.groceryVMs.contains { $0.grocery.completed == true }) {
-                Button {
-                    let _ = groceryListVM.groceryVMs.map { groceryVM in
-                        groceryVM.grocery.completed = false
-                        groceryVM.update(grocery: groceryVM.grocery)
-                    }
-                } label: {
-                    Label("Uncheck All", systemImage: "xmark")
-                }
-            }
-            
-            if (groceryListVM.groceryVMs.contains { $0.grocery.completed == false }) {
-                Button {
-                    let _ = groceryListVM.groceryVMs.map { groceryVM in
-                        groceryVM.grocery.completed = true
-                        groceryVM.update(grocery: groceryVM.grocery)
-                    }
-                } label: {
-                    Label("Complete All", systemImage: "checkmark")
-                }
-            }
-            
-            Divider()
-            
-            if (!groceryListVM.groceryVMs.isEmpty) {
-                clearAllButton
-            }
-            
-        }
-    }
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                if (groceryListVM.groceryVMs.isEmpty) {
-                    emptyListView
-                } else {
-                    listOfGrocery
-                }
-                
-                addGroceryButton
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                //                    .edgesIgnoringSafeArea(focusState == .addField ? [] : [.all])
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Groceries")
-#if os(macOS)
-            .navigationSubtitle(GroupService.shared.groupId)
-#endif
-            .toolbarTitleMenu { toolbarMenu }
-            .sheet(item: $sheetType) { st in
-                Group {
-                    if (st == .groups) {
-                        GroupSettingsView()
-                    } else if (st == .tags) {
-                        TagSettingsView(groceryRepository: groceryListVM.groceryRepository)
-                    }
-                }
-                .presentationDetents([.fraction(2/5), .large])
-            }
-        }
-    }
-    
-    private func deleteItems(items: IndexSet) {
-        items.forEach { groceryListVM.groceryVMs[$0].remove() }
-    }
-    
     private func addGrocery(title: String) {
         if (!text.isEmpty) {
             let grocery = TristyGrocery(title: title)
-            groceryListVM.add(grocery)
+            GroceryRepository.shared.add(grocery)
             text = ""
             tags = []
             withAnimation {
@@ -302,19 +224,128 @@ struct GroceryListView: View {
             }
         }
     }
-}
-
-struct GroceryListView_Previews: PreviewProvider {
-    static let listOfVM = examples.reduce([GroceryViewModel]()) { partialResult, grocery in
-        let groceryVM = GroceryViewModel(grocery: grocery)
-        return partialResult + [groceryVM]
+    
+    var sheets: some View {
+        Group {
+            if (sheetType == .groups) {
+                GroupSettingsView()
+            } else if (sheetType == .tags) {
+                TagSettingsView()
+            }
+        }
     }
     
-    static var previews: some View {
-        GroceryListView(groceryListVM: GroceryListViewModel(listOfVM))
-            .previewDisplayName("Populated list")
+    var toolbarGroupSection: some View {
+        Group {
+            Text("Group: \(GroupService.shared.groupId)")
+            Button {
+                sheetType = .groups
+            } label: {
+                Label("Edit Group", systemImage: "person.2.badge.gearshape.fill")
+            }
+        }
+    }
+    
+    var toolbarTagsSection: some View {
+        Button {
+            sheetType = .tags
+        } label: {
+            Label("Edit Tags", systemImage: "tag.fill")
+        }
+    }
+    
+    var toolbarCheckSection: some View {
+        let hasOneComplete = GroceryRepository.shared.groceries.contains { $0.completed == true }
+        let hasOneIncomplete = GroceryRepository.shared.groceries.contains { $0.completed == false }
         
-        GroceryListView(groceryListVM: GroceryListViewModel([]))
-            .previewDisplayName("Empty list")
+        let uncheckAll = Button {
+            GroceryRepository.shared.groceries.forEach { grocery in
+                var newGrocery = grocery
+                newGrocery.setCompleted(false)
+                
+                GroceryRepository.shared.update(newGrocery)
+            }
+        } label: {
+            Label("Uncheck All", systemImage: "xmark")
+        }
+        
+        let checkAll = Button {
+            GroceryRepository.shared.groceries.forEach { grocery in
+                var newGrocery = grocery
+                newGrocery.setCompleted(true)
+                
+                GroceryRepository.shared.update(newGrocery)
+            }
+        } label: {
+            Label("Complete All", systemImage: "checkmark")
+        }
+        
+        return Group {
+            if (hasOneComplete) { uncheckAll }
+            if (hasOneIncomplete) { checkAll }
+        }
+    }
+    
+    var clearAllSection: some View {
+        Group {
+            if (!GroceryRepository.shared.groceries.isEmpty) {
+                Button(role: .destructive) {
+                    GroceryRepository.shared.groceries.forEach { grocery in
+                        GroceryRepository.shared.remove(grocery)
+                    }
+                } label: {
+                    Label("Clear All", systemImage: "eraser.line.dashed")
+                }
+            }
+        }
+    }
+    
+    var toolbarMenu: some View {
+        Group {
+            toolbarGroupSection
+            
+            Divider()
+            
+            toolbarTagsSection
+            
+            Divider()
+            
+            toolbarCheckSection
+            
+            Divider()
+            
+            clearAllSection
+        }
+    }
+    
+    func updateToolbar() {
+        
+    }
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                listOfGroceries
+                addBar
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Groceries")
+#if os(macOS)
+            .navigationSubtitle(GroupService.shared.groupId)
+#endif
+            .toolbarTitleMenu {
+                toolbarMenu
+            }
+            .sheet(item: $sheetType) { _ in
+                sheets
+                    .presentationDetents([.fraction(2/5), .large])
+            }
+        }
+    }
+}
+
+struct NewGroceryListView_Previews: PreviewProvider {
+    static var previews: some View {
+        GroceryListView()
     }
 }

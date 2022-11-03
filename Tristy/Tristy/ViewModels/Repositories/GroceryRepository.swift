@@ -11,6 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class GroceryRepository: ObservableObject {
+    static var shared: GroceryRepository = .init()
+    
     @Published var userId = ""
     @Published var groupId = ""
     private let authenticationService = AuthenticationService()
@@ -26,7 +28,7 @@ class GroceryRepository: ObservableObject {
     
     // MARK: - Initializer
     
-    init() {
+    private init() {
         authenticationService.$user
             .compactMap { user in
                 user?.uid
@@ -89,18 +91,18 @@ class GroceryRepository: ObservableObject {
     
     // MARK: - Grocery Functions
 
-    func addGroceries(_ grocery: TristyGrocery) {
+    func add(_ grocery: TristyGrocery) {
         do {
             var newGrocery = grocery
-            newGrocery.groupId = groupId
-            newGrocery.userId = userId
+            newGrocery.setGroupId(groupId)
+            newGrocery.setUserId(userId)
             _ = try store.collection(groceryPath).addDocument(from: newGrocery)
         } catch {
             fatalError("Unable to add grocery: \(error.localizedDescription)")
         }
     }
     
-    func updateGroceries(_ grocery: TristyGrocery) {
+    func update(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
         do {
@@ -110,7 +112,7 @@ class GroceryRepository: ObservableObject {
         }
     }
     
-    func removeGroceries(_ grocery: TristyGrocery) {
+    func remove(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
         store.collection(groceryPath).document(groceryId).delete { error in
@@ -122,7 +124,7 @@ class GroceryRepository: ObservableObject {
     
     // MARK: - Tag Functions
     
-    func addTags(_ tag: TristyTag) {
+    func add(_ tag: TristyTag) {
         do {
             var newTag = tag
             newTag.groupId = groupId
@@ -133,7 +135,7 @@ class GroceryRepository: ObservableObject {
         }
     }
     
-    func updateTags(_ tag: TristyTag) {
+    func update(_ tag: TristyTag) {
         guard let tagId = tag.id else { return }
         
         do {
@@ -143,7 +145,7 @@ class GroceryRepository: ObservableObject {
         }
     }
     
-    func removeTags(_ tag: TristyTag) {
+    func remove(_ tag: TristyTag) {
         guard let tagId = tag.id else { return }
         
         store.collection(tagPath).document(tagId).delete { error in

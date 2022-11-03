@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TagSettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var groceryRepository: GroceryRepository
+    @ObservedObject var groceryRepository = GroceryRepository.shared
     @State var newTagTitle = ""
     
     var body: some View {
@@ -56,19 +56,19 @@ struct TagSettingsView: View {
     private func createTag() {
         if !newTagTitle.isEmpty {
             let newTag = TristyTag(title: newTagTitle)
-            groceryRepository.addTags(newTag)
+            groceryRepository.add(newTag)
             
             newTagTitle = ""
         }
     }
     
     private func deleteItems(items: IndexSet) {
-        items.forEach { groceryRepository.removeTags(groceryRepository.tags[$0]) }
+        items.forEach { groceryRepository.remove(groceryRepository.tags[$0]) }
     }
 }
 
 struct TagSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        TagSettingsView(groceryRepository: GroceryRepository())
+        TagSettingsView()
     }
 }
