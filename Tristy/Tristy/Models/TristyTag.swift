@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import SwiftUI
 
-struct TristyTag: Identifiable, Codable {
+struct TristyTag: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var title: String
     var groupId: String?

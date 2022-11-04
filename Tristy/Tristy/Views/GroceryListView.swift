@@ -164,7 +164,7 @@ struct GroceryListView: View {
                 
                 HStack {
                     Button {
-                        addGrocery(title: text)
+                        addGrocery(title: text, incomingTags: tags)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -178,7 +178,7 @@ struct GroceryListView: View {
                             }
                         }
                         .onSubmit {
-                            addGrocery(title: text)
+                            addGrocery(title: text, incomingTags: tags)
                             tags = []
                             showTagsForAdd = false
                         }
@@ -212,9 +212,9 @@ struct GroceryListView: View {
         .padding()
     }
     
-    private func addGrocery(title: String) {
+    private func addGrocery(title: String, incomingTags: [TristyTag]) {
         if (!text.isEmpty) {
-            let grocery = TristyGrocery(title: title)
+            let grocery = TristyGrocery(title: title, tags: incomingTags)
             GroceryRepository.shared.add(grocery)
             text = ""
             tags = []
