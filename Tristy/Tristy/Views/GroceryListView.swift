@@ -61,7 +61,7 @@ struct GroceryListView: View {
     var populatedListView: some View {
         List {
             ForEach(GroceryRepository.shared.groceries) { grocery in
-                GroceryView(grocery: grocery)
+                GroceryView(groceryVM: .init(grocery: grocery))
             }
             .onDelete(perform: deleteItems)
         }
@@ -316,10 +316,6 @@ struct GroceryListView: View {
             
             clearAllSection
         }
-    }
-    
-    func updateToolbar() {
-        
     }
     
     var body: some View {

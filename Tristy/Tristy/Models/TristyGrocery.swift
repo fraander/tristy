@@ -17,12 +17,14 @@ struct TristyGrocery: Identifiable, Codable, Equatable {
     private(set) public var completed: Bool = false
     private(set) public var groupId: String?
     private(set) public var userId: String?
-    private(set) public var tags: [TristyTag] = []
+    private(set) public var tagIds: [String?] = []
     
     init(title: String, tags: [TristyTag]) {
         self.id = UUID().description
         self.title = title
-        self.tags = tags
+        self.tagIds = tags.map({ tagObject in
+            GroceryRepository.shared.tags.first(where: {tagObject.id == $0.id})?.id
+        })
         self.completed = false
         self.groupId = GroceryRepository.shared.groupId
         self.userId = GroceryRepository.shared.userId
@@ -49,7 +51,7 @@ struct TristyGrocery: Identifiable, Codable, Equatable {
     }
     
     mutating func remove(tag: TristyTag) {
-        tags.removeAll { $0.id == tag.id }
+        tagIds.removeAll { $0 == tag.id }
     }
 }
 
