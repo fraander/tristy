@@ -11,6 +11,7 @@
 		BD316DF62908269A00C1BA53 /* GroupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */; };
 		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
 		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
+		BDC56135292ECAF80073E6EE /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */; };
 		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
 		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSettingsView.swift; sourceTree = "<group>"; };
 		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
+		BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
+				BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */,
 				BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */,
 				BDDBD4D228F2591000B42693 /* TristyApp.swift */,
 				BDDBD4D428F2591000B42693 /* ContentView.swift */,
@@ -238,6 +241,7 @@
 				BD316DF62908269A00C1BA53 /* GroupSettingsView.swift in Sources */,
 				BDF78341291306D90037E4CD /* GroceryListView.swift in Sources */,
 				BDED5B0B2908E311006568A3 /* TagSettingsView.swift in Sources */,
+				BDC56135292ECAF80073E6EE /* Color+backgroundColors.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
 				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
 				BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */,

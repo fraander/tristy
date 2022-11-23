@@ -39,6 +39,8 @@ class GroceryViewModel: ObservableObject {
     
     public func remove(tag: TristyTag) {
         grocery.remove(tag: tag)
+        print("GroceryView/remove(tag: TristyTag)")
+        repo.update(grocery)
     }
 }
 
@@ -58,15 +60,14 @@ struct GroceryView: View {
     @State var newTitle = ""
     @State var initialValue = ""
     @FocusState var focus: Focus?
-    @State var activeTags: [TristyTag] = []
     @State var toDeleteTag: TristyTag?
     
     var tagsView: some View {
         Group {
-            if !activeTags.isEmpty && !groceryVM.grocery.completed {
+            if !groceryVM.grocery.tags.isEmpty && !groceryVM.grocery.completed {
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(activeTags, id: \.title) { tag in
+                        ForEach(groceryVM.grocery.tags, id: \.title) { tag in
                             Button {
                                 toDeleteTag = tag
                             } label: {
@@ -78,7 +79,7 @@ struct GroceryView: View {
                             .transition(.scale.combined(with: .slide))
                         }
                     }
-                    .animation(.spring(), value: activeTags)
+                    .animation(.spring(), value: groceryVM.grocery.tags)
                 }
                 .scrollIndicators(.never)
                 .transition(.slide.combined(with: .opacity))
@@ -137,7 +138,7 @@ struct GroceryView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 8) {
             HStack {
                 checkboxView
                 
@@ -145,6 +146,21 @@ struct GroceryView: View {
             }
             
             tagsView
+                .overlay {
+                    LinearGradient(
+                        colors: [ // TODO: fix for dark mode
+                            Color.background.opacity(0.0),
+                            Color.background.opacity(0.0),
+                            Color.background.opacity(0.0),
+                            Color.background.opacity(0.0),
+                            Color.background.opacity(0.0),
+                            Color.background
+                        ],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                        .allowsHitTesting(false)
+                }
         }
         .font(.system(.body, design: .rounded))
         .task {
@@ -153,13 +169,17 @@ struct GroceryView: View {
             newTitle = groceryVM.grocery.title
         }
         .alert(item: $toDeleteTag) { tag in
-            Alert(
-                title: Text("Are you sure you want to remove \(tag.title) from this item?"),
-                primaryButton: .cancel(),
-                secondaryButton: .destructive(Text("Remove")) {
-                    groceryVM.remove(tag: tag)
-                }
-            )
+            if let t = toDeleteTag {
+                return Alert(
+                    title: Text("Are you sure you want to remove \(tag.title) from this item?"),
+                    primaryButton: .cancel(),
+                    secondaryButton: .destructive(Text("Remove")) {
+                        groceryVM.remove(tag: t)
+                    }
+                )
+            } else {
+                return Alert(title: Text("Error removing tag from grocery."))
+            }
         }
     }
 }
