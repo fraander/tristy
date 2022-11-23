@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD316DF4290823CC00C1BA53 /* GroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD316DF3290823CC00C1BA53 /* GroupService.swift */; };
+		BD316DF62908269A00C1BA53 /* GroupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */; };
 		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
 		BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4A3B9D28F2658700D63484 /* GroceryView.swift */; };
+		BDC56135292ECAF80073E6EE /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */; };
 		BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D228F2591000B42693 /* TristyApp.swift */; };
 		BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4D428F2591000B42693 /* ContentView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -18,29 +21,32 @@
 		BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E628F2598900B42693 /* FirebaseFirestore */; };
 		BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */; };
 		BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */; };
-		BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */; };
-		BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */; };
 		BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F528F2600500B42693 /* GroceryRepository.swift */; };
-		BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* Grocery.swift */; };
-		BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */; };
+		BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4F728F260A100B42693 /* TristyGrocery.swift */; };
 		BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */; };
+		BDED5B092908E0DF006568A3 /* TristyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED5B082908E0DF006568A3 /* TristyTag.swift */; };
+		BDED5B0B2908E311006568A3 /* TagSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED5B0A2908E311006568A3 /* TagSettingsView.swift */; };
+		BDF78341291306D90037E4CD /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF78340291306D90037E4CD /* GroceryListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD316DF3290823CC00C1BA53 /* GroupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupService.swift; path = Tristy/GroupService.swift; sourceTree = SOURCE_ROOT; };
+		BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSettingsView.swift; sourceTree = "<group>"; };
 		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD4A3B9D28F2658700D63484 /* GroceryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
+		BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D228F2591000B42693 /* TristyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDDBD4D428F2591000B42693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDDBD4D828F2591100B42693 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
-		BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListViewModel.swift; sourceTree = "<group>"; };
 		BDDBD4F528F2600500B42693 /* GroceryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
-		BDDBD4F728F260A100B42693 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
-		BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryViewModel.swift; sourceTree = "<group>"; };
+		BDDBD4F728F260A100B42693 /* TristyGrocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyGrocery.swift; sourceTree = "<group>"; };
 		BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		BDED5B082908E0DF006568A3 /* TristyTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyTag.swift; sourceTree = "<group>"; };
+		BDED5B0A2908E311006568A3 /* TagSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingsView.swift; sourceTree = "<group>"; };
+		BDF78340291306D90037E4CD /* GroceryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,7 @@
 		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
+				BDC56134292ECAF80073E6EE /* Color+backgroundColors.swift */,
 				BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */,
 				BDDBD4D228F2591000B42693 /* TristyApp.swift */,
 				BDDBD4D428F2591000B42693 /* ContentView.swift */,
@@ -104,7 +111,9 @@
 		BDDBD4EE28F25E8100B42693 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BDDBD4EC28F25E7C00B42693 /* GroceryListView.swift */,
+				BDED5B0A2908E311006568A3 /* TagSettingsView.swift */,
+				BD316DF52908269A00C1BA53 /* GroupSettingsView.swift */,
+				BDF78340291306D90037E4CD /* GroceryListView.swift */,
 				BD4A3B9D28F2658700D63484 /* GroceryView.swift */,
 			);
 			path = Views;
@@ -113,8 +122,6 @@
 		BDDBD4F128F25EA800B42693 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				BDDBD4EF28F25EA400B42693 /* GroceryListViewModel.swift */,
-				BDDBD4FA28F260DB00B42693 /* GroceryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -131,7 +138,8 @@
 		BDDBD4F928F260A500B42693 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BDDBD4F728F260A100B42693 /* Grocery.swift */,
+				BDDBD4F728F260A100B42693 /* TristyGrocery.swift */,
+				BDED5B082908E0DF006568A3 /* TristyTag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				BDDBD4FD28F2619D00B42693 /* AuthenticationService.swift */,
+				BD316DF3290823CC00C1BA53 /* GroupService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -225,14 +234,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDDBD4FB28F260DB00B42693 /* GroceryViewModel.swift in Sources */,
-				BDDBD4F028F25EA400B42693 /* GroceryListViewModel.swift in Sources */,
+				BD316DF4290823CC00C1BA53 /* GroupService.swift in Sources */,
 				BD4A3B9E28F2658700D63484 /* GroceryView.swift in Sources */,
 				BDDBD4D528F2591000B42693 /* ContentView.swift in Sources */,
+				BDED5B092908E0DF006568A3 /* TristyTag.swift in Sources */,
+				BD316DF62908269A00C1BA53 /* GroupSettingsView.swift in Sources */,
+				BDF78341291306D90037E4CD /* GroceryListView.swift in Sources */,
+				BDED5B0B2908E311006568A3 /* TagSettingsView.swift in Sources */,
+				BDC56135292ECAF80073E6EE /* Color+backgroundColors.swift in Sources */,
 				BDDBD4D328F2591000B42693 /* TristyApp.swift in Sources */,
-				BDDBD4ED28F25E7C00B42693 /* GroceryListView.swift in Sources */,
 				BDDBD4F628F2600600B42693 /* GroceryRepository.swift in Sources */,
-				BDDBD4F828F260A100B42693 /* Grocery.swift in Sources */,
+				BDDBD4F828F260A100B42693 /* TristyGrocery.swift in Sources */,
 				BDDBD4FE28F2619D00B42693 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +374,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -400,6 +413,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
