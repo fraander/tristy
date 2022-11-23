@@ -154,4 +154,10 @@ class GroceryRepository: ObservableObject {
             }
         }
     }
+    
+    func getTag(from tagId: String?) -> TristyTag? {
+        return self.tags.first { tagObject in
+            tagObject.id == tagId
+        }
+    }
 }
