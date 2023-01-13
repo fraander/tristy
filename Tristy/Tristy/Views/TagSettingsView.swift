@@ -53,6 +53,7 @@ struct TagSettingsView: View {
         }
     }
     
+    /// Update the view, and add tag with given details to the repository
     private func createTag() {
         if !newTagTitle.isEmpty {
             let newTag = TristyTag(title: newTagTitle)
@@ -62,6 +63,8 @@ struct TagSettingsView: View {
         }
     }
     
+    /// Delete tags at the given indexes from the repository
+    /// - Parameter items: the indecies of the tags to delete
     private func deleteItems(items: IndexSet) {
         items.forEach { groceryRepository.remove(groceryRepository.tags[$0]) }
     }

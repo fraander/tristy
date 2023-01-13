@@ -9,6 +9,7 @@ import SwiftUI
 
 public extension Color {
     
+    // Add background colors for access like in UIKit
 #if os(macOS)
     static let background = Color(NSColor.windowBackgroundColor)
     static let secondaryBackground = Color(NSColor.underPageBackgroundColor)

@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+/// Represents a list of groceries
 struct GroceryListView: View {
+    
+    // MARK: - Enums
     
     enum Focus {
         case addField, none
@@ -19,12 +22,25 @@ struct GroceryListView: View {
         var id: Int { self.hashValue }
     }
     
+    // MARK: - Instance Variables
     @ObservedObject var repository = GroceryRepository.shared
     @State var sheetType: SheetType? = nil
     @State var text = ""
     @State var tags: [TristyTag] = []
     @FocusState var focusState: Focus?
     @State var showTagsForAdd = false
+    
+    
+    // MARK: - List of Groceries
+    var listOfGroceries: some View {
+        Group {
+            if (GroceryRepository.shared.groceries.isEmpty) {
+                emptyListView
+            } else {
+                populatedListView
+            }
+        }
+    }
     
     var emptyListView: some View {
         GroupBox {
@@ -67,23 +83,8 @@ struct GroceryListView: View {
         }
     }
     
-    private func deleteItems(items: IndexSet) {
-        items.forEach {
-            let grocery = GroceryRepository.shared.groceries[$0]
-            GroceryRepository.shared.remove(grocery)
-        }
-    }
     
-    var listOfGroceries: some View {
-        Group {
-            if (GroceryRepository.shared.groceries.isEmpty) {
-                emptyListView
-            } else {
-                populatedListView
-            }
-        }
-    }
-    
+    // MARK: - Add Bar
     var addBar: some View {
         GeometryReader { geo in
             VStack {
@@ -212,19 +213,6 @@ struct GroceryListView: View {
         .padding()
     }
     
-    private func addGrocery(title: String, incomingTags: [TristyTag]) {
-        if (!text.isEmpty) {
-            let grocery = TristyGrocery(title: title, tags: incomingTags)
-            GroceryRepository.shared.add(grocery)
-            text = ""
-            tags = []
-            withAnimation {
-                focusState = GroceryListView.Focus.none
-                showTagsForAdd = false
-            }
-        }
-    }
-    
     var sheets: some View {
         Group {
             if (sheetType == .groups) {
@@ -232,6 +220,25 @@ struct GroceryListView: View {
             } else if (sheetType == .tags) {
                 TagSettingsView()
             }
+        }
+    }
+    
+    // MARK: - Toolbar Menu
+    var toolbarMenu: some View {
+        Group {
+            toolbarGroupSection
+            
+            Divider()
+            
+            toolbarTagsSection
+            
+            Divider()
+            
+            toolbarCheckSection
+            
+            Divider()
+            
+            clearAllSection
         }
     }
     
@@ -300,24 +307,7 @@ struct GroceryListView: View {
         }
     }
     
-    var toolbarMenu: some View {
-        Group {
-            toolbarGroupSection
-            
-            Divider()
-            
-            toolbarTagsSection
-            
-            Divider()
-            
-            toolbarCheckSection
-            
-            Divider()
-            
-            clearAllSection
-        }
-    }
-    
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
@@ -338,6 +328,28 @@ struct GroceryListView: View {
             }
         }
     }
+    
+    // MARK: - Functions
+    private func addGrocery(title: String, incomingTags: [TristyTag]) {
+        if (!text.isEmpty) {
+            let grocery = TristyGrocery(title: title, tags: incomingTags)
+            GroceryRepository.shared.add(grocery)
+            text = ""
+            tags = []
+            withAnimation {
+                focusState = GroceryListView.Focus.none
+                showTagsForAdd = false
+            }
+        }
+    }
+    
+    private func deleteItems(items: IndexSet) {
+        items.forEach {
+            let grocery = GroceryRepository.shared.groceries[$0]
+            GroceryRepository.shared.remove(grocery)
+        }
+    }
+
 }
 
 struct NewGroceryListView_Previews: PreviewProvider {

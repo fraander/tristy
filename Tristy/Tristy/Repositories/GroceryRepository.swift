@@ -10,6 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+/// Manages groceries between firestore and on device.
 class GroceryRepository: ObservableObject {
     static var shared: GroceryRepository = .init()
     
@@ -29,6 +30,7 @@ class GroceryRepository: ObservableObject {
     // MARK: - Initializer
     
     private init() {
+        // connect auth service's user to userId
         authenticationService.$user
             .compactMap { user in
                 user?.uid
@@ -36,6 +38,7 @@ class GroceryRepository: ObservableObject {
             .assign(to: \.userId, on: self)
             .store(in: &cancellables)
         
+        // when user id is updated, refresh tags and groceries
         authenticationService.$user
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -44,10 +47,12 @@ class GroceryRepository: ObservableObject {
             }
             .store(in: &cancellables)
         
+        // connect group service to group id
         groupService.$groupId
             .assign(to: \.groupId, on: self)
             .store(in: &cancellables)
         
+        // when group id is updated, refresh tags and groceries
         groupService.$groupId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -59,6 +64,7 @@ class GroceryRepository: ObservableObject {
     
     // MARK: - Gets
     
+    /// Get groceries from firestore
     func getGroceries() {
         store.collection(groceryPath)
             .whereField("groupId", isEqualTo: groupId)
@@ -74,6 +80,7 @@ class GroceryRepository: ObservableObject {
             }
     }
     
+    /// Get tags from firestore
     func getTags() {
         store.collection(tagPath)
             .whereField("groupId", isEqualTo: groupId)
@@ -90,7 +97,9 @@ class GroceryRepository: ObservableObject {
     }
     
     // MARK: - Grocery Functions
-
+    
+    /// Add a grocery to the repository
+    /// - Parameter grocery: the grocery object to add
     func add(_ grocery: TristyGrocery) {
         do {
             var newGrocery = grocery
@@ -102,6 +111,8 @@ class GroceryRepository: ObservableObject {
         }
     }
     
+    /// update the given grocery in the repository
+    /// - Parameter grocery: the grocery to update
     func update(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
@@ -112,6 +123,8 @@ class GroceryRepository: ObservableObject {
         }
     }
     
+    /// Remove the grocery from the repository
+    /// - Parameter grocery: the grocery to remove
     func remove(_ grocery: TristyGrocery) {
         guard let groceryId = grocery.id else { return }
         
@@ -124,6 +137,8 @@ class GroceryRepository: ObservableObject {
     
     // MARK: - Tag Functions
     
+    /// Add the tag to the repository
+    /// - Parameter tag: tag to add
     func add(_ tag: TristyTag) {
         do {
             var newTag = tag
@@ -135,6 +150,8 @@ class GroceryRepository: ObservableObject {
         }
     }
     
+    /// Update the given tag
+    /// - Parameter tag: tag to update
     func update(_ tag: TristyTag) {
         guard let tagId = tag.id else { return }
         
@@ -145,6 +162,8 @@ class GroceryRepository: ObservableObject {
         }
     }
     
+    /// Remove the given tag from the repo
+    /// - Parameter tag: the tag to remove
     func remove(_ tag: TristyTag) {
         guard let tagId = tag.id else { return }
         
@@ -152,12 +171,6 @@ class GroceryRepository: ObservableObject {
             if let error = error {
                 print("Unable to remove grocery: \(error.localizedDescription)")
             }
-        }
-    }
-    
-    func getTag(from tagId: String?) -> TristyTag? {
-        return self.tags.first { tagObject in
-            tagObject.id == tagId
         }
     }
 }

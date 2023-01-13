@@ -6,44 +6,6 @@
 //
 
 import SwiftUI
-import Combine
-
-
-class GroceryViewModel: ObservableObject {
-    
-    private let repo = GroceryRepository.shared
-    @Published var grocery: TristyGrocery {
-        didSet {
-            repo.update(grocery)
-        }
-    }
-    private var cancellables: Set<AnyCancellable> = []
-    var id = ""
-    
-    init(grocery: TristyGrocery) {
-        self.grocery = grocery
-        
-        $grocery
-            .compactMap { $0.id }
-            .assign(to: \.id, on: self)
-            .store(in: &cancellables)
-    }
-    
-    public func setTitle(_ title: String) {
-        grocery.setTitle(title)
-    }
-    
-    public func setCompleted(_ value: Bool? = nil) {
-        grocery.setCompleted(value)
-    }
-    
-    public func remove(tag: TristyTag) {
-        grocery.remove(tag: tag)
-        print("GroceryView/remove(tag: TristyTag)")
-        repo.update(grocery)
-    }
-}
-
 
 struct GroceryView: View {
     enum Focus: Equatable {
@@ -53,15 +15,14 @@ struct GroceryView: View {
             return lhs.hashValue == rhs.hashValue
         }
     }
-    
-    // TODO: tags need to be references to tags array; some way to clean up if not found
-    
-    @ObservedObject var groceryVM: GroceryViewModel // TODO: redo how the state is passed (use VM now)
+        
+    @ObservedObject var groceryVM: GroceryViewModel
     @State var newTitle = ""
     @State var initialValue = ""
     @FocusState var focus: Focus?
     @State var toDeleteTag: TristyTag?
     
+    // horizontal list of tags
     var tagsView: some View {
         Group {
             if !groceryVM.grocery.tags.isEmpty && !groceryVM.grocery.completed {
@@ -88,6 +49,7 @@ struct GroceryView: View {
         }
     }
     
+    // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
         Button {
             groceryVM.setCompleted()
@@ -99,6 +61,7 @@ struct GroceryView: View {
         .font(.system(.title2))
     }
     
+    // line to strikethrough tag title (draw in/out instead of fade with normal .strikethrough() )
     var strikethroughView: some View {
         HStack {
             Capsule()
@@ -108,6 +71,7 @@ struct GroceryView: View {
         }
     }
     
+    // show text or textfield depending on completion state
     var textView: some View {
         ZStack(alignment: .leading) {
             TextField("", text: $newTitle, onEditingChanged: { _ in
@@ -146,21 +110,6 @@ struct GroceryView: View {
             }
             
             tagsView
-                .overlay {
-                    LinearGradient(
-                        colors: [ // TODO: fix for dark mode
-                            Color.background.opacity(0.0),
-                            Color.background.opacity(0.0),
-                            Color.background.opacity(0.0),
-                            Color.background.opacity(0.0),
-                            Color.background.opacity(0.0),
-                            Color.background
-                        ],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                        .allowsHitTesting(false)
-                }
         }
         .font(.system(.body, design: .rounded))
         .task {

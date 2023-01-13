@@ -11,11 +11,14 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import SwiftUI
 
+/// Represents a tag (normally a store)
 struct TristyTag: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var title: String
     var groupId: String?
     var userId: String?
+    
+    // makes use of default initializer
 }
 
 #if DEBUG

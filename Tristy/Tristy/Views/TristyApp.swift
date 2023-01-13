@@ -10,9 +10,10 @@ import FirebaseCore
 @main
 struct TristyApp: App {
     
+    /// Setup Firebase when the app is created.
     init() {
         FirebaseApp.configure()
-        AuthenticationService.signIn()
+        AuthenticationService.signIn() // uses Anonymous sign in
     }
     
     var body: some Scene {
