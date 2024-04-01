@@ -6,23 +6,16 @@
 //
 
 import Foundation
-import Firebase
-import FirebaseFirestoreSwift
-import FirebaseFirestore
-import SwiftUI
+import SwiftData
 
-/// Represents a tag (normally a store)
-struct TristyTag: Identifiable, Codable, Equatable {
-    @DocumentID var id: String?
+@Model
+class TristyTag {
+    var id: UUID
     var title: String
-    var groupId: String?
-    var userId: String?
+    var groceries: [TristyGrocery]?
     
-    // makes use of default initializer
+    init(id: UUID = UUID(), title: String) {
+        self.id = id
+        self.title = title
+    }
 }
-
-#if DEBUG
-let tagExamples = (1...10).map { i in
-    TristyTag(title: "grocery: #\(i)")
-}
-#endif

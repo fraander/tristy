@@ -11,24 +11,12 @@
 		BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */; };
 		BD319FF22971EF3200F9E2B9 /* TagSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */; };
 		BD319FF32971EF3200F9E2B9 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE02971EF3100F9E2B9 /* GroceryView.swift */; };
-		BD319FF42971EF3200F9E2B9 /* GroupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE12971EF3100F9E2B9 /* GroupSettingsView.swift */; };
 		BD319FF52971EF3200F9E2B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE22971EF3100F9E2B9 /* ContentView.swift */; };
-		BD319FF62971EF3200F9E2B9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD319FE42971EF3100F9E2B9 /* Preview Assets.xcassets */; };
 		BD319FF72971EF3200F9E2B9 /* TristyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE62971EF3200F9E2B9 /* TristyTag.swift */; };
 		BD319FF82971EF3200F9E2B9 /* TristyGrocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */; };
 		BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */; };
-		BD319FFA2971EF3200F9E2B9 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FEB2971EF3200F9E2B9 /* AuthenticationService.swift */; };
-		BD319FFB2971EF3200F9E2B9 /* GroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FEC2971EF3200F9E2B9 /* GroupService.swift */; };
-		BD319FFC2971EF3200F9E2B9 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FEF2971EF3200F9E2B9 /* GroceryRepository.swift */; };
-		BD31A0012971F0E800F9E2B9 /* GroceryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD31A0002971F0E800F9E2B9 /* GroceryViewModel.swift */; };
-		BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */; };
+		BD867A1C2BBB1DCE006B2B12 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
-		BDDBD4DB28F2591100B42693 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */; };
-		BDDBD4E328F2598900B42693 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E228F2598900B42693 /* FirebaseAuth */; };
-		BDDBD4E528F2598900B42693 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */; };
-		BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E628F2598900B42693 /* FirebaseFirestore */; };
-		BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */; };
-		BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,21 +24,13 @@
 		BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
 		BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSettingsView.swift; sourceTree = "<group>"; };
 		BD319FE02971EF3100F9E2B9 /* GroceryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
-		BD319FE12971EF3100F9E2B9 /* GroupSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupSettingsView.swift; sourceTree = "<group>"; };
 		BD319FE22971EF3100F9E2B9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BD319FE42971EF3100F9E2B9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD319FE62971EF3200F9E2B9 /* TristyTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyTag.swift; sourceTree = "<group>"; };
 		BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyGrocery.swift; sourceTree = "<group>"; };
 		BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
-		BD319FEB2971EF3200F9E2B9 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		BD319FEC2971EF3200F9E2B9 /* GroupService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupService.swift; sourceTree = "<group>"; };
-		BD319FEF2971EF3200F9E2B9 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
-		BD31A0002971F0E800F9E2B9 /* GroceryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryViewModel.swift; sourceTree = "<group>"; };
-		BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BDDBD4D828F2591100B42693 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
-		BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +38,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDDBD4EB28F2598900B42693 /* FirebaseFirestoreSwift in Frameworks */,
-				BDDBD4E328F2598900B42693 /* FirebaseAuth in Frameworks */,
-				BDDBD4E928F2598900B42693 /* FirebaseFirestoreCombine-Community in Frameworks */,
-				BDDBD4E528F2598900B42693 /* FirebaseAuthCombine-Community in Frameworks */,
-				BDDBD4E728F2598900B42693 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,22 +47,12 @@
 		BD319FDC2971EF3100F9E2B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BD319FDD2971EF3100F9E2B9 /* TristyApp.swift */,
 				BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */,
 				BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */,
 				BD319FE02971EF3100F9E2B9 /* GroceryView.swift */,
-				BD319FE12971EF3100F9E2B9 /* GroupSettingsView.swift */,
 				BD319FE22971EF3100F9E2B9 /* ContentView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		BD319FE32971EF3100F9E2B9 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BD319FE42971EF3100F9E2B9 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		BD319FE52971EF3200F9E2B9 /* Models */ = {
@@ -95,6 +60,7 @@
 			children = (
 				BD319FE62971EF3200F9E2B9 /* TristyTag.swift */,
 				BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */,
+				BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,31 +71,6 @@
 				BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		BD319FEA2971EF3200F9E2B9 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				BD319FEB2971EF3200F9E2B9 /* AuthenticationService.swift */,
-				BD319FEC2971EF3200F9E2B9 /* GroupService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		BD319FEE2971EF3200F9E2B9 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				BD319FEF2971EF3200F9E2B9 /* GroceryRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		BD319FFF2971F0E800F9E2B9 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				BD31A0002971F0E800F9E2B9 /* GroceryViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		BDDBD4C628F2591000B42693 = {
@@ -151,27 +92,13 @@
 		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
-				BDDBD4D828F2591100B42693 /* Tristy.entitlements */,
-				BD3AF02F28F2686D00BFEB04 /* GoogleService-Info.plist */,
+				BD319FDD2971EF3100F9E2B9 /* TristyApp.swift */,
 				BDDBD4D628F2591100B42693 /* Assets.xcassets */,
-				BD319FE32971EF3100F9E2B9 /* Preview Content */,
 				BD319FE82971EF3200F9E2B9 /* Extensions */,
 				BD319FE52971EF3200F9E2B9 /* Models */,
-				BD319FEA2971EF3200F9E2B9 /* Services */,
-				BD319FEE2971EF3200F9E2B9 /* Repositories */,
-				BD319FFF2971F0E800F9E2B9 /* ViewModels */,
 				BD319FDC2971EF3100F9E2B9 /* Views */,
-				BDDBD4D928F2591100B42693 /* Preview Content */,
 			);
 			path = Tristy;
-			sourceTree = "<group>";
-		};
-		BDDBD4D928F2591100B42693 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BDDBD4DA28F2591100B42693 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,11 +118,6 @@
 			);
 			name = Tristy;
 			packageProductDependencies = (
-				BDDBD4E228F2598900B42693 /* FirebaseAuth */,
-				BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */,
-				BDDBD4E628F2598900B42693 /* FirebaseFirestore */,
-				BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */,
-				BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */,
 			);
 			productName = Tristy;
 			productReference = BDDBD4CF28F2591000B42693 /* Tristy.app */;
@@ -209,7 +131,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					BDDBD4CE28F2591000B42693 = {
 						CreatedOnToolsVersion = 14.0;
@@ -226,7 +148,6 @@
 			);
 			mainGroup = BDDBD4C628F2591000B42693;
 			packageReferences = (
-				BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BDDBD4D028F2591000B42693 /* Products */;
 			projectDirPath = "";
@@ -242,10 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD319FF62971EF3200F9E2B9 /* Preview Assets.xcassets in Resources */,
-				BDDBD4DB28F2591100B42693 /* Preview Assets.xcassets in Resources */,
 				BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */,
-				BD3AF03028F2686D00BFEB04 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,15 +178,11 @@
 				BD319FF72971EF3200F9E2B9 /* TristyTag.swift in Sources */,
 				BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */,
 				BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */,
+				BD867A1C2BBB1DCE006B2B12 /* TristyList.swift in Sources */,
 				BD319FF52971EF3200F9E2B9 /* ContentView.swift in Sources */,
-				BD319FFC2971EF3200F9E2B9 /* GroceryRepository.swift in Sources */,
 				BD319FF32971EF3200F9E2B9 /* GroceryView.swift in Sources */,
-				BD319FF42971EF3200F9E2B9 /* GroupSettingsView.swift in Sources */,
-				BD319FFB2971EF3200F9E2B9 /* GroupService.swift in Sources */,
 				BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */,
-				BD31A0012971F0E800F9E2B9 /* GroceryViewModel.swift in Sources */,
 				BD319FF22971EF3200F9E2B9 /* TagSettingsView.swift in Sources */,
-				BD319FFA2971EF3200F9E2B9 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +193,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -308,9 +223,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -325,6 +242,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -337,6 +256,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -366,9 +286,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -377,6 +299,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -389,10 +313,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -406,9 +329,9 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -416,10 +339,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -428,10 +352,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -445,9 +368,9 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -455,10 +378,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -484,45 +408,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BDDBD4E228F2598900B42693 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		BDDBD4E428F2598900B42693 /* FirebaseAuthCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseAuthCombine-Community";
-		};
-		BDDBD4E628F2598900B42693 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		BDDBD4E828F2598900B42693 /* FirebaseFirestoreCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreCombine-Community";
-		};
-		BDDBD4EA28F2598900B42693 /* FirebaseFirestoreSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDDBD4E128F2598900B42693 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BDDBD4C728F2591000B42693 /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 /// Represents a list of groceries
 struct GroceryListView: View {
@@ -23,18 +24,20 @@ struct GroceryListView: View {
     }
     
     // MARK: - Instance Variables
-    @ObservedObject var repository = GroceryRepository.shared
     @State var sheetType: SheetType? = nil
     @State var text = ""
     @State var tags: [TristyTag] = []
     @FocusState var focusState: Focus?
     @State var showTagsForAdd = false
     
+    @Environment(\.modelContext) var modelContext
+    @Query() var groceries: [TristyGrocery]
+    
     
     // MARK: - List of Groceries
     var listOfGroceries: some View {
         Group {
-            if (GroceryRepository.shared.groceries.isEmpty) {
+            if (groceries.isEmpty) {
                 emptyListView
             } else {
                 populatedListView
@@ -76,8 +79,8 @@ struct GroceryListView: View {
     
     var populatedListView: some View {
         List {
-            ForEach(GroceryRepository.shared.groceries) { grocery in
-                GroceryView(groceryVM: .init(grocery: grocery))
+            ForEach(groceries) { grocery in
+                GroceryView(grocery: grocery)
             }
             .onDelete(perform: deleteItems)
         }
@@ -91,11 +94,11 @@ struct GroceryListView: View {
                 Spacer()
                 
                 VStack(spacing: 0) {
-                    List( GroceryRepository.shared.tags.contains {
+                    List( tags.contains {
                         $0.title.contains(text)
-                    } ? GroceryRepository.shared.tags.filter { // TODO: replace with better algo that uses # and search indicator
+                    } ? tags.filter { // TODO: replace with better algo that uses # and search indicator
                         $0.title.contains(text)
-                    } : GroceryRepository.shared.tags) { tag in
+                    } : tags) { tag in
                         Button {
                             if (tags.contains {
                                 tag.id == $0.id
@@ -173,7 +176,7 @@ struct GroceryListView: View {
                     
                     TextField("Add item...", text: $text)
                         .focused($focusState, equals: .addField)
-                        .onChange(of: focusState) { _ in
+                        .onChange(of: focusState) { _, _ in
                             if (focusState == nil) {
                                 showTagsForAdd = false
                             }
@@ -216,7 +219,7 @@ struct GroceryListView: View {
     var sheets: some View {
         Group {
             if (sheetType == .groups) {
-                GroupSettingsView()
+                ContentUnavailableView("Groups view is currently unsupported.", systemImage: "person.3.fill")
             } else if (sheetType == .tags) {
                 TagSettingsView()
             }
@@ -244,7 +247,8 @@ struct GroceryListView: View {
     
     var toolbarGroupSection: some View {
         Group {
-            Text("Group: \(GroupService.shared.groupId)")
+            Text("Group selection currently unsupported")
+//            Text("Group: \(GroupService.shared.groupId)")
             Button {
                 sheetType = .groups
             } label: {
@@ -262,26 +266,20 @@ struct GroceryListView: View {
     }
     
     var toolbarCheckSection: some View {
-        let hasOneComplete = GroceryRepository.shared.groceries.contains { $0.completed == true }
-        let hasOneIncomplete = GroceryRepository.shared.groceries.contains { $0.completed == false }
+        let hasOneComplete = groceries.contains { $0.completed == true }
+        let hasOneIncomplete = groceries.contains { $0.completed == false }
         
         let uncheckAll = Button {
-            GroceryRepository.shared.groceries.forEach { grocery in
-                var newGrocery = grocery
-                newGrocery.setCompleted(false)
-                
-                GroceryRepository.shared.update(newGrocery)
+            groceries.forEach { grocery in
+                grocery.completed = false
             }
         } label: {
             Label("Uncheck All", systemImage: "xmark")
         }
         
         let checkAll = Button {
-            GroceryRepository.shared.groceries.forEach { grocery in
-                var newGrocery = grocery
-                newGrocery.setCompleted(true)
-                
-                GroceryRepository.shared.update(newGrocery)
+            groceries.forEach { grocery in
+                grocery.completed = true
             }
         } label: {
             Label("Complete All", systemImage: "checkmark")
@@ -295,10 +293,10 @@ struct GroceryListView: View {
     
     var clearAllSection: some View {
         Group {
-            if (!GroceryRepository.shared.groceries.isEmpty) {
+            if (!groceries.isEmpty) {
                 Button(role: .destructive) {
-                    GroceryRepository.shared.groceries.forEach { grocery in
-                        GroceryRepository.shared.remove(grocery)
+                    groceries.forEach { grocery in
+                        modelContext.delete(grocery)
                     }
                 } label: {
                     Label("Clear All", systemImage: "eraser.line.dashed")
@@ -333,7 +331,7 @@ struct GroceryListView: View {
     private func addGrocery(title: String, incomingTags: [TristyTag]) {
         if (!text.isEmpty) {
             let grocery = TristyGrocery(title: title, tags: incomingTags)
-            GroceryRepository.shared.add(grocery)
+            modelContext.insert(grocery)
             text = ""
             tags = []
             withAnimation {
@@ -345,8 +343,7 @@ struct GroceryListView: View {
     
     private func deleteItems(items: IndexSet) {
         items.forEach {
-            let grocery = GroceryRepository.shared.groceries[$0]
-            GroceryRepository.shared.remove(grocery)
+            modelContext.delete(groceries[$0])
         }
     }
 

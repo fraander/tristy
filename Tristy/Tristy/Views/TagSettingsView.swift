@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TagSettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var groceryRepository = GroceryRepository.shared
+    @Environment(\.modelContext) private var modelContext
     @State var newTagTitle = ""
+    @Query() var tags: [TristyTag]
     
     var body: some View {
         NavigationStack {
@@ -18,7 +20,7 @@ struct TagSettingsView: View {
                 newTagSection
                 
                 List {
-                    ForEach(groceryRepository.tags) { tag in
+                    ForEach(tags) { tag in
                         HStack {
                             Image(systemName: "tag")
                             Text(tag.title)
@@ -57,7 +59,7 @@ struct TagSettingsView: View {
     private func createTag() {
         if !newTagTitle.isEmpty {
             let newTag = TristyTag(title: newTagTitle)
-            groceryRepository.add(newTag)
+            modelContext.insert(newTag)
             
             newTagTitle = ""
         }
@@ -66,7 +68,7 @@ struct TagSettingsView: View {
     /// Delete tags at the given indexes from the repository
     /// - Parameter items: the indecies of the tags to delete
     private func deleteItems(items: IndexSet) {
-        items.forEach { groceryRepository.remove(groceryRepository.tags[$0]) }
+        items.forEach { modelContext.delete(tags[$0]) }
     }
 }
 
