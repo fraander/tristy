@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GroceryView: View {
     enum Focus: Equatable {
@@ -16,48 +17,22 @@ struct GroceryView: View {
         }
     }
         
-    @ObservedObject var groceryVM: GroceryViewModel
     @State var newTitle = ""
     @State var initialValue = ""
     @FocusState var focus: Focus?
-    @State var toDeleteTag: TristyTag?
     
-    // horizontal list of tags
-    var tagsView: some View {
-        Group {
-            if !groceryVM.grocery.tags.isEmpty && !groceryVM.grocery.completed {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(groceryVM.grocery.tags, id: \.title) { tag in
-                            Button {
-                                toDeleteTag = tag
-                            } label: {
-                                Text(tag.title.lowercased())
-                                    .font(.system(.caption, design: .rounded))
-                            }
-                            .buttonStyle(.bordered)
-                            .tint(.accentColor)
-                            .transition(.scale.combined(with: .slide))
-                        }
-                    }
-                    .animation(.spring(), value: groceryVM.grocery.tags)
-                }
-                .scrollIndicators(.never)
-                .transition(.slide.combined(with: .opacity))
-                .animation(Animation.easeInOut, value: groceryVM.grocery.completed)
-            }
-        }
-    }
+    @Environment(\.modelContext) var modelContext
+    var grocery: Grocery
     
     // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
         Button {
-            groceryVM.setCompleted()
+            grocery.completed.toggle()
         } label: {
-            Image(systemName: "\(groceryVM.grocery.completed ? "checkmark.circle.fill" : "checkmark.circle")")
+            Image(systemName: "\(grocery.completed ? "checkmark.circle.fill" : "checkmark.circle")")
         }
         .buttonStyle(.plain)
-        .foregroundColor(groceryVM.grocery.completed ? .mint : .accentColor)
+        .foregroundColor(grocery.completed ? .mint : .accentColor)
         .font(.system(.title2))
     }
     
@@ -65,8 +40,8 @@ struct GroceryView: View {
     var strikethroughView: some View {
         HStack {
             Capsule()
-                .frame(maxWidth: groceryVM.grocery.completed ? .infinity : 0, maxHeight: 2, alignment: .leading)
-                .opacity(groceryVM.grocery.completed ? 1 : 0)
+                .frame(maxWidth: grocery.completed ? .infinity : 0, maxHeight: 2, alignment: .leading)
+                .opacity(grocery.completed ? 1 : 0)
             Spacer()
         }
     }
@@ -78,8 +53,8 @@ struct GroceryView: View {
                 if (newTitle.isEmpty) { // check not left empty
                     newTitle = initialValue // reset to initial value so not blank
                 } else { // update
-                    groceryVM.setTitle(newTitle) // set the title
-                    initialValue = groceryVM.grocery.title // set new initial value checkpoint
+                    grocery.title = newTitle // set the title
+                    initialValue = grocery.title // set new initial value checkpoint
                 }
                 
             })
@@ -88,17 +63,17 @@ struct GroceryView: View {
             .scrollDismissesKeyboard(.immediately)
 #endif
             
-            Text(groceryVM.grocery.title)
+            Text(grocery.title)
                 .opacity(0.0)
                 .padding(.trailing, 10)
                 .overlay {
                     strikethroughView
                 }
-                .animation(.easeOut(duration: 0.25), value: groceryVM.grocery.completed)
+                .animation(.easeOut(duration: 0.25), value: grocery.completed)
             
         }
-        .allowsHitTesting(!groceryVM.grocery.completed)
-        .foregroundColor(groceryVM.grocery.completed ? .secondary : .primary)
+        .allowsHitTesting(!grocery.completed)
+        .foregroundColor(grocery.completed ? .secondary : .primary)
     }
     
     var body: some View {
@@ -108,34 +83,12 @@ struct GroceryView: View {
                 
                 textView
             }
-            
-            tagsView
         }
         .font(.system(.body, design: .rounded))
         .task {
             // track value before editing
-            initialValue = groceryVM.grocery.title
-            newTitle = groceryVM.grocery.title
+            initialValue = grocery.title
+            newTitle = grocery.title
         }
-        .alert(item: $toDeleteTag) { tag in
-            if let t = toDeleteTag {
-                return Alert(
-                    title: Text("Are you sure you want to remove \(tag.title) from this item?"),
-                    primaryButton: .cancel(),
-                    secondaryButton: .destructive(Text("Remove")) {
-                        groceryVM.remove(tag: t)
-                    }
-                )
-            } else {
-                return Alert(title: Text("Error removing tag from grocery."))
-            }
-        }
-    }
-}
-
-struct GroceryView_Previews: PreviewProvider {
-    static var previews: some View {
-        let grocery = examples[0]
-        return GroceryView(groceryVM: .init(grocery: grocery))
     }
 }
