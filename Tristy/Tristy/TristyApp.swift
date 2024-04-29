@@ -12,9 +12,7 @@ struct TristyApp: App {
         WindowGroup {
             NavigationView {
                 ContentView()
-                    .modelContainer(for: TristyList.self)
-                    .modelContainer(for: TristyGrocery.self)
-                    .modelContainer(for: TristyTag.self)
+                    .modelContainer(for: Grocery.self)
             }
         }
     }

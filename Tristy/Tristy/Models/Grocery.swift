@@ -10,17 +10,16 @@ import SwiftData
 import SwiftUI
 
 @Model
-class TristyGrocery: Identifiable {
+class Grocery: Identifiable {
     var id: UUID
     var title: String
     var completed: Bool = false
-    var tags: [TristyTag]?
-    var lists: [TristyList]?
+    var tags: [GroceryTag]
     
-    init(title: String, tags: [TristyTag]) {
+    init(title: String, tags: [GroceryTag] = []) {
         self.id = UUID()
         self.title = title
-        self.tags = tags
         self.completed = false
+        self.tags = tags
     }
 }

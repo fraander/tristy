@@ -20,37 +20,9 @@ struct GroceryView: View {
     @State var newTitle = ""
     @State var initialValue = ""
     @FocusState var focus: Focus?
-    @State var toDeleteTag: TristyTag?
     
     @Environment(\.modelContext) var modelContext
-    var grocery: TristyGrocery
-    
-    // horizontal list of tags
-    var tagsView: some View {
-        Group {
-            if !((grocery.tags?.isEmpty) != nil) && !grocery.completed {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(grocery.tags ?? [], id: \.title) { tag in
-                            Button {
-                                toDeleteTag = tag
-                            } label: {
-                                Text(tag.title.lowercased())
-                                    .font(.system(.caption, design: .rounded))
-                            }
-                            .buttonStyle(.bordered)
-                            .tint(.accentColor)
-                            .transition(.scale.combined(with: .slide))
-                        }
-                    }
-                    .animation(.spring(), value: grocery.tags)
-                }
-                .scrollIndicators(.never)
-                .transition(.slide.combined(with: .opacity))
-                .animation(Animation.easeInOut, value: grocery.completed)
-            }
-        }
-    }
+    var grocery: Grocery
     
     // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
@@ -111,27 +83,12 @@ struct GroceryView: View {
                 
                 textView
             }
-            
-            tagsView
         }
         .font(.system(.body, design: .rounded))
         .task {
             // track value before editing
             initialValue = grocery.title
             newTitle = grocery.title
-        }
-        .alert(item: $toDeleteTag) { tag in
-            if let t = toDeleteTag {
-                return Alert(
-                    title: Text("Are you sure you want to remove \(tag.title) from this item?"),
-                    primaryButton: .cancel(),
-                    secondaryButton: .destructive(Text("Remove")) {
-                        modelContext.delete(t)
-                    }
-                )
-            } else {
-                return Alert(title: Text("Error removing tag from grocery."))
-            }
         }
     }
 }

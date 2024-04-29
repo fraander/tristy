@@ -7,28 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD2B7B262BDF27DF00CCE052 /* GroceryTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2B7B252BDF27DF00CCE052 /* GroceryTag.swift */; };
+		BD2B7B282BDF287200CCE052 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2B7B272BDF287200CCE052 /* AddBar.swift */; };
 		BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FDD2971EF3100F9E2B9 /* TristyApp.swift */; };
 		BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */; };
-		BD319FF22971EF3200F9E2B9 /* TagSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */; };
 		BD319FF32971EF3200F9E2B9 /* GroceryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE02971EF3100F9E2B9 /* GroceryView.swift */; };
 		BD319FF52971EF3200F9E2B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE22971EF3100F9E2B9 /* ContentView.swift */; };
-		BD319FF72971EF3200F9E2B9 /* TristyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE62971EF3200F9E2B9 /* TristyTag.swift */; };
-		BD319FF82971EF3200F9E2B9 /* TristyGrocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */; };
+		BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE72971EF3200F9E2B9 /* Grocery.swift */; };
 		BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */; };
-		BD867A1C2BBB1DCE006B2B12 /* TristyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD2B7B252BDF27DF00CCE052 /* GroceryTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryTag.swift; sourceTree = "<group>"; };
+		BD2B7B272BDF287200CCE052 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		BD319FDD2971EF3100F9E2B9 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryListView.swift; sourceTree = "<group>"; };
-		BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSettingsView.swift; sourceTree = "<group>"; };
 		BD319FE02971EF3100F9E2B9 /* GroceryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryView.swift; sourceTree = "<group>"; };
 		BD319FE22971EF3100F9E2B9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BD319FE62971EF3200F9E2B9 /* TristyTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyTag.swift; sourceTree = "<group>"; };
-		BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyGrocery.swift; sourceTree = "<group>"; };
+		BD319FE72971EF3200F9E2B9 /* Grocery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
-		BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyList.swift; sourceTree = "<group>"; };
 		BD867A1D2BBB24A8006B2B12 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,8 +46,8 @@
 		BD319FDC2971EF3100F9E2B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BD2B7B272BDF287200CCE052 /* AddBar.swift */,
 				BD319FDE2971EF3100F9E2B9 /* GroceryListView.swift */,
-				BD319FDF2971EF3100F9E2B9 /* TagSettingsView.swift */,
 				BD319FE02971EF3100F9E2B9 /* GroceryView.swift */,
 				BD319FE22971EF3100F9E2B9 /* ContentView.swift */,
 			);
@@ -59,9 +57,8 @@
 		BD319FE52971EF3200F9E2B9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BD319FE62971EF3200F9E2B9 /* TristyTag.swift */,
-				BD319FE72971EF3200F9E2B9 /* TristyGrocery.swift */,
-				BD867A1B2BBB1DCE006B2B12 /* TristyList.swift */,
+				BD319FE72971EF3200F9E2B9 /* Grocery.swift */,
+				BD2B7B252BDF27DF00CCE052 /* GroceryTag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,15 +173,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD319FF82971EF3200F9E2B9 /* TristyGrocery.swift in Sources */,
-				BD319FF72971EF3200F9E2B9 /* TristyTag.swift in Sources */,
+				BD2B7B262BDF27DF00CCE052 /* GroceryTag.swift in Sources */,
+				BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */,
 				BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */,
 				BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */,
-				BD867A1C2BBB1DCE006B2B12 /* TristyList.swift in Sources */,
 				BD319FF52971EF3200F9E2B9 /* ContentView.swift in Sources */,
+				BD2B7B282BDF287200CCE052 /* AddBar.swift in Sources */,
 				BD319FF32971EF3200F9E2B9 /* GroceryView.swift in Sources */,
 				BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */,
-				BD319FF22971EF3200F9E2B9 /* TagSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
