@@ -20,7 +20,7 @@ struct GroceryListView: View {
         self.list = list
         _listSelection = listSelection
         _groceries = Query(filter: #Predicate<Grocery> {
-            return !$0.hidden && ($0.when ?? "") == list.description
+            return ($0.when ?? "") == list.description
         }, animation: .default)
     }
     
@@ -62,13 +62,15 @@ struct GroceryListView: View {
     
     var clearAllSection: some View {
         Group {
-            if (!groceries.isEmpty) {
-                Button(role: .destructive) {
-                    groceries.forEach { grocery in
-                        grocery.hidden = true
+            ForEach(GroceryList.tabs, id: \.description) { tag in
+                if (!groceries.isEmpty && list != tag) {
+                    Button {
+                        groceries.forEach { grocery in
+                            grocery.when = tag.description
+                        }
+                    } label: {
+                        Label("Move to \(tag.description)", systemImage: tag.symbol)
                     }
-                } label: {
-                    Label("Clear All", systemImage: "eraser.line.dashed")
                 }
             }
         }
@@ -146,7 +148,7 @@ struct GroceryListView: View {
     }
     
     private func deleteGrocery(grocery: Grocery) {
-        grocery.hidden = true
+        modelContext.delete(grocery)
     }
 }
 

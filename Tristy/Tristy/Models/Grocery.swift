@@ -15,7 +15,6 @@ class Grocery: Identifiable {
     var title: String
     var completed: Bool = false
     var when: String? = GroceryList.today.description
-    var hidden: Bool = false
     
     init(title: String, when: GroceryList = .today) {
         self.id = UUID()

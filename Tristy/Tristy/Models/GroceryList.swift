@@ -16,6 +16,15 @@ enum GroceryList: Codable, CustomStringConvertible {
         }
     }
     
+    static func toEnum(_ string: String) -> GroceryList? {
+        switch string {
+        case "Today": GroceryList.today
+        case "Next Time": GroceryList.nextTime
+        case "Eventually": GroceryList.eventually
+        default: nil
+        }
+    }
+    
     static let tabs: [GroceryList] = [.today, .nextTime, .eventually]
     
     var symbol: String {

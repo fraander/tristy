@@ -29,7 +29,14 @@ struct AddBarQuery: View {
         ScrollView {
             VStack {
                 ForEach(groceries) { grocery in
-                    Text(grocery.title)
+                    HStack {
+                        Text(grocery.title)
+                        Spacer()
+                        
+                        if let groceryEnum = GroceryList.toEnum(grocery.when ?? "") {
+                            Image(systemName: groceryEnum.symbol)
+                        }
+                    }
                         .padding(.vertical, 5)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
