@@ -8,54 +8,22 @@
 import SwiftUI
 import SwiftData
 
-enum Focus {
-    case addField, none
-}
-
 /// Represents a list of groceries
 struct GroceryListView: View {
-
+    
+    let list: GroceryList
+    @Binding var listSelection: GroceryList
     @Environment(\.modelContext) var modelContext
     @Query var groceries: [Grocery]
     
     
-    // MARK: - List of Groceries
-    var listOfGroceries: some View {
-        Group {
-            if (groceries.isEmpty) {
-                emptyListView
-            } else {
-                populatedListView
-            }
-        }
-    }
     
-    var emptyListView: some View {
-        GroupBox {
-            VStack(spacing: 12) {
-                Text("Your list is clear!")
-                    .font(.system(.headline, design: .rounded))
-                
-                Group {
-                    Text("Use the ")
-                    + Text("Add Bar").bold()
-                    + Text(" at the bottom of the screen to add to your list.")
-                }
-                .font(.system(.caption, design: .rounded))
-                .multilineTextAlignment(.center)
-            }
-            .padding(.horizontal)
-        }
-        .padding(40)
-    }
-    
-    var populatedListView: some View {
-        List {
-            ForEach(groceries) { grocery in
-                GroceryView(grocery: grocery)
-            }
-            .onDelete(perform: deleteItems)
-        }
+    init(list: GroceryList, listSelection: Binding<GroceryList>) {
+        self.list = list
+        _listSelection = listSelection
+        _groceries = Query(filter: #Predicate<Grocery> {
+            return !$0.hidden && ($0.when ?? "") == list.description
+        }, animation: .default)
     }
     
     // MARK: - Toolbar Menu
@@ -98,7 +66,7 @@ struct GroceryListView: View {
             if (!groceries.isEmpty) {
                 Button(role: .destructive) {
                     groceries.forEach { grocery in
-                        modelContext.delete(grocery)
+                        grocery.hidden = true
                     }
                 } label: {
                     Label("Clear All", systemImage: "eraser.line.dashed")
@@ -107,34 +75,61 @@ struct GroceryListView: View {
         }
     }
     
-    // MARK: - Body
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                listOfGroceries
-                AddBar()
+    var emptyListView: some View {
+        GroupBox {
+            VStack(spacing: 12) {
+                Text("Your list is clear!")
+                    .font(.system(.headline, design: .rounded))
+                
+                Group {
+                    Text("Use the ")
+                    + Text("Add Bar").bold()
+                    + Text(" at the bottom of the screen to add to your list.")
+                }
+                .font(.system(.caption, design: .rounded))
+                .multilineTextAlignment(.center)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Groceries")
-#if os(macOS)
-            .navigationSubtitle(GroupService.shared.groupId)
-#endif
-            .toolbarTitleMenu {
-                toolbarMenu
+            .padding(.horizontal)
+        }
+        .padding(40)
+    }
+    
+    var populatedListView: some View {
+        List {
+            ForEach(groceries) { grocery in
+                GroceryView(grocery: grocery)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button("Remove", systemImage: "trash.fill") {
+                            deleteGrocery(grocery: grocery)
+                        }
+                        .tint(.pink)
+                    }
             }
         }
     }
     
-    private func deleteItems(items: IndexSet) {
-        items.forEach {
-            modelContext.delete(groceries[$0])
+    var body: some View {
+        Group {
+            if (groceries.isEmpty) {
+                emptyListView
+            } else {
+                populatedListView
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(list.description)
+        .toolbarTitleMenu {
+            toolbarMenu
         }
     }
-
+    
+    private func deleteGrocery(grocery: Grocery) {
+        grocery.hidden = true
+    }
 }
 
-struct NewGroceryListView_Previews: PreviewProvider {
+struct GroceryListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroceryListView()
+        GroceryListView(list: .today, listSelection: .constant(.today))
     }
 }

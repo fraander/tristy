@@ -14,12 +14,13 @@ class Grocery: Identifiable {
     var id: UUID
     var title: String
     var completed: Bool = false
-    var tags: [GroceryTag]
+    var when: String? = GroceryList.today.description
+    var hidden: Bool = false
     
-    init(title: String, tags: [GroceryTag] = []) {
+    init(title: String, when: GroceryList = .today) {
         self.id = UUID()
         self.title = title
         self.completed = false
-        self.tags = tags
+        self.when = when.description
     }
 }
