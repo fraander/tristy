@@ -16,8 +16,6 @@ struct GroceryListView: View {
     @Environment(\.modelContext) var modelContext
     @Query var groceries: [Grocery]
     
-    
-    
     init(list: GroceryList, listSelection: Binding<GroceryList>) {
         self.list = list
         _listSelection = listSelection
@@ -26,12 +24,13 @@ struct GroceryListView: View {
         }, animation: .default)
     }
     
-    // MARK: - Toolbar Menu
-    var toolbarMenu: some View {
-        Group {
-            toolbarCheckSection
-            Divider()
-            clearAllSection
+    var listControlGroup: some View {
+        ControlGroup {
+            ForEach(GroceryList.tabs, id: \.self) { tab in
+                Button(tab.description, systemImage: tab.symbol) {
+                    listSelection = tab
+                }
+            }
         }
     }
     
@@ -98,7 +97,17 @@ struct GroceryListView: View {
         List {
             ForEach(groceries) { grocery in
                 GroceryView(grocery: grocery)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    .listRowBackground(Color.secondaryBackground)
+                    .contextMenu {
+                        ControlGroup {
+                            ForEach(GroceryList.tabs, id: \.self) { tab in
+                                if (tab != list) {
+                                    Button(tab.description, systemImage: tab.symbol) {
+                                        grocery.when = tab.description
+                                    }
+                                }
+                            }
+                        }
                         Button("Remove", systemImage: "trash.fill") {
                             deleteGrocery(grocery: grocery)
                         }
@@ -106,6 +115,7 @@ struct GroceryListView: View {
                     }
             }
         }
+        .scrollContentBackground(.hidden)
     }
     
     var body: some View {
@@ -116,10 +126,22 @@ struct GroceryListView: View {
                 populatedListView
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(list.description)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Image(systemName: list.symbol).foregroundStyle(Color.accent)
+                Text(list.description)
+                    .font(.system(.headline, weight: .medium))
+                }
+            }
+        }
         .toolbarTitleMenu {
-            toolbarMenu
+            listControlGroup
+                .controlGroupStyle(.menu)
+            Divider()
+            toolbarCheckSection
+            Divider()
+            clearAllSection
         }
     }
     

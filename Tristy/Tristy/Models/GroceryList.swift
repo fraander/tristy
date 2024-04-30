@@ -16,6 +16,8 @@ enum GroceryList: Codable, CustomStringConvertible {
         }
     }
     
+    static let tabs: [GroceryList] = [.today, .nextTime, .eventually]
+    
     var symbol: String {
         switch self {
         case .today: "smallcircle.filled.circle"
