@@ -14,7 +14,7 @@ struct ChangeAppIconView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack(spacing: 11) {
+                VStack {
                     ForEach(AppIcon.allCases) { appIcon in
                         HStack(spacing: 16) {
                             Image(uiImage: appIcon.preview)
@@ -27,7 +27,7 @@ struct ChangeAppIconView: View {
                             Spacer()
                             Image(systemName: viewModel.selectedAppIcon == appIcon ? "checkmark.circle.fill" : "checkmark.circle")
                                 .imageScale(.large)
-                                .foregroundStyle(viewModel.selectedAppIcon == appIcon ? Color.accentColor : Color.secondary)
+                                .foregroundStyle(viewModel.selectedAppIcon == appIcon ? Color.mint : Color.accentColor)
                         }
                         .padding(EdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 16))
                         .background(Color.secondaryBackground)
@@ -39,7 +39,6 @@ struct ChangeAppIconView: View {
                         }
                     }
                 }.padding(.horizontal)
-                    .padding(.vertical, 40)
             }
         }
     }

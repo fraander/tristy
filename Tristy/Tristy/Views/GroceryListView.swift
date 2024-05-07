@@ -134,10 +134,8 @@ struct GroceryListView: View {
                         .tint(.pink)
                     }
             }
-            
-            Spacer()
-                .frame(height: 120)
         }
+        .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
         .scrollContentBackground(.hidden)
     }
     
@@ -175,11 +173,16 @@ struct GroceryListView: View {
             VStack {
                 HStack {
                     Spacer()
-                    Button("Dismiss", systemImage: "checkmark") {
+                    Button("Done", systemImage: "checkmark") {
                         showChangeAppIconSheet = false
                     }
+                    .font(.system(.body, design: .rounded))
                 }
                 .padding([.top, .horizontal])
+                HStack {
+                    Text("Change App Icon")
+                        .font(.system(.headline, weight: .medium))
+                }
                 ChangeAppIconView()
             }
         }
