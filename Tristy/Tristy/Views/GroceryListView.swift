@@ -15,6 +15,7 @@ struct GroceryListView: View {
     @Binding var listSelection: GroceryList
     @Environment(\.modelContext) var modelContext
     @Query var groceries: [Grocery]
+    @State var showChangeAppIconSheet = false
     
     init(list: GroceryList, listSelection: Binding<GroceryList>) {
         self.list = list
@@ -60,7 +61,7 @@ struct GroceryListView: View {
         }
     }
     
-    var clearAllSection: some View {
+    var moveSection: some View {
         Group {
             ForEach(GroceryList.tabs, id: \.description) { tag in
                 if (!groceries.isEmpty && list != tag) {
@@ -68,6 +69,7 @@ struct GroceryListView: View {
                         groceries.forEach { grocery in
                             grocery.when = tag.description
                         }
+                        listSelection = tag
                     } label: {
                         Label("Move to \(tag.description)", systemImage: tag.symbol)
                     }
@@ -76,19 +78,35 @@ struct GroceryListView: View {
         }
     }
     
+    var clearAllSection: some View {
+        Group {
+            let theseGroceries = groceries.filter { g in
+                g.when == list.description
+            }
+            if (theseGroceries.count > 0) {
+                Button(role: .destructive) {
+                    theseGroceries.forEach { grocery in
+                        modelContext.delete(grocery)
+                    }
+                } label: {
+                    Label("Delete all", systemImage: "trash")
+                }
+            }
+            
+        }
+    }
+    
     var emptyListView: some View {
         GroupBox {
             VStack(spacing: 12) {
-                Text("Your list is clear!")
-                    .font(.system(.headline, design: .rounded))
-                
-                Group {
-                    Text("Use the ")
+                ContentUnavailableView(
+                    "Your list is clear!",
+                    systemImage: list.symbol,
+                    description: Text("Use the ")
                     + Text("Add Bar").bold()
                     + Text(" at the bottom of the screen to add to your list.")
-                }
-                .font(.system(.caption, design: .rounded))
-                .multilineTextAlignment(.center)
+                )
+                .frame(height: 240)
             }
             .padding(.horizontal)
         }
@@ -116,6 +134,9 @@ struct GroceryListView: View {
                         .tint(.pink)
                     }
             }
+            
+            Spacer()
+                .frame(height: 120)
         }
         .scrollContentBackground(.hidden)
     }
@@ -143,7 +164,24 @@ struct GroceryListView: View {
             Divider()
             toolbarCheckSection
             Divider()
+            moveSection
+            Divider()
+            Button("Change App Icon", systemImage: "app.badge") {
+                showChangeAppIconSheet = true
+            }
             clearAllSection
+        }
+        .sheet(isPresented: $showChangeAppIconSheet) {
+            VStack {
+                HStack {
+                    Spacer()
+                    Button("Dismiss", systemImage: "checkmark") {
+                        showChangeAppIconSheet = false
+                    }
+                }
+                .padding([.top, .horizontal])
+                ChangeAppIconView()
+            }
         }
     }
     

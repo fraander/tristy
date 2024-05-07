@@ -11,40 +11,44 @@ import NaturalLanguage
 
 struct AddBarQuery: View {
     @Query var groceries: [Grocery]
+    var list: GroceryList
     var text: String
     
-    init(text: String) {
+    init(text: String, list: GroceryList) {
         self.text = text
+        self.list = list
         _groceries = Query(filter: #Predicate<Grocery> {
-            if text.isEmpty {
-                return true
-            } else {
-                return $0.title.localizedStandardContains(text)
-            }
+            return ($0.when ?? "") != list.description && (text.isEmpty || $0.title.localizedStandardContains(text))
         }, sort: \Grocery.title, order: .reverse, animation: .default)
     }
     
     var body: some View {
-    
-        ScrollView {
-            VStack {
-                ForEach(groceries) { grocery in
-                    HStack {
-                        Text(grocery.title)
-                        Spacer()
-                        
-                        if let groceryEnum = GroceryList.toEnum(grocery.when ?? "") {
-                            Image(systemName: groceryEnum.symbol)
-                        }
-                    }
-                        .padding(.vertical, 5)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+        List(groceries) { grocery in
+            Button {
+                grocery.when = list.description
+                grocery.completed = false
+            } label: {
+                HStack {
+                    Text(grocery.title)
+                        .foregroundStyle(.primary)
+                    Spacer()
                     
-                    Divider()
+                    if let groceryEnum = GroceryList.toEnum(grocery.when ?? "") {
+                        Image(systemName: groceryEnum.symbol)
+                            .foregroundStyle(Color.accentColor)
+                    }
                 }
+                .padding(.vertical, 5)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .buttonStyle(.plain)
         }
+        .frame(minHeight: 0, idealHeight: 0, maxHeight: min(60 * CGFloat(groceries.count), 240), alignment: .bottom)
+        .scrollContentBackground(.hidden)
+        .listStyle(.plain)
+        .padding(2)
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .opacity(groceries.count > 0 ? 1 : 0)
+        .animation(.easeInOut, value: groceries.count)
     }
 }

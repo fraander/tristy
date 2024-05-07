@@ -10,16 +10,17 @@ import SwiftData
 
 struct AddBar: View {
     
-    let list: GroceryList
+    var list: GroceryList
     @State var text = ""
     @Environment(\.modelContext) var modelContext
     @FocusState var focusState: Bool
+    @Query var groceries: [Grocery]
     
     var body: some View {
         VStack {
             Spacer()
             
-            AddBarQuery(text: text)
+            AddBarQuery(text: text, list: list)
                 .background {
                     RoundedRectangle(cornerRadius: 10.0)
                         .strokeBorder(Color.secondary, lineWidth: 1)
@@ -27,7 +28,6 @@ struct AddBar: View {
                             RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
                         }
                 }
-                .frame(minHeight: 0, idealHeight: 0, maxHeight: focusState ? 200 : 0, alignment: .bottom)
                 .opacity( focusState ? 1 : 0)
                 .animation(.easeInOut(duration: 0.15), value: focusState)
             
@@ -38,7 +38,7 @@ struct AddBar: View {
                 .labelStyle(.iconOnly)
                 .tint(focusState ? Color.accentColor : Color.secondary)
                 
-                TextField("Add item...", text: $text)
+                TextField("Add item...", text: $text, axis: .vertical)
                     .focused($focusState)
                     .onSubmit {
                         addGrocery(title: text)
@@ -75,13 +75,28 @@ struct AddBar: View {
     }
     
     private func addGrocery(title: String) {
+        
         if (!text.isEmpty) {
-            let grocery = Grocery(title: title, when: list)
-            modelContext.insert(grocery)
+            let parts = title.components(separatedBy: .newlines)
+            for part in parts {
+                
+                let trimmed = part.trimmingCharacters(in: .whitespaces)
+                if let found = groceries.first(where: { g in
+                    g.title.lowercased() == trimmed.lowercased()
+                }) {
+                    found.when = list.description
+                    found.completed = false
+                } else {
+                    let grocery = Grocery(title: trimmed, when: list)
+                    modelContext.insert(grocery)
+                }
+                
+            }
             text = ""
             withAnimation {
                 focusState = false
             }
+            
         }
     }
 }
