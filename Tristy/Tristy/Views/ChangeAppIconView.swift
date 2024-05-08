@@ -5,6 +5,7 @@
 //  Created by Frank Anderson on 5/7/24.
 //
 
+#if os(iOS)
 import SwiftUI
 import UIKit
 
@@ -49,3 +50,5 @@ struct ChangeAppIconView_Previews: PreviewProvider {
         ChangeAppIconView()
     }
 }
+
+#endif

@@ -27,8 +27,10 @@ struct PrimaryView: View {
                             .tag(tab)
                     }
                 }
+                #if os(iOS)
                 .tabViewStyle(.page(indexDisplayMode: .never))
-
+                #endif
+                
                 
                 AddBar(list: selectedList)
             }

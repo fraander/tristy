@@ -5,6 +5,7 @@
 //  Created by Frank Anderson on 5/7/24.
 //
 
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -48,3 +49,5 @@ enum AppIcon: String, CaseIterable, Identifiable {
         UIImage(named: rawValue + "-Preview") ?? UIImage()
     }
 }
+
+#endif

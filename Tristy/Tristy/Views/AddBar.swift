@@ -25,7 +25,12 @@ struct AddBar: View {
                     RoundedRectangle(cornerRadius: 10.0)
                         .strokeBorder(Color.secondary, lineWidth: 1)
                         .background {
-                            RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                            RoundedRectangle(cornerRadius: 10)
+                            #if os(iOS)
+                                .fill(Color(uiColor: .systemBackground))
+                            #else
+                                .fill(Color(nsColor: .windowBackgroundColor))
+                            #endif
                         }
                 }
                 .opacity( focusState ? 1 : 0)
@@ -62,7 +67,12 @@ struct AddBar: View {
                 RoundedRectangle(cornerRadius: 10.0)
                     .strokeBorder(Color.secondary, lineWidth: 1)
                     .background {
-                        RoundedRectangle(cornerRadius: 10).fill(Color(uiColor: .systemBackground))
+                        RoundedRectangle(cornerRadius: 10)
+#if os(iOS)
+                            .fill(Color(uiColor: .systemBackground))
+#else
+                            .fill(Color(nsColor: .windowBackgroundColor))
+#endif
                     }
                     .shadow(
                         color: focusState ? Color.accentColor : Color.clear,

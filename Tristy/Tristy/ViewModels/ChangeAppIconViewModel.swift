@@ -5,6 +5,7 @@
 //  Created by Frank Anderson on 5/7/24.
 //
 
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -44,3 +45,5 @@ final class ChangeAppIconViewModel: ObservableObject {
         }
     }
 }
+
+#endif

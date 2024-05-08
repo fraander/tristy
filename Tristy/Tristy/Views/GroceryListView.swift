@@ -164,11 +164,14 @@ struct GroceryListView: View {
             Divider()
             moveSection
             Divider()
+            #if os(iOS)
             Button("Change App Icon", systemImage: "app.badge") {
                 showChangeAppIconSheet = true
             }
+            #endif
             clearAllSection
         }
+        #if os(iOS)
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
                 HStack {
@@ -186,6 +189,7 @@ struct GroceryListView: View {
                 ChangeAppIconView()
             }
         }
+        #endif
     }
     
     private func deleteGrocery(grocery: Grocery) {
