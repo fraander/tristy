@@ -11,8 +11,8 @@ import SwiftUI
 
 @Model
 class Grocery: Identifiable {
-    var id: UUID
-    var title: String
+    var id: UUID = UUID()
+    var title: String = ""
     var completed: Bool = false
     var when: String? = GroceryList.today.description
     

@@ -16,9 +16,9 @@
 		BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */; };
 		BD78F1E22BE08C7000AE62F6 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */; };
 		BDD508732BEA80E8006F8AB5 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD508722BEA80E8006F8AB5 /* AppIcon.swift */; };
-		BDD508752BEA848A006F8AB5 /* ChangeAppIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD508742BEA848A006F8AB5 /* ChangeAppIconViewModel.swift */; };
 		BDD508782BEA850C006F8AB5 /* ChangeAppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD508772BEA850C006F8AB5 /* ChangeAppIconView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
+		BDE56A672BEB0143009D2AE0 /* ChangeAppIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE56A662BEB0143009D2AE0 /* ChangeAppIconViewModel.swift */; };
 		BDFE3FD52BE048B7008F21AF /* AddBarQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE3FD42BE048B7008F21AF /* AddBarQuery.swift */; };
 		BDFE3FD72BE06594008F21AF /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE3FD62BE06594008F21AF /* PrimaryView.swift */; };
 		BDFE3FD92BE067AB008F21AF /* GroceryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE3FD82BE067AB008F21AF /* GroceryList.swift */; };
@@ -35,10 +35,12 @@
 		BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		BD867A1D2BBB24A8006B2B12 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		BDD508722BEA80E8006F8AB5 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
-		BDD508742BEA848A006F8AB5 /* ChangeAppIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeAppIconViewModel.swift; path = Tristy/ViewModels/ChangeAppIconViewModel.swift; sourceTree = SOURCE_ROOT; };
 		BDD508772BEA850C006F8AB5 /* ChangeAppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconView.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBD4D628F2591100B42693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDE56A662BEB0143009D2AE0 /* ChangeAppIconViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeAppIconViewModel.swift; sourceTree = "<group>"; };
+		BDE56A682BEB01B5009D2AE0 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
+		BDE56A692BEB01E1009D2AE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BDFE3FD42BE048B7008F21AF /* AddBarQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarQuery.swift; sourceTree = "<group>"; };
 		BDFE3FD62BE06594008F21AF /* PrimaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		BDFE3FD82BE067AB008F21AF /* GroceryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryList.swift; sourceTree = "<group>"; };
@@ -88,15 +90,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		BDD508762BEA848D006F8AB5 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				BDD508742BEA848A006F8AB5 /* ChangeAppIconViewModel.swift */,
-			);
-			name = ViewModels;
-			path = Views/ViewModels;
-			sourceTree = "<group>";
-		};
 		BDDBD4C628F2591000B42693 = {
 			isa = PBXGroup;
 			children = (
@@ -116,15 +109,25 @@
 		BDDBD4D128F2591000B42693 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
+				BDE56A692BEB01E1009D2AE0 /* Info.plist */,
+				BDE56A682BEB01B5009D2AE0 /* Tristy.entitlements */,
 				BD867A1D2BBB24A8006B2B12 /* TODO.md */,
 				BD319FDD2971EF3100F9E2B9 /* TristyApp.swift */,
 				BDDBD4D628F2591100B42693 /* Assets.xcassets */,
 				BD319FE82971EF3200F9E2B9 /* Extensions */,
 				BD319FE52971EF3200F9E2B9 /* Models */,
 				BD319FDC2971EF3100F9E2B9 /* Views */,
-				BDD508762BEA848D006F8AB5 /* ViewModels */,
+				BDE56A652BEB0129009D2AE0 /* ViewModels */,
 			);
 			path = Tristy;
+			sourceTree = "<group>";
+		};
+		BDE56A652BEB0129009D2AE0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BDE56A662BEB0143009D2AE0 /* ChangeAppIconViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDD508752BEA848A006F8AB5 /* ChangeAppIconViewModel.swift in Sources */,
+				BDE56A672BEB0143009D2AE0 /* ChangeAppIconViewModel.swift in Sources */,
 				BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */,
 				BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */,
 				BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */,
@@ -346,6 +349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -353,6 +357,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -369,7 +374,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -385,6 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -392,6 +398,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -408,7 +415,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.frank.Tristy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
