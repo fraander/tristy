@@ -46,6 +46,28 @@ struct GroceryView: View {
         }
     }
     
+    func priorityImageName(_ p: Int) -> String {
+        switch p {
+        case 1: "exclamationmark"
+        case 2: "exclamationmark.2"
+        case 3: "exclamationmark.3"
+        default: ""
+        }
+    }
+    
+    var priorityIndicator: some View {
+        Group {
+            let p = GroceryPriority.toEnum(grocery.priority)
+            if p != .none {
+                Image(systemName: p.symbol)
+                    .opacity(p != .none ? 0.5 : 0)
+                    .contentTransition(.symbolEffect(.replace))
+                    .animation(.easeInOut(duration: 0.15), value: p)
+                    .animation(.easeInOut(duration: 0.15), value: p.symbol)                
+            }
+        }
+    }
+    
     // show text or textfield depending on completion state
     var textView: some View {
         ZStack(alignment: .leading) {
@@ -58,7 +80,9 @@ struct GroceryView: View {
                 }
                 
             })
+            .lineLimit(1)
             .focused($focus, equals: .item)
+            .font(.system(.body, design: .rounded))
 #if os(iOS)
             .scrollDismissesKeyboard(.immediately)
 #endif
@@ -66,6 +90,7 @@ struct GroceryView: View {
             Text(grocery.title)
                 .opacity(0.0)
                 .padding(.trailing, 10)
+                .lineLimit(1)
                 .overlay {
                     strikethroughView
                 }
@@ -82,6 +107,8 @@ struct GroceryView: View {
                 checkboxView
                 
                 textView
+                
+                priorityIndicator
             }
         }
         .font(.system(.body, design: .rounded))

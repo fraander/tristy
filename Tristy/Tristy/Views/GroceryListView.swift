@@ -16,13 +16,14 @@ struct GroceryListView: View {
     @Environment(\.modelContext) var modelContext
     @Query var groceries: [Grocery]
     @State var showChangeAppIconSheet = false
+    @State var alert: String? = nil
     
     init(list: GroceryList, listSelection: Binding<GroceryList>) {
         self.list = list
         _listSelection = listSelection
         _groceries = Query(filter: #Predicate<Grocery> {
             return ($0.when ?? "") == list.description
-        }, animation: .default)
+        }, sort: [SortDescriptor(\.priority, order: .reverse)], animation: .default)
     }
     
     var listControlGroup: some View {
@@ -58,6 +59,22 @@ struct GroceryListView: View {
         return Group {
             if (hasOneComplete) { uncheckAll }
             if (hasOneIncomplete) { checkAll }
+        }
+    }
+    
+    var toolbarPrioritySection: some View {
+        let hasOneSet = groceries.contains { $0.priority > 0 }
+        
+        let unsetAll = Button {
+            groceries.forEach { grocery in
+                grocery.priority = GroceryPriority.toValue(GroceryPriority.none)
+            }
+        } label: {
+            Label("Deprioritize All", systemImage: "exclamationmark.2")
+        }
+        
+        return Group {
+            if (hasOneSet) { unsetAll }
         }
     }
     
@@ -128,10 +145,20 @@ struct GroceryListView: View {
                                 }
                             }
                         }
+                        
+                        ControlGroup {
+                            ForEach(GroceryPriority.tabs, id: \.self) { tab in
+                                Button(tab.description, systemImage: tab.symbol) {
+                                    withAnimation {
+                                        grocery.priority = GroceryPriority.toValue(tab)
+                                    }
+                                }
+                            }
+                        }
+                        
                         Button("Remove", systemImage: "trash.fill") {
                             deleteGrocery(grocery: grocery)
                         }
-                        .tint(.pink)
                     }
             }
         }
@@ -152,15 +179,19 @@ struct GroceryListView: View {
                 HStack {
                     Image(systemName: list.symbol).foregroundStyle(Color.accent)
                 Text(list.description)
-                    .font(.system(.headline, weight: .medium))
+                        .font(.system(.headline, design: .rounded, weight: .medium))
                 }
             }
         }
         .toolbarTitleMenu {
+            Group {
+                
+            
             listControlGroup
                 .controlGroupStyle(.menu)
             Divider()
             toolbarCheckSection
+            toolbarPrioritySection
             Divider()
             moveSection
             Divider()
@@ -182,6 +213,8 @@ struct GroceryListView: View {
             }
             #endif
             clearAllSection
+            }
+            .font(.system(.body, design: .rounded))
         }
         #if os(iOS)
         .sheet(isPresented: $showChangeAppIconSheet) {
@@ -196,8 +229,9 @@ struct GroceryListView: View {
                 .padding([.top, .horizontal])
                 HStack {
                     Text("Change App Icon")
-                        .font(.system(.headline, weight: .medium))
+                        .font(.system(.headline, design: .rounded, weight: .medium))
                 }
+                .padding(.vertical)
                 ChangeAppIconView()
             }
         }

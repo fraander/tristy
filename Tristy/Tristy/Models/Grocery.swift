@@ -15,11 +15,13 @@ class Grocery: Identifiable {
     var title: String = ""
     var completed: Bool = false
     var when: String? = GroceryList.today.description
+    var priority: Int = 0
     
     init(title: String, when: GroceryList = .today) {
         self.id = UUID()
         self.title = title
         self.completed = false
         self.when = when.description
+        self.priority = 0
     }
 }

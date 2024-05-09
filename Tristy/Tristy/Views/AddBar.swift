@@ -53,6 +53,7 @@ struct AddBar: View {
                         }
                     }
                     .submitLabel(.done)
+                    .font(.system(.body, design: .rounded))
                 
                 Button(focusState == .addBar ? "Hide" : "Clear", systemImage: focusState == .addBar ? "keyboard.chevron.compact.down" : "delete.backward", action: {
                     if (focusState != .addBar) {
