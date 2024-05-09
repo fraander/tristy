@@ -1,6 +1,7 @@
-# tristy
-An app to share grocery lists with roommates and to tag them with preferred stores or other notes. Databse is built in Firebase Firestore, and app is written in Swift with SwiftUI. Mac and iPad support coming soon, along with ways to add longer notes as well and tags to existing Groceries.
+# Tristy
+Manage your groceries list a better way. Add quickly and easily, set priorities, and decide when you want to purchase to restock your fridge and pantrty!
 
+<!--
 ## Screenshots
 <table>
   <tr>
@@ -16,3 +17,4 @@ An app to share grocery lists with roommates and to tag them with preferred stor
     <td align="center">Setup</td>
   </tr>
  </table>
+-->
