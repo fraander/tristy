@@ -26,21 +26,16 @@ final class ChangeAppIconViewModel: ObservableObject {
         let previousAppIcon = selectedAppIcon
         selectedAppIcon = icon
 
-        Task { @MainActor in
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
             guard UIApplication.shared.alternateIconName != icon.iconName else {
                 /// No need to update since we're already using this icon.
                 return
             }
-
-            do {
-                try await UIApplication.shared.setAlternateIconName(icon.iconName)
-            } catch {
-                /// We're only logging the error here and not actively handling the app icon failure
-                /// since it's very unlikely to fail.
-                print("Updating icon to \(String(describing: icon.iconName)) failed.")
-
-                /// Restore previous app icon
-                selectedAppIcon = previousAppIcon
+            
+            UIApplication.shared.setAlternateIconName(icon.iconName) { error in
+                self.selectedAppIcon = previousAppIcon
             }
         }
     }
