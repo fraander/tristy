@@ -164,6 +164,18 @@ struct GroceryListView: View {
             Divider()
             moveSection
             Divider()
+            
+            Button("Copy List", systemImage: "doc.on.clipboard") {
+                let shareContent = "Tristy: " + list.description
+                + "\n" + groceries
+                    .map { "\($0.completed ? "[x]" : "[ ]") \($0.title)" }
+                    .joined(separator: "\n")
+                #if os(iOS)
+                UIPasteboard.general.string = shareContent
+                #else
+                NSPasteboard.general.setString(shareContent, forType: .string)
+                #endif
+            }
             #if os(iOS)
             Button("Change App Icon", systemImage: "app.badge") {
                 showChangeAppIconSheet = true
