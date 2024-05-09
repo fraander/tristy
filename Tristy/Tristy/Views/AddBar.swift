@@ -13,53 +13,57 @@ struct AddBar: View {
     var list: GroceryList
     @State var text = ""
     @Environment(\.modelContext) var modelContext
-    @FocusState var focusState: Bool
+    @FocusState var focusState: FocusOption?
     @Query var groceries: [Grocery]
     
     var body: some View {
         VStack {
             Spacer()
             
-            AddBarQuery(text: text, list: list)
-                .background {
-                    RoundedRectangle(cornerRadius: 10.0)
-                        .strokeBorder(Color.secondary, lineWidth: 1)
-                        .background {
-                            RoundedRectangle(cornerRadius: 10)
-                            #if os(iOS)
-                                .fill(Color(uiColor: .systemBackground))
-                            #else
-                                .fill(Color(nsColor: .windowBackgroundColor))
-                            #endif
-                        }
-                }
-                .opacity( focusState ? 1 : 0)
-                .animation(.easeInOut(duration: 0.15), value: focusState)
+            AddBarQuery(text: text, list: list, focusState: $focusState)
             
             HStack {
-                Button("Add",
-                       systemImage: "plus",
-                       action: { addGrocery(title: text) })
+                Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
+                       systemImage: text == "" ? "doc.on.clipboard" : "plus",
+                       action: {
+                    if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                        text = UIPasteboard.general.string ?? ""
+                        focusState = .addBar
+                    } else {
+                        addGrocery(title: text)
+                    }
+                })
                 .labelStyle(.iconOnly)
-                .tint(focusState ? Color.accentColor : Color.secondary)
+                .tint(focusState == .addBar ? Color.accentColor : Color.secondary)
+                .opacity(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
+                .animation(.easeInOut(duration: 0.15), value: text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .contentTransition(.symbolEffect(.replace))
                 
                 TextField("Add item...", text: $text, axis: .vertical)
-                    .focused($focusState)
+                    .focused($focusState, equals: .addBar)
                     .onSubmit {
                         addGrocery(title: text)
                     }
+                    .onChange(of: text) { oldValue, newValue in
+                        if (oldValue != "" && oldValue.count < newValue.count && oldValue.last != "\n" && newValue.last == "\n") {
+                            addGrocery(title: oldValue)
+                        } else if (newValue == "\n") {
+                            focusState = nil
+                            text = ""
+                        }
+                    }
                     .submitLabel(.done)
                 
-                Button(focusState ? "Hide" : "Clear", systemImage: focusState ? "keyboard.chevron.compact.down" : "delete.backward", action: {
-                    if (!focusState) {
+                Button(focusState == .addBar ? "Hide" : "Clear", systemImage: focusState == .addBar ? "keyboard.chevron.compact.down" : "delete.backward", action: {
+                    if (focusState != .addBar) {
                         text = ""
                     }
-                    focusState = !focusState
+                    focusState = focusState == .addBar ? nil : .addBar
                 })
                 .labelStyle(.iconOnly)
-                .foregroundStyle(focusState ? Color.accentColor : Color.secondary)
-                .opacity( focusState || !text.isEmpty ? 0.5 : 0)
-                .animation(.easeInOut(duration: 0.15), value: focusState && !text.isEmpty)
+                .foregroundStyle(focusState == .addBar ? Color.accentColor : Color.secondary)
+                .opacity( focusState == .addBar || !text.isEmpty ? 0.5 : 0)
+                .animation(.easeInOut(duration: 0.15), value: focusState == .addBar && !text.isEmpty)
                 .contentTransition(.symbolEffect(.replace))
             }
             .padding()
@@ -75,10 +79,10 @@ struct AddBar: View {
 #endif
                     }
                     .shadow(
-                        color: focusState ? Color.accentColor : Color.clear,
-                        radius: focusState ? 3 : 0
+                        color: focusState == .addBar ? Color.accentColor : Color.clear,
+                        radius: focusState == .addBar ? 3 : 0
                     )
-                    .animation(Animation.easeInOut(duration: 0.25), value: focusState)
+                    .animation(Animation.easeInOut(duration: 0.25), value: focusState == .addBar)
             }
         }
         .padding()
@@ -103,10 +107,6 @@ struct AddBar: View {
                 
             }
             text = ""
-            withAnimation {
-                focusState = false
-            }
-            
         }
     }
 }

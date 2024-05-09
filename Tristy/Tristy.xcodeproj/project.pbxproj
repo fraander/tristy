@@ -15,6 +15,7 @@
 		BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE72971EF3200F9E2B9 /* Grocery.swift */; };
 		BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */; };
 		BD78F1E22BE08C7000AE62F6 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */; };
+		BD87909C2BED33C800CFDBD5 /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD87909B2BED33C800CFDBD5 /* FocusOption.swift */; };
 		BDD508732BEA80E8006F8AB5 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD508722BEA80E8006F8AB5 /* AppIcon.swift */; };
 		BDD508782BEA850C006F8AB5 /* ChangeAppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD508772BEA850C006F8AB5 /* ChangeAppIconView.swift */; };
 		BDDBD4D728F2591100B42693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDDBD4D628F2591100B42693 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
 		BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		BD867A1D2BBB24A8006B2B12 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		BD87909B2BED33C800CFDBD5 /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
 		BDD508722BEA80E8006F8AB5 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		BDD508772BEA850C006F8AB5 /* ChangeAppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconView.swift; sourceTree = "<group>"; };
 		BDDBD4CF28F2591000B42693 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				BD319FE72971EF3200F9E2B9 /* Grocery.swift */,
 				BDFE3FD82BE067AB008F21AF /* GroceryList.swift */,
 				BDD508722BEA80E8006F8AB5 /* AppIcon.swift */,
+				BD87909B2BED33C800CFDBD5 /* FocusOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			files = (
 				BDE56A672BEB0143009D2AE0 /* ChangeAppIconViewModel.swift in Sources */,
 				BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */,
+				BD87909C2BED33C800CFDBD5 /* FocusOption.swift in Sources */,
 				BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */,
 				BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */,
 				BDFE3FD52BE048B7008F21AF /* AddBarQuery.swift in Sources */,

@@ -13,10 +13,12 @@ struct AddBarQuery: View {
     @Query var groceries: [Grocery]
     var list: GroceryList
     var text: String
+    var focusState: FocusState<FocusOption?>.Binding
     
-    init(text: String, list: GroceryList) {
+    init(text: String, list: GroceryList, focusState: FocusState<FocusOption?>.Binding) {
         self.text = text
         self.list = list
+        self.focusState = focusState
         _groceries = Query(filter: #Predicate<Grocery> {
             return ($0.when ?? "") != list.description && (text.isEmpty || $0.title.localizedStandardContains(text))
         }, sort: \Grocery.title, order: .reverse, animation: .default)
@@ -43,12 +45,27 @@ struct AddBarQuery: View {
             }
             .buttonStyle(.plain)
         }
-        .frame(minHeight: 0, idealHeight: 0, maxHeight: min(60 * CGFloat(groceries.count), 240), alignment: .bottom)
+        .frame(minHeight: 0, idealHeight: 0, maxHeight: min(60 * CGFloat(groceries.count), 130), alignment: .bottom)
         .scrollContentBackground(.hidden)
         .listStyle(.plain)
         .padding(2)
         .clipShape(RoundedRectangle(cornerRadius: 20.0))
         .opacity(groceries.count > 0 ? 1 : 0)
         .animation(.easeInOut, value: groceries.count)
+        // from outer view
+        .background {
+            RoundedRectangle(cornerRadius: 10.0)
+                .strokeBorder(Color.secondary, lineWidth: 1)
+                .background {
+                    RoundedRectangle(cornerRadius: 10)
+                    #if os(iOS)
+                        .fill(Color(uiColor: .systemBackground))
+                    #else
+                        .fill(Color(nsColor: .windowBackgroundColor))
+                    #endif
+                }
+        }
+        .opacity( focusState.wrappedValue == .addBar && groceries.count > 0 ? 1 : 0)
+        .animation(.easeInOut(duration: 0.15), value: focusState.wrappedValue == .addBar && groceries.count > 0)
     }
 }
