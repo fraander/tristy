@@ -9,17 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct GroceryView: View {
-    enum Focus: Equatable {
-        case item, none
-        
-        static func == (lhs: Focus, rhs: Focus) -> Bool {
-            return lhs.hashValue == rhs.hashValue
-        }
-    }
-        
+
     @State var newTitle = ""
     @State var initialValue = ""
-    @FocusState var focus: Focus?
+    @FocusState var focus: FocusOption?
     
     @Environment(\.modelContext) var modelContext
     var grocery: Grocery
@@ -78,13 +71,26 @@ struct GroceryView: View {
                     grocery.title = newTitle // set the title
                     initialValue = grocery.title // set new initial value checkpoint
                 }
-                
             })
             .lineLimit(1)
-            .focused($focus, equals: .item)
+            .focused($focus, equals: .listItem)
             .font(.system(.body, design: .rounded))
+            
 #if os(iOS)
             .scrollDismissesKeyboard(.immediately)
+            .toolbar {
+                if (focus == .listItem) {
+                    ToolbarItem(placement: .keyboard) {
+                        HStack {
+                            Spacer()
+                            Button("Dismiss", systemImage: "keyboard.chevron.compact.down") {
+                                focus = nil
+                            }
+                            .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
 #endif
             
             Text(grocery.title)
