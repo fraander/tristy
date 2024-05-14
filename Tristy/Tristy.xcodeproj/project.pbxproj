@@ -14,6 +14,8 @@
 		BD319FF52971EF3200F9E2B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE22971EF3100F9E2B9 /* ContentView.swift */; };
 		BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE72971EF3200F9E2B9 /* Grocery.swift */; };
 		BD319FF92971EF3200F9E2B9 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */; };
+		BD76D67D2BF3F7040041FDDE /* ContextMenuTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76D67C2BF3F7040041FDDE /* ContextMenuTip.swift */; };
+		BD76D67F2BF3FF730041FDDE /* AddBarPasteTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76D67E2BF3FF730041FDDE /* AddBarPasteTip.swift */; };
 		BD78F1E22BE08C7000AE62F6 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */; };
 		BD87909C2BED33C800CFDBD5 /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD87909B2BED33C800CFDBD5 /* FocusOption.swift */; };
 		BD87909E2BED443B00CFDBD5 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD87909D2BED443B00CFDBD5 /* Priority.swift */; };
@@ -34,6 +36,8 @@
 		BD319FE22971EF3100F9E2B9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD319FE72971EF3200F9E2B9 /* Grocery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		BD319FE92971EF3200F9E2B9 /* Color+backgroundColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+backgroundColors.swift"; sourceTree = "<group>"; };
+		BD76D67C2BF3F7040041FDDE /* ContextMenuTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuTip.swift; sourceTree = "<group>"; };
+		BD76D67E2BF3FF730041FDDE /* AddBarPasteTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarPasteTip.swift; sourceTree = "<group>"; };
 		BD78F1E12BE08C7000AE62F6 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		BD867A1D2BBB24A8006B2B12 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		BD87909B2BED33C800CFDBD5 /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 			children = (
 				BD319FE72971EF3200F9E2B9 /* Grocery.swift */,
 				BDFE3FD82BE067AB008F21AF /* GroceryList.swift */,
+				BD76D67C2BF3F7040041FDDE /* ContextMenuTip.swift */,
+				BD76D67E2BF3FF730041FDDE /* AddBarPasteTip.swift */,
 				BD87909D2BED443B00CFDBD5 /* Priority.swift */,
 				BDD508722BEA80E8006F8AB5 /* AppIcon.swift */,
 				BD87909B2BED33C800CFDBD5 /* FocusOption.swift */,
@@ -210,7 +216,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDE56A672BEB0143009D2AE0 /* ChangeAppIconViewModel.swift in Sources */,
+				BD76D67F2BF3FF730041FDDE /* AddBarPasteTip.swift in Sources */,
 				BD319FF82971EF3200F9E2B9 /* Grocery.swift in Sources */,
+				BD76D67D2BF3F7040041FDDE /* ContextMenuTip.swift in Sources */,
 				BD87909C2BED33C800CFDBD5 /* FocusOption.swift in Sources */,
 				BD319FF12971EF3200F9E2B9 /* GroceryListView.swift in Sources */,
 				BD319FF02971EF3200F9E2B9 /* TristyApp.swift in Sources */,

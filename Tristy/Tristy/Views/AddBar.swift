@@ -10,6 +10,8 @@ import SwiftData
 
 struct AddBar: View {
     
+    let abpTip = AddBarPasteTip()
+    
     var list: GroceryList
     @State var text = ""
     @Environment(\.modelContext) var modelContext
@@ -20,7 +22,7 @@ struct AddBar: View {
         VStack {
             Spacer()
             
-            AddBarQuery(text: text, list: list, focusState: $focusState)
+            AddBarQuery(text: $text, list: list, focusState: $focusState)
             
             HStack {
                 Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
@@ -29,6 +31,7 @@ struct AddBar: View {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
                         text = UIPasteboard.general.string ?? ""
                         focusState = .addBar
+                        abpTip.invalidate(reason: .actionPerformed)
                     } else {
                         addGrocery(title: text)
                     }
@@ -38,6 +41,7 @@ struct AddBar: View {
                 .opacity(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
                 .animation(.easeInOut(duration: 0.15), value: text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 .contentTransition(.symbolEffect(.replace))
+                .popoverTip(abpTip, arrowEdge: .bottom)
                 
                 TextField("Add item...", text: $text, axis: .vertical)
                     .focused($focusState, equals: .addBar)

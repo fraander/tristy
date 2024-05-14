@@ -7,9 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 /// Represents a list of groceries
 struct GroceryListView: View {
+    
+    
+    let cmTip = ContextMenuTip()
     
     let list: GroceryList
     @Binding var listSelection: GroceryList
@@ -134,6 +138,7 @@ struct GroceryListView: View {
         List {
             ForEach(groceries) { grocery in
                 GroceryView(grocery: grocery)
+                    .popoverTip(cmTip)
                     .listRowBackground(Color.secondaryBackground)
                     .contextMenu {
                         ControlGroup {
@@ -156,14 +161,18 @@ struct GroceryListView: View {
                             }
                         }
                         
-                        Button("Remove", systemImage: "trash.fill") {
+                        Button("Remove", systemImage: "trash.fill", role: .destructive) {
                             deleteGrocery(grocery: grocery)
+                        }
+                        .onAppear {
+                            cmTip.invalidate(reason: .actionPerformed)
                         }
                     }
             }
         }
         .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
         .scrollContentBackground(.hidden)
+        
     }
     
     var body: some View {
@@ -185,8 +194,6 @@ struct GroceryListView: View {
         }
         .toolbarTitleMenu {
             Group {
-                
-            
             listControlGroup
                 .controlGroupStyle(.menu)
             Divider()

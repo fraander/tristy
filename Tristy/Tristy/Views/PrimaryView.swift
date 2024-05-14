@@ -18,7 +18,6 @@ struct PrimaryView: View {
         NavigationStack {
             ZStack {
                 TabView(selection: $selectedList) {
-                    
                     ForEach(GroceryList.tabs, id: \.description) { tab in
                         GroceryListView(list: tab, listSelection: $selectedList)
                             .tabItem {

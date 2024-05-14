@@ -12,15 +12,17 @@ import NaturalLanguage
 struct AddBarQuery: View {
     @Query var groceries: [Grocery]
     var list: GroceryList
-    var text: String
+    @Binding var text: String
     var focusState: FocusState<FocusOption?>.Binding
     
-    init(text: String, list: GroceryList, focusState: FocusState<FocusOption?>.Binding) {
-        self.text = text
+    init(text: Binding<String>, list: GroceryList, focusState: FocusState<FocusOption?>.Binding) {
+        _text = text
         self.list = list
         self.focusState = focusState
+        
+        let textValue = text.wrappedValue
         _groceries = Query(filter: #Predicate<Grocery> {
-            return ($0.when ?? "") != list.description && (text.isEmpty || $0.title.localizedStandardContains(text))
+            return ($0.when ?? "") != list.description && (textValue.isEmpty || $0.title.localizedStandardContains(textValue))
         }, sort: \Grocery.title, order: .reverse, animation: .default)
     }
     
@@ -29,6 +31,7 @@ struct AddBarQuery: View {
             Button {
                 grocery.when = list.description
                 grocery.completed = false
+                text = ""
             } label: {
                 HStack {
                     Text(grocery.title)

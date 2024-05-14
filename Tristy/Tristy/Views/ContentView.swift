@@ -6,10 +6,20 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct ContentView: View {
     var body: some View {
         PrimaryView()
+            .task {
+                #if DEBUG
+                try? Tips.resetDatastore()
+                #endif
+                try? Tips.configure([
+                    .displayFrequency(.hourly),
+                    .datastoreLocation(.applicationDefault)
+                ])
+            }
     }
 }
 
