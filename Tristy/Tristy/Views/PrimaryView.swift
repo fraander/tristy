@@ -13,27 +13,37 @@ struct PrimaryView: View {
     
     @State var selectedList: GroceryList = .today
     
+    var contentBody: some View {
+        ZStack {
+            TabView(selection: $selectedList) {
+                ForEach(GroceryList.tabs, id: \.description) { tab in
+                    GroceryListView(list: tab, listSelection: $selectedList)
+                        .tabItem {
+                            Label(tab.description, systemImage: tab.symbol)
+                        }
+                        .tag(tab)
+                }
+            }
+            #if os(iOS)
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            #else
+            .padding(.top)
+            #endif
+
+            AddBar(list: selectedList)
+        }
+    }
+    
     // MARK: - Body
     var body: some View {
+        #if os(iOS)
         NavigationStack {
-            ZStack {
-                TabView(selection: $selectedList) {
-                    ForEach(GroceryList.tabs, id: \.description) { tab in
-                        GroceryListView(list: tab, listSelection: $selectedList)
-                            .tabItem {
-                                Label(tab.description, systemImage: tab.symbol)
-                            }
-                            .tag(tab)
-                    }
-                }
-                #if os(iOS)
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                #endif
+                    contentBody
                 
-                
-                AddBar(list: selectedList)
-            }
         }
+        #else
+        contentBody
+        #endif
     }
 }
 

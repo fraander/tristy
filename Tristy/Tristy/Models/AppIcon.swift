@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 enum AppIcon: String, CaseIterable, Identifiable {
-    case breadWhiteGlow = "BreadWhiteGlow"
+//    case breadWhiteGlow = "BreadWhiteGlow"
     case breadWhite = "BreadWhite"
-    case cartWhiteGlow = "CartWhiteGlow"
+//    case cartWhiteGlow = "CartWhiteGlow"
     case cartWhite = "CartWhite"
     case checkoutlined = "CheckOutlined"
     case check = "Check"
@@ -30,12 +30,12 @@ enum AppIcon: String, CaseIterable, Identifiable {
 
     var description: String {
         switch self {
-        case .breadWhiteGlow:
-            "Bread (Glow)"
+//        case .breadWhiteGlow:
+//            "Bread (Glow)"
         case .breadWhite:
             "Bread"
-        case .cartWhiteGlow:
-            "Cart (Glow)"
+//        case .cartWhiteGlow:
+//            "Cart (Glow)"
         case .cartWhite:
             "Cart"
         case .checkoutlined:

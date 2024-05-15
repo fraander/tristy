@@ -139,7 +139,9 @@ struct GroceryListView: View {
             ForEach(groceries) { grocery in
                 GroceryView(grocery: grocery)
                     .popoverTip(cmTip)
+                #if os(iOS)
                     .listRowBackground(Color.secondaryBackground)
+                #endif
                     .contextMenu {
                         ControlGroup {
                             ForEach(GroceryList.tabs, id: \.self) { tab in
@@ -171,8 +173,9 @@ struct GroceryListView: View {
             }
         }
         .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
+        #if os(iOS)
         .scrollContentBackground(.hidden)
-        
+        #endif
     }
     
     var body: some View {
@@ -183,6 +186,7 @@ struct GroceryListView: View {
                 populatedListView
             }
         }
+        #if os(iOS)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 HStack {
@@ -223,7 +227,6 @@ struct GroceryListView: View {
             }
             .font(.system(.body, design: .rounded))
         }
-        #if os(iOS)
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
                 HStack {

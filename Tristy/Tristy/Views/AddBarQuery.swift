@@ -61,11 +61,7 @@ struct AddBarQuery: View {
                 .strokeBorder(Color.secondary, lineWidth: 1)
                 .background {
                     RoundedRectangle(cornerRadius: 10)
-                    #if os(iOS)
-                        .fill(Color(uiColor: .systemBackground))
-                    #else
-                        .fill(Color(nsColor: .windowBackgroundColor))
-                    #endif
+                        .fill(Color.background)
                 }
         }
         .opacity( focusState.wrappedValue == .addBar && groceries.count > 0 ? 1 : 0)

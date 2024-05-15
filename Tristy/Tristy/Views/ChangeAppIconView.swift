@@ -31,7 +31,9 @@ struct ChangeAppIconView: View {
                                 .foregroundStyle(viewModel.selectedAppIcon == appIcon ? Color.mint : Color.accentColor)
                         }
                         .padding(EdgeInsets(top: 14, leading: 16, bottom: 14, trailing: 16))
+                        #if os(iOS)
                         .background(Color.secondaryBackground)
+                        #endif
                         .cornerRadius(20)
                         .onTapGesture {
                             withAnimation {

@@ -24,12 +24,16 @@ struct AddBar: View {
             
             AddBarQuery(text: $text, list: list, focusState: $focusState)
             
-            HStack {
+            HStack(alignment: .bottom) {
                 Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
                        systemImage: text == "" ? "doc.on.clipboard" : "plus",
                        action: {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                        #if os(iOS)
                         text = UIPasteboard.general.string ?? ""
+                        #else
+                        text = NSPasteboard.general.string(forType: .string) ?? ""
+                        #endif
                         focusState = .addBar
                         abpTip.invalidate(reason: .actionPerformed)
                     } else {
@@ -77,11 +81,7 @@ struct AddBar: View {
                     .strokeBorder(Color.secondary, lineWidth: 1)
                     .background {
                         RoundedRectangle(cornerRadius: 10)
-#if os(iOS)
-                            .fill(Color(uiColor: .systemBackground))
-#else
-                            .fill(Color(nsColor: .windowBackgroundColor))
-#endif
+                            .fill(Color.background)
                     }
                     .shadow(
                         color: focusState == .addBar ? Color.accentColor : Color.clear,
