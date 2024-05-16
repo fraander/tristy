@@ -57,13 +57,26 @@ struct AddBarQuery: View {
         .animation(.easeInOut, value: groceries.count)
         // from outer view
         .background {
-            RoundedRectangle(cornerRadius: 10.0)
-                .strokeBorder(Color.secondary, lineWidth: 1)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.background)
-                }
+            Group {
+#if os(iOS)
+                RoundedRectangle(cornerRadius: 10.0)
+                
+                    .strokeBorder(Color.secondary, lineWidth: 1)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.background)
+                    }
+#else
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.background)
+#endif
+            }
+                .shadow(
+                    color: focusState.wrappedValue == .addBar ? Color.accentColor : Color.clear,
+                    radius: focusState.wrappedValue == .addBar ? 3 : 0
+                )
         }
+        
         .opacity( focusState.wrappedValue == .addBar && groceries.count > 0 ? 1 : 0)
         .animation(.easeInOut(duration: 0.15), value: focusState.wrappedValue == .addBar && groceries.count > 0)
     }

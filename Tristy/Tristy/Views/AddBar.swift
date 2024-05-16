@@ -24,7 +24,7 @@ struct AddBar: View {
             
             AddBarQuery(text: $text, list: list, focusState: $focusState)
             
-            HStack(alignment: .bottom) {
+            HStack {
                 Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
                        systemImage: text == "" ? "doc.on.clipboard" : "plus",
                        action: {
@@ -40,14 +40,22 @@ struct AddBar: View {
                         addGrocery(title: text)
                     }
                 })
+#if os(macOS)
+                .buttonStyle(.plain)
+#endif
                 .labelStyle(.iconOnly)
                 .tint(focusState == .addBar ? Color.accentColor : Color.secondary)
                 .opacity(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
                 .animation(.easeInOut(duration: 0.15), value: text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 .contentTransition(.symbolEffect(.replace))
+                #if os(iOS)
                 .popoverTip(abpTip, arrowEdge: .bottom)
+                #endif
                 
                 TextField("Add item...", text: $text, axis: .vertical)
+#if os(macOS)
+                    .textFieldStyle(.plain)
+#endif
                     .focused($focusState, equals: .addBar)
                     .onSubmit {
                         addGrocery(title: text)
@@ -62,6 +70,10 @@ struct AddBar: View {
                     }
                     .submitLabel(.done)
                     .font(.system(.body, design: .rounded))
+                    .onKeyPress(.escape) {
+                        focusState = nil
+                        return .handled
+                    }
                 
                 Button(focusState == .addBar ? "Hide" : "Clear", systemImage: focusState == .addBar ? "keyboard.chevron.compact.down" : "delete.backward", action: {
                     if (focusState != .addBar) {
@@ -70,6 +82,9 @@ struct AddBar: View {
                     focusState = focusState == .addBar ? nil : .addBar
                 })
                 .labelStyle(.iconOnly)
+                #if os(macOS)
+                .buttonStyle(.plain)
+                #endif
                 .foregroundStyle(focusState == .addBar ? Color.accentColor : Color.secondary)
                 .opacity( focusState == .addBar || !text.isEmpty ? 0.5 : 0)
                 .animation(.easeInOut(duration: 0.15), value: focusState == .addBar && !text.isEmpty)
@@ -78,11 +93,15 @@ struct AddBar: View {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 10.0)
+                #if os(iOS)
                     .strokeBorder(Color.secondary, lineWidth: 1)
                     .background {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.background)
                     }
+                #else
+                    .fill(Color.background)
+#endif
                     .shadow(
                         color: focusState == .addBar ? Color.accentColor : Color.clear,
                         radius: focusState == .addBar ? 3 : 0

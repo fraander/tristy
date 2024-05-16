@@ -132,36 +132,59 @@ struct GroceryListView: View {
             .padding(.horizontal)
         }
         .padding(40)
+        #if os(macOS)
+        .frame(maxHeight: .infinity, alignment: .top)
+        #endif
+    }
+    
+    func groceryMoveActions(grocery: Grocery) -> some View {
+        Group {
+            ForEach(GroceryList.tabs, id: \.self) { tab in
+                if (tab != list) {
+                    Button(tab.description, systemImage: tab.symbol) {
+                        grocery.when = tab.description
+                    }
+                }
+            }
+        }
+    }
+    
+    func groceryPriorityActions(grocery: Grocery) -> some View {
+        ForEach(GroceryPriority.tabs, id: \.self) { tab in
+            Button(tab.description, systemImage: tab.symbol) {
+                withAnimation {
+                    grocery.priority = GroceryPriority.toValue(tab)
+                }
+            }
+        }
     }
     
     var populatedListView: some View {
         List {
             ForEach(groceries) { grocery in
                 GroceryView(grocery: grocery)
+#if os(iOS)
                     .popoverTip(cmTip)
-                #if os(iOS)
                     .listRowBackground(Color.secondaryBackground)
-                #endif
+#endif
                     .contextMenu {
+#if os(iOS)
                         ControlGroup {
-                            ForEach(GroceryList.tabs, id: \.self) { tab in
-                                if (tab != list) {
-                                    Button(tab.description, systemImage: tab.symbol) {
-                                        grocery.when = tab.description
-                                    }
-                                }
-                            }
+                            groceryMoveActions(grocery: grocery)
                         }
+#else
+                        groceryMoveActions(grocery: grocery)
+                        Divider()
+#endif
                         
+#if os(iOS)
                         ControlGroup {
-                            ForEach(GroceryPriority.tabs, id: \.self) { tab in
-                                Button(tab.description, systemImage: tab.symbol) {
-                                    withAnimation {
-                                        grocery.priority = GroceryPriority.toValue(tab)
-                                    }
-                                }
-                            }
+                            groceryPriorityActions(grocery: grocery)
                         }
+#else
+                        groceryPriorityActions(grocery: grocery)
+                        Divider()
+#endif
                         
                         Button("Remove", systemImage: "trash.fill", role: .destructive) {
                             deleteGrocery(grocery: grocery)
@@ -173,13 +196,53 @@ struct GroceryListView: View {
             }
         }
         .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
-        #if os(iOS)
+#if os(iOS)
         .scrollContentBackground(.hidden)
-        #endif
+#endif
+    }
+    
+    var copyListButton: some View {
+        Button("Copy List", systemImage: "doc.on.clipboard") {
+            let shareContent = "Tristy: " + list.description
+            + "\n" + groceries
+                .map { "\($0.completed ? "[x]" : "[ ]") \($0.title)" }
+                .joined(separator: "\n")
+#if os(iOS)
+            UIPasteboard.general.string = shareContent
+//#else
+//            NSPasteboard.general.setString(shareContent, forType: .string)
+//            print(shareContent)
+#endif
+        }
+    }
+    
+    var titleMenuContent: some View {
+        Group {
+#if os(iOS)
+            listControlGroup
+                .controlGroupStyle(.menu)
+            Divider()
+#endif
+            toolbarCheckSection
+            toolbarPrioritySection
+            Divider()
+            moveSection
+            Divider()
+            
+#if os(iOS)
+            copyListButton
+            Button("Change App Icon", systemImage: "app.badge") {
+                showChangeAppIconSheet = true
+            }
+#endif
+            clearAllSection
+        }
+        .font(.system(.body, design: .rounded))
     }
     
     var body: some View {
         Group {
+            
             if (groceries.isEmpty) {
                 emptyListView
             } else {
@@ -187,46 +250,27 @@ struct GroceryListView: View {
             }
         }
         #if os(iOS)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    Image(systemName: list.symbol).foregroundStyle(Color.accent)
-                Text(list.description)
-                        .font(.system(.headline, design: .rounded, weight: .medium))
-                }
-            }
-        }
         .toolbarTitleMenu {
-            Group {
-            listControlGroup
-                .controlGroupStyle(.menu)
-            Divider()
-            toolbarCheckSection
-            toolbarPrioritySection
-            Divider()
-            moveSection
-            Divider()
-            
-            Button("Copy List", systemImage: "doc.on.clipboard") {
-                let shareContent = "Tristy: " + list.description
-                + "\n" + groceries
-                    .map { "\($0.completed ? "[x]" : "[ ]") \($0.title)" }
-                    .joined(separator: "\n")
-                #if os(iOS)
-                UIPasteboard.general.string = shareContent
-                #else
-                NSPasteboard.general.setString(shareContent, forType: .string)
-                #endif
-            }
-            #if os(iOS)
-            Button("Change App Icon", systemImage: "app.badge") {
-                showChangeAppIconSheet = true
-            }
-            #endif
-            clearAllSection
-            }
-            .font(.system(.body, design: .rounded))
+            titleMenuContent
         }
+        #else
+        .toolbar {
+            ToolbarItem(
+              id: "flexible-space-id" // Provide a ID to allow for toolbar customization
+            ) {
+              Spacer()
+            }
+            
+            if (!groceries.isEmpty) {
+                ToolbarItem(placement: .primaryAction) {
+                    Menu("Actions", systemImage: "ellipsis.circle") {
+                        titleMenuContent
+                    }
+                }                
+            }
+        }
+        #endif
+        #if os(iOS)
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
                 HStack {
@@ -245,7 +289,7 @@ struct GroceryListView: View {
                 ChangeAppIconView()
             }
         }
-        #endif
+#endif
     }
     
     private func deleteGrocery(grocery: Grocery) {

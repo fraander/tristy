@@ -14,36 +14,64 @@ struct PrimaryView: View {
     @State var selectedList: GroceryList = .today
     
     var contentBody: some View {
-        ZStack {
-            TabView(selection: $selectedList) {
-                ForEach(GroceryList.tabs, id: \.description) { tab in
-                    GroceryListView(list: tab, listSelection: $selectedList)
-                        .tabItem {
-                            Label(tab.description, systemImage: tab.symbol)
-                        }
-                        .tag(tab)
+        ForEach(GroceryList.tabs, id: \.description) { tab in
+            GroceryListView(list: tab, listSelection: $selectedList)
+                .tabItem {
+                    Label(tab.description, systemImage: tab.symbol)
                 }
-            }
-            #if os(iOS)
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            #else
-            .padding(.top)
-            #endif
-
-            AddBar(list: selectedList)
+                .tag(tab)
         }
     }
     
     // MARK: - Body
     var body: some View {
-        #if os(iOS)
-        NavigationStack {
-                    contentBody
+        Group {
+            
+            
+#if os(iOS)
+            NavigationStack {
+                ZStack {
+                    TabView(selection: $selectedList) {
+                        contentBody
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                }
                 
+                AddBar(list: selectedList)
+            }
+#else
+            ZStack(alignment: .bottom) {
+                GroceryListView(list: selectedList, listSelection: $selectedList)
+                    .animation(.easeInOut(duration: 0.15), value: selectedList)
+                AddBar(list: selectedList)
+            }
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigation) {
+                        Picker("list", selection: $selectedList) {
+                            
+                            ForEach(GroceryList.tabs, id: \.description) { tab in
+                                Label(tab.description, systemImage: tab.symbol)
+                                    .tag(tab)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                }
+#endif
         }
-        #else
-        contentBody
-        #endif
+        .toolbar {
+            ToolbarItemGroup(placement: .principal) {
+                HStack {
+                    Image(systemName: selectedList.symbol)
+                        .foregroundColor(.accentColor)
+                    Text(selectedList.description)
+                }
+                .font(.system(.headline, design: .rounded, weight: .medium))
+            }
+            
+        }
+
     }
 }
 
