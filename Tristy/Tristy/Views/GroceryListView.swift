@@ -16,6 +16,7 @@ struct GroceryListView: View {
     let cmTip = ContextMenuTip()
     
     let list: GroceryList
+    @State var selectedGroceries: Set<Grocery> = .init()
     @Binding var listSelection: GroceryList
     @Environment(\.modelContext) var modelContext
     @Query var groceries: [Grocery]
@@ -27,7 +28,7 @@ struct GroceryListView: View {
         _listSelection = listSelection
         _groceries = Query(filter: #Predicate<Grocery> {
             return ($0.when ?? "") == list.description
-        }, sort: [SortDescriptor(\.priority, order: .reverse)], animation: .default)
+        }, sort: [SortDescriptor(\.priority, order: .reverse), SortDescriptor(\.title, order: .forward)], animation: .default)
     }
     
     var listControlGroup: some View {
@@ -142,7 +143,17 @@ struct GroceryListView: View {
             ForEach(GroceryList.tabs, id: \.self) { tab in
                 if (tab != list) {
                     Button(tab.description, systemImage: tab.symbol) {
-                        grocery.when = tab.description
+                        if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                            selectedGroceries.forEach { g in
+                                withAnimation {
+                                    g.when = tab.description
+                                }
+                            }
+                        } else {
+                            withAnimation {
+                                grocery.when = tab.description
+                            }
+                        }
                     }
                 }
             }
@@ -152,17 +163,26 @@ struct GroceryListView: View {
     func groceryPriorityActions(grocery: Grocery) -> some View {
         ForEach(GroceryPriority.tabs, id: \.self) { tab in
             Button(tab.description, systemImage: tab.symbol) {
-                withAnimation {
-                    grocery.priority = GroceryPriority.toValue(tab)
+                if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                    selectedGroceries.forEach { g in
+                        withAnimation {
+                            g.priority = GroceryPriority.toValue(tab)
+                        }
+                    }
+                } else {
+                    withAnimation {
+                        grocery.priority = GroceryPriority.toValue(tab)
+                    }
                 }
             }
         }
     }
     
     var populatedListView: some View {
-        List {
+        List(selection: $selectedGroceries) {
             ForEach(groceries) { grocery in
                 GroceryView(grocery: grocery)
+                    .tag(grocery)
 #if os(iOS)
                     .popoverTip(cmTip)
                     .listRowBackground(Color.secondaryBackground)
@@ -187,7 +207,13 @@ struct GroceryListView: View {
 #endif
                         
                         Button("Remove", systemImage: "trash.fill", role: .destructive) {
-                            deleteGrocery(grocery: grocery)
+                            if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                                selectedGroceries.forEach { g in
+                                    deleteGrocery(grocery: g)
+                                }
+                            } else {
+                                deleteGrocery(grocery: grocery)
+                            }
                         }
                         .onAppear {
                             cmTip.invalidate(reason: .actionPerformed)
@@ -273,7 +299,7 @@ struct GroceryListView: View {
                     Text(listSelection.description)
                 }
                 .font(.system(.headline, design: .rounded, weight: .medium))
-            }   
+            }
         }
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
