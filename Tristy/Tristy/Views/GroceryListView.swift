@@ -265,6 +265,16 @@ struct GroceryListView: View {
         }
         #endif
         #if os(iOS)
+        .toolbar {
+            ToolbarItemGroup(placement: .principal) {
+                HStack {
+                    Image(systemName: listSelection.symbol)
+                        .foregroundColor(.accentColor)
+                    Text(listSelection.description)
+                }
+                .font(.system(.headline, design: .rounded, weight: .medium))
+            }   
+        }
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
                 HStack {

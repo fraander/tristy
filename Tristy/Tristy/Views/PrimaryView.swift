@@ -79,19 +79,6 @@ struct PrimaryView: View {
             }
 #endif
         }
-#if os(iOS)
-        .toolbar {
-            ToolbarItemGroup(placement: .principal) {
-                HStack {
-                    Image(systemName: selectedList.symbol)
-                        .foregroundColor(.accentColor)
-                    Text(selectedList.description)
-                }
-                .font(.system(.headline, design: .rounded, weight: .medium))
-            }
-
-        }
-#endif
 #if os(macOS)
         .navigationTitle(selectedList.description)
 #endif
