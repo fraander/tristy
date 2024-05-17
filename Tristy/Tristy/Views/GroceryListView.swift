@@ -254,13 +254,7 @@ struct GroceryListView: View {
             titleMenuContent
         }
         #else
-        .toolbar {
-//            ToolbarItem(
-//              id: "flexible-space-id" // Provide a ID to allow for toolbar customization
-//            ) {
-//              Spacer()
-//            }
-            
+        .toolbar {            
             if (!groceries.isEmpty) {
                 ToolbarItem(placement: .primaryAction) {
                     Menu("Actions", systemImage: "ellipsis.circle") {

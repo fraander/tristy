@@ -92,7 +92,9 @@ struct PrimaryView: View {
 
         }
 #endif
+#if os(macOS)
         .navigationTitle(selectedList.description)
+#endif
     }
 }
 
