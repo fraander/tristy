@@ -9,22 +9,25 @@ import SwiftUI
 
 @main
 struct TristyApp: App {
+    
+    
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+#if os(macOS)
+                .frame(minWidth: 450, idealWidth: 450, minHeight: 200, idealHeight: 600)
+#endif
                 .modelContainer(for: Grocery.self)
                 .task {
-                    #if DEBUG
+#if DEBUG
                     try? Tips.resetDatastore()
-                    #endif
+#endif
                     try? Tips.configure([
                         .displayFrequency(.daily),
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
         }
-        #if os(macOS)
-        .windowStyle(HiddenTitleBarWindowStyle())
-        #endif
     }
 }

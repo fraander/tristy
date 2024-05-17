@@ -45,21 +45,41 @@ struct PrimaryView: View {
                 GroceryListView(list: selectedList, listSelection: $selectedList)
                     .animation(.easeInOut(duration: 0.15), value: selectedList)
                 AddBar(list: selectedList)
-            }
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigation) {
-                        Picker("list", selection: $selectedList) {
-                            
-                            ForEach(GroceryList.tabs, id: \.description) { tab in
-                                Label(tab.description, systemImage: tab.symbol)
-                                    .tag(tab)
-                            }
-                        }
-                        .pickerStyle(.segmented)
+                Group {
+                    Button(GroceryList.today.description) {
+                        selectedList = .today
                     }
+                    .keyboardShortcut("1", modifiers: .command)
+                    
+                    Button(GroceryList.nextTime.description) {
+                        selectedList = .nextTime
+                    }
+                    .keyboardShortcut("2", modifiers: .command)
+                    
+                    Button(GroceryList.eventually.description) {
+                        selectedList = .eventually
+                    }
+                    .keyboardShortcut("3", modifiers: .command)
+                    
                 }
+                .opacity(0)
+                .allowsHitTesting(false)
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .navigation) {
+                    Picker("list", selection: $selectedList) {
+                        
+                        ForEach(GroceryList.tabs, id: \.description) { tab in
+                            Label(tab.description, systemImage: tab.symbol)
+                                .tag(tab)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+            }
 #endif
         }
+#if os(iOS)
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
                 HStack {
@@ -69,9 +89,10 @@ struct PrimaryView: View {
                 }
                 .font(.system(.headline, design: .rounded, weight: .medium))
             }
-            
-        }
 
+        }
+#endif
+        .navigationTitle(selectedList.description)
     }
 }
 

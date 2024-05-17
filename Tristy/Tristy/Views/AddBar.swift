@@ -84,7 +84,7 @@ struct AddBar: View {
                 .labelStyle(.iconOnly)
                 #if os(macOS)
                 .buttonStyle(.plain)
-                #endif
+#endif
                 .foregroundStyle(focusState == .addBar ? Color.accentColor : Color.secondary)
                 .opacity( focusState == .addBar || !text.isEmpty ? 0.5 : 0)
                 .animation(.easeInOut(duration: 0.15), value: focusState == .addBar && !text.isEmpty)
@@ -93,20 +93,22 @@ struct AddBar: View {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 10.0)
-                #if os(iOS)
+#if os(iOS)
                     .strokeBorder(Color.secondary, lineWidth: 1)
                     .background {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.background)
                     }
-                #else
-                    .fill(Color.background)
+#else
+                    .fill(Material.regular)
 #endif
+#if os(iOS)
                     .shadow(
                         color: focusState == .addBar ? Color.accentColor : Color.clear,
                         radius: focusState == .addBar ? 3 : 0
                     )
                     .animation(Animation.easeInOut(duration: 0.25), value: focusState == .addBar)
+#endif
             }
         }
         .padding()

@@ -255,11 +255,11 @@ struct GroceryListView: View {
         }
         #else
         .toolbar {
-            ToolbarItem(
-              id: "flexible-space-id" // Provide a ID to allow for toolbar customization
-            ) {
-              Spacer()
-            }
+//            ToolbarItem(
+//              id: "flexible-space-id" // Provide a ID to allow for toolbar customization
+//            ) {
+//              Spacer()
+//            }
             
             if (!groceries.isEmpty) {
                 ToolbarItem(placement: .primaryAction) {
