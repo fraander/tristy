@@ -72,7 +72,7 @@ struct GroceryListView: View {
         
         let unsetAll = Button {
             groceries.forEach { grocery in
-                grocery.priority = GroceryPriority.toValue(GroceryPriority.none)
+                grocery.priority = GroceryPriority.none.value
             }
         } label: {
             Label("Deprioritize All", systemImage: "exclamationmark.2")
@@ -147,11 +147,13 @@ struct GroceryListView: View {
                             selectedGroceries.forEach { g in
                                 withAnimation {
                                     g.when = tab.description
+                                    g.priority = GroceryPriority.none.value
                                 }
                             }
                         } else {
                             withAnimation {
                                 grocery.when = tab.description
+                                grocery.priority = GroceryPriority.none.value
                             }
                         }
                     }
@@ -166,12 +168,12 @@ struct GroceryListView: View {
                 if (selectedGroceries.map(\.id).contains(grocery.id)) {
                     selectedGroceries.forEach { g in
                         withAnimation {
-                            g.priority = GroceryPriority.toValue(tab)
+                            g.priority = tab.value
                         }
                     }
                 } else {
                     withAnimation {
-                        grocery.priority = GroceryPriority.toValue(tab)
+                        grocery.priority = tab.value
                     }
                 }
             }

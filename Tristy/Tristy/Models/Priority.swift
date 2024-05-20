@@ -17,6 +17,10 @@ enum GroceryPriority: Codable, CustomStringConvertible {
         }
     }
     
+    var value: Int {
+        return GroceryPriority.toValue(self)
+    }
+    
     static func toValue(_ gp: GroceryPriority?) -> Int {
         switch gp {
         case .low: 1
