@@ -54,6 +54,7 @@
 		BD13608E2BFD364D00468A01 /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		BD1360A12BFD365500468A01 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BD1360A32BFD365A00468A01 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		BDF1555F2BFD3F0100CAA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 		BD1360672BFD359200468A01 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
+				BDF1555F2BFD3F0100CAA145 /* Info.plist */,
 				BD1360A12BFD365500468A01 /* TristyApp.swift */,
 				BD1360A32BFD365A00468A01 /* TODO.md */,
 				BD13607C2BFD364D00468A01 /* Extensions */,
@@ -374,6 +376,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -414,6 +417,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
