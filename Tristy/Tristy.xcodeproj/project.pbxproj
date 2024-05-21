@@ -31,7 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD1360652BFD359200468A01 /* TristyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TristyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BD1360702BFD359300468A01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD1360792BFD363E00468A01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		BD1360662BFD359200468A01 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD1360652BFD359200468A01 /* TristyApp.app */,
+				BD1360652BFD359200468A01 /* Tristy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,9 +155,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD1360642BFD359200468A01 /* TristyApp */ = {
+		BD1360642BFD359200468A01 /* Tristy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD1360742BFD359300468A01 /* Build configuration list for PBXNativeTarget "TristyApp" */;
+			buildConfigurationList = BD1360742BFD359300468A01 /* Build configuration list for PBXNativeTarget "Tristy" */;
 			buildPhases = (
 				BD1360612BFD359200468A01 /* Sources */,
 				BD1360622BFD359200468A01 /* Frameworks */,
@@ -167,9 +167,9 @@
 			);
 			dependencies = (
 			);
-			name = TristyApp;
+			name = Tristy;
 			productName = Tristy;
-			productReference = BD1360652BFD359200468A01 /* TristyApp.app */;
+			productReference = BD1360652BFD359200468A01 /* Tristy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -187,7 +187,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD1360602BFD359200468A01 /* Build configuration list for PBXProject "TristyApp" */;
+			buildConfigurationList = BD1360602BFD359200468A01 /* Build configuration list for PBXProject "Tristy" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -200,7 +200,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD1360642BFD359200468A01 /* TristyApp */,
+				BD1360642BFD359200468A01 /* Tristy */,
 			);
 		};
 /* End PBXProject section */
@@ -444,7 +444,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD1360602BFD359200468A01 /* Build configuration list for PBXProject "TristyApp" */ = {
+		BD1360602BFD359200468A01 /* Build configuration list for PBXProject "Tristy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD1360722BFD359300468A01 /* Debug */,
@@ -453,7 +453,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD1360742BFD359300468A01 /* Build configuration list for PBXNativeTarget "TristyApp" */ = {
+		BD1360742BFD359300468A01 /* Build configuration list for PBXNativeTarget "Tristy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD1360752BFD359300468A01 /* Debug */,
