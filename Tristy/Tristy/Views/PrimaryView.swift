@@ -36,9 +36,9 @@ struct PrimaryView: View {
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
-                }
                 
-                AddBar(list: selectedList)
+                    AddBar(list: selectedList)
+                }
             }
 #else
             ZStack(alignment: .bottom) {

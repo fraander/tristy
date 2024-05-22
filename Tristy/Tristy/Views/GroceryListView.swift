@@ -1,5 +1,5 @@
 //
-//  NewGroceryListView.swift
+//  GroceryListView.swift
 //  Tristy
 //
 //  Created by Frank Anderson on 11/2/22.
@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 import TipKit
 
-/// Represents a list of groceries
 struct GroceryListView: View {
     
     

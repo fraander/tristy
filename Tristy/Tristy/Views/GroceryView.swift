@@ -117,6 +117,9 @@ struct GroceryView: View {
                 priorityIndicator
             }
         }
+        #if os(macOS)
+        .padding(.vertical, 2)
+        #endif
         .font(.system(.body, design: .rounded))
         .task {
             // track value before editing
