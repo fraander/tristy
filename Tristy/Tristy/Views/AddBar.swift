@@ -25,7 +25,7 @@ struct AddBar: View {
             AddBarQuery(text: $text, list: list, focusState: $focusState)
             
             HStack {
-                Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
+                    Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
                        systemImage: text == "" ? "doc.on.clipboard" : "plus",
                        action: {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
