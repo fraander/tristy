@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0E48692C0A67AC00B631C8 /* Bool+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0E48682C0A67AC00B631C8 /* Bool+Comparable.swift */; };
 		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
 		BD1360902BFD364D00468A01 /* Color+backgroundColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13607B2BFD364D00468A01 /* Color+backgroundColors.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD0E48682C0A67AC00B631C8 /* Bool+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Comparable.swift"; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BD1360702BFD359300468A01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				BD13607B2BFD364D00468A01 /* Color+backgroundColors.swift */,
+				BD0E48682C0A67AC00B631C8 /* Bool+Comparable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
 				BD13609D2BFD364D00468A01 /* GroceryListView.swift in Sources */,
 				BD13609E2BFD364D00468A01 /* GroceryView.swift in Sources */,
+				BD0E48692C0A67AC00B631C8 /* Bool+Comparable.swift in Sources */,
 				BD13609C2BFD364D00468A01 /* ContentView.swift in Sources */,
 				BD1360982BFD364D00468A01 /* Priority.swift in Sources */,
 				BD1360992BFD364D00468A01 /* AddBar.swift in Sources */,
@@ -366,6 +370,7 @@
 		BD1360752BFD359300468A01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "BreadWhite CartWhite Check CheckOutlined";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
@@ -407,6 +412,7 @@
 		BD1360762BFD359300468A01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "BreadWhite CartWhite Check CheckOutlined";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;

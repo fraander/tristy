@@ -61,6 +61,17 @@ struct GroceryView: View {
         }
     }
     
+    var pinnedIndicator: some View {
+        Group {
+            if grocery.pinned {
+                Image(systemName: "pin.fill")
+                    .opacity(grocery.pinned ? 0.5 : 0)
+                    .contentTransition(.symbolEffect(.replace))
+                    .animation(.easeInOut(duration: 0.15), value: grocery.pinned)
+            }
+        }
+    }
+    
     // show text or textfield depending on completion state
     var textView: some View {
         ZStack(alignment: .leading) {
@@ -115,6 +126,8 @@ struct GroceryView: View {
                 textView
                 
                 priorityIndicator
+                
+                pinnedIndicator
             }
         }
         #if os(macOS)

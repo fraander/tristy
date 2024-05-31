@@ -27,7 +27,11 @@ struct GroceryListView: View {
         _listSelection = listSelection
         _groceries = Query(filter: #Predicate<Grocery> {
             return ($0.when ?? "") == list.description
-        }, sort: [SortDescriptor(\.priority, order: .reverse), SortDescriptor(\.title, order: .forward)], animation: .default)
+        }, sort: [
+            SortDescriptor(\Grocery.completed, order: .forward),
+            SortDescriptor(\Grocery.priority, order: .reverse),
+            SortDescriptor(\Grocery.title, order: .forward)
+        ], animation: .default)
     }
     
     var listControlGroup: some View {
@@ -82,13 +86,41 @@ struct GroceryListView: View {
         }
     }
     
+    var toolbarPinSection: some View {
+        let hasOnePinned = groceries.contains { $0.pinned }
+        let hasOneUnpinned = groceries.contains { !$0.pinned }
+        
+        let unpinAll = Button {
+            groceries.forEach { grocery in
+                grocery.pinned = false
+            }
+        } label: {
+            Label("Unpin All", systemImage: "pin.slash")
+        }
+        
+        let pinAll = Button {
+            groceries.forEach { grocery in
+                grocery.pinned = true
+            }
+        } label: {
+            Label("Pin All", systemImage: "pin.fill")
+        }
+        
+        return Group {
+            if (hasOnePinned) { unpinAll }
+            if (hasOneUnpinned) { pinAll }
+        }
+    }
+    
     var moveSection: some View {
         Group {
             ForEach(GroceryList.tabs, id: \.description) { tag in
                 if (!groceries.isEmpty && list != tag) {
                     Button {
                         groceries.forEach { grocery in
-                            grocery.when = tag.description
+                            if (!grocery.pinned) {
+                                grocery.when = tag.description
+                            }
                         }
                         listSelection = tag
                     } label: {
@@ -204,6 +236,13 @@ struct GroceryListView: View {
                         }
 #else
                         groceryPriorityActions(grocery: grocery)
+                        
+                        Divider()
+                        
+                        Button(grocery.pinned ? "Unpin" : "Pin", systemImage: grocery.pinned ? "pin.slash" : "pin") {
+                            grocery.pinned.toggle()
+                        }
+                        
                         Divider()
 #endif
                         
@@ -236,9 +275,9 @@ struct GroceryListView: View {
                 .joined(separator: "\n")
 #if os(iOS)
             UIPasteboard.general.string = shareContent
-//#else
-//            NSPasteboard.general.setString(shareContent, forType: .string)
-//            print(shareContent)
+#else
+            NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            NSPasteboard.general.setString(shareContent, forType: .string)
 #endif
         }
     }
@@ -252,12 +291,13 @@ struct GroceryListView: View {
 #endif
             toolbarCheckSection
             toolbarPrioritySection
+            toolbarPinSection
             Divider()
             moveSection
             Divider()
             
-#if os(iOS)
             copyListButton
+#if os(iOS)
             Button("Change App Icon", systemImage: "app.badge") {
                 showChangeAppIconSheet = true
             }
