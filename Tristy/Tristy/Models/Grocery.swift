@@ -11,11 +11,13 @@ import SwiftUI
 
 @Model
 class Grocery: Identifiable {
+    
     var id: UUID = UUID()
     var title: String = ""
     var completed: Bool = false
     var when: String? = GroceryList.today.description
     var priority: Int = 0
+    var pinned: Bool = false
     
     init(title: String, when: GroceryList = .today) {
         self.id = UUID()
@@ -23,5 +25,6 @@ class Grocery: Identifiable {
         self.completed = false
         self.when = when.description
         self.priority = 0
+        self.pinned = false
     }
 }
