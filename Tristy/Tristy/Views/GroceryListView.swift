@@ -237,15 +237,16 @@ struct GroceryListView: View {
 #else
                         groceryPriorityActions(grocery: grocery)
                         
+                        
                         Divider()
+#endif
                         
                         Button(grocery.pinned ? "Unpin" : "Pin", systemImage: grocery.pinned ? "pin.slash" : "pin") {
                             grocery.pinned.toggle()
                         }
                         
                         Divider()
-#endif
-                        
+
                         Button("Remove", systemImage: "trash.fill", role: .destructive) {
                             if (selectedGroceries.map(\.id).contains(grocery.id)) {
                                 selectedGroceries.forEach { g in
