@@ -25,32 +25,31 @@ struct AddBar: View {
             AddBarQuery(text: $text, list: list, focusState: $focusState)
             
             HStack {
-                    Button(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Paste" : "Add",
-                       systemImage: text == "" ? "doc.on.clipboard" : "plus",
-                       action: {
+                VStack(alignment: .center) {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
-                        #if os(iOS)
-                        text = UIPasteboard.general.string ?? ""
-                        #else
-                        text = NSPasteboard.general.string(forType: .string) ?? ""
-                        #endif
-                        focusState = .addBar
-                        abpTip.invalidate(reason: .actionPerformed)
+                        PasteButton(payloadType: String.self) { strings in
+                            text = strings[0]
+                        }
+                        .foregroundColor(.secondary.opacity(0.5))
+                        .transition(.scale)
+#if os(iOS)
+                        .popoverTip(abpTip, arrowEdge: .bottom)
+#endif
                     } else {
-                        addGrocery(title: text)
+                        Button("Add", systemImage: "plus") {
+                            addGrocery(title: text)
+                        }
+                        .foregroundColor(.accentColor)
+                        .transition(.scale)
                     }
-                })
+                }
+                .frame(width: 18, height: 18)
 #if os(macOS)
                 .buttonStyle(.plain)
 #endif
                 .labelStyle(.iconOnly)
-                .tint(focusState == .addBar ? Color.accentColor : Color.secondary)
-                .opacity(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1)
                 .animation(.easeInOut(duration: 0.15), value: text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                .contentTransition(.symbolEffect(.replace))
-                #if os(iOS)
-                .popoverTip(abpTip, arrowEdge: .bottom)
-                #endif
+
                 
                 TextField("Add item...", text: $text, axis: .vertical)
 #if os(macOS)
@@ -126,6 +125,7 @@ struct AddBar: View {
                 }) {
                     found.when = list.description
                     found.completed = false
+                    found.priority = GroceryPriority.none.value
                 } else {
                     let grocery = Grocery(title: trimmed, when: list)
                     modelContext.insert(grocery)

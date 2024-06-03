@@ -31,7 +31,7 @@ struct GroceryListView: View {
             SortDescriptor(\Grocery.completed, order: .forward),
             SortDescriptor(\Grocery.priority, order: .reverse),
             SortDescriptor(\Grocery.title, order: .forward)
-        ], animation: .default)
+        ], animation: .smooth)
     }
     
     var listControlGroup: some View {
@@ -65,8 +65,8 @@ struct GroceryListView: View {
         }
         
         return Group {
-            if (hasOneComplete) { uncheckAll }
             if (hasOneIncomplete) { checkAll }
+            if (hasOneComplete) { uncheckAll }
         }
     }
     
@@ -107,8 +107,8 @@ struct GroceryListView: View {
         }
         
         return Group {
-            if (hasOnePinned) { unpinAll }
             if (hasOneUnpinned) { pinAll }
+            if (hasOnePinned) { unpinAll }
         }
     }
     
@@ -120,6 +120,8 @@ struct GroceryListView: View {
                         groceries.forEach { grocery in
                             if (!grocery.pinned) {
                                 grocery.when = tag.description
+                                grocery.completed = false
+                                grocery.priority = GroceryPriority.none.value
                             }
                         }
                         listSelection = tag
@@ -179,12 +181,14 @@ struct GroceryListView: View {
                                 withAnimation {
                                     g.when = tab.description
                                     g.priority = GroceryPriority.none.value
+                                    g.completed = false
                                 }
                             }
                         } else {
                             withAnimation {
                                 grocery.when = tab.description
                                 grocery.priority = GroceryPriority.none.value
+                                grocery.completed = false
                             }
                         }
                     }
@@ -240,9 +244,28 @@ struct GroceryListView: View {
                         
                         Divider()
 #endif
+                        if (!grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(false))) {
+                            Button("Pin", systemImage: "pin.fill") {
+                                if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                                    selectedGroceries.forEach { g in
+                                        g.pinned = true
+                                    }
+                                } else {
+                                    grocery.pinned = true
+                                }
+                            }
+                        }
                         
-                        Button(grocery.pinned ? "Unpin" : "Pin", systemImage: grocery.pinned ? "pin.slash" : "pin") {
-                            grocery.pinned.toggle()
+                        if (grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(true))) {
+                            Button("Unpin", systemImage: "pin.slash") {
+                                if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                                    selectedGroceries.forEach { g in
+                                        g.pinned = false
+                                    }
+                                } else {
+                                    grocery.pinned = false
+                                }
+                            }
                         }
                         
                         Divider()
