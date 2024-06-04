@@ -27,17 +27,19 @@ struct AddBar: View {
             HStack {
                 VStack(alignment: .center) {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
-                        Button("Paste", systemImage: "doc.on.clipboard") {
 #if os(iOS)
+                        Button("Paste", systemImage: "doc.on.clipboard") {
                             text = UIPasteboard.general.string ?? ""
-#elseif os(macOS)
-                            text = NSPasteboard.general.pasteboardItems.first
-#endif
                         }
                         .tint(.secondary.opacity(0.5))
                         .transition(.scale)
-#if os(iOS)
                         .popoverTip(abpTip, arrowEdge: .bottom)
+#elseif os(macOS)
+                        PasteButton(payloadType: String.self) { strings in
+                                                    text = strings[0]
+                                                }
+                                                .foregroundColor(.secondary.opacity(0.5))
+                                                .transition(.scale)
 #endif
                     } else {
                         Button("Add", systemImage: "plus") {
