@@ -27,10 +27,14 @@ struct AddBar: View {
             HStack {
                 VStack(alignment: .center) {
                     if (text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
-                        PasteButton(payloadType: String.self) { strings in
-                            text = strings[0]
+                        Button("Paste", systemImage: "doc.on.clipboard") {
+#if os(iOS)
+                            text = UIPasteboard.general.string ?? ""
+#elseif os(macOS)
+                            text = NSPasteboard.general.pasteboardItems.first
+#endif
                         }
-                        .foregroundColor(.secondary.opacity(0.5))
+                        .tint(.secondary.opacity(0.5))
                         .transition(.scale)
 #if os(iOS)
                         .popoverTip(abpTip, arrowEdge: .bottom)
@@ -46,6 +50,7 @@ struct AddBar: View {
                 .frame(width: 18, height: 18)
 #if os(macOS)
                 .buttonStyle(.plain)
+#elseif os(iOS)
 #endif
                 .labelStyle(.iconOnly)
                 .animation(.easeInOut(duration: 0.15), value: text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
