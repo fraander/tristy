@@ -321,11 +321,11 @@ struct GroceryListView: View {
             Divider()
             
             copyListButton
-#if os(iOS)
-            Button("Change App Icon", systemImage: "app.badge") {
-                showChangeAppIconSheet = true
-            }
-#endif
+//#if os(iOS)
+//            Button("Change App Icon", systemImage: "app.badge") {
+//                showChangeAppIconSheet = true
+//            }
+//#endif
             clearAllSection
         }
         .font(.system(.body, design: .rounded))
