@@ -11,8 +11,8 @@ enum GroceryPriority: Codable, CustomStringConvertible {
     var description: String {
         switch self {
         case .none: "None"
-        case .low: "Low"
-        case .medium: "Medium"
+        case .low: "Unsure"
+        case .medium: "Low"
         case .high: "High"
         }
     }
@@ -44,8 +44,8 @@ enum GroceryPriority: Codable, CustomStringConvertible {
     var symbol: String {
         switch self {
         case .none: "arrow.down"
-        case .low: "exclamationmark"
-        case .medium: "exclamationmark.2"
+        case .low: "questionmark"
+        case .medium: "exclamationmark"
         case .high: "exclamationmark.3"
         }
     }

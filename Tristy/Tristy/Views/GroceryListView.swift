@@ -124,9 +124,28 @@ struct GroceryListView: View {
                                 grocery.priority = GroceryPriority.none.value
                             }
                         }
-                        listSelection = tag
+//                        listSelection = tag
                     } label: {
-                        Label("Move to \(tag.description)", systemImage: tag.symbol)
+                        Label("Move unpinned to \(tag.description)", systemImage: tag.symbol)
+                    }
+                }
+            }
+            
+            Divider()
+            
+            ForEach(GroceryList.tabs, id: \.description) { tag in
+                if (!groceries.isEmpty && list != tag) {
+                    Button {
+                        groceries.forEach { grocery in
+                            if (!grocery.pinned && grocery.completed) {
+                                grocery.when = tag.description
+                                grocery.completed = false
+                                grocery.priority = GroceryPriority.none.value
+                            }
+                        }
+//                        listSelection = tag
+                    } label: {
+                        Label("Move completed to \(tag.description)", systemImage: tag.symbol)
                     }
                 }
             }
@@ -181,6 +200,7 @@ struct GroceryListView: View {
                                 withAnimation {
                                     g.when = tab.description
                                     g.priority = GroceryPriority.none.value
+                                    g.pinned = false
                                     g.completed = false
                                 }
                             }
@@ -188,6 +208,7 @@ struct GroceryListView: View {
                             withAnimation {
                                 grocery.when = tab.description
                                 grocery.priority = GroceryPriority.none.value
+                                grocery.pinned = false
                                 grocery.completed = false
                             }
                         }
@@ -221,7 +242,6 @@ struct GroceryListView: View {
                 GroceryView(grocery: grocery)
                     .tag(grocery)
 #if os(iOS)
-                    .popoverTip(cmTip)
                     .listRowBackground(Color.secondaryBackground)
 #endif
                     .contextMenu {
@@ -279,12 +299,13 @@ struct GroceryListView: View {
                                 deleteGrocery(grocery: grocery)
                             }
                         }
-                        .onAppear {
-                            cmTip.invalidate(reason: .actionPerformed)
-                        }
+                    }
+                    .onAppear {
+                        cmTip.invalidate(reason: .actionPerformed)
                     }
             }
         }
+        .popoverTip(cmTip)
         .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
 #if os(iOS)
         .scrollContentBackground(.hidden)

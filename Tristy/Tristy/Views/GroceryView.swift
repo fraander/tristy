@@ -109,7 +109,9 @@ struct GroceryView: View {
                 .padding(.trailing, 10)
                 .lineLimit(1)
                 .overlay {
-                    strikethroughView
+                    if (grocery.when == GroceryList.today.description) {
+                        strikethroughView                        
+                    }
                 }
                 .animation(.easeOut(duration: 0.25), value: grocery.completed)
             
@@ -121,7 +123,9 @@ struct GroceryView: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                checkboxView
+                if (grocery.when == GroceryList.today.description) {
+                    checkboxView
+                }
                 
                 textView
                 
