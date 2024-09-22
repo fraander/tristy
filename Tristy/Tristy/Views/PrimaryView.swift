@@ -87,7 +87,7 @@ struct PrimaryView: View {
 
 struct NewGroceryListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroceryListView(list: .nextTime, listSelection: .constant(.nextTime))
+        GroceryListView(list: .eventually, listSelection: .constant(.eventually))
     }
 }
 

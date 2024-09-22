@@ -20,11 +20,11 @@ struct TristyApp: App {
 #endif
                 .modelContainer(for: Grocery.self)
                 .task {
-#if DEBUG
-                    try? Tips.resetDatastore()
-#endif
+//#if DEBUG
+//                    try? Tips.resetDatastore()
+//#endif
                     try? Tips.configure([
-                        .displayFrequency(.daily),
+                        .displayFrequency(.immediate),
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
