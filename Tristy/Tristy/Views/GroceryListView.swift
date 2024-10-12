@@ -114,38 +114,54 @@ struct GroceryListView: View {
     
     var moveSection: some View {
         Group {
-            ForEach(GroceryList.tabs, id: \.description) { tag in
-                if (!groceries.isEmpty && list != tag) {
-                    Button {
-                        groceries.forEach { grocery in
-                            if (!grocery.pinned) {
-                                grocery.when = tag.description
-                                grocery.completed = false
-                                grocery.priority = GroceryPriority.none.value
+            if (list.description == GroceryList.today.description) {
+                ForEach(GroceryList.tabs, id: \.description) { tag in
+                    if (!groceries.isEmpty && list != tag) {
+                        Button {
+                            groceries.forEach { grocery in
+                                if (!grocery.pinned) {
+                                    grocery.when = tag.description
+                                    grocery.completed = false
+                                    grocery.priority = GroceryPriority.none.value
+                                }
                             }
+                            //                        listSelection = tag
+                        } label: {
+                            Label("Move unpinned to \(tag.description)", systemImage: tag.symbol)
                         }
-//                        listSelection = tag
-                    } label: {
-                        Label("Move unpinned to \(tag.description)", systemImage: tag.symbol)
                     }
                 }
-            }
-            
-            Divider()
-            
-            ForEach(GroceryList.tabs, id: \.description) { tag in
-                if (!groceries.isEmpty && list != tag) {
-                    Button {
-                        groceries.forEach { grocery in
-                            if (!grocery.pinned && grocery.completed) {
+                
+                Divider()
+                
+                ForEach(GroceryList.tabs, id: \.description) { tag in
+                    if (!groceries.isEmpty && list != tag) {
+                        Button {
+                            groceries.forEach { grocery in
+                                if (!grocery.pinned && grocery.completed) {
+                                    grocery.when = tag.description
+                                    grocery.completed = false
+                                    grocery.priority = GroceryPriority.none.value
+                                }
+                            }
+                            //                        listSelection = tag
+                        } label: {
+                            Label("Move completed to \(tag.description)", systemImage: tag.symbol)
+                        }
+                    }
+                }
+            } else if (list.description != GroceryList.today.description) {
+                ForEach(GroceryList.tabs, id: \.description) { tag in
+                    if (!groceries.isEmpty && list != tag) {
+                        Button {
+                            groceries.forEach { grocery in
                                 grocery.when = tag.description
                                 grocery.completed = false
                                 grocery.priority = GroceryPriority.none.value
                             }
+                        } label: {
+                            Label("Move to \(tag.description)", systemImage: tag.symbol)
                         }
-//                        listSelection = tag
-                    } label: {
-                        Label("Move completed to \(tag.description)", systemImage: tag.symbol)
                     }
                 }
             }
@@ -255,40 +271,46 @@ struct GroceryListView: View {
 #endif
                         
 #if os(iOS)
-                        ControlGroup {
-                            groceryPriorityActions(grocery: grocery)
+                        if (grocery.when == GroceryList.today.description) {
+                            ControlGroup {
+                                groceryPriorityActions(grocery: grocery)
+                            }
                         }
 #else
-                        groceryPriorityActions(grocery: grocery)
-                        
-                        
-                        Divider()
+                        if (grocery.when == GroceryList.today.description) {
+                            groceryPriorityActions(grocery: grocery)
+                            
+                            
+                            Divider()
+                        }
 #endif
-                        if (!grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(false))) {
-                            Button("Pin", systemImage: "pin.fill") {
-                                if (selectedGroceries.map(\.id).contains(grocery.id)) {
-                                    selectedGroceries.forEach { g in
-                                        g.pinned = true
+                        if (grocery.when == GroceryList.today.description) {
+                            if (!grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(false))) {
+                                Button("Pin", systemImage: "pin.fill") {
+                                    if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                                        selectedGroceries.forEach { g in
+                                            g.pinned = true
+                                        }
+                                    } else {
+                                        grocery.pinned = true
                                     }
-                                } else {
-                                    grocery.pinned = true
                                 }
                             }
-                        }
-                        
-                        if (grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(true))) {
-                            Button("Unpin", systemImage: "pin.slash") {
-                                if (selectedGroceries.map(\.id).contains(grocery.id)) {
-                                    selectedGroceries.forEach { g in
-                                        g.pinned = false
+                            
+                            if (grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(true))) {
+                                Button("Unpin", systemImage: "pin.slash") {
+                                    if (selectedGroceries.map(\.id).contains(grocery.id)) {
+                                        selectedGroceries.forEach { g in
+                                            g.pinned = false
+                                        }
+                                    } else {
+                                        grocery.pinned = false
                                     }
-                                } else {
-                                    grocery.pinned = false
                                 }
                             }
+                            
+                            Divider()
                         }
-                        
-                        Divider()
 
                         Button("Remove", systemImage: "trash.fill", role: .destructive) {
                             if (selectedGroceries.map(\.id).contains(grocery.id)) {
