@@ -35,8 +35,7 @@ struct PrimaryView: View {
                         contentBody
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
-                    
-                
+                                    
                     AddBar(list: selectedList)
                 }
             }
