@@ -52,6 +52,7 @@ struct AddBarQuery: View {
         .frame(minHeight: 0, idealHeight: 0, maxHeight: min(60 * CGFloat(groceries.count), 130), alignment: .bottom)
         .scrollContentBackground(.hidden)
         .listStyle(.plain)
+        .clipShape(RoundedRectangle(cornerRadius: 10.0))
         .padding(2)
         .clipShape(RoundedRectangle(cornerRadius: 10.0))
         .opacity(groceries.count > 0 ? 1 : 0)

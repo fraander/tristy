@@ -255,7 +255,7 @@ struct GroceryListView: View {
     var populatedListView: some View {
         List(selection: $selectedGroceries) {
             ForEach(groceries) { grocery in
-                GroceryView(grocery: grocery)
+                GroceryView(grocery: grocery, list: list)
                     .tag(grocery)
 #if os(iOS)
                     .listRowBackground(Color.secondaryBackground)

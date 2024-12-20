@@ -16,6 +16,7 @@ struct GroceryView: View {
     
     @Environment(\.modelContext) var modelContext
     var grocery: Grocery
+    var list: GroceryList
     
     // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
@@ -104,6 +105,23 @@ struct GroceryView: View {
                                 }
                             }
                             Spacer()
+                            if (list == .today) {
+                                Group {
+                                    Button("Pin", systemImage: grocery.pinned ? "pin.fill" : "pin") {
+                                        grocery.pinned.toggle()
+                                    }
+                                    .foregroundColor(grocery.pinned ? .cyan : .secondary)
+                                    
+                                    Menu("Priority", systemImage: GroceryPriority.toEnum(grocery.priority).symbol) {
+                                        ForEach(GroceryPriority.tabs, id: \.self) { tab in
+                                            Button(tab.description, systemImage: tab.symbol) {
+                                                grocery.priority = tab.value
+                                            }
+                                        }
+                                    }
+                                    .foregroundColor(grocery.priority != GroceryPriority.none.value ? .cyan : .secondary)
+                                }
+                            }
                             Button("Dismiss", systemImage: "keyboard.chevron.compact.down") {
                                 focus = nil
                             }
