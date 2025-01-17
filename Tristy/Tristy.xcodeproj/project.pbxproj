@@ -28,6 +28,7 @@
 		BD13609F2BFD364D00468A01 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608D2BFD364D00468A01 /* ListPicker.swift */; };
 		BD1360A02BFD364D00468A01 /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608E2BFD364D00468A01 /* PrimaryView.swift */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
+		BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		BD13608D2BFD364D00468A01 /* ListPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		BD13608E2BFD364D00468A01 /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		BD1360A12BFD365500468A01 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
+		BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPopover.swift; sourceTree = "<group>"; };
 		BDF1555F2BFD3F0100CAA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 			children = (
 				BD1360872BFD364D00468A01 /* AddBar.swift */,
 				BD1360882BFD364D00468A01 /* AddBarQuery.swift */,
+				BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */,
 				BD1360892BFD364D00468A01 /* ChangeAppIconView.swift */,
 				BD13608A2BFD364D00468A01 /* ContentView.swift */,
 				BD13608B2BFD364D00468A01 /* GroceryListView.swift */,
@@ -234,6 +237,7 @@
 				BD13609B2BFD364D00468A01 /* ChangeAppIconView.swift in Sources */,
 				BD1360932BFD364D00468A01 /* AppIcon.swift in Sources */,
 				BD1360942BFD364D00468A01 /* ContextMenuTip.swift in Sources */,
+				BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */,
 				BD1360912BFD364D00468A01 /* ChangeAppIconViewModel.swift in Sources */,
 				BD1360952BFD364D00468A01 /* FocusOption.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,

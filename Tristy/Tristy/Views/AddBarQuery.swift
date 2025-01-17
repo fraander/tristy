@@ -31,6 +31,7 @@ struct AddBarQuery: View {
             Button {
                 grocery.when = list.description
                 grocery.completed = false
+                grocery.quantity = 0
                 grocery.priority = GroceryPriority.none.value
                 text = ""
             } label: {
