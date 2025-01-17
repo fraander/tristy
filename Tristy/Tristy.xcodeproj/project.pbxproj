@@ -28,6 +28,7 @@
 		BD13609F2BFD364D00468A01 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608D2BFD364D00468A01 /* ListPicker.swift */; };
 		BD1360A02BFD364D00468A01 /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608E2BFD364D00468A01 /* PrimaryView.swift */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
+		BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		BD13608D2BFD364D00468A01 /* ListPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		BD13608E2BFD364D00468A01 /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		BD1360A12BFD365500468A01 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
+		BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPopover.swift; sourceTree = "<group>"; };
 		BDF1555F2BFD3F0100CAA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 			children = (
 				BD1360872BFD364D00468A01 /* AddBar.swift */,
 				BD1360882BFD364D00468A01 /* AddBarQuery.swift */,
+				BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */,
 				BD1360892BFD364D00468A01 /* ChangeAppIconView.swift */,
 				BD13608A2BFD364D00468A01 /* ContentView.swift */,
 				BD13608B2BFD364D00468A01 /* GroceryListView.swift */,
@@ -234,6 +237,7 @@
 				BD13609B2BFD364D00468A01 /* ChangeAppIconView.swift in Sources */,
 				BD1360932BFD364D00468A01 /* AppIcon.swift in Sources */,
 				BD1360942BFD364D00468A01 /* ContextMenuTip.swift in Sources */,
+				BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */,
 				BD1360912BFD364D00468A01 /* ChangeAppIconViewModel.swift in Sources */,
 				BD1360952BFD364D00468A01 /* FocusOption.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
@@ -373,7 +377,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
@@ -397,7 +401,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -417,7 +421,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
@@ -441,7 +445,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

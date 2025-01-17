@@ -22,6 +22,10 @@ struct GroceryListView: View {
     @State var showChangeAppIconSheet = false
     @State var alert: String? = nil
     
+    @State var setQtyAlertValue: Grocery? = nil
+    @State var showSetQtyAlert: Bool = false
+    @State private var numberString = ""
+    
     init(list: GroceryList, listSelection: Binding<GroceryList>) {
         self.list = list
         _listSelection = listSelection
@@ -112,6 +116,59 @@ struct GroceryListView: View {
         }
     }
     
+    var setQtyAlertContents: some View {
+        VStack {
+            Text("Set Quatity")
+                .font(.system(.headline, design: .rounded, weight: .semibold))
+            
+            TextField("Quantity", text: $numberString)
+                .textFieldStyle(.roundedBorder)
+            #if os(iOS)
+                .keyboardType(.decimalPad)
+            #endif
+                .numbersOnly($numberString, includeDecimal: true)
+                .onSubmit {
+                    if let value = Double(numberString) {
+                        setQtyAlertValue?.quantity = value
+                    }
+                    showSetQtyAlert = false
+                    setQtyAlertValue = nil
+                }
+                .onChange(of: setQtyAlertValue) { old, new in
+                    if let value = new?.quantity {
+                        if value > 0 {
+                            if Double(Int(value)) == value {
+                                numberString = String(Int(value))
+                            } else {
+                                numberString = String(value)
+                            }
+                        } else {
+                            numberString = ""
+                        }
+                    }
+                }
+            
+            HStack {
+                Button("Cancel", role: .cancel) {
+                    showSetQtyAlert = false
+                    setQtyAlertValue = nil
+                }
+                .buttonStyle(.bordered)
+                
+                Button("Set") {
+                    if let value = Double(numberString) {
+                        setQtyAlertValue?.quantity = value
+                    }
+                    showSetQtyAlert = false
+                    setQtyAlertValue = nil
+                }
+                .buttonStyle(.borderedProminent)
+            }
+        }
+        .frame(minWidth: 240, maxWidth: 300)
+        .padding()
+    }
+    
     var moveSection: some View {
         Group {
             if (list.description == GroceryList.today.description) {
@@ -123,6 +180,7 @@ struct GroceryListView: View {
                                     grocery.when = tag.description
                                     grocery.completed = false
                                     grocery.priority = GroceryPriority.none.value
+                                    grocery.quantity = 0
                                 }
                             }
                             //                        listSelection = tag
@@ -141,6 +199,7 @@ struct GroceryListView: View {
                                 if (!grocery.pinned && grocery.completed) {
                                     grocery.when = tag.description
                                     grocery.completed = false
+                                    grocery.quantity = 0
                                     grocery.priority = GroceryPriority.none.value
                                 }
                             }
@@ -157,6 +216,7 @@ struct GroceryListView: View {
                             groceries.forEach { grocery in
                                 grocery.when = tag.description
                                 grocery.completed = false
+                                grocery.quantity = 0
                                 grocery.priority = GroceryPriority.none.value
                             }
                         } label: {
@@ -226,6 +286,7 @@ struct GroceryListView: View {
                                 grocery.priority = GroceryPriority.none.value
                                 grocery.pinned = false
                                 grocery.completed = false
+                                grocery.quantity = 0
                             }
                         }
                     }
@@ -255,7 +316,8 @@ struct GroceryListView: View {
     var populatedListView: some View {
         List(selection: $selectedGroceries) {
             ForEach(groceries) { grocery in
-                GroceryView(grocery: grocery, list: list)
+                
+                GroceryView(grocery: grocery, list: list, setQtyAlertValue: $setQtyAlertValue, showSetQtyAlert: $showSetQtyAlert)
                     .tag(grocery)
 #if os(iOS)
                     .listRowBackground(Color.secondaryBackground)
@@ -285,6 +347,19 @@ struct GroceryListView: View {
                         }
 #endif
                         if (grocery.when == GroceryList.today.description) {
+                            
+                            if grocery.quantity > 0 {
+                                Button("Remove quantity", systemImage: "delete.left") {
+                                    grocery.quantity = 0
+                                }
+                            }
+                            Button("Set quantity", systemImage: "numbers") {
+                                setQtyAlertValue = grocery
+                                showSetQtyAlert = true
+                            }
+                            
+                            Divider()
+                            
                             if (!grocery.pinned || (selectedGroceries.map(\.id).contains(grocery.id) && selectedGroceries.map(\.pinned).contains(false))) {
                                 Button("Pin", systemImage: "pin.fill") {
                                     if (selectedGroceries.map(\.id).contains(grocery.id)) {
@@ -383,6 +458,59 @@ struct GroceryListView: View {
                 populatedListView
             }
         }
+        #if os(macOS)
+        .sheet(isPresented: $showSetQtyAlert) {
+            setQtyAlertContents
+        }
+        #else
+        .alert("Set Quantity", isPresented: $showSetQtyAlert) {
+            Group {
+                TextField("Quantity", text: $numberString)
+                #if os(iOS)
+                    .keyboardType(.decimalPad)
+                #endif
+                    .numbersOnly($numberString, includeDecimal: true)
+                    .onSubmit {
+                        if let value = Double(numberString) {
+                            setQtyAlertValue?.quantity = value
+                        }
+                        showSetQtyAlert = false
+                        setQtyAlertValue = nil
+                    }
+                    .onChange(of: setQtyAlertValue) { old, new in
+                        if let value = new?.quantity {
+                            if value > 0 {
+                                if Double(Int(value)) == value {
+                                    numberString = String(Int(value))
+                                } else {
+                                    numberString = String(value)
+                                }
+                            } else {
+                                numberString = ""
+                            }
+                        }
+                    }
+                
+                HStack {
+                    Button("Cancel", role: .cancel) {
+                        showSetQtyAlert = false
+                        setQtyAlertValue = nil
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Button("Set") {
+                        if let value = Double(numberString) {
+                            setQtyAlertValue?.quantity = value
+                        }
+                        showSetQtyAlert = false
+                        setQtyAlertValue = nil
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+        }
+        #endif
+        
         #if os(iOS)
         .toolbarTitleMenu {
             titleMenuContent

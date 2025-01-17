@@ -9,14 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct GroceryView: View {
-
-    @State var newTitle = ""
-    @State var initialValue = ""
-    @FocusState var focus: FocusOption?
     
     @Environment(\.modelContext) var modelContext
     var grocery: Grocery
     var list: GroceryList
+    
+    @Binding var setQtyAlertValue: Grocery?
+    @Binding var showSetQtyAlert: Bool
+
+    @State var newTitle = ""
+    @State var initialValue = ""
+    @FocusState var focus: FocusOption?
     
     // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
@@ -107,6 +110,13 @@ struct GroceryView: View {
                             Spacer()
                             if (list == .today) {
                                 Group {
+                                    
+                                    Button("Set Quantity", systemImage: "numbers") {
+                                        setQtyAlertValue = grocery
+                                        showSetQtyAlert = true
+                                    }
+                                    .foregroundColor(grocery.quantity > 0 ? .cyan : .secondary)
+                                    
                                     Button("Pin", systemImage: grocery.pinned ? "pin.fill" : "pin") {
                                         grocery.pinned.toggle()
                                     }
@@ -158,6 +168,12 @@ struct GroceryView: View {
                 textView
                 
                 if (grocery.when == GroceryList.today.description) {
+                    if grocery.quantity > 0 {
+                        Text(grocery.quantity, format: .number)
+                            .font(.system(.caption, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                    }
+                    
                     priorityIndicator
                     
                     pinnedIndicator
