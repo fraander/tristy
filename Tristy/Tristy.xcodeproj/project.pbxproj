@@ -29,6 +29,7 @@
 		BD1360A02BFD364D00468A01 /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608E2BFD364D00468A01 /* PrimaryView.swift */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
 		BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */; };
+		BDC4FF462D6FB5AE003CA7CC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BDC4FF452D6FB5AE003CA7CC /* HighlightedTextEditor */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDC4FF462D6FB5AE003CA7CC /* HighlightedTextEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +203,9 @@
 				Base,
 			);
 			mainGroup = BD13605C2BFD359200468A01;
+			packageReferences = (
+				BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
+			);
 			productRefGroup = BD1360662BFD359200468A01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -479,6 +484,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kyle-n/HighlightedTextEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDC4FF452D6FB5AE003CA7CC /* HighlightedTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
+			productName = HighlightedTextEditor;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD13605D2BFD359200468A01 /* Project object */;
 }
