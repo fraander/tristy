@@ -22,6 +22,9 @@ struct GroceryListView: View {
     @State var showChangeAppIconSheet = false
     @State var alert: String? = nil
     
+    @SceneStorage("showNotes") var showNotes: Bool = false
+    @AppStorage("notesContents") var notesContents: String = "Put some notes here ..."
+    
     @State var setQtyAlertValue: Grocery? = nil
     @State var showSetQtyAlert: Bool = false
     @State private var numberString = ""
@@ -402,7 +405,6 @@ struct GroceryListView: View {
             }
         }
         .popoverTip(cmTip)
-        .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
 #if os(iOS)
         .scrollContentBackground(.hidden)
 #endif
@@ -427,7 +429,7 @@ struct GroceryListView: View {
         Group {
 #if os(iOS)
             listControlGroup
-                .controlGroupStyle(.menu)
+//                .controlGroupStyle(.menu)
             Divider()
 #endif
             toolbarCheckSection
@@ -510,13 +512,8 @@ struct GroceryListView: View {
             }
         }
         #endif
-        
-        #if os(iOS)
-        .toolbarTitleMenu {
-            titleMenuContent
-        }
-        #else
-        .toolbar {            
+        #if os(macOS)
+        .toolbar {
             if (!groceries.isEmpty) {
                 ToolbarItem(placement: .primaryAction) {
                     Menu("Actions", systemImage: "ellipsis.circle") {
@@ -536,6 +533,28 @@ struct GroceryListView: View {
                 }
                 .font(.system(.headline, design: .rounded, weight: .medium))
             }
+            
+            ToolbarItemGroup(placement: .primaryAction) {
+                if list == listSelection {
+                    Menu {
+                        titleMenuContent
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            
+            ToolbarItemGroup(placement: .navigation) {
+                Button {
+                    showNotes.toggle()
+                } label: {
+                    Image(systemName: "pencil.and.outline")
+                }
+            }
+        }
+        .inspector(isPresented: $showNotes) {
+            NotesView(text: $notesContents)
+                .padding()
         }
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {

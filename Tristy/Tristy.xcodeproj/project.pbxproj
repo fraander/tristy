@@ -30,6 +30,7 @@
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
 		BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */; };
 		BDC4FF462D6FB5AE003CA7CC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BDC4FF452D6FB5AE003CA7CC /* HighlightedTextEditor */; };
+		BDDF75D72D78DA1A00C1825A /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF75D62D78DA1900C1825A /* NotesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		BD13608E2BFD364D00468A01 /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		BD1360A12BFD365500468A01 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPopover.swift; sourceTree = "<group>"; };
+		BDDF75D62D78DA1900C1825A /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		BDF1555F2BFD3F0100CAA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 		BD13608F2BFD364D00468A01 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BDDF75D62D78DA1900C1825A /* NotesView.swift */,
 				BD1360872BFD364D00468A01 /* AddBar.swift */,
 				BD1360882BFD364D00468A01 /* AddBarQuery.swift */,
 				BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */,
@@ -246,6 +249,7 @@
 				BD1360912BFD364D00468A01 /* ChangeAppIconViewModel.swift in Sources */,
 				BD1360952BFD364D00468A01 /* FocusOption.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
+				BDDF75D72D78DA1A00C1825A /* NotesView.swift in Sources */,
 				BD13609D2BFD364D00468A01 /* GroceryListView.swift in Sources */,
 				BD13609E2BFD364D00468A01 /* GroceryView.swift in Sources */,
 				BD0E48692C0A67AC00B631C8 /* Bool+Comparable.swift in Sources */,
