@@ -14,7 +14,7 @@ struct PrimaryView: View {
     @State var selectedList: GroceryList = .today
     
     var contentBody: some View {
-        ForEach(GroceryList.tabs, id: \.description) { tab in
+        ForEach(GroceryList.allCases) { tab in
             GroceryListView(list: tab, listSelection: $selectedList)
                 .tabItem {
                     Label(tab.description, systemImage: tab.symbol)

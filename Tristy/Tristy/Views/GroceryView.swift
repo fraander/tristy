@@ -57,10 +57,11 @@ struct GroceryView: View {
             let p = GroceryPriority.toEnum(grocery.priority)
             if p != .none {
                 Image(systemName: p.symbol)
-                    .opacity(p != .none ? 0.5 : 0)
                     .contentTransition(.symbolEffect(.replace))
                     .animation(.easeInOut(duration: 0.15), value: p)
-                    .animation(.easeInOut(duration: 0.15), value: p.symbol)                
+                    .animation(.easeInOut(duration: 0.15), value: p.symbol)
+                    .foregroundStyle(p == GroceryPriority.low ? Color.indigo.gradient : Color.orange.gradient)
+                    .fontWeight(.bold)
             }
         }
     }
@@ -69,9 +70,22 @@ struct GroceryView: View {
         Group {
             if grocery.pinned {
                 Image(systemName: "pin.fill")
-                    .opacity(grocery.pinned ? 0.5 : 0)
+                    .opacity(grocery.pinned ? 1 : 0)
                     .contentTransition(.symbolEffect(.replace))
                     .animation(.easeInOut(duration: 0.15), value: grocery.pinned)
+                    .foregroundStyle(.red.gradient)
+            }
+        }
+    }
+    
+    var quantityIndicator: some View {
+        Group {
+            if (grocery.quantity != 0) {
+                Text(grocery.quantity, format: .number)
+                    .contentTransition(.numericText())
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                    .opacity(grocery.quantity == 0 ? 0 : 1)
             }
         }
     }
@@ -98,7 +112,7 @@ struct GroceryView: View {
                     ToolbarItem(placement: .keyboard) {
                         HStack {
                             Group {
-                                ForEach(GroceryList.tabs.filter {grocery.when != $0.description}, id: \.self) { tab in
+                                ForEach(GroceryList.allCases.filter {grocery.when != $0.description}) { tab in
                                     Button(tab.description, systemImage: tab.symbol) {
                                         grocery.when = tab.description
                                         grocery.pinned = false
@@ -168,15 +182,13 @@ struct GroceryView: View {
                 textView
                 
                 if (grocery.when == GroceryList.today.description) {
-                    if grocery.quantity > 0 {
-                        Text(grocery.quantity, format: .number)
-                            .font(.system(.caption, design: .monospaced))
-                            .foregroundStyle(.secondary)
-                    }
+
+                    quantityIndicator
                     
                     priorityIndicator
                     
                     pinnedIndicator
+                    
                 }
             }
         }

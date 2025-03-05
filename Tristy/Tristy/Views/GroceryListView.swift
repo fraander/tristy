@@ -40,7 +40,7 @@ struct GroceryListView: View {
     
     var listControlGroup: some View {
         ControlGroup {
-            ForEach(GroceryList.tabs, id: \.self) { tab in
+            ForEach(GroceryList.allCases) { tab in
                 Button(tab.description, systemImage: tab.symbol) {
                     listSelection = tab
                 }
@@ -172,8 +172,8 @@ struct GroceryListView: View {
     var moveSection: some View {
         Group {
             if (list.description == GroceryList.today.description) {
-                ForEach(GroceryList.tabs, id: \.description) { tag in
-                    if (!groceries.isEmpty && list != tag) {
+                ForEach(GroceryList.allCases) { tag in
+                    if (!groceries.isEmpty && list.description != tag.description) {
                         Button {
                             groceries.forEach { grocery in
                                 if (!grocery.pinned) {
@@ -183,7 +183,6 @@ struct GroceryListView: View {
                                     grocery.quantity = 0
                                 }
                             }
-                            //                        listSelection = tag
                         } label: {
                             Label("Move unpinned to \(tag.description)", systemImage: tag.symbol)
                         }
@@ -192,7 +191,7 @@ struct GroceryListView: View {
                 
                 Divider()
                 
-                ForEach(GroceryList.tabs, id: \.description) { tag in
+                ForEach(GroceryList.allCases) { tag in
                     if (!groceries.isEmpty && list != tag) {
                         Button {
                             groceries.forEach { grocery in
@@ -210,7 +209,7 @@ struct GroceryListView: View {
                     }
                 }
             } else if (list.description != GroceryList.today.description) {
-                ForEach(GroceryList.tabs, id: \.description) { tag in
+                ForEach(GroceryList.allCases) { tag in
                     if (!groceries.isEmpty && list != tag) {
                         Button {
                             groceries.forEach { grocery in
@@ -268,7 +267,7 @@ struct GroceryListView: View {
     
     func groceryMoveActions(grocery: Grocery) -> some View {
         Group {
-            ForEach(GroceryList.tabs, id: \.self) { tab in
+            ForEach(GroceryList.allCases) { tab in
                 if (tab != list) {
                     Button(tab.description, systemImage: tab.symbol) {
                         if (selectedGroceries.map(\.id).contains(grocery.id)) {
@@ -470,13 +469,20 @@ struct GroceryListView: View {
                     .keyboardType(.decimalPad)
                 #endif
                     .numbersOnly($numberString, includeDecimal: true)
-                    .onSubmit {
-                        if let value = Double(numberString) {
-                            setQtyAlertValue?.quantity = value
+                    .onAppear {
+                        if let value = setQtyAlertValue?.quantity {
+                            if value > 0 {
+                                if Double(Int(value)) == value {
+                                    numberString = String(Int(value))
+                                } else {
+                                    numberString = String(value)
+                                }
+                            } else {
+                                numberString = ""
+                            }
                         }
-                        showSetQtyAlert = false
-                        setQtyAlertValue = nil
                     }
+                    .onSubmit(of: .text, qtySubmitAction)
                     .onChange(of: setQtyAlertValue) { old, new in
                         if let value = new?.quantity {
                             if value > 0 {
@@ -498,13 +504,7 @@ struct GroceryListView: View {
                     }
                     .buttonStyle(.bordered)
                     
-                    Button("Set") {
-                        if let value = Double(numberString) {
-                            setQtyAlertValue?.quantity = value
-                        }
-                        showSetQtyAlert = false
-                        setQtyAlertValue = nil
-                    }
+                    Button("Set", action: qtySubmitAction)
                     .buttonStyle(.borderedProminent)
                 }
             }
@@ -556,6 +556,17 @@ struct GroceryListView: View {
             }
         }
 #endif
+    }
+    
+    private func qtySubmitAction() {
+        if let value = Double(numberString) {
+            setQtyAlertValue?.quantity = value
+        } else if numberString == "" {
+            setQtyAlertValue?.quantity = 0
+        }
+        
+        showSetQtyAlert = false
+        setQtyAlertValue = nil
     }
     
     private func deleteGrocery(grocery: Grocery) {

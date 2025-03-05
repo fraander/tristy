@@ -19,6 +19,7 @@ class Grocery: Identifiable {
     var priority: Int = 0
     var pinned: Bool = false
     var quantity: Double = 0
+    var notes: String = ""
     
     init(title: String, when: GroceryList = .today) {
         self.id = UUID()
@@ -28,5 +29,6 @@ class Grocery: Identifiable {
         self.priority = 0
         self.quantity = 0
         self.pinned = false
+        self.notes = ""
     }
 }

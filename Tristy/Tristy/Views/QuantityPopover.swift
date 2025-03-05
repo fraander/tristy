@@ -22,7 +22,7 @@ struct QuantityPopover: View {
                     grocery?.quantity = value
                 }
             }
-            .onAppear {
+            .onChange(of: grocery?.id) {
                 if let double = grocery?.quantity {
                     if (double > 0) {
                         let value = String(double)
@@ -30,11 +30,16 @@ struct QuantityPopover: View {
                     }
                 }
             }
+            .onSubmit {
+                if (numberString == "") {
+                    grocery?.quantity = 0
+                }
+            }
     }
 }
 
 #Preview {
-    QuantityPopover(grocery: .constant(Grocery(title: "tetsing")))
+    QuantityPopover(grocery: .constant(Grocery(title: "testing")))
 }
 
 
