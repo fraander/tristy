@@ -545,10 +545,12 @@ struct GroceryListView: View {
             }
             
             ToolbarItemGroup(placement: .navigation) {
-                Button {
-                    showNotes.toggle()
-                } label: {
-                    Image(systemName: "pencil.and.outline")
+                if list == listSelection {
+                    Button {
+                        showNotes.toggle()
+                    } label: {
+                        Image(systemName: "pencil.and.outline")
+                    }
                 }
             }
         }
