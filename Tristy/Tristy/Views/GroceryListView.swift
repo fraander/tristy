@@ -535,6 +535,36 @@ struct GroceryListView: View {
             }
             
             ToolbarItemGroup(placement: .primaryAction) {
+//                if list == .today {
+//                    Menu { // content:
+//                        // sort
+//                        
+//                        Button("Alphabetical", systemImage: "textformat") {
+//                            
+//                        }
+//                        
+//                        Button("Prioritized", systemImage: "exclamationmark.2") {
+//                            
+//                        }
+//                        
+//                        Divider()
+//                        
+//                        // filter
+//                        
+//                        Button("Hide Complete", systemImage: "checkmark.circle") {
+//                            
+//                        }
+//                        
+//                        Button("Divided", systemImage: "rectangle.tophalf.inset.filled") {
+//                            
+//                        }
+//                        
+//                    } label: {
+//                        Image(systemName: "line.3.horizontal.decrease.circle")
+//                    }
+//                }
+                
+                
                 if list == listSelection {
                     Menu {
                         titleMenuContent
@@ -545,7 +575,7 @@ struct GroceryListView: View {
             }
             
             ToolbarItemGroup(placement: .navigation) {
-                if list == listSelection {
+                if list == .today {
                     Button {
                         showNotes.toggle()
                     } label: {
