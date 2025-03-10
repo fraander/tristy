@@ -9,9 +9,6 @@ import SwiftUI
 
 @main
 struct TristyApp: App {
-    
-    
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -24,7 +21,7 @@ struct TristyApp: App {
 //                    try? Tips.resetDatastore()
 //#endif
                     try? Tips.configure([
-                        .displayFrequency(.immediate),
+                        .displayFrequency(.weekly),
                         .datastoreLocation(.applicationDefault)
                     ])
                 }

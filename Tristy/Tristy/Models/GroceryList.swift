@@ -7,7 +7,10 @@
 
 import Foundation
 
-enum GroceryList: Codable, CustomStringConvertible {
+enum GroceryList: Codable, CustomStringConvertible, CaseIterable, Identifiable {
+    
+    static var allCases: [GroceryList] = [.today, .nextTime, .eventually]
+    
     var description: String {
         switch self {
         case .today: "Today"
@@ -18,14 +21,12 @@ enum GroceryList: Codable, CustomStringConvertible {
     
     static func toEnum(_ string: String) -> GroceryList? {
         switch string {
-        case "Today": GroceryList.today
-        case "Next Time": GroceryList.nextTime
-        case "Eventually": GroceryList.eventually
+        case GroceryList.today.description: GroceryList.today
+        case GroceryList.nextTime.description: GroceryList.nextTime
+        case GroceryList.eventually.description: GroceryList.eventually
         default: nil
         }
     }
-    
-    static let tabs: [GroceryList] = [.today, .nextTime, .eventually]
     
     var symbol: String {
         switch self {
@@ -36,4 +37,6 @@ enum GroceryList: Codable, CustomStringConvertible {
     }
     
     case today, nextTime, eventually
+    
+    var id: Self { self }
 }

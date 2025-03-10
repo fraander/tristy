@@ -22,6 +22,9 @@ struct GroceryListView: View {
     @State var showChangeAppIconSheet = false
     @State var alert: String? = nil
     
+    @SceneStorage("showNotes") var showNotes: Bool = false
+    @AppStorage("notesContents") var notesContents: String = "Put some notes here ..."
+    
     @State var setQtyAlertValue: Grocery? = nil
     @State var showSetQtyAlert: Bool = false
     @State private var numberString = ""
@@ -40,7 +43,7 @@ struct GroceryListView: View {
     
     var listControlGroup: some View {
         ControlGroup {
-            ForEach(GroceryList.tabs, id: \.self) { tab in
+            ForEach(GroceryList.allCases) { tab in
                 Button(tab.description, systemImage: tab.symbol) {
                     listSelection = tab
                 }
@@ -172,8 +175,8 @@ struct GroceryListView: View {
     var moveSection: some View {
         Group {
             if (list.description == GroceryList.today.description) {
-                ForEach(GroceryList.tabs, id: \.description) { tag in
-                    if (!groceries.isEmpty && list != tag) {
+                ForEach(GroceryList.allCases) { tag in
+                    if (!groceries.isEmpty && list.description != tag.description) {
                         Button {
                             groceries.forEach { grocery in
                                 if (!grocery.pinned) {
@@ -183,7 +186,6 @@ struct GroceryListView: View {
                                     grocery.quantity = 0
                                 }
                             }
-                            //                        listSelection = tag
                         } label: {
                             Label("Move unpinned to \(tag.description)", systemImage: tag.symbol)
                         }
@@ -192,7 +194,7 @@ struct GroceryListView: View {
                 
                 Divider()
                 
-                ForEach(GroceryList.tabs, id: \.description) { tag in
+                ForEach(GroceryList.allCases) { tag in
                     if (!groceries.isEmpty && list != tag) {
                         Button {
                             groceries.forEach { grocery in
@@ -210,7 +212,7 @@ struct GroceryListView: View {
                     }
                 }
             } else if (list.description != GroceryList.today.description) {
-                ForEach(GroceryList.tabs, id: \.description) { tag in
+                ForEach(GroceryList.allCases) { tag in
                     if (!groceries.isEmpty && list != tag) {
                         Button {
                             groceries.forEach { grocery in
@@ -268,7 +270,7 @@ struct GroceryListView: View {
     
     func groceryMoveActions(grocery: Grocery) -> some View {
         Group {
-            ForEach(GroceryList.tabs, id: \.self) { tab in
+            ForEach(GroceryList.allCases) { tab in
                 if (tab != list) {
                     Button(tab.description, systemImage: tab.symbol) {
                         if (selectedGroceries.map(\.id).contains(grocery.id)) {
@@ -403,7 +405,6 @@ struct GroceryListView: View {
             }
         }
         .popoverTip(cmTip)
-        .safeAreaPadding(EdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0))
 #if os(iOS)
         .scrollContentBackground(.hidden)
 #endif
@@ -428,7 +429,7 @@ struct GroceryListView: View {
         Group {
 #if os(iOS)
             listControlGroup
-                .controlGroupStyle(.menu)
+//                .controlGroupStyle(.menu)
             Divider()
 #endif
             toolbarCheckSection
@@ -470,13 +471,20 @@ struct GroceryListView: View {
                     .keyboardType(.decimalPad)
                 #endif
                     .numbersOnly($numberString, includeDecimal: true)
-                    .onSubmit {
-                        if let value = Double(numberString) {
-                            setQtyAlertValue?.quantity = value
+                    .onAppear {
+                        if let value = setQtyAlertValue?.quantity {
+                            if value > 0 {
+                                if Double(Int(value)) == value {
+                                    numberString = String(Int(value))
+                                } else {
+                                    numberString = String(value)
+                                }
+                            } else {
+                                numberString = ""
+                            }
                         }
-                        showSetQtyAlert = false
-                        setQtyAlertValue = nil
                     }
+                    .onSubmit(of: .text, qtySubmitAction)
                     .onChange(of: setQtyAlertValue) { old, new in
                         if let value = new?.quantity {
                             if value > 0 {
@@ -498,25 +506,14 @@ struct GroceryListView: View {
                     }
                     .buttonStyle(.bordered)
                     
-                    Button("Set") {
-                        if let value = Double(numberString) {
-                            setQtyAlertValue?.quantity = value
-                        }
-                        showSetQtyAlert = false
-                        setQtyAlertValue = nil
-                    }
+                    Button("Set", action: qtySubmitAction)
                     .buttonStyle(.borderedProminent)
                 }
             }
         }
         #endif
-        
-        #if os(iOS)
-        .toolbarTitleMenu {
-            titleMenuContent
-        }
-        #else
-        .toolbar {            
+        #if os(macOS)
+        .toolbar {
             if (!groceries.isEmpty) {
                 ToolbarItem(placement: .primaryAction) {
                     Menu("Actions", systemImage: "ellipsis.circle") {
@@ -536,6 +533,60 @@ struct GroceryListView: View {
                 }
                 .font(.system(.headline, design: .rounded, weight: .medium))
             }
+            
+            ToolbarItemGroup(placement: .primaryAction) {
+//                if list == .today {
+//                    Menu { // content:
+//                        // sort
+//                        
+//                        Button("Alphabetical", systemImage: "textformat") {
+//                            
+//                        }
+//                        
+//                        Button("Prioritized", systemImage: "exclamationmark.2") {
+//                            
+//                        }
+//                        
+//                        Divider()
+//                        
+//                        // filter
+//                        
+//                        Button("Hide Complete", systemImage: "checkmark.circle") {
+//                            
+//                        }
+//                        
+//                        Button("Divided", systemImage: "rectangle.tophalf.inset.filled") {
+//                            
+//                        }
+//                        
+//                    } label: {
+//                        Image(systemName: "line.3.horizontal.decrease.circle")
+//                    }
+//                }
+                
+                
+                if list == listSelection {
+                    Menu {
+                        titleMenuContent
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            
+            ToolbarItemGroup(placement: .navigation) {
+                if list == .today {
+                    Button {
+                        showNotes.toggle()
+                    } label: {
+                        Image(systemName: "pencil.and.outline")
+                    }
+                }
+            }
+        }
+        .inspector(isPresented: $showNotes) {
+            NotesView(text: $notesContents)
+                .padding()
         }
         .sheet(isPresented: $showChangeAppIconSheet) {
             VStack {
@@ -556,6 +607,17 @@ struct GroceryListView: View {
             }
         }
 #endif
+    }
+    
+    private func qtySubmitAction() {
+        if let value = Double(numberString) {
+            setQtyAlertValue?.quantity = value
+        } else if numberString == "" {
+            setQtyAlertValue?.quantity = 0
+        }
+        
+        showSetQtyAlert = false
+        setQtyAlertValue = nil
     }
     
     private func deleteGrocery(grocery: Grocery) {
