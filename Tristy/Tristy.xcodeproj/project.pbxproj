@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01D397DB2DFB7EE3003F9B5C /* App Icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 01D397DA2DFB7EE3003F9B5C /* App Icon.icon */; };
 		BD0E48692C0A67AC00B631C8 /* Bool+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0E48682C0A67AC00B631C8 /* Bool+Comparable.swift */; };
 		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
@@ -29,11 +30,11 @@
 		BD1360A02BFD364D00468A01 /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13608E2BFD364D00468A01 /* PrimaryView.swift */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
 		BD7E46282D3AC71800F4A27C /* QuantityPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E46272D3AC71400F4A27C /* QuantityPopover.swift */; };
-		BDC4FF462D6FB5AE003CA7CC /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = BDC4FF452D6FB5AE003CA7CC /* HighlightedTextEditor */; };
 		BDDF75D72D78DA1A00C1825A /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDF75D62D78DA1900C1825A /* NotesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01D397DA2DFB7EE3003F9B5C /* App Icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "App Icon.icon"; sourceTree = "<group>"; };
 		BD0E48682C0A67AC00B631C8 /* Bool+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Comparable.swift"; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDC4FF462D6FB5AE003CA7CC /* HighlightedTextEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +101,7 @@
 				BD13608F2BFD364D00468A01 /* Views */,
 				BD13606E2BFD359300468A01 /* Tristy.entitlements */,
 				BD1360792BFD363E00468A01 /* Assets.xcassets */,
+				01D397DA2DFB7EE3003F9B5C /* App Icon.icon */,
 				BD13606F2BFD359300468A01 /* Preview Content */,
 			);
 			path = Tristy;
@@ -207,7 +208,6 @@
 			);
 			mainGroup = BD13605C2BFD359200468A01;
 			packageReferences = (
-				BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 			);
 			productRefGroup = BD1360662BFD359200468A01 /* Products */;
 			projectDirPath = "";
@@ -224,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */,
+				01D397DB2DFB7EE3003F9B5C /* App Icon.icon in Resources */,
 				BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,15 +387,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -402,19 +406,21 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -430,15 +436,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZT823VK2T;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tristy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Tristy;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -446,19 +455,21 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -488,25 +499,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kyle-n/HighlightedTextEditor";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BDC4FF452D6FB5AE003CA7CC /* HighlightedTextEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BDC4FF442D6FB5AE003CA7CC /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
-			productName = HighlightedTextEditor;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD13605D2BFD359200468A01 /* Project object */;
 }

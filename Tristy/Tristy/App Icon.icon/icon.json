@@ -1,0 +1,109 @@
+{
+  "fill" : {
+    "automatic-gradient" : "display-p3:0.09620,0.57973,0.78595,1.00000"
+  },
+  "groups" : [
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:0.00000,0.00000,0.00000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Group 2.png",
+          "name" : "Group 2"
+        }
+      ],
+      "name" : "Pupils",
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          -106.5703125,
+          -118.7578125
+        ]
+      },
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+              }
+            }
+          ],
+          "image-name" : "Group 3.png",
+          "name" : "Group 3",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -114.46875,
+              -144.34375
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "name" : "Eye Balls",
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.2
+      }
+    },
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "srgb:0.76835,0.79627,0.81011,1.00000"
+          },
+          "image-name" : "Cart.png",
+          "name" : "Cart",
+          "position" : {
+            "scale" : 0.33,
+            "translation-in-points" : [
+              59.3046875,
+              32.84375
+            ]
+          }
+        }
+      ],
+      "name" : "Cart",
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

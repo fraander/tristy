@@ -16,15 +16,6 @@ struct TristyApp: App {
                 .frame(minWidth: 450, idealWidth: 450, minHeight: 200, idealHeight: 600)
 #endif
                 .modelContainer(for: Grocery.self)
-                .task {
-//#if DEBUG
-//                    try? Tips.resetDatastore()
-//#endif
-                    try? Tips.configure([
-                        .displayFrequency(.weekly),
-                        .datastoreLocation(.applicationDefault)
-                    ])
-                }
         }
     }
 }
