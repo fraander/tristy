@@ -8,24 +8,27 @@
 import SwiftUI
 
 enum TristyTab: String, CaseIterable, Codable, Identifiable {
-    case shoppingList = "List"
-    case allItems = "Archive"
+    case today = "Shop"
+    case archive = "Archive"
+    case plan = "Plan"
 //    case search = "Search"
     
     var id: String { self.rawValue }
     
     var symbolName: String {
         switch self {
-        case .shoppingList: "cart.fill"
-        case .allItems: "archivebox.fill"
+        case .today: "cart.fill"
+        case .archive: "archivebox.fill"
+        case .plan: "calendar.day.timeline.left"
 //        case .search: "magnifyingglass"
         }
     }
     
     var role: TabRole? {
         switch self {
-        case .shoppingList: return nil
-        case .allItems: return nil
+        case .today: return nil
+        case .archive: return nil
+        case .plan: return nil
 //        case .search: return .search
         }
     }
@@ -33,16 +36,18 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
     @ViewBuilder
     var correspondingView: some View {
         switch self {
-        case .shoppingList: ShoppingListView()
-        case .allItems: ArchiveView()
+        case .today: ShoppingListView()
+        case .archive: ArchiveView()
+        case .plan: Text("Plan")
 //        case .search: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
     
     /// Customized order for all cases in enum `Tab`
     static let allCases: [TristyTab] = [
-        .shoppingList,
-        .allItems,
-//        .search
+        .today,
+        .archive,
+        .plan,
+//        .search,
     ]
 }

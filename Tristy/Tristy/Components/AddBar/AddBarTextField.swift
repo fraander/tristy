@@ -11,7 +11,7 @@ import SwiftUI
 struct AddBarTextField: View {
     
     @Environment(AddBarStore.self) var abStore
-    @FocusState var isFocused: Bool
+    @FocusState var focus: FocusOption?
     
     @ScaledMetric var iconHeight: Double = 22
     @State var prompt = ""
@@ -32,19 +32,22 @@ struct AddBarTextField: View {
                     .transition(.scale)
             } else {
                 Button("Add", systemImage: "plus", action: abStore.addGroceries)
-                    .foregroundStyle(abStore.isFocused ? .accent : .secondary)
+                    .foregroundStyle(abStore.isAddBarFocused ? .accent : .secondary)
                     .transition(.scale)
             }
         }
         .labelStyle(.iconOnly)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: decider)
-        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isAddBarFocused)
         .frame(width: iconHeight, height: iconHeight)
     }
     
     /// Shows either a "Clear contents" button or a "Dismiss Keyboard" button
     var trailingButton: some View {
-        ZStack(alignment: .center) {
+        
+        let showDismiss = abStore.focus != nil
+        
+        return ZStack(alignment: .center) {
             Group {
                 if (!abStore.queryIsEmpty) {
                     Button(
@@ -53,7 +56,7 @@ struct AddBarTextField: View {
                         action: abStore.clearQuery
                     )
                     .transition(.scale)
-                } else if (abStore.isFocused) {
+                } else if (showDismiss) {
                     Button(
                         "Dismiss",
                         systemImage: Symbols.dismissKeyboard,
@@ -63,9 +66,9 @@ struct AddBarTextField: View {
                 }
             }
             .labelStyle(.iconOnly)
-            .foregroundStyle(abStore.isFocused ? .accent : .secondary)
+            .foregroundStyle(showDismiss ? .accent : .secondary)
         }
-        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.queryIsEmpty && abStore.isFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.queryIsEmpty && showDismiss)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: !abStore.queryIsEmpty)
         .frame(width: iconHeight, height: iconHeight)
     }
@@ -79,18 +82,20 @@ struct AddBarTextField: View {
                 text: abStore.queryBinding,
                 axis: .vertical
             )
-            .focused($isFocused)
-            .onChange(of: isFocused) { abStore.isFocused = $1 }
-            .onChange(of: abStore.isFocused) { isFocused = $1 }
+            .focused($focus, equals: .addBar)
+            .onChange(of: focus, { oldValue, newValue in
+                abStore.setFocus(from: oldValue, to: newValue, for: .addBar)
+            })
+            .onChange(of: abStore.focus, { focus = $1 })
             .onSubmit { abStore.addGroceries() }
             .submitLabel(.done)
             .onChange(of: abStore.query, handleChange)
             .onKeyPress(.escape) {
-                abStore.isFocused = false
+                focus = nil
                 return .handled
             }
             .task { prompt = chooseRandomExampleGrocery() }
-            .task { isFocused = abStore.isFocused }
+            .task { focus = abStore.focus }
             
             trailingButton
         }
@@ -107,14 +112,14 @@ struct AddBarTextField: View {
         if (oldValue != "" && oldValue.count < newValue.count && oldValue.last != "\n" && newValue.last == "\n") {
             abStore.addGroceries()
         } else if (newValue == "\n") {
-            abStore.isFocused = false
+            dismissKeyboard()
             abStore.clearQuery()
         }
     }
     
     /// Dismiss the keyboard by removing focus from addBar
     func dismissKeyboard() {
-        abStore.isFocused = false
+        abStore.removeFocus()
     }
     
     /// Choose a random grocery to use as an example

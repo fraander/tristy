@@ -12,13 +12,12 @@ struct ApplyEnvironmentModifier: ViewModifier {
     
     @State var router = Router()
     @State var abStore = AddBarStore()
-    @State var settings = Settings()
     
     func body(content: Content) -> some View {
         content
             .environment(router)
             .environment(abStore)
-            .environment(settings)
+            .modelContainer(for: Grocery.self)
     }
 }
 

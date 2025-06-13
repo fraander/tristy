@@ -31,18 +31,18 @@ struct AddBarList: View {
             .listStyle(.plain)
             .padding(.vertical, 10)
         }
-        .frame(minHeight: 120, maxHeight: 240)
+        .frame(minHeight: 60, maxHeight: 180)
         .clipShape(.rect(cornerRadius: Metrics.glassEffectRadius))
         .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
-        .scaleEffect(abStore.isFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
-        .opacity(abStore.isFocused ? 1 : 0)
-        .allowsHitTesting(abStore.isFocused)
-        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isFocused)
+        .scaleEffect(abStore.isAddBarFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
+        .opacity(abStore.isAddBarFocused ? 1 : 0)
+        .allowsHitTesting(abStore.isAddBarFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isAddBarFocused)
     }
 }
 
 #Preview {
-    @Previewable @State var abs = AddBarStore(query: "Milk", isFocused: true)
+    @Previewable @State var abs = AddBarStore(query: "Milk", focus: .addBar)
     
     ZStack(alignment: .bottom) {
         Rectangle()

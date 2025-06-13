@@ -10,14 +10,13 @@ import SwiftUI
 
 @Observable
 class Router {
-    init(tab: TristyTab = .shoppingList, sheet: TristySheet? = nil, alert: TristyAlert? = nil) {
+    init(tab: TristyTab = .today, sheet: TristySheet? = nil) {
         self.tab = tab
         self.sheet = sheet
-        self.alert = alert
     }
     
     // MARK: TAB -
-    private(set) var tab: TristyTab = .shoppingList
+    private(set) var tab: TristyTab = .today
     var tabBinding: Binding<TristyTab> {
         .init(
             get: { self.tab },
@@ -46,6 +45,7 @@ class Router {
         self.sheet = sheet
     }
     
-    // MARK: ALERT -
-    private(set) var alert: TristyAlert? = nil
+    func dismissSheet() {
+        self.sheet = nil
+    }
 }

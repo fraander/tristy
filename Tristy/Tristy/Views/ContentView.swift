@@ -24,6 +24,15 @@ struct ContentView: View {
             }
         }
         .applyAddBar(hasSearch: false)
+        .sheet(isPresented: router.sheetBinding) {
+            Group {
+                if let sheet = router.sheet {
+                    switch sheet {
+                    case .settings: SettingsView()
+                    }
+                }
+            }
+        }
     }
 }
 

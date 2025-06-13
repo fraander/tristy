@@ -7,18 +7,54 @@
 
 import Observation
 import SwiftUI
+import SwiftData
+import OSLog
+
+enum FocusOption: Identifiable, Equatable, Hashable {
+    case addBar
+    case grocery(PersistentIdentifier)
+    
+    var id: String {
+        switch self {
+        case .addBar:
+            "addBar"
+        case .grocery(let id):
+            "grocery - \(id.storeIdentifier ?? "ERROR")"
+        }
+    }
+}
 
 @Observable
 class AddBarStore {
     
-    init(query: String = "", isFocused: Bool = false) {
+    init(query: String = "", focus: FocusOption? = nil) {
         self.query = query
-        self.isFocused = isFocused
+        self.focus = focus
     }
     
     
     private(set) var query: String = ""
-    var isFocused: Bool = false
+    private(set) var focus: FocusOption?
+    
+    /// Accept change in focus if to == for
+    /// - Parameters:
+    ///   - prevOption: What the focus value used to be at the call site
+    ///   - newOption: What the new focus value should be at the call site
+    ///   - source: Which caller is setting focus
+    func setFocus(from prevOption: FocusOption? , to newOption: FocusOption?, for source: FocusOption) {
+        if newOption == source {
+            self.focus = newOption
+        }
+    }
+    
+    /// Set focus to nil - explicit call required
+    func removeFocus() {
+        self.focus = nil
+    }
+    
+    var isAddBarFocused: Bool {
+        focus == .addBar
+    }
     
     var queryBinding: Binding<String> { .init(get: { self.query }, set: { self.query = $0 }) }
     

@@ -10,7 +10,11 @@ import SwiftUI
 struct ArchiveView: View {
     
     var contents: some View {
-        Text("Hello, World!")
+        List {
+            ListSection(list: .archive, isExpanded: true)
+                .listSectionMargins(.bottom, 120)
+        }
+        .scrollContentBackground(.hidden)
     }
     
     var body: some View {
@@ -27,6 +31,6 @@ struct ArchiveView: View {
 
 #Preview {
     ContentView()
-        .environment(Router.init(tab: .allItems))
+        .environment(Router.init(tab: .archive))
         .applyEnvironment()
 }

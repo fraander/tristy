@@ -19,17 +19,17 @@ struct ApplyAddBarModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(alignment: .bottom) {
-                if router.tab == .shoppingList {
+                if router.tab == .today {
                     AddBar()
                         .padding(.horizontal)
-                        .padding(.bottom, abStore.isFocused ? 10 : 60)
+                        .padding(.bottom, abStore.focus == nil ? 60 : 10)
                         .transition(
                             .opacity.combined(with:
                                     .scale(0.0, anchor: anchor))
                         )
                 }
             }
-            .animation(.bouncy, value: router.tab == .shoppingList)
+            .animation(.bouncy, value: router.tab == .today)
     }
     
     var anchor: UnitPoint {

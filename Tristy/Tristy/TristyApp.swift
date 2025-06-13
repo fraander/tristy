@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import CloudKitSyncMonitor
 
 @main
 struct TristyApp: App {
+    
+    init() {
+        SyncMonitor.default.startMonitoring()
+    }
+    
     
     var body: some Scene {
         WindowGroup {

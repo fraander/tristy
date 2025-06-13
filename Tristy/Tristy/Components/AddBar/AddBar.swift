@@ -9,9 +9,13 @@ import SwiftUI
 
 struct AddBar: View {
     
+    @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
+    
     var body: some View {
         VStack {
-            AddBarList()
+            if showAddBarSuggestions {
+                AddBarList()                
+            }
             AddBarTextField()
         }
     }

@@ -36,6 +36,7 @@ struct BackgroundView: View {
             Rectangle()
                 .fill(backgroundColor)
         }
+        .opacity(colorScheme == .light ? 0.5 : 1)
         .ignoresSafeArea(.all)
     }
 }

@@ -12,4 +12,5 @@ struct Symbols {
     static let paste = "document.on.clipboard"
     static let filter = "line.3.horizontal.decrease"
     static let more = "ellipsis"
+    static let addBarSuggestions = "list.dash.header.rectangle.fill"
 }

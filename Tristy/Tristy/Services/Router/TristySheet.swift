@@ -6,5 +6,5 @@
 //
 
 enum TristySheet {
-    case settings, notes
+    case settings
 }
