@@ -10,4 +10,6 @@ struct Symbols {
     static let clearTextField = "xmark"
     static let dismissSheet = "chevron.down"
     static let paste = "document.on.clipboard"
+    static let filter = "line.3.horizontal.decrease"
+    static let more = "ellipsis"
 }

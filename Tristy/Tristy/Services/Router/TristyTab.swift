@@ -30,10 +30,11 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
         }
     }
     
+    @ViewBuilder
     var correspondingView: some View {
         switch self {
-        case .shoppingList: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
-        case .allItems: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .shoppingList: ShoppingListView()
+        case .allItems: ArchiveView()
 //        case .search: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

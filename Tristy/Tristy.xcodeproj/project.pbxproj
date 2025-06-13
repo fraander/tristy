@@ -23,6 +23,10 @@
 		01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18962DFBB2DD00BCD8A5 /* AddBar.swift */; };
 		01CC18BE2DFBC6E900BCD8A5 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18BD2DFBC6E800BCD8A5 /* Metrics.swift */; };
 		01CC18C02DFBC7BF00BCD8A5 /* AddBarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18BF2DFBC7BF00BCD8A5 /* AddBarList.swift */; };
+		01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */; };
+		01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */; };
+		01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */; };
+		01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */; };
 		01D397DB2DFB7EE3003F9B5C /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */; };
 		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
@@ -46,6 +50,10 @@
 		01CC18962DFBB2DD00BCD8A5 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		01CC18BD2DFBC6E800BCD8A5 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		01CC18BF2DFBC7BF00BCD8A5 /* AddBarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarList.swift; sourceTree = "<group>"; };
+		01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
+		01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+systemGroupedBackground.swift"; sourceTree = "<group>"; };
+		01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
@@ -79,6 +87,7 @@
 		01CBC5AA2DFB89E700E5B891 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */,
 				01CBC5B92DFBA20800E5B891 /* View+readSize.swift */,
 				01CBC5A72DFB88D900E5B891 /* View+applyEnvironment.swift */,
 				01CC18902DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift */,
@@ -90,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
+				01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */,
+				01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,6 +128,7 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */,
 				01CC18952DFBB2CE00BCD8A5 /* AddBar */,
 				01CBC5B52DFB990F00E5B891 /* TristyPasteButton.swift */,
 			);
@@ -248,16 +260,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */,
 				01CBC5A62DFB889E00E5B891 /* Settings.swift in Sources */,
 				01CBC5A42DFB881900E5B891 /* TristyTab.swift in Sources */,
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,
 				01CC18912DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */,
+				01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */,
 				01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */,
 				01CBC5A82DFB88DD00E5B891 /* View+applyEnvironment.swift in Sources */,
 				01CBC5B02DFB8BF600E5B891 /* TristyAlert.swift in Sources */,
+				01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */,
 				01CBC5AE2DFB8B1900E5B891 /* TristySheet.swift in Sources */,
+				01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
 				01CC18C02DFBC7BF00BCD8A5 /* AddBarList.swift in Sources */,
 				01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */,
