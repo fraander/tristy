@@ -1,7 +1,5 @@
 {
-  "fill" : {
-    "automatic-gradient" : "display-p3:0.09620,0.57973,0.78595,1.00000"
-  },
+  "fill" : "automatic",
   "groups" : [
     {
       "blur-material" : 0.5,
@@ -76,12 +74,15 @@
       "layers" : [
         {
           "fill" : {
-            "automatic-gradient" : "srgb:0.76835,0.79627,0.81011,1.00000"
+            "linear-gradient" : [
+              "display-p3:0.47411,0.49034,0.50000,1.00000",
+              "srgb:0.38210,0.39599,0.40287,1.00000"
+            ]
           },
-          "image-name" : "Cart.png",
+          "image-name" : "Cart.svg",
           "name" : "Cart",
           "position" : {
-            "scale" : 0.33,
+            "scale" : 1,
             "translation-in-points" : [
               59.3046875,
               32.84375
