@@ -7,43 +7,39 @@
 
 import SwiftUI
 
-struct AddBar: View {
+/// Text field with ornaments to add values to the Grocery list. Broadcasts its query and focus value through an `AddBarStore` inserted in the environment.
+struct AddBarTextField: View {
     
-    @Environment(Store.self) var store
-    @FocusState var addBarIsFocused: Bool
+    @Environment(AddBarStore.self) var abStore
+    @FocusState var isFocused: Bool
     
     let animationDuration: Double = 0.15
     @ScaledMetric var iconHeight: Double = 22
+    @State var prompt = ""
     
-    var clipboardHasContents: Bool {
-        !(UIPasteboard.general.string ?? "").isEmpty
-    }
-    
-    var addBarQueryIsEmpty: Bool {
-        store.addBarQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    var clipboardHasUsefulContents: Bool {
+        let content = UIPasteboard.general.string ?? ""
+        return !(content.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty
     }
     
     /// Shows either a "Paste" button or an "Add" button
     var leadingButton: some View {
-        let decider = addBarQueryIsEmpty && clipboardHasContents
+        let decider = abStore.queryIsEmpty && clipboardHasUsefulContents
         
         return ZStack(alignment: .center) {
             if (decider) {
-                TristyPasteButton { value in
-                    store.appendToAddBarQuery(value)
-                }
-                .transition(.scale)
+                TristyPasteButton { abStore.appendToQuery($0) }
+                    .foregroundStyle(.accent)
+                    .transition(.scale)
             } else {
-                Button("Add", systemImage: "plus") {
-                    store.addGroceries()
-                }
-                .transition(.scale)
+                Button("Add", systemImage: "plus", action: abStore.addGroceries)
+                    .foregroundStyle(abStore.isFocused ? .accent : .secondary)
+                    .transition(.scale)
             }
         }
         .labelStyle(.iconOnly)
-        .foregroundStyle(addBarIsFocused ? .accent : .secondary)
         .animation(.easeInOut(duration: animationDuration), value: decider)
-        .animation(.easeInOut(duration: animationDuration), value: addBarIsFocused)
+        .animation(.easeInOut(duration: animationDuration), value: abStore.isFocused)
         .frame(width: iconHeight, height: iconHeight)
     }
     
@@ -51,7 +47,14 @@ struct AddBar: View {
     var trailingButton: some View {
         ZStack(alignment: .center) {
             Group {
-                if (addBarIsFocused) {
+                if (!abStore.queryIsEmpty) {
+                    Button(
+                        "Clear",
+                        systemImage: Symbols.clearTextField,
+                        action: abStore.clearQuery
+                    )
+                    .transition(.scale)
+                } else if (abStore.isFocused) {
                     Button(
                         "Dismiss",
                         systemImage: Symbols.dismissKeyboard,
@@ -59,54 +62,42 @@ struct AddBar: View {
                     )
                     .transition(.scale)
                 }
-                
-                if (!addBarIsFocused && !addBarQueryIsEmpty) {
-                    Button(
-                        "Clear",
-                        systemImage: Symbols.clearTextField,
-                        action: store.clearAddBarQuery
-                    )
-                    .transition(.scale)
-                }
             }
             .labelStyle(.iconOnly)
-            .foregroundStyle(addBarIsFocused ? .accent : .secondary)
+            .foregroundStyle(abStore.isFocused ? .accent : .secondary)
         }
-        .animation(.easeInOut(duration: animationDuration), value: addBarIsFocused)
-        .animation(.easeInOut(duration: animationDuration), value: !addBarIsFocused && !addBarQueryIsEmpty)
+        .animation(.easeInOut(duration: animationDuration), value: abStore.queryIsEmpty && abStore.isFocused)
+        .animation(.easeInOut(duration: animationDuration), value: !abStore.queryIsEmpty)
         .frame(width: iconHeight, height: iconHeight)
     }
     
     var body: some View {
-        
-        @Bindable var store = store
-        
         HStack(alignment: .bottom) {
             leadingButton
             
             TextField(
-                chooseRandomExampleGrocery(),
-                text: store.addBarQueryBinding,
+                prompt,
+                text: abStore.queryBinding,
                 axis: .vertical
             )
-            .focused($addBarIsFocused)
-            .onSubmit { store.addGroceries() }
+            .focused($isFocused)
+            .onChange(of: isFocused) { abStore.isFocused = $1 }
+            .onChange(of: abStore.isFocused) { isFocused = $1 }
+            .onSubmit { abStore.addGroceries() }
             .submitLabel(.done)
-            .readSize(onChange: { newSize in
-                print(newSize.height)
-            })
-            .onChange(of: store.addBarQuery, handleChange)
+            .onChange(of: abStore.query, handleChange)
             .onKeyPress(.escape) {
-                addBarIsFocused = false
+                abStore.isFocused = false
                 return .handled
             }
+            .task { prompt = chooseRandomExampleGrocery() }
+            .task { isFocused = abStore.isFocused }
             
             trailingButton
         }
         .padding()
-        .glassEffect(.regular, in: .rect(cornerRadius: 30.0))
+        .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
     }
-    
     
     
     /// If Return (\n) is pressed, decide to treat it as a submission or as inserting a new line based on if value is being removed (do not treat as submit; it's the user cleaning up a long pasting) or inserted (treat as a submission)
@@ -115,16 +106,16 @@ struct AddBar: View {
     ///   - newValue: New value of the query
     func handleChange(oldValue: String, newValue: String) {
         if (oldValue != "" && oldValue.count < newValue.count && oldValue.last != "\n" && newValue.last == "\n") {
-            store.addGroceries()
+            abStore.addGroceries()
         } else if (newValue == "\n") {
-            addBarIsFocused = false
-            store.clearAddBarQuery()
+            abStore.isFocused = false
+            abStore.clearQuery()
         }
     }
     
     /// Dismiss the keyboard by removing focus from addBar
     func dismissKeyboard() {
-        addBarIsFocused = false
+        abStore.isFocused = false
     }
     
     /// Choose a random grocery to use as an example

@@ -10,6 +10,11 @@ import SwiftUI
 
 @Observable
 class Router {
+    init(tab: TristyTab = .shoppingList, sheet: TristySheet? = nil, alert: TristyAlert? = nil) {
+        self.tab = tab
+        self.sheet = sheet
+        self.alert = alert
+    }
     
     // MARK: TAB -
     private(set) var tab: TristyTab = .shoppingList
