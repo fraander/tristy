@@ -11,26 +11,48 @@ struct AddBarList: View {
     
     @Environment(AddBarStore.self) var abStore
     
+    @State var groceries = ["Milk", "Bread", "Eggs", "Bananas", "Rice", "Onions", "Tomatoes", "Cheese", "Apples"]
+    
     var body: some View {
         ZStack {
             List {
-                ForEach(0..<10, id: \.self) { i in
-                    Text("Row \(i)")
-                        .listRowBackground(Color.clear)
+                ForEach(groceries, id: \.self) { grocery in
+                    Label(grocery, systemImage: "archivebox")
+//                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+//                        Button("Insert", systemImage: "text.insert") {
+//                            withAnimation { groceries.removeAll(where: {$0 == grocery}) }
+//                        }
+//                            .tint(.accent)
+//                    }
                 }
+                .listRowBackground(Color.clear)
             }
             .scrollContentBackground(.hidden)
-            .listStyle(.inset)
+            .listStyle(.plain)
+            .padding(.vertical, 10)
         }
         .frame(minHeight: 120, maxHeight: 240)
+        .clipShape(.rect(cornerRadius: Metrics.glassEffectRadius))
         .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
+        .scaleEffect(abStore.isFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
+        .opacity(abStore.isFocused ? 1 : 0)
+        .allowsHitTesting(abStore.isFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isFocused)
     }
 }
 
 #Preview {
     @Previewable @State var abs = AddBarStore(query: "Milk", isFocused: true)
     
-    AddBar()
-        .environment(abs)
-        .applyEnvironment()
+    ZStack(alignment: .bottom) {
+        Rectangle()
+            .fill(
+                Color.cyan.gradient
+            )
+            .ignoresSafeArea(.all)
+        AddBar()
+            .environment(abs)
+            .applyEnvironment()
+            .padding()
+    }
 }

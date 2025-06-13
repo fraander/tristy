@@ -13,7 +13,6 @@ struct AddBarTextField: View {
     @Environment(AddBarStore.self) var abStore
     @FocusState var isFocused: Bool
     
-    let animationDuration: Double = 0.15
     @ScaledMetric var iconHeight: Double = 22
     @State var prompt = ""
     
@@ -38,8 +37,8 @@ struct AddBarTextField: View {
             }
         }
         .labelStyle(.iconOnly)
-        .animation(.easeInOut(duration: animationDuration), value: decider)
-        .animation(.easeInOut(duration: animationDuration), value: abStore.isFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: decider)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isFocused)
         .frame(width: iconHeight, height: iconHeight)
     }
     
@@ -66,8 +65,8 @@ struct AddBarTextField: View {
             .labelStyle(.iconOnly)
             .foregroundStyle(abStore.isFocused ? .accent : .secondary)
         }
-        .animation(.easeInOut(duration: animationDuration), value: abStore.queryIsEmpty && abStore.isFocused)
-        .animation(.easeInOut(duration: animationDuration), value: !abStore.queryIsEmpty)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.queryIsEmpty && abStore.isFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: !abStore.queryIsEmpty)
         .frame(width: iconHeight, height: iconHeight)
     }
     
