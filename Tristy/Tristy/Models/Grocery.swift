@@ -8,10 +8,20 @@
 import SwiftData
 import SwiftUI
 
-enum GroceryList: Int, RawRepresentable {
+#Preview {
+    VStack {
+        ForEach(GroceryList.allCases) { gl in
+            gl.color
+        }
+    }
+}
+
+enum GroceryList: Int, RawRepresentable, CaseIterable, Identifiable {
     case active = 0
     case nextTime = 1
     case archive = 2
+    
+    var id: Int { self.rawValue }
     
     var name: String {
         switch self {
@@ -26,6 +36,14 @@ enum GroceryList: Int, RawRepresentable {
         case .active: "smallcircle.filled.circle"
         case .nextTime: "arrow.right"
         case .archive: "archivebox"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .active: .accentColor
+        case .nextTime: .indigo
+        case .archive: .secondary
         }
     }
 }
@@ -81,7 +99,10 @@ class Grocery {
     // Methods for updates
     func setCompleted(_ value: Bool) { completed = value ? 1 : 0 }
     func setCertainty(_ value: Bool) { certainty = value ? 1 : 0 }
-    func setList(_ value: GroceryList) { list = value.rawValue }
+    func setList(_ value: GroceryList) {
+        list = value.rawValue
+        setCompleted(false)
+    }
     func setImportance(_ value: GroceryImportance) { importance = value.rawValue }
     
     // MARK: Initializers -

@@ -10,7 +10,9 @@ import SwiftUI
 
 struct GroceryListRow: View {
     
+    @Environment(\.groceryList) var list
     @Environment(AddBarStore.self) var abStore
+    @Environment(Router.self) var router
     var grocery: Grocery
     
     @State var newTitle = ""
@@ -28,6 +30,7 @@ struct GroceryListRow: View {
         .labelStyle(.iconOnly)
         .buttonStyle(.plain)
         .foregroundColor(grocery.isCompleted ? .mint : .accentColor)
+        .animation(.easeOut(duration: 0.25), value: grocery.completed)
         .font(.system(.title2))
     }
     
@@ -55,9 +58,9 @@ struct GroceryListRow: View {
             .lineLimit(1)
             .focused($focus, equals: .grocery(grocery.id))
             .onChange(of: focus, { oldValue, newValue in
-                abStore.setFocus(from: oldValue, to: newValue, for: .grocery(grocery.id))
+                router.updateFocus(from: oldValue, to: newValue, for: .grocery(grocery.id))
             })
-            .onChange(of: abStore.focus, { focus = $1 })
+            .onChange(of: router.focus, { focus = $1 })
             .font(.system(.body, design: .rounded))
             
             Text(newTitle)
@@ -73,9 +76,23 @@ struct GroceryListRow: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            HStack {
-                checkboxView
-                textView
+            if list == .active {
+                HStack {
+                    checkboxView
+                    textView
+                }
+            } else {
+                Text(grocery.titleOrEmpty)
+            }
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            ForEach(GroceryList.allCases) { gl in
+                if list != gl {
+                    Button(gl.name, systemImage: gl.symbolName) {
+                        grocery.setList(gl)
+                    }
+                    .tint(gl.color)
+                }
             }
         }
         .font(.system(.body, design: .rounded))

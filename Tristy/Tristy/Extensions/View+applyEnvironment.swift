@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+import OSLog
 
 /// Apply the whole collection of Services as a single modifier, instead of duplicating work in both @main and previews.
 struct ApplyEnvironmentModifier: ViewModifier {
@@ -13,11 +15,32 @@ struct ApplyEnvironmentModifier: ViewModifier {
     @State var router = Router()
     @State var abStore = AddBarStore()
     
+    /// Should the model container be pre-populated with examples?
+    let prePopulate: Bool
+    
+    var modelContainer: ModelContainer {
+        
+        Logger.setup.info("Create modelContainer")
+        
+        if prePopulate {
+            let config = ModelConfiguration(isStoredInMemoryOnly: true)
+            let container = try! ModelContainer(for: Grocery.self, configurations: config)
+            
+            for grocery in Grocery.examples {
+                container.mainContext.insert(grocery)
+            }
+            
+            return container
+        } else {
+            return try! ModelContainer(for: Grocery.self, configurations: .init(isStoredInMemoryOnly: false))
+        }
+    }
+    
     func body(content: Content) -> some View {
         content
             .environment(router)
             .environment(abStore)
-            .modelContainer(for: Grocery.self)
+            .modelContainer(self.modelContainer)
     }
 }
 
@@ -40,7 +63,18 @@ extension View {
     ///         .environment(AddBarStore(query: "Eggs", isFocused: true) // Incorrect. The closed value to the view in the tree is used.
     /// }
     /// ```
-    func applyEnvironment() -> some View {
-        self.modifier(ApplyEnvironmentModifier())
+    func applyEnvironment(prePopulate: Bool = false) -> some View {
+        self.modifier(ApplyEnvironmentModifier(prePopulate: prePopulate))
     }
 }
+
+#Preview("Pre-populated") {
+    ContentView()
+        .applyEnvironment(prePopulate: true)
+}
+
+#Preview("Empty") {
+    ContentView()
+        .applyEnvironment()
+}
+

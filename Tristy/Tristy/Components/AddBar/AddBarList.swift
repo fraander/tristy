@@ -10,6 +10,7 @@ import SwiftUI
 struct AddBarList: View {
     
     @Environment(AddBarStore.self) var abStore
+    @Environment(Router.self) var router
     
     @State var groceries = ["Milk", "Bread", "Eggs", "Bananas", "Rice", "Onions", "Tomatoes", "Cheese", "Apples"]
     
@@ -34,15 +35,15 @@ struct AddBarList: View {
         .frame(minHeight: 60, maxHeight: 180)
         .clipShape(.rect(cornerRadius: Metrics.glassEffectRadius))
         .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
-        .scaleEffect(abStore.isAddBarFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
-        .opacity(abStore.isAddBarFocused ? 1 : 0)
-        .allowsHitTesting(abStore.isAddBarFocused)
-        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isAddBarFocused)
+        .scaleEffect(router.isAddBarFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
+        .opacity(router.isAddBarFocused ? 1 : 0)
+        .allowsHitTesting(router.isAddBarFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: router.isAddBarFocused)
     }
 }
 
 #Preview {
-    @Previewable @State var abs = AddBarStore(query: "Milk", focus: .addBar)
+    @Previewable @State var abs = AddBarStore(query: "Milk")
     
     ZStack(alignment: .bottom) {
         Rectangle()
@@ -51,7 +52,8 @@ struct AddBarList: View {
             )
             .ignoresSafeArea(.all)
         AddBar()
-            .environment(abs)
+            .environment(AddBarStore(query: "Milk"))
+            .environment(Router(focus: .addBar))
             .applyEnvironment()
             .padding()
     }

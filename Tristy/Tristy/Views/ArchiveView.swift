@@ -11,7 +11,7 @@ struct ArchiveView: View {
     
     var contents: some View {
         List {
-            ListSection(list: .archive, isExpanded: true)
+            GroceryListSection(list: .archive, isExpanded: true)
                 .listSectionMargins(.bottom, 120)
         }
         .scrollContentBackground(.hidden)

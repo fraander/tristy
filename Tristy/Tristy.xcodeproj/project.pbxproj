@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
+		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
+		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
+		01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A62DFF6FA700679DDB /* FocusOption.swift */; };
+		01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */; };
+		01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438AD2DFF888900679DDB /* CaptionedListRow.swift */; };
 		01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC59D2DFB818600E5B891 /* ContentView.swift */; };
 		01CBC5A02DFB880200E5B891 /* AddBarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC59F2DFB880200E5B891 /* AddBarStore.swift */; };
 		01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5A12DFB880F00E5B891 /* Router.swift */; };
@@ -42,6 +47,11 @@
 /* Begin PBXFileReference section */
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
+		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
+		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		01A438A62DFF6FA700679DDB /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
+		01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListSection.swift; sourceTree = "<group>"; };
+		01A438AD2DFF888900679DDB /* CaptionedListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionedListRow.swift; sourceTree = "<group>"; };
 		01CBC59D2DFB818600E5B891 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		01CBC59F2DFB880200E5B891 /* AddBarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarStore.swift; sourceTree = "<group>"; };
 		01CBC5A12DFB880F00E5B891 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -98,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				01CBC59F2DFB880200E5B891 /* AddBarStore.swift */,
+				01D5051D2DFCE0CE003B8DBF /* Settings */,
 				01CBC5AC2DFB89FB00E5B891 /* Router */,
 			);
 			path = Services;
@@ -106,6 +117,7 @@
 		01CBC5AA2DFB89E700E5B891 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */,
 				01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */,
 				01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */,
 				01D505172DFCD757003B8DBF /* Logger+subsystem.swift */,
@@ -119,10 +131,11 @@
 		01CBC5AB2DFB89ED00E5B891 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01D5051D2DFCE0CE003B8DBF /* Settings */,
+				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
 				01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */,
 				01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */,
+				01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +143,7 @@
 		01CBC5AC2DFB89FB00E5B891 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				01A438A62DFF6FA700679DDB /* FocusOption.swift */,
 				01CBC5A12DFB880F00E5B891 /* Router.swift */,
 				01CBC5A32DFB881900E5B891 /* TristyTab.swift */,
 				01CBC5AD2DFB8B1600E5B891 /* TristySheet.swift */,
@@ -149,6 +163,7 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				01A438AD2DFF888900679DDB /* CaptionedListRow.swift */,
 				012A80E82DFBE782005B4B70 /* GroceryListRow.swift */,
 				01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */,
 				01CC18952DFBB2CE00BCD8A5 /* AddBar */,
@@ -170,9 +185,9 @@
 		01D5051D2DFCE0CE003B8DBF /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				01A438A42DFF6A8700679DDB /* Settings.swift */,
 				01D5051B2DFCE0BE003B8DBF /* DataActions.swift */,
 				01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */,
-				01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -196,12 +211,12 @@
 		BD1360672BFD359200468A01 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
-				012A80EA2DFBE8EA005B4B70 /* Models */,
 				BD13606E2BFD359300468A01 /* Tristy.entitlements */,
 				01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */,
 				BDF1555F2BFD3F0100CAA145 /* Info.plist */,
 				BD1360A12BFD365500468A01 /* TristyApp.swift */,
 				BD1360792BFD363E00468A01 /* Assets.xcassets */,
+				012A80EA2DFBE8EA005B4B70 /* Models */,
 				01CBC5B72DFBA08500E5B891 /* Constants */,
 				01CBC5AA2DFB89E700E5B891 /* Extensions */,
 				01CBC5A92DFB89D900E5B891 /* Services */,
@@ -301,6 +316,8 @@
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
 				01CC18912DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
+				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
+				01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */,
 				01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */,
 				01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */,
 				01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */,
@@ -312,10 +329,13 @@
 				01CBC5AE2DFB8B1900E5B891 /* TristySheet.swift in Sources */,
 				01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
+				01A438A52DFF6A8700679DDB /* Settings.swift in Sources */,
 				01CC18C02DFBC7BF00BCD8A5 /* AddBarList.swift in Sources */,
 				012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */,
 				01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */,
+				01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */,
 				01CBC5A02DFB880200E5B891 /* AddBarStore.swift in Sources */,
+				01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */,
 				01CBC5B22DFB8FF800E5B891 /* AddBarTextField.swift in Sources */,
 				012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */,
 				01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */,

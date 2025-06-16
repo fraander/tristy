@@ -21,8 +21,8 @@ struct ApplyAddBarModifier: ViewModifier {
             .overlay(alignment: .bottom) {
                 if router.tab == .today {
                     AddBar()
-                        .padding(.horizontal)
-                        .padding(.bottom, abStore.focus == nil ? 60 : 10)
+                        .padding(.horizontal, 7)
+                        .padding(.bottom, router.focus == nil ? 60 : 10)
                         .transition(
                             .opacity.combined(with:
                                     .scale(0.0, anchor: anchor))

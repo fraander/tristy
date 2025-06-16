@@ -13,7 +13,7 @@ struct SyncStatusView: View {
     @StateObject private var syncMonitor = SyncMonitor.default
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 5) {
             Label(
                 title: {
                     Text(syncMonitor.syncStateSummary.description)
@@ -30,5 +30,11 @@ struct SyncStatusView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+}
+
+#Preview {
+    List {
+        SyncStatusView()
     }
 }

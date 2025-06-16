@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-struct Settings {
-    /// @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-    struct AddBarSuggestions {
-        
-        @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-        
-        static let key = "showAddBarSuggestions"
-        static let defaultValue = true
-        static let iconName = Symbols.addBarSuggestions
-        static let title = "Add Bar suggestions"
-        
-        var control: some View {
-            Toggle(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName, isOn: $showAddBarSuggestions)
-        }
-    }
-}
-
 struct SettingsView: View {
     
     @Environment(Router.self) var router
@@ -38,14 +21,27 @@ struct SettingsView: View {
                 }
                 
                 Section("Preferences") {
-                    Settings.AddBarSuggestions().control
-                        .tint(.accent)
+                    Settings.AddBarSuggestions.Toggle()
+
+                    CaptionedListRow(caption: Settings.HideCompleted.caption) {
+                        Settings.HideCompleted.Toggle()
+                    }
+                    
+                    CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
+                        Settings.CollapsibleSections.Toggle()
+                    }
+                    
+                    Settings.CompletedToBottom.Toggle()
+
+                    
+                    
                 }
                 
                 Section("Data Actions") {
                     DataActions()
                 }
             }
+            .tint(.accent)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done", systemImage: Symbols.dismissSheet) {
@@ -58,7 +54,7 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
+#Preview("In SettingsView context") {
     SettingsView()
         .applyEnvironment()
 }

@@ -11,6 +11,7 @@ import SwiftUI
 struct AddBarTextField: View {
     
     @Environment(AddBarStore.self) var abStore
+    @Environment(Router.self) var router
     @FocusState var focus: FocusOption?
     
     @ScaledMetric var iconHeight: Double = 22
@@ -31,21 +32,21 @@ struct AddBarTextField: View {
                     .foregroundStyle(.accent)
                     .transition(.scale)
             } else {
-                Button("Add", systemImage: "plus", action: abStore.addGroceries)
-                    .foregroundStyle(abStore.isAddBarFocused ? .accent : .secondary)
+                Button("Add", systemImage: Symbols.add, action: abStore.addGroceries)
+                    .foregroundStyle(router.isAddBarFocused ? .accent : .secondary)
                     .transition(.scale)
             }
         }
         .labelStyle(.iconOnly)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: decider)
-        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.isAddBarFocused)
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: router.isAddBarFocused)
         .frame(width: iconHeight, height: iconHeight)
     }
     
     /// Shows either a "Clear contents" button or a "Dismiss Keyboard" button
     var trailingButton: some View {
         
-        let showDismiss = abStore.focus != nil
+        let showDismiss = router.focus != nil
         
         return ZStack(alignment: .center) {
             Group {
@@ -84,9 +85,9 @@ struct AddBarTextField: View {
             )
             .focused($focus, equals: .addBar)
             .onChange(of: focus, { oldValue, newValue in
-                abStore.setFocus(from: oldValue, to: newValue, for: .addBar)
+                router.updateFocus(from: oldValue, to: newValue, for: .addBar)
             })
-            .onChange(of: abStore.focus, { focus = $1 })
+            .onChange(of: router.focus, { focus = $1 })
             .onSubmit { abStore.addGroceries() }
             .submitLabel(.done)
             .onChange(of: abStore.query, handleChange)
@@ -95,7 +96,7 @@ struct AddBarTextField: View {
                 return .handled
             }
             .task { prompt = chooseRandomExampleGrocery() }
-            .task { focus = abStore.focus }
+            .task { focus = router.focus }
             
             trailingButton
         }
@@ -118,9 +119,7 @@ struct AddBarTextField: View {
     }
     
     /// Dismiss the keyboard by removing focus from addBar
-    func dismissKeyboard() {
-        abStore.removeFocus()
-    }
+    func dismissKeyboard() { router.removeFocus() }
     
     /// Choose a random grocery to use as an example
     /// - Returns: A random grocery from the list of 10

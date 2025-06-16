@@ -6,53 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
-
-struct FilteredGroceryQuery: View {
-    @Environment(\.modelContext) var modelContext
-    @Query var groceries: [Grocery]
-    
-    init(filter: Predicate<Grocery>, sort: [SortDescriptor<Grocery>] = []) {
-        self._groceries = Query(filter: filter, sort: sort, animation: .default) // Expected declaration; Expected expression in assignment
-    }
-    
-    init(list: GroceryList) {
-        let intValue = list.rawValue
-        self.init(filter: #Predicate { $0.list == intValue })
-    }
-    
-    var body: some View {
-        Group {
-            ForEach(groceries) { grocery in
-                GroceryListRow(grocery: grocery)
-            }
-            
-//            if groceries.isEmpty {
-//                 // TODO: some explanation of what to do about it being empty
-//            }
-        }
-    }
-}
-
-struct ListSection: View {
-    
-    var list: GroceryList
-    @State var isExpanded = true
-    
-    var body: some View {
-        
-        Section(isExpanded: $isExpanded) {
-            FilteredGroceryQuery(list: list)
-        } header: {
-            Text(list.name)
-                .onTapGesture {
-                    withAnimation {
-                        isExpanded.toggle()                
-                    }
-                }
-        }
-    }
-}
 
 struct ShoppingListView: View {
     
@@ -60,8 +13,8 @@ struct ShoppingListView: View {
     
     var contents: some View {
         List {
-            ListSection(list: .active, isExpanded: true)
-            ListSection(list: .nextTime, isExpanded: false)
+            GroceryListSection(list: .active, isExpanded: true)
+            GroceryListSection(list: .nextTime, isExpanded: false)
                 .listSectionMargins(.bottom, 120)
         }
         .scrollContentBackground(.hidden)
@@ -77,19 +30,22 @@ struct ShoppingListView: View {
             .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button("Filter", systemImage: Symbols.filter) {}
-//                    Button("Show only completed", systemImage: "checkmark.circle.fill") {}
+//                    Settings.HideCompleted.Button()
+                    
                     Menu("More", systemImage: Symbols.more) {
-                        Button("More 1") {}
-                        Button("More 2") {}
-                        Button("More 3") {}
+                        Settings.HideCompleted.Toggle()
+                        Settings.CollapsibleSections.Toggle()
+                        Settings.CompletedToBottom.Toggle()
+                        Settings.AddBarSuggestions.Toggle()
                     }
                 }
                 
                 ToolbarItemGroup(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
                     
-                    Settings.AddBarSuggestions().control
+//                    Settings.AddBarSuggestions.Button()
+                    
+                    
                 }
             }
         }
@@ -99,5 +55,5 @@ struct ShoppingListView: View {
 #Preview {
     ContentView()
         .environment(Router.init(tab: .today))
-        .applyEnvironment()
+        .applyEnvironment(prePopulate: true)
 }
