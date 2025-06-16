@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ShoppingListView: View {
     
     @Environment(Router.self) var router
+    @State var selectedGroceries: Set<PersistentIdentifier> = []
     
     var contents: some View {
-        List {
-            GroceryListSection(list: .active, isExpanded: true)
-            GroceryListSection(list: .nextTime, isExpanded: false)
+        List(selection: $selectedGroceries) {
+            GroceryListSection(list: .active, isExpanded: true, selectedGroceries: $selectedGroceries)
+            GroceryListSection(list: .nextTime, isExpanded: false, selectedGroceries: $selectedGroceries)
             #if os(iOS)
                 .listSectionMargins(.bottom, 120)
             #endif
@@ -25,14 +27,6 @@ struct ShoppingListView: View {
     var morePlacement: ToolbarItemPlacement {
 #if os(iOS)
         .topBarTrailing
-#else
-        .automatic
-#endif
-    }
-    
-    var settingsPlacement: ToolbarItemPlacement {
-#if os(iOS)
-        .topBarLeading
 #else
         .automatic
 #endif
@@ -56,9 +50,11 @@ struct ShoppingListView: View {
                     }
                 }
                 
-                ToolbarItemGroup(placement: settingsPlacement) {
+                #if os(iOS)
+                ToolbarItemGroup(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
                 }
+                #endif
             }
         }
     }

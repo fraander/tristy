@@ -11,20 +11,32 @@ import SwiftData
 
 extension EnvironmentValues {
     @Entry var groceryList: GroceryList? = nil
+    @Entry var selectedGroceries: Set<PersistentIdentifier> = []
 }
 
 struct GroceryListSection: View {
     
     // MARK: Initializers -
-    private init(list: GroceryList, isExpanded: Bool, filter: Predicate<Grocery>, sort: [SortDescriptor<Grocery>] = []) {
+    private init(list: GroceryList, isExpanded: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>, filter: Predicate<Grocery>, sort: [SortDescriptor<Grocery>] = []) {
         self._groceries = Query(filter: filter, sort: sort, animation: .default)
         self.list = list
         self._isExpanded = .init(initialValue: isExpanded)
+        self._selectedGroceries = selectedGroceries
     }
     
-    init(list: GroceryList, isExpanded: Bool) {
+    /// Creates a section in a parent list which queries a grocery list
+    /// - Parameters:
+    ///   - list: Which Grocery List to query
+    ///   - isExpanded: Should the section be expanded
+    ///   - selectedGroceries: Use `@State var selectedGroceries: Set<PersistientIdentifier> = []` in the parent list for this section.
+    init(list: GroceryList, isExpanded: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>) {
         let intValue = list.rawValue
-        self.init(list: list, isExpanded: isExpanded, filter: #Predicate { $0.list == intValue})
+        self.init(
+            list: list,
+            isExpanded: isExpanded,
+            selectedGroceries: selectedGroceries,
+            filter: #Predicate { $0.list == intValue }
+        )
     }
     
     // MARK: Properties -
@@ -41,6 +53,7 @@ struct GroceryListSection: View {
     @Query var groceries: [Grocery]
     
     @State var isExpanded = true
+    @Binding var selectedGroceries: Set<PersistentIdentifier>
     
     var countCompleted: Int {
         groceries
@@ -74,6 +87,7 @@ struct GroceryListSection: View {
         var body: some View {
             ForEach(groceries) { grocery in
                 GroceryListRow(grocery: grocery)
+                    .id(grocery.id)
             }
         }
     }
@@ -178,12 +192,13 @@ struct GroceryListSection: View {
             header: { header }
         )
         .environment(\.groceryList, list)
+        .environment(\.selectedGroceries, selectedGroceries)
     }
 }
 
 #Preview {
     List {
-        GroceryListSection(list: .active, isExpanded: false)
+        GroceryListSection(list: .active, isExpanded: false, selectedGroceries: .constant([]))
     }
     .applyEnvironment(prePopulate: true)
     .onAppear {

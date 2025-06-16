@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ArchiveView: View {
     
+    @State var selectedGroceries: Set<PersistentIdentifier> = []
+    
     var contents: some View {
         List {
-            GroceryListSection(list: .archive, isExpanded: true)
+            GroceryListSection(list: .archive, isExpanded: true, selectedGroceries: $selectedGroceries)
             #if os(iOS)
                 .listSectionMargins(.bottom, 120)
             #endif

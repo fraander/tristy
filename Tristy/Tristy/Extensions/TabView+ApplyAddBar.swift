@@ -16,20 +16,27 @@ struct ApplyAddBarModifier: ViewModifier {
     
     let hasSearch: Bool
     
+    let allowedTabs: Set<TristyTab> = [.today, .archive]
+    
     func body(content: Content) -> some View {
-        content
+        let condition = allowedTabs.contains(router.tab)
+        
+        return content
             .overlay(alignment: .bottom) {
-                if router.tab == .today {
+                if condition {
                     AddBar()
+                    #if os(macOS)
+                        .frame(maxWidth: 360)
+                        .padding()
+                    #endif
+                    #if os(iOS)
                         .padding(.horizontal, 7)
                         .padding(.bottom, router.focus == nil ? 60 : 10)
-                        .transition(
-                            .opacity.combined(with:
-                                    .scale(0.0, anchor: anchor))
-                        )
+                    #endif
+                        .transition(.opacity.combined(with: .scale(0.0, anchor: anchor)))
                 }
             }
-            .animation(.bouncy, value: router.tab == .today)
+            .animation(.bouncy, value: condition)
     }
     
     var anchor: UnitPoint {
@@ -38,13 +45,6 @@ struct ApplyAddBarModifier: ViewModifier {
         } else {
             return  .init(x: 0.44, y: 1)
         }
-    }
-}
-
-#warning("requires tuning")
-extension NavigationSplitView {
-    func applyAddBar(hasSearch: Bool) -> some View {
-        self.modifier(ApplyAddBarModifier(hasSearch: hasSearch))
     }
 }
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
-		014945BF2DFFD1F000FBB9D6 /* MacContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014945BE2DFFD1F000FBB9D6 /* MacContentView.swift */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
 		01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A62DFF6FA700679DDB /* FocusOption.swift */; };
@@ -48,7 +47,6 @@
 /* Begin PBXFileReference section */
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
-		014945BE2DFFD1F000FBB9D6 /* MacContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacContentView.swift; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		01A438A62DFF6FA700679DDB /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 			children = (
 				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
-				014945BE2DFFD1F000FBB9D6 /* MacContentView.swift */,
 				01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */,
 				01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */,
 				01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */,
@@ -334,7 +331,6 @@
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
 				01A438A52DFF6A8700679DDB /* Settings.swift in Sources */,
 				01CC18C02DFBC7BF00BCD8A5 /* AddBarList.swift in Sources */,
-				014945BF2DFFD1F000FBB9D6 /* MacContentView.swift in Sources */,
 				012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */,
 				01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */,
 				01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */,

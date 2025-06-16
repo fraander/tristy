@@ -22,13 +22,8 @@ struct TristyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            #if os(iOS)
             ContentView()
                 .applyEnvironment(router: router, abStore: abStore)
-            #else
-            MacContentView()
-                .applyEnvironment(router: router, abStore: abStore)
-            #endif
         }
         
 #if os(macOS)
