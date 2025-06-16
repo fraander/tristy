@@ -14,12 +14,19 @@ import OSLog
 
 @Observable
 class AddBarStore {
-    
     init(query: String = "") {
         self.query = query
     }
     
     private(set) var query: String = ""
+    var listToAddTo: GroceryList = .active
+    
+    var listToAddToBinding: Binding<GroceryList> {
+        .init(
+            get: { self.listToAddTo },
+            set: { self.listToAddTo = $0 }
+        )
+    }
     
     var queryBinding: Binding<String> { .init(get: { self.query }, set: { self.query = $0 }) }
     var queryIsEmpty: Bool { query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }

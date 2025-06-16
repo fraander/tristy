@@ -14,11 +14,14 @@ struct AddBarList: View {
     
     @State var groceries = ["Milk", "Bread", "Eggs", "Bananas", "Rice", "Onions", "Tomatoes", "Cheese", "Apples"]
     
+    
     var body: some View {
         ZStack {
             List {
                 ForEach(groceries, id: \.self) { grocery in
                     Label(grocery, systemImage: "archivebox")
+                    
+                    #warning("make add bar do something - both suggestions and field on add")
 //                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
 //                        Button("Insert", systemImage: "text.insert") {
 //                            withAnimation { groceries.removeAll(where: {$0 == grocery}) }
@@ -35,10 +38,13 @@ struct AddBarList: View {
         .frame(minHeight: 60, maxHeight: 180)
         .clipShape(.rect(cornerRadius: Metrics.glassEffectRadius))
         .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
-        .scaleEffect(router.isAddBarFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
+//#warning("triggers crash on appear in macOS vvv")
+//        .scaleEffect(router.isAddBarFocused ? 1 : 0, anchor: .init(x: 0.5, y: 1))
         .opacity(router.isAddBarFocused ? 1 : 0)
         .allowsHitTesting(router.isAddBarFocused)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: router.isAddBarFocused)
+        
+        #warning("line turned off for crash on macos ^^ (see line 39)")
     }
 }
 

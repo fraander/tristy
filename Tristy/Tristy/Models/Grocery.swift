@@ -107,7 +107,6 @@ class Grocery {
     
     // MARK: Initializers -
     
-    /// Default initializer.
     init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, quantity: Int = 0, unit: String = "") {
         self.list = list.rawValue
         self.title = title

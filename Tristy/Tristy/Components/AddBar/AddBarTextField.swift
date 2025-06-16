@@ -18,7 +18,11 @@ struct AddBarTextField: View {
     @State var prompt = ""
     
     var clipboardHasUsefulContents: Bool {
+        #if os(iOS)
         let content = UIPasteboard.general.string ?? ""
+        #elseif os(macOS)
+        let content = NSPasteboard.general.string(forType: .string) ?? ""
+        #endif
         return !(content.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty
     }
     
@@ -41,6 +45,29 @@ struct AddBarTextField: View {
         .animation(.easeInOut(duration: Metrics.animationDuration), value: decider)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: router.isAddBarFocused)
         .frame(width: iconHeight, height: iconHeight)
+    }
+    
+    
+    var listPicker: some View {
+        
+        return ZStack(alignment: .center) {
+            
+            Menu(abStore.listToAddTo.name, systemImage: abStore.listToAddTo.symbolName) {
+                Picker("List to add to", selection: abStore.listToAddToBinding) {
+                    ForEach(GroceryList.allCases) { gl in
+                        Label(gl.name, systemImage: gl.symbolName)
+                            .tint(gl.color)
+                            .tag(gl)
+                    }
+                }
+            }
+            .tint(abStore.listToAddTo.color)
+            
+            .labelStyle(.iconOnly)
+//            .foregroundStyle(showDismiss ? .accent : .secondary)
+        }
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.listToAddTo)
+        .frame(height: iconHeight)
     }
     
     /// Shows either a "Clear contents" button or a "Dismiss Keyboard" button
@@ -71,11 +98,15 @@ struct AddBarTextField: View {
         }
         .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.queryIsEmpty && showDismiss)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: !abStore.queryIsEmpty)
-        .frame(width: iconHeight, height: iconHeight)
+        .frame(width: iconHeight, height: iconHeight, alignment: .center)
+    }
+    
+    var trailingButtonCondition: Bool {
+        !abStore.queryIsEmpty || (abStore.queryIsEmpty && router.focus != nil)
     }
     
     var body: some View {
-        HStack(alignment: .bottom) {
+        HStack(alignment: .bottom, spacing: 10) {
             leadingButton
             
             TextField(
@@ -98,8 +129,14 @@ struct AddBarTextField: View {
             .task { prompt = chooseRandomExampleGrocery() }
             .task { focus = router.focus }
             
-            trailingButton
+            listPicker
+            
+            if (trailingButtonCondition) {
+                trailingButton
+                    .transition(.scale)
+            }
         }
+        .animation(.easeInOut(duration: Metrics.animationDuration), value: trailingButtonCondition)
         .padding()
         .glassEffect(.regular, in: .rect(cornerRadius: Metrics.glassEffectRadius))
     }

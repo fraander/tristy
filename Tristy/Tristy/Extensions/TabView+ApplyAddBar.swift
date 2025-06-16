@@ -41,6 +41,13 @@ struct ApplyAddBarModifier: ViewModifier {
     }
 }
 
+#warning("requires tuning")
+extension NavigationSplitView {
+    func applyAddBar(hasSearch: Bool) -> some View {
+        self.modifier(ApplyAddBarModifier(hasSearch: hasSearch))
+    }
+}
+
 extension TabView {
     /// Adds an AddBar to the bottom of the TabView, aligned to the first item in the tabs list to pop in and out correctly positioned.
     /// - Parameter hasSearch: if a tab with .search is in the TabView, mark as true to correct the positioning

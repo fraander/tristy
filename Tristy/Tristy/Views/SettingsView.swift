@@ -13,34 +13,39 @@ struct SettingsView: View {
     
     @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
     
-    var body: some View {
-        NavigationView {
-            List {
-                Section("iCloud") {
-                    SyncStatusView()
-                }
-                
-                Section("Preferences") {
-                    Settings.AddBarSuggestions.Toggle()
-
-                    CaptionedListRow(caption: Settings.HideCompleted.caption) {
-                        Settings.HideCompleted.Toggle()
-                    }
-                    
-                    CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
-                        Settings.CollapsibleSections.Toggle()
-                    }
-                    
-                    Settings.CompletedToBottom.Toggle()
-
-                    
-                    
-                }
-                
-                Section("Data Actions") {
-                    DataActions()
-                }
+    var content: some View {
+        List {
+            Section("iCloud") {
+                SyncStatusView()
             }
+            
+            Section("Preferences") {
+                Settings.AddBarSuggestions.Toggle()
+
+                CaptionedListRow(caption: Settings.HideCompleted.caption) {
+                    Settings.HideCompleted.Toggle()
+                }
+                
+                CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
+                    Settings.CollapsibleSections.Toggle()
+                }
+                
+                Settings.CompletedToBottom.Toggle()
+
+                
+                
+            }
+            
+            Section("Data Actions") {
+                DataActions()
+            }
+        }
+    }
+    
+    var body: some View {
+        #if os(iOS)
+        NavigationView {
+            content
             .tint(.accent)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -51,6 +56,12 @@ struct SettingsView: View {
                 }
             }
         }
+        #else
+        NavigationStack {
+            content
+        }
+        .frame(maxWidth: 360)
+        #endif
     }
 }
 

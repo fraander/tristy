@@ -31,6 +31,7 @@ struct GroceryListSection: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
+    @Environment(AddBarStore.self) var abStore
     
     @AppStorage(Settings.HideCompleted.key) var hideCompleted = Settings.HideCompleted.defaultValue
     @AppStorage(Settings.CompletedToBottom.key) var completedToBottom = Settings.CompletedToBottom.defaultValue
@@ -92,6 +93,7 @@ struct GroceryListSection: View {
                     actions: {
                         Button("Open Add Bar", systemImage: Symbols.add) {
                             router.setFocus(to: .addBar)
+                            abStore.listToAddTo = list
                         }
                         .labelStyle(.titleAndIcon)
                         .buttonStyle(.borderedProminent)

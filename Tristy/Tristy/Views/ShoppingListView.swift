@@ -15,9 +15,27 @@ struct ShoppingListView: View {
         List {
             GroceryListSection(list: .active, isExpanded: true)
             GroceryListSection(list: .nextTime, isExpanded: false)
+            #if os(iOS)
                 .listSectionMargins(.bottom, 120)
+            #endif
         }
         .scrollContentBackground(.hidden)
+    }
+    
+    var morePlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .topBarTrailing
+#else
+        .automatic
+#endif
+    }
+    
+    var settingsPlacement: ToolbarItemPlacement {
+#if os(iOS)
+        .topBarLeading
+#else
+        .automatic
+#endif
     }
     
     var body: some View {
@@ -29,9 +47,7 @@ struct ShoppingListView: View {
             }
             .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-//                    Settings.HideCompleted.Button()
-                    
+                ToolbarItemGroup(placement: morePlacement) {
                     Menu("More", systemImage: Symbols.more) {
                         Settings.HideCompleted.Toggle()
                         Settings.CollapsibleSections.Toggle()
@@ -40,12 +56,8 @@ struct ShoppingListView: View {
                     }
                 }
                 
-                ToolbarItemGroup(placement: .topBarLeading) {
+                ToolbarItemGroup(placement: settingsPlacement) {
                     Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
-                    
-//                    Settings.AddBarSuggestions.Button()
-                    
-                    
                 }
             }
         }

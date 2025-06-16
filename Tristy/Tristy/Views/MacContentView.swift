@@ -7,24 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MacContentView: View {
     
     @Environment(Router.self) var router
     
+    
     var body: some View {
-        TabView(selection: router.tabBinding) {
-            ForEach(TristyTab.allCases) { tab in
-                Tab(
-                    tab.rawValue,
-                    systemImage: tab.symbolName,
-                    value: tab,
-                    role: tab.role,
-                    content: { tab.correspondingView }
-                )
+        NavigationSplitView {
+            List(TristyTab.allCases) { tab in
+                Button(tab.rawValue, systemImage: tab.symbolName) {
+                    router.setTab(to: tab)
+                }
+            }
+            .listStyle(.sidebar)
+        } detail: {
+            router.tab.correspondingView
+        }
+        .overlay(alignment: .bottom) {
+            VStack {
+                AddBarList()
+                AddBarTextField()
             }
         }
-        .applyAddBar(hasSearch: false)
-        .tabViewStyle(.sidebarAdaptable)
         .sheet(isPresented: router.sheetBinding) {
             Group {
                 if let sheet = router.sheet {

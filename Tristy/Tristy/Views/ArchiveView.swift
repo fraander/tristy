@@ -12,7 +12,9 @@ struct ArchiveView: View {
     var contents: some View {
         List {
             GroceryListSection(list: .archive, isExpanded: true)
+            #if os(iOS)
                 .listSectionMargins(.bottom, 120)
+            #endif
         }
         .scrollContentBackground(.hidden)
     }

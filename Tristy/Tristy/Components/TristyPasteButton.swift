@@ -14,12 +14,20 @@ struct TristyPasteButton: View {
     /// Action to perform when the button is pressed. ie. What to do with the value from the clipboard.
     let onPaste: ((_ value: String) -> ())
     
+    var pasteContent: String {
+        #if os(iOS)
+        UIPasteboard.general.string ?? ""
+        #else
+        NSPasteboard.general.string(forType: .string) ?? ""
+        #endif
+    }
+    
     var body: some View {
         Button(
             "Paste",
             systemImage: Symbols.paste,
             action: {
-                onPaste(UIPasteboard.general.string ?? "")
+                onPaste(pasteContent)
             }
         )
         .disabled(!clipboardHasValue)
@@ -27,6 +35,6 @@ struct TristyPasteButton: View {
     
     /// True if the clipboard is not empty or unreadable
     var clipboardHasValue: Bool {
-        !(UIPasteboard.general.string ?? "").isEmpty
+        !(pasteContent).isEmpty
     }
 }

@@ -66,6 +66,10 @@ extension View {
     func applyEnvironment(prePopulate: Bool = false) -> some View {
         self.modifier(ApplyEnvironmentModifier(prePopulate: prePopulate))
     }
+    
+    func applyEnvironment(router: Router, abStore: AddBarStore) -> some View {
+        self.modifier(ApplyEnvironmentModifier(router: router, abStore: abStore, prePopulate: false))
+    }
 }
 
 #Preview("Pre-populated") {
