@@ -42,6 +42,9 @@ struct ShoppingListView: View {
             .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
                 ToolbarItemGroup(placement: morePlacement) {
+                    Button("Plus", systemImage: Symbols.add) {
+                        router.presentSheet(.newGrocery)
+                    }
                     Menu("More", systemImage: Symbols.more) {
                         Settings.HideCompleted.Toggle()
                         Settings.CollapsibleSections.Toggle()
@@ -53,6 +56,10 @@ struct ShoppingListView: View {
                 #if os(iOS)
                 ToolbarItemGroup(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
+                    
+                    #warning("add actions to the toolbar when edit mode is engaged")
+                    EditButton()
+                        .labelStyle(.iconOnly)
                 }
                 #endif
             }

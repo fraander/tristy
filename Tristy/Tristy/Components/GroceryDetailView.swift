@@ -23,6 +23,8 @@ struct GroceryDetailView: View {
     @State var workingUnits: String = ""
     @State var workingNotes: String = ""
     
+    @State var showingDeleteConfirmation = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -89,8 +91,20 @@ struct GroceryDetailView: View {
                     }
                     
                     TextEditor(text: $workingNotes)
-                        .frame(minHeight: 240)
+                        .frame(minHeight: 160)
                 }
+                
+                Button(role: .destructive) { showingDeleteConfirmation = true }
+                    .labelStyle(.tintedIcon(icon: .red, text: .primary))
+                    .confirmationDialog(
+                        "Are you sure you would like to delete this grocery?",
+                        isPresented: $showingDeleteConfirmation,
+                        titleVisibility: .visible,
+                    ) {
+                        Button("Yes, delete", role: .destructive, action: delete)
+                    } message: {
+                        Text("This cannot be reverted.")
+                    }
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -100,7 +114,6 @@ struct GroceryDetailView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(role: .confirm) {
                         saveChanges()
-                        dismiss()
                     }
                 }
                 
@@ -112,19 +125,41 @@ struct GroceryDetailView: View {
         }
     }
     
+    func delete() {
+        if let grocery = grocery {
+            modelContext.delete(grocery)
+        }
+        dismiss()
+    }
+    
     func saveChanges() {
-        guard (grocery != nil) else { return }
-        
-        // Update all relevant fields
-        grocery?.title = workingTitle
-        grocery?.setList(workingList)
-        grocery?.setCompleted(to: workingCompleted)
-        grocery?.setPinned(to: workingPinned)
-        grocery?.setCertainty(to: workingUncertain)
-        grocery?.setImportance(workingImportance)
-        grocery?.quantity = workingQuantity
-        grocery?.unit = workingUnits
-        grocery?.notes = workingNotes
+        if grocery == nil {
+            // create a new grocery
+            let g = Grocery(
+                list: workingList,
+                title: workingTitle,
+                completed: workingCompleted,
+                notes: workingNotes,
+                certainty: workingUncertain,
+                importance: workingImportance,
+                pinned: workingPinned,
+                quantity: workingQuantity,
+                unit: workingUnits
+            )
+            modelContext.insert(g)
+        } else {
+            // Update all relevant fields
+            grocery?.title = workingTitle
+            grocery?.setList(workingList)
+            grocery?.setCompleted(to: workingCompleted)
+            grocery?.setPinned(to: workingPinned)
+            grocery?.setCertainty(to: workingUncertain)
+            grocery?.setImportance(workingImportance)
+            grocery?.quantity = workingQuantity
+            grocery?.unit = workingUnits
+            grocery?.notes = workingNotes
+        }
+        dismiss()
     }
     
     func initialSetup() {

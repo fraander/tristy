@@ -31,6 +31,7 @@ struct ContentView: View {
                     switch sheet {
                     case .settings: SettingsView()
                     case .groceryInfo(let grocery): GroceryDetailView(grocery: grocery)
+                    case .newGrocery: GroceryDetailView(grocery: nil)
                     }
                 }
             }

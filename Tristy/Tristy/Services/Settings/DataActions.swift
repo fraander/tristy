@@ -41,9 +41,10 @@ struct DataActions: View {
                 isShowingDeleteAllConfirmation = true
             }
             .labelStyle(.tintedIcon(icon: .pink))
-            .alert(
+            .confirmationDialog(
                 "To confirm, you would like to delete all your Groceries?",
                 isPresented: $isShowingDeleteAllConfirmation,
+                titleVisibility: .visible,
                 actions: {
                     Button("No, Cancel", role: .cancel) { isShowingDeleteAllConfirmation = false }
                     Button("Yes, Delete", role: .destructive) { Task { await deleteAll() } }
