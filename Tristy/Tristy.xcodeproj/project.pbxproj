@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
+		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
 		01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A62DFF6FA700679DDB /* FocusOption.swift */; };
@@ -39,6 +40,7 @@
 		01D5051F2DFCE6D4003B8DBF /* LabelStyle+IconTintLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */; };
 		01E5C1692DFBFFC6007C9B38 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */; };
 		01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */ = {isa = PBXBuildFile; productRef = 01E5C16B2DFC08B3007C9B38 /* CloudKitSyncMonitor */; };
+		01EAC6172E00A28300363718 /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EAC6162E00A28000363718 /* GroceryDetailView.swift */; };
 		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
@@ -47,6 +49,7 @@
 /* Begin PBXFileReference section */
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
+		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		01A438A62DFF6FA700679DDB /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		01D5051B2DFCE0BE003B8DBF /* DataActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataActions.swift; sourceTree = "<group>"; };
 		01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabelStyle+IconTintLabelStyle.swift"; sourceTree = "<group>"; };
 		01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		01EAC6162E00A28000363718 /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BD1360702BFD359300468A01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		01CBC5AA2DFB89E700E5B891 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */,
 				01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */,
 				01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */,
 				01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */,
@@ -163,6 +168,7 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				01EAC6162E00A28000363718 /* GroceryDetailView.swift */,
 				01A438AD2DFF888900679DDB /* CaptionedListRow.swift */,
 				012A80E82DFBE782005B4B70 /* GroceryListRow.swift */,
 				01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */,
@@ -317,6 +323,7 @@
 				01CC18912DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
+				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,
 				01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */,
 				01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */,
 				01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */,
@@ -336,6 +343,7 @@
 				01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */,
 				01CBC5A02DFB880200E5B891 /* AddBarStore.swift in Sources */,
 				01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */,
+				01EAC6172E00A28300363718 /* GroceryDetailView.swift in Sources */,
 				01CBC5B22DFB8FF800E5B891 /* AddBarTextField.swift in Sources */,
 				012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */,
 				01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */,

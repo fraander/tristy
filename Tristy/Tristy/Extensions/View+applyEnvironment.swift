@@ -32,7 +32,7 @@ struct ApplyEnvironmentModifier: ViewModifier {
             
             return container
         } else {
-            return try! ModelContainer(for: Grocery.self, configurations: .init(isStoredInMemoryOnly: false))
+            return try! ModelContainer(for: Grocery.self)
         }
     }
     

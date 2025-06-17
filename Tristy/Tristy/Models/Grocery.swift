@@ -13,6 +13,12 @@ import SwiftUI
         ForEach(GroceryList.allCases) { gl in
             gl.color
         }
+        
+        Divider()
+        
+        ForEach(GroceryImportance.allCases) { gl in
+            gl.color
+        }
     }
 }
 
@@ -48,14 +54,32 @@ enum GroceryList: Int, RawRepresentable, CaseIterable, Identifiable {
     }
 }
 
-enum GroceryImportance: Int, RawRepresentable {
+enum GroceryImportance: Int, RawRepresentable, Identifiable, CaseIterable {
     case none = 0
     case somewhat = 1
     case very = 2
     
+    var id: Int { self.rawValue }
+    
+    var name: String {
+        switch self {
+        case .none: "None"
+        case .somewhat: "Somewhat"
+        case .very: "Very"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .none: .secondary
+        case .somewhat: .orange.mix(with: .yellow, by: 0.5)
+        case .very: .orange.mix(with: .red, by: 0.5)
+        }
+    }
+    
     var symbolName: String {
         switch self {
-        case .none: "line.diagonal"
+        case .none: "circle.slash"
         case .somewhat: "exclamationmark"
         case .very: "exclamationmark.2"
         }
@@ -86,7 +110,7 @@ class Grocery {
     var pinned: Int?
     
     /// Any numeric value, either Integer or Decimal
-    var quantity: Int?
+    var quantity: Double?
     /// Stored as String, could be anything of the user's choice.
     var unit: String?
     
@@ -98,6 +122,8 @@ class Grocery {
     var isPinned: Bool { pinned == 1 }
     var listEnum: GroceryList { GroceryList(rawValue: list ?? 0) ?? .active }
     var importanceEnum: GroceryImportance { GroceryImportance(rawValue: importance ?? 0) ?? .none }
+    var quantityOrEmpty: Double { self.quantity ?? 0.0 }
+    var unitOrEmpty: String { self.unit ?? "" }
     
     // Methods for updates
     func setCompleted(to value: Bool) { completed = value ? 1 : 0 }
@@ -111,7 +137,7 @@ class Grocery {
     
     // MARK: Initializers -
     
-    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Int = 0, unit: String = "") {
+    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "") {
         self.list = list.rawValue
         self.title = title
         self.completed = completed ? 1 : 0
@@ -137,11 +163,6 @@ class Grocery {
         importance = 0
         quantity = 0
         unit = ""
-    }
-    
-    /// Check if grocery has any additional data beyond title
-    var hasAdditionalData: Bool {
-        return notes != nil || quantity != nil || unit != nil || certainty == 1 || importance != 0
     }
     
     // MARK: Examples -

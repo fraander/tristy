@@ -7,4 +7,5 @@
 
 enum TristySheet {
     case settings
+    case groceryInfo(Grocery)
 }

@@ -107,9 +107,18 @@ struct GroceryListRow: View {
                 }
             }
         }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            Button("Info", systemImage: Symbols.info) {
+                router.presentSheet(TristySheet.groceryInfo(grocery))
+            }
+        }
         .font(.system(.body, design: .rounded))
         .task {
             // track value before editing
+            initialValue = grocery.titleOrEmpty
+            newTitle = grocery.titleOrEmpty
+        }
+        .onChange(of: grocery.titleOrEmpty) { oldValue, newValue in
             initialValue = grocery.titleOrEmpty
             newTitle = grocery.titleOrEmpty
         }

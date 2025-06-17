@@ -18,4 +18,5 @@ struct Symbols {
     static let completedToBottom = "inset.filled.bottomthird.square"
     static let completedToBottomInactive = "inset.filled.topthird.square"
     static let collapsibleSections = "chevron.right"
+    static let info = "pencil.and.scribble"
 }

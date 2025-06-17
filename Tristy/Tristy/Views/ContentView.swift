@@ -30,6 +30,7 @@ struct ContentView: View {
                 if let sheet = router.sheet {
                     switch sheet {
                     case .settings: SettingsView()
+                    case .groceryInfo(let grocery): GroceryDetailView(grocery: grocery)
                     }
                 }
             }
