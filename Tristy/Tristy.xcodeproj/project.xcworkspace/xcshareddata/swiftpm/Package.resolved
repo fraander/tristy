@@ -1,13 +1,22 @@
 {
-  "originHash" : "cc0f6badc7734497614e225a97481525a386b6d3807ed9eea67875a750018e66",
+  "originHash" : "befacd06d5e152ab88048b74ef90a3c907289dea77ba8346805fef04c7580742",
   "pins" : [
     {
-      "identity" : "highlightedtexteditor",
+      "identity" : "attributedtexteditor",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kyle-n/HighlightedTextEditor",
+      "location" : "https://github.com/fraander/AttributedTextEditor.git",
       "state" : {
-        "revision" : "759d7b4bd2c10d0bbe93bc62d68572a3702049e3",
-        "version" : "2.1.2"
+        "branch" : "main",
+        "revision" : "01df0b28a6fcea1ec35eb38f704ced239dc79309"
+      }
+    },
+    {
+      "identity" : "cloudkitsyncmonitor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ggruen/CloudKitSyncMonitor",
+      "state" : {
+        "revision" : "a421ba7b38fa2e37bb78fc1425db491ca5e93c9a",
+        "version" : "3.1.0"
       }
     }
   ],

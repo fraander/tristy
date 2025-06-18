@@ -4,27 +4,33 @@
 //
 //  Created by Frank Anderson on 10/8/22.
 //
-import TipKit
+
 import SwiftUI
+import CloudKitSyncMonitor
 
 @main
 struct TristyApp: App {
+    
+    
+    @State var router = Router()
+    @State var abStore = AddBarStore()
+    
+    init() {
+        SyncMonitor.default.startMonitoring()
+    }
+    
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-#if os(macOS)
-                .frame(minWidth: 450, idealWidth: 450, minHeight: 200, idealHeight: 600)
-#endif
-                .modelContainer(for: Grocery.self)
-                .task {
-//#if DEBUG
-//                    try? Tips.resetDatastore()
-//#endif
-                    try? Tips.configure([
-                        .displayFrequency(.weekly),
-                        .datastoreLocation(.applicationDefault)
-                    ])
-                }
+                .applyEnvironment(router: router, abStore: abStore)
         }
+        
+#if os(macOS)
+        SwiftUI.Settings {
+            SettingsView()
+                .applyEnvironment(router: router, abStore: abStore)
+        }
+#endif
     }
 }
