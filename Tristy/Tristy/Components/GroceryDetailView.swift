@@ -13,6 +13,24 @@ struct GroceryDetailView: View {
     @Environment(\.modelContext) private var modelContext
     var grocery: Grocery?
     
+    init(grocery: Grocery? = nil) {
+        
+        self.grocery = grocery
+        
+        // If given a grocery to populate with, use it ...
+        if let grocery {
+            _workingTitle = .init(initialValue: grocery.titleOrEmpty)
+            _workingList = .init(initialValue: grocery.listEnum)
+            _workingCompleted = .init(initialValue: grocery.isCompleted)
+            _workingPinned = .init(initialValue: grocery.isPinned)
+            _workingUncertain = .init(initialValue: grocery.isUncertain)
+            _workingImportance = .init(initialValue: grocery.importanceEnum)
+            _workingQuantity = .init(initialValue: grocery.quantityOrEmpty)
+            _workingUnits = .init(initialValue: grocery.unitOrEmpty)
+            _workingNotes = .init(initialValue: grocery.notesOrEmpty)
+        }
+    }
+    
     @State var workingTitle: String = ""
     @State var workingList: GroceryList = .active
     @State var workingCompleted: Bool = false
@@ -121,7 +139,6 @@ struct GroceryDetailView: View {
                     Text(grocery != nil ? "Edit" : "Create")
                 }
             }
-            .task { initialSetup() }
         }
     }
     
@@ -160,22 +177,6 @@ struct GroceryDetailView: View {
             grocery?.notes = workingNotes
         }
         dismiss()
-    }
-    
-    func initialSetup() {
-        
-        // If given a grocery to populate with, use it ...
-        if let grocery {
-            workingTitle = grocery.titleOrEmpty
-            workingList = grocery.listEnum
-            workingCompleted = grocery.isCompleted
-            workingPinned = grocery.isPinned
-            workingUncertain = grocery.isUncertain
-            workingImportance = grocery.importanceEnum
-            workingQuantity = grocery.quantityOrEmpty
-            workingUnits = grocery.unitOrEmpty
-            workingNotes = grocery.notesOrEmpty
-        }
     }
 }
 

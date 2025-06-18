@@ -29,14 +29,7 @@ struct GroceryListRow: View {
             "Complete grocery",
             systemImage: "\(grocery.isCompleted ? "checkmark.circle.fill" : "checkmark.circle")",
             action: {
-                for groceryId in selectedGroceries {
-                    
-                    let descriptor: FetchDescriptor<Grocery> = FetchDescriptor(predicate: #Predicate { $0.id == groceryId })
-                    let groceryObject = try? modelContext.fetch(descriptor).first
-                    
-                    guard let groceryObject = groceryObject else { return }
-                    groceryObject.toggleCompleted()
-                }
+                grocery.toggleCompleted()
             }
         )
         .labelStyle(.iconOnly)
