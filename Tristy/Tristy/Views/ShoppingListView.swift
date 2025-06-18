@@ -10,6 +10,8 @@ import SwiftData
 
 struct ShoppingListView: View {
     
+    @Environment(\.editMode) var editMode
+    @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
     @State var selectedGroceries: Set<PersistentIdentifier> = []
     
@@ -22,6 +24,10 @@ struct ShoppingListView: View {
             #endif
         }
         .scrollContentBackground(.hidden)
+    }
+    
+    var isEditing: Bool {
+        editMode?.wrappedValue.isEditing ?? false || !selectedGroceries.isEmpty
     }
     
     var morePlacement: ToolbarItemPlacement {
@@ -41,25 +47,53 @@ struct ShoppingListView: View {
             }
             .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
-                ToolbarItemGroup(placement: morePlacement) {
-                    Button("Plus", systemImage: Symbols.add) {
-                        router.presentSheet(.newGrocery)
+                if isEditing {
+                    
+                    let descriptor: FetchDescriptor<Grocery> = .init(predicate: #Predicate { selectedGroceries.contains($0.id) } )
+                    let fetched = try? modelContext.fetch(descriptor)
+                    let result = fetched?.allSatisfy { $0.isCompleted } ?? false
+                    
+                    ToolbarItemGroup(placement: morePlacement) {
+                            ForEach(GroceryList.allCases) { list in
+                                Button(list.name, systemImage: list.symbolName) {
+                                    fetched?.forEach {
+                                        $0.setList(list)
+                                        selectedGroceries.remove($0.id)
+                                    }
+                                }
+                            }
                     }
-                    Menu("More", systemImage: Symbols.more) {
-                        Settings.HideCompleted.Toggle()
-                        Settings.CollapsibleSections.Toggle()
-                        Settings.CompletedToBottom.Toggle()
-                        Settings.AddBarSuggestions.Toggle()
+                    
+                    ToolbarSpacer(.fixed, placement: morePlacement)
+                    
+                    ToolbarItem(placement: morePlacement) {
+                        
+                        Button("Toggle completed", systemImage: "checkmark.circle") {
+                            fetched?.forEach {
+                                $0.setCompleted(to: !result)
+                                selectedGroceries.remove($0.id)
+                            }
+                        }
+                        .symbolVariant(result ? .fill : .none)
+                        .tint(result ? .mint : .accent)
+                    }
+                } else {
+                    ToolbarItemGroup(placement: morePlacement) {
+                        Button("Plus", systemImage: Symbols.add) {
+                            router.presentSheet(.newGrocery)
+                        }
                     }
                 }
                 
                 #if os(iOS)
-                ToolbarItemGroup(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
-                    
-                    #warning("add actions to the toolbar when edit mode is engaged")
+                }
+                
+                ToolbarSpacer(.fixed, placement: .topBarLeading)
+                
+                ToolbarItem(placement: .topBarLeading) {
                     EditButton()
-                        .labelStyle(.iconOnly)
                 }
                 #endif
             }
