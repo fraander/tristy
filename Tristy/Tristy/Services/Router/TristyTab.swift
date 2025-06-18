@@ -10,7 +10,7 @@ import SwiftUI
 enum TristyTab: String, CaseIterable, Codable, Identifiable {
     case today = "Shop"
     case archive = "Archive"
-    case plan = "Plan"
+//    case plan = "Plan"
 //    case search = "Search"
     
     var id: String { self.rawValue }
@@ -19,7 +19,7 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .today: "cart.fill"
         case .archive: "archivebox.fill"
-        case .plan: "calendar.day.timeline.left"
+//        case .plan: "calendar.day.timeline.left"
 //        case .search: "magnifyingglass"
         }
     }
@@ -28,7 +28,7 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .today: return nil
         case .archive: return nil
-        case .plan: return nil
+//        case .plan: return nil
 //        case .search: return .search
         }
     }
@@ -38,7 +38,7 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .today: ShoppingListView()
         case .archive: ArchiveView()
-        case .plan: Text("Plan")
+//        case .plan: Text("Plan")
 //        case .search: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -47,7 +47,7 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
     static let allCases: [TristyTab] = [
         .today,
         .archive,
-        .plan,
+//        .plan,
 //        .search,
     ]
 }

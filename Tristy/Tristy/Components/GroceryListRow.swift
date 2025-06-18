@@ -149,6 +149,7 @@ struct GroceryListRow: View {
                 }
             }
         }
+        .frame(minHeight: 24)
         .swipeActions(edge: .trailing, allowsFullSwipe: true) { groceryListButtons }
         .swipeActions(edge: .leading, allowsFullSwipe: true) { infoButton }
         .contextMenu {

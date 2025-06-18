@@ -115,7 +115,7 @@ class Grocery {
     var unit: String?
     
     // Read-only computed properties with nil handling
-    var titleOrEmpty: String { title ?? "" }
+    var titleOrEmpty: String { title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" }
     var notesOrEmpty: String { notes ?? "" }
     var isCompleted: Bool { completed == 1 }
     var isUncertain: Bool { certainty == 1 }

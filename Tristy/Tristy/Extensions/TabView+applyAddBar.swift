@@ -16,7 +16,7 @@ struct ApplyAddBarModifier: ViewModifier {
     
     let hasSearch: Bool
     
-    let allowedTabs: Set<TristyTab> = [.today, .archive]
+    let allowedTabs: Set<TristyTab> = [.today/*, .archive*/]
     
     func body(content: Content) -> some View {
         let condition = allowedTabs.contains(router.tab)

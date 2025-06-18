@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 /// Text field with ornaments to add values to the Grocery list. Broadcasts its query and focus value through an `AddBarStore` inserted in the environment.
 struct AddBarTextField: View {
     
     @Environment(AddBarStore.self) var abStore
     @Environment(Router.self) var router
+    @Environment(\.modelContext) var modelContext
     @FocusState var focus: FocusOption?
     
     @ScaledMetric var iconHeight: Double = 22
@@ -36,9 +38,13 @@ struct AddBarTextField: View {
                     .foregroundStyle(.accent)
                     .transition(.scale)
             } else {
-                Button("Add", systemImage: Symbols.add, action: abStore.addGroceries)
-                    .foregroundStyle(router.isAddBarFocused ? .accent : .secondary)
-                    .transition(.scale)
+                Button("Add", systemImage: Symbols.add) {
+                    Task {
+                            try abStore.addGroceries(to: modelContext)
+                    }
+                }
+                .foregroundStyle(router.isAddBarFocused ? .accent : .secondary)
+                .transition(.scale)
             }
         }
         .labelStyle(.iconOnly)
@@ -118,7 +124,7 @@ struct AddBarTextField: View {
                 router.updateFocus(from: oldValue, to: newValue, for: .addBar)
             })
             .onChange(of: router.focus, { focus = $1 })
-            .onSubmit { abStore.addGroceries() }
+            .onSubmit { Task { try abStore.addGroceries(to: modelContext) } }
             .submitLabel(.done)
             .onChange(of: abStore.query, handleChange)
             .onKeyPress(.escape) {
@@ -147,7 +153,7 @@ struct AddBarTextField: View {
     ///   - newValue: New value of the query
     func handleChange(oldValue: String, newValue: String) {
         if (oldValue != "" && oldValue.count < newValue.count && oldValue.last != "\n" && newValue.last == "\n") {
-            abStore.addGroceries()
+            Task { try abStore.addGroceries(to: modelContext) }
         } else if (newValue == "\n") {
             dismissKeyboard()
             abStore.clearQuery()

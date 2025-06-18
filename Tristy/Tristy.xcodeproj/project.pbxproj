@@ -27,7 +27,7 @@
 		01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5B32DFB979600E5B891 /* Symbols.swift */; };
 		01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5B52DFB990F00E5B891 /* TristyPasteButton.swift */; };
 		01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5B92DFBA20800E5B891 /* View+readSize.swift */; };
-		01CC18912DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18902DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift */; };
+		01CC18912DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18902DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift */; };
 		01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18962DFBB2DD00BCD8A5 /* AddBar.swift */; };
 		01CC18BE2DFBC6E900BCD8A5 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18BD2DFBC6E800BCD8A5 /* Metrics.swift */; };
 		01CC18C02DFBC7BF00BCD8A5 /* AddBarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18BF2DFBC7BF00BCD8A5 /* AddBarList.swift */; };
@@ -68,7 +68,7 @@
 		01CBC5B32DFB979600E5B891 /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
 		01CBC5B52DFB990F00E5B891 /* TristyPasteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyPasteButton.swift; sourceTree = "<group>"; };
 		01CBC5B92DFBA20800E5B891 /* View+readSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+readSize.swift"; sourceTree = "<group>"; };
-		01CC18902DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabView+ApplyAddBar.swift"; sourceTree = "<group>"; };
+		01CC18902DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabView+applyAddBar.swift"; sourceTree = "<group>"; };
 		01CC18962DFBB2DD00BCD8A5 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		01CC18BD2DFBC6E800BCD8A5 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		01CC18BF2DFBC7BF00BCD8A5 /* AddBarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarList.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 				01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */,
 				01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */,
 				01D505172DFCD757003B8DBF /* Logger+subsystem.swift */,
-				01CC18902DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift */,
+				01CC18902DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift */,
 				01CBC5A72DFB88D900E5B891 /* View+applyEnvironment.swift */,
 				01CBC5B92DFBA20800E5B891 /* View+readSize.swift */,
 			);
@@ -326,7 +326,7 @@
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,
 				01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */,
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
-				01CC18912DFBAB4E00BCD8A5 /* TabView+ApplyAddBar.swift in Sources */,
+				01CC18912DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
 				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,

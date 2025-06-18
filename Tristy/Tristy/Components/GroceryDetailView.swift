@@ -223,7 +223,7 @@ struct GroceryDetailView: View {
             // create a new grocery
             let g = Grocery(
                 list: workingList,
-                title: workingTitle,
+                title: workingTitle.trimmingCharacters(in: .whitespacesAndNewlines),
                 completed: workingCompleted,
                 notes: String(workingNotes.characters),
                 certainty: workingUncertain,
@@ -235,7 +235,7 @@ struct GroceryDetailView: View {
             modelContext.insert(g)
         } else {
             // Update all relevant fields
-            grocery?.title = workingTitle
+            grocery?.title = workingTitle.trimmingCharacters(in: .whitespacesAndNewlines)
             grocery?.setList(workingList)
             grocery?.setCompleted(to: workingCompleted)
             grocery?.setPinned(to: workingPinned)
