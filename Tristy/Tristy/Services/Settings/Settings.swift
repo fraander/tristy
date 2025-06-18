@@ -26,7 +26,7 @@ struct Settings {
             
             var body: some View {
                 SwiftUI.Toggle(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName, isOn: $showAddBarSuggestions)
-                    .symbolToggleEffectViewModifier(showAddBarSuggestions)
+                    .symbolToggleEffect(showAddBarSuggestions)
             }
         }
         
@@ -39,7 +39,7 @@ struct Settings {
                 SwiftUI.Button(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName) {
                     showAddBarSuggestions.toggle()
                 }
-                .symbolToggleEffectViewModifier(showAddBarSuggestions)
+                .symbolToggleEffect(showAddBarSuggestions)
             }
         }
     }
@@ -63,7 +63,7 @@ struct Settings {
             
             var body: some View {
                 SwiftUI.Toggle(Settings.HideCompleted.title, systemImage: Settings.HideCompleted.iconName, isOn: $hideCompleted)
-                    .symbolToggleEffectViewModifier(hideCompleted, activeVariant: .circle)
+                    .symbolToggleEffect(hideCompleted, activeVariant: .circle)
             }
         }
         
@@ -76,7 +76,7 @@ struct Settings {
                 SwiftUI.Button(Settings.HideCompleted.title, systemImage: Settings.HideCompleted.iconName) {
                     hideCompleted.toggle()
                 }
-                .symbolToggleEffectViewModifier(hideCompleted, activeVariant: .circle)
+                .symbolToggleEffect(hideCompleted, activeVariant: .circle)
             }
         }
     }
@@ -100,7 +100,7 @@ struct Settings {
             
             var body: some View {
                 SwiftUI.Toggle(Settings.CollapsibleSections.title, systemImage: Settings.CollapsibleSections.iconName, isOn: $collapsibleSections)
-                    .symbolToggleEffectViewModifier(collapsibleSections)
+                    .symbolToggleEffect(collapsibleSections)
             }
         }
         
@@ -113,7 +113,7 @@ struct Settings {
                 SwiftUI.Button(Settings.CollapsibleSections.title, systemImage: Settings.CollapsibleSections.iconName) {
                     collapsibleSections.toggle()
                 }
-                .symbolToggleEffectViewModifier(collapsibleSections)
+                .symbolToggleEffect(collapsibleSections)
             }
         }
     }
@@ -142,7 +142,7 @@ struct Settings {
             
             var body: some View {
                 SwiftUI.Toggle(Settings.CompletedToBottom.title, systemImage: Settings.CompletedToBottom.iconName(isActive: completedToBottom), isOn: $completedToBottom)
-                    .symbolToggleEffectViewModifier(completedToBottom)
+                    .symbolToggleEffect(completedToBottom)
             }
         }
         
@@ -155,7 +155,7 @@ struct Settings {
                 SwiftUI.Button(Settings.CompletedToBottom.title, systemImage: Settings.CompletedToBottom.iconName(isActive: completedToBottom)) {
                     completedToBottom.toggle()
                 }
-                .symbolToggleEffectViewModifier(completedToBottom)
+                .symbolToggleEffect(completedToBottom)
             }
         }
     }

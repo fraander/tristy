@@ -52,18 +52,17 @@ struct AddBarTextField: View {
         
         return ZStack(alignment: .center) {
             
-            Menu(abStore.listToAddTo.name, systemImage: abStore.listToAddTo.symbolName) {
-                Picker("List to add to", selection: abStore.listToAddToBinding) {
-                    ForEach(GroceryList.allCases) { gl in
-                        Label(gl.name, systemImage: gl.symbolName)
-                            .tint(gl.color)
-                            .tag(gl)
-                    }
-                }
-            }
-            .tint(abStore.listToAddTo.color)
-            
-            .labelStyle(.iconOnly)
+//            Menu(abStore.listToAddTo.name, systemImage: abStore.listToAddTo.symbolName) {
+//                Picker("List to add to", selection: abStore.listToAddToBinding) {
+//                    ForEach(GroceryList.allCases) { gl in
+//                        Label(gl.name, systemImage: gl.symbolName)
+//                            .tint(gl.color)
+//                            .tag(gl)
+//                    }
+//                }
+//            }
+//            .tint(abStore.listToAddTo.color)
+//            .labelStyle(.iconOnly)
 //            .foregroundStyle(showDismiss ? .accent : .secondary)
         }
         .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.listToAddTo)

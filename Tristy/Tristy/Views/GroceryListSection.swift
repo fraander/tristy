@@ -119,11 +119,33 @@ struct GroceryListSection: View {
         }
     }
     
+#if os(iOS)
+    @Environment(\.editMode) var editMode
+#endif
+    var isEditing: Bool {
+#if os(iOS)
+        editMode?.wrappedValue.isEditing ?? false || !selectedGroceries.isEmpty
+#else
+        !selectedGroceries.isEmpty
+#endif
+    }
+    
     var header: some View {
         
         let predicate = collapsibleSections && !(hideCompleted && completionProgress == 1)
+        let allSelected = groceries.map(\.id).allSatisfy { selectedGroceries.contains($0) }
+        let selectPredicate = isEditing && !allSelected
         
         return HStack {
+            
+            if selectPredicate {
+                Button("Select", systemImage: Symbols.select) {
+                    groceries.map(\.id).forEach { selectedGroceries.insert($0) }
+                }
+                .labelStyle(.iconOnly)
+                .transition(.scale)
+            }
+            
             Text(list.name)
             Spacer()
             
@@ -132,12 +154,13 @@ struct GroceryListSection: View {
             }
             
             if predicate {
-                Image(systemName: "chevron.down")
+                Image(systemName: Symbols.expanded)
                     .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
                     .transition(.scale)
             }
         }
         .animation(.easeInOut, value: predicate)
+        .animation(.easeInOut, value: selectPredicate)
         .onTapGesture {
             if predicate {
                 withAnimation { isExpanded.toggle() }
@@ -166,7 +189,7 @@ struct GroceryListSection: View {
                     .scaleEffect(completionProgress < 1 ? 0.5 : 0)
                     .tint(.accent)
                     
-                    Image(systemName: "checkmark")
+                    Image(systemName: Symbols.complete)
                         .symbolVariant(.fill.circle)
                         .imageScale(.large)
                         .foregroundStyle(.mint)

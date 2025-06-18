@@ -123,7 +123,7 @@ class Grocery {
     var listEnum: GroceryList { GroceryList(rawValue: list ?? 0) ?? .active }
     var importanceEnum: GroceryImportance { GroceryImportance(rawValue: importance ?? 0) ?? .none }
     var quantityOrEmpty: Double { self.quantity ?? 0.0 }
-    var unitOrEmpty: String { self.unit ?? "" }
+    var unitOrEmpty: String { self.unit?.lowercased() ?? "" }
     
     // Methods for updates
     func setCompleted(to value: Bool) { completed = value ? 1 : 0 }

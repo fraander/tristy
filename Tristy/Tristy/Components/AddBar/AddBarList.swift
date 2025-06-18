@@ -18,7 +18,7 @@ struct AddBarList: View {
         ZStack {
             List {
                 ForEach(groceries, id: \.self) { grocery in
-                    Label(grocery, systemImage: "archivebox")
+                    Label(grocery, systemImage: GroceryList.archive.symbolName)
                         .listRowBackground(Color.clear)
                 }
                 .scrollContentBackground(.hidden)

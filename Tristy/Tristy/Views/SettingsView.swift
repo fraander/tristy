@@ -31,9 +31,10 @@ struct SettingsView: View {
                 }
                 
                 Settings.CompletedToBottom.Toggle()
-
-                
-                
+            }
+            
+            Section("Share") {
+                ShareActions()
             }
             
             Section("Data Actions") {

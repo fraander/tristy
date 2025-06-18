@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AttributedTextEditor
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
@@ -27,7 +28,7 @@ struct GroceryDetailView: View {
             _workingImportance = .init(initialValue: grocery.importanceEnum)
             _workingQuantity = .init(initialValue: grocery.quantityOrEmpty)
             _workingUnits = .init(initialValue: grocery.unitOrEmpty)
-            _workingNotes = .init(initialValue: grocery.notesOrEmpty)
+            _workingNotes = .init(initialValue: AttributedString(grocery.notesOrEmpty))
         }
     }
     
@@ -39,18 +40,16 @@ struct GroceryDetailView: View {
     @State var workingImportance: GroceryImportance = .none
     @State var workingQuantity: Double = .zero
     @State var workingUnits: String = ""
-    @State var workingNotes: String = ""
+    @State var workingNotes: AttributedString = ""
     
     @State var showingDeleteConfirmation = false
+    @State var selection = AttributedTextSelection()
     
     var body: some View {
         NavigationView {
             Form {
                 Section("Grocery") {
                     TextField("Title", text: $workingTitle)
-                }
-                
-                Section("Properties") {
                     
                     Picker(selection: $workingList) {
                         ForEach(GroceryList.allCases) { list in
@@ -64,52 +63,97 @@ struct GroceryDetailView: View {
                             .labelStyle(.tintedIcon(icon: workingList.color))
                     }
                     .tint(.secondary)
-                    
-                    Toggle("Completed", systemImage: "checkmark.circle", isOn: $workingCompleted)
-                    .labelStyle(.tintedIcon(icon: .mint))
-                    .symbolToggleEffectViewModifier(workingCompleted)
-                    
-                    Toggle("Pinned", systemImage: "pin", isOn: $workingPinned)
-                    .labelStyle(.tintedIcon(icon: .orange))
-                    .symbolToggleEffectViewModifier(workingPinned)
-                    
-                    Toggle("Uncertain", systemImage: "questionmark.app", isOn: $workingUncertain)
-                    .labelStyle(.tintedIcon(icon: .indigo))
-                    .symbolToggleEffectViewModifier(workingUncertain)
-                    
-                    Picker(selection: $workingImportance) {
-                        ForEach(GroceryImportance.allCases) { importance in
-                            Label(importance.name, systemImage: importance.symbolName)
-                                .tag(importance)
-                        }
-                    } label: {
-                        Label("Importance", systemImage: workingImportance.symbolName)
-                            .contentTransition(.symbolEffect)
-                            .labelStyle(.tintedIcon(icon: workingImportance.color))
-                    }
-                    .tint(.secondary)
                 }
                 
-                Section("Details") {
-                    HStack {
+                if workingList == .active {
+                    Section {
+                        Toggle("Completed", systemImage: Symbols.complete, isOn: $workingCompleted)
+                            .labelStyle(.tintedIcon(icon: .mint))
+                            .symbolToggleEffect(workingCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
                         
-                        let workingQuantityString = Binding<String>(
-                            get: { "\(workingQuantity == .zero ? "" : "\(workingQuantity)")" },
-                            set: {
-                                if let new = Double($0) {
-                                    workingQuantity = new
-                                }
+                        Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
+                            .labelStyle(.tintedIcon(icon: .orange))
+                            .symbolToggleEffect(workingPinned)
+                        
+                        Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: $workingUncertain)
+                            .labelStyle(.tintedIcon(icon: .indigo))
+                            .symbolToggleEffect(workingUncertain)
+                        
+                        Picker(selection: $workingImportance) {
+                            ForEach(GroceryImportance.allCases) { importance in
+                                Label(importance.name, systemImage: importance.symbolName)
+                                    .tag(importance)
                             }
-                        )
+                        } label: {
+                            Label("Importance", systemImage: workingImportance.symbolName)
+                                .contentTransition(.symbolEffect)
+                                .labelStyle(.tintedIcon(icon: workingImportance.color))
+                        }
+                        .tint(.secondary)
                         
-                        TextField("Quantity", text: workingQuantityString)
-                            .numbersOnly(workingQuantityString, includeDecimal: true)
                         
-                        TextField("Unit", text: $workingUnits)
+                        LabeledContent {
+                            let workingQuantityString = Binding<String>(
+                                get: { "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")" },
+                                set: {
+                                    if let new = Double($0) {
+                                        workingQuantity = new
+                                    }
+                                }
+                            )
+                            
+                            let workingUnitsString = Binding<String>(
+                                get: { workingUnits.lowercased() },
+                                set: { workingUnits = $0.lowercased() }
+                            )
+                            
+                            HStack {
+                                TextField("2", text: workingQuantityString)
+                                    .numbersOnly(workingQuantityString, includeDecimal: true)
+                                
+                                TextField("cups", text: workingUnitsString)
+                                    .autocorrectionDisabled()
+                            }
+                            .frame(maxWidth: 100)
+                        } label: {
+                            Label("Quantity", systemImage: Symbols.quantity)
+                                .labelStyle(.tintedIcon(icon: Color.primary.mix(with: Color.secondary, by: 0.75)))
+                        }
+                    } header: {
+                        HStack {
+                            Text("Properties")
+                            
+                            Spacer()
+                            
+                            if hasSetProperties {
+                                Button("Reset", systemImage: Symbols.reset, action: resetProperties)
+                                    .labelStyle(.iconOnly)
+                                    .foregroundStyle(.secondary)
+                                    .transition(.scale)
+                            }
+                        }
+                        .animation(.easeInOut, value: hasSetProperties)
                     }
-                    
-                    TextEditor(text: $workingNotes)
+                    .transition(.move(edge: .top))
+                }
+                
+                Section {
+                    ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: "You can use Markdown here. ...")
                         .frame(minHeight: 160)
+                        
+                } header: {
+                    HStack {
+                        Text("Notes")
+                        Spacer()
+                        
+                        if hasSetNotes {
+                            Button("Reset", systemImage: Symbols.reset) { workingNotes = "" }
+                                .labelStyle(.iconOnly)
+                                .foregroundStyle(.secondary)
+                                .transition(.scale)
+                        }
+                    }
+                    .animation(.easeInOut, value: hasSetNotes)
                 }
                 
                 Button(role: .destructive) { showingDeleteConfirmation = true }
@@ -139,7 +183,32 @@ struct GroceryDetailView: View {
                     Text(grocery != nil ? "Edit" : "Create")
                 }
             }
+            .animation(.easeInOut, value: workingList == .active)
         }
+    }
+    
+    var hasSetNotes: Bool { !workingNotes.characters.isEmpty }
+    
+    var hasSetProperties: Bool {
+        !(workingCompleted == false && workingUncertain == false && workingImportance == .none && workingPinned == false && workingQuantity == 0 && workingUnits.isEmpty)
+    }
+    
+    func resetProperties() {
+        workingCompleted = false
+        workingUncertain = false
+        workingImportance = .none
+        workingPinned = false
+        workingQuantity = 0
+        workingUnits = ""
+    }
+    
+    func resetNotes() {
+        workingNotes = ""
+    }
+    
+    func formatDouble(_ value: Double) -> String {
+       let str = String(value)
+       return str.hasSuffix(".0") ? String(str.dropLast(2)) : str
     }
     
     func delete() {
@@ -156,7 +225,7 @@ struct GroceryDetailView: View {
                 list: workingList,
                 title: workingTitle,
                 completed: workingCompleted,
-                notes: workingNotes,
+                notes: String(workingNotes.characters),
                 certainty: workingUncertain,
                 importance: workingImportance,
                 pinned: workingPinned,
@@ -174,7 +243,7 @@ struct GroceryDetailView: View {
             grocery?.setImportance(workingImportance)
             grocery?.quantity = workingQuantity
             grocery?.unit = workingUnits
-            grocery?.notes = workingNotes
+            grocery?.notes = String(workingNotes.characters)
         }
         dismiss()
     }

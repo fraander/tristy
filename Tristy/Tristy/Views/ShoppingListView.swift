@@ -10,24 +10,31 @@ import SwiftData
 
 struct ShoppingListView: View {
     
-    @Environment(\.editMode) var editMode
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
     @State var selectedGroceries: Set<PersistentIdentifier> = []
+    
+#if os(iOS)
+    @Environment(\.editMode) var editMode
+#endif
     
     var contents: some View {
         List(selection: $selectedGroceries) {
             GroceryListSection(list: .active, isExpanded: true, selectedGroceries: $selectedGroceries)
             GroceryListSection(list: .nextTime, isExpanded: false, selectedGroceries: $selectedGroceries)
-            #if os(iOS)
+#if os(iOS)
                 .listSectionMargins(.bottom, 120)
-            #endif
+#endif
         }
         .scrollContentBackground(.hidden)
     }
     
     var isEditing: Bool {
+        #if os(iOS)
         editMode?.wrappedValue.isEditing ?? false || !selectedGroceries.isEmpty
+        #else
+        !selectedGroceries.isEmpty
+        #endif
     }
     
     var morePlacement: ToolbarItemPlacement {
@@ -51,31 +58,37 @@ struct ShoppingListView: View {
                     
                     let descriptor: FetchDescriptor<Grocery> = .init(predicate: #Predicate { selectedGroceries.contains($0.id) } )
                     let fetched = try? modelContext.fetch(descriptor)
-                    let result = fetched?.allSatisfy { $0.isCompleted } ?? false
+                    let allPinned = fetched?.allSatisfy { $0.isPinned || $0.listEnum != .active } ?? false
+                    let allComplete = fetched?.allSatisfy { $0.isCompleted } ?? false
+                    
+                    ToolbarSpacer(.fixed, placement: morePlacement)
                     
                     ToolbarItemGroup(placement: morePlacement) {
-                            ForEach(GroceryList.allCases) { list in
-                                Button(list.name, systemImage: list.symbolName) {
-                                    fetched?.forEach {
+                        ForEach(GroceryList.allCases) { list in
+                            Button(list.name, systemImage: list.symbolName) {
+                                fetched?.forEach {
+                                    if allPinned || !$0.isPinned || $0.listEnum != .active {
                                         $0.setList(list)
                                         selectedGroceries.remove($0.id)
                                     }
                                 }
                             }
+                        }
                     }
                     
                     ToolbarSpacer(.fixed, placement: morePlacement)
                     
                     ToolbarItem(placement: morePlacement) {
                         
-                        Button("Toggle completed", systemImage: "checkmark.circle") {
+                        Button("Toggle completed", systemImage: Symbols.complete) {
                             fetched?.forEach {
-                                $0.setCompleted(to: !result)
+                                $0.setCompleted(to: !allComplete)
                                 selectedGroceries.remove($0.id)
                             }
                         }
-                        .symbolVariant(result ? .fill : .none)
-                        .tint(result ? .mint : .accent)
+                        .symbolVariant(.circle)
+                        .symbolVariant(allComplete ? .fill : .none)
+                        .tint(allComplete ? .mint : .accent)
                     }
                 } else {
                     ToolbarItemGroup(placement: morePlacement) {
@@ -85,9 +98,9 @@ struct ShoppingListView: View {
                     }
                 }
                 
-                #if os(iOS)
+#if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Settings", systemImage: "gear") { router.presentSheet(.settings) }
+                    Button("Settings", systemImage: Symbols.settings) { router.presentSheet(.settings) }
                 }
                 
                 ToolbarSpacer(.fixed, placement: .topBarLeading)
@@ -95,7 +108,7 @@ struct ShoppingListView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     EditButton()
                 }
-                #endif
+#endif
             }
         }
     }

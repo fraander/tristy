@@ -5,7 +5,7 @@
 //  Created by Frank Anderson on 6/12/25.
 //
 
-
+import Foundation
 import SwiftUI
 import SwiftData
 
@@ -25,13 +25,10 @@ struct GroceryListRow: View {
     
     // button with checkmark to show tag is complete/incomplete
     var checkboxView: some View {
-        Button(
-            "Complete grocery",
-            systemImage: "\(grocery.isCompleted ? "checkmark.circle.fill" : "checkmark.circle")",
-            action: {
-                grocery.toggleCompleted()
-            }
-        )
+        
+        Button("Complete grocery", systemImage: Symbols.complete) { grocery.toggleCompleted()
+        }
+        .symbolToggleEffect(grocery.isCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
         .labelStyle(.iconOnly)
         .buttonStyle(.plain)
         .foregroundColor(grocery.isCompleted ? .mint : .accentColor)
@@ -46,6 +43,42 @@ struct GroceryListRow: View {
                 .frame(maxWidth: grocery.isCompleted ? .infinity : 0, maxHeight: 2, alignment: .leading)
                 .opacity(grocery.isCompleted ? 1 : 0)
             Spacer()
+        }
+    }
+    
+    var iconsView: some View {
+        HStack {
+            let quantityCondition = grocery.quantityOrEmpty != 0
+            if (quantityCondition) {
+                Text("\(formatAsMixedNumber(grocery.quantityOrEmpty)) \(grocery.unitOrEmpty)")
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundStyle( Color.primary.mix(with: .secondary, by: 0.75) )
+            }
+            
+            if (grocery.isUncertain) {
+                Image(systemName: Symbols.uncertain)
+                    .symbolToggleEffect(grocery.isUncertain)
+                    .foregroundStyle(.indigo)
+            }
+            
+            let notesCondition = !grocery.notesOrEmpty.isEmpty
+            if (notesCondition) {
+                Image(systemName: Symbols.notes)
+                    .symbolToggleEffect(notesCondition)
+                    .foregroundStyle(.yellow)
+            }
+            
+            let importanceCondition = grocery.importanceEnum != .none
+            if (importanceCondition) {
+                Image(systemName: grocery.importanceEnum.symbolName)
+                    .foregroundStyle(grocery.importanceEnum.color)
+            }
+            
+            if (grocery.isPinned) {
+                Image(systemName: Symbols.pinned)
+                    .symbolToggleEffect(grocery.isPinned)
+                    .foregroundStyle(.orange)
+            }
         }
     }
     
@@ -79,31 +112,48 @@ struct GroceryListRow: View {
         .foregroundColor(grocery.isCompleted ? .secondary : .primary)
     }
     
-    var body: some View {
-        VStack(spacing: 8) {
-            if list == .active {
-                HStack {
-                    checkboxView
-                    textView
-                }
-            } else {
-                Text(grocery.titleOrEmpty)
-            }
-        }
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+    var groceryListButtons: some View {
+        Group {
             ForEach(GroceryList.allCases) { gl in
                 if list != gl {
-                    Button(gl.name, systemImage: gl.symbolName) {
+                    Button("Move to \(gl.name)", systemImage: gl.symbolName) {
                         grocery.setList(gl)
                     }
                     .tint(gl.color)
                 }
             }
         }
-        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-            Button("Info", systemImage: Symbols.info) {
-                router.presentSheet(TristySheet.groceryInfo(grocery))
+    }
+    
+    var infoButton: some View {
+        Button("Info", systemImage: Symbols.info) {
+            router.presentSheet(TristySheet.groceryInfo(grocery))
+        }
+    }
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            HStack {
+                if list == .active {
+                    HStack {
+                        checkboxView
+                        textView
+                    }
+                } else {
+                    Text(grocery.titleOrEmpty)
+                }
+                
+                if list == .active {
+                    Spacer()
+                    iconsView
+                }
             }
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) { groceryListButtons }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) { infoButton }
+        .contextMenu {
+            Section { groceryListButtons }
+            Section { infoButton }
         }
         .font(.system(.body, design: .rounded))
         .task {
@@ -115,5 +165,33 @@ struct GroceryListRow: View {
             initialValue = grocery.titleOrEmpty
             newTitle = grocery.titleOrEmpty
         }
+    }
+
+    func formatAsMixedNumber(_ value: Double) -> String {
+        let whole = Int(value)
+        let fractional = value - Double(whole)
+        
+        if abs(fractional) < 0.001 { return "\(whole)" }
+        
+        // Common denominators to check
+        let denominators = [2, 3, 4, 5, 6, 8]
+        
+        for denom in denominators {
+            let num = Int(round(fractional * Double(denom)))
+            if abs(fractional - Double(num) / Double(denom)) < 0.001 {
+                let gcd = gcd(abs(num), denom)
+                let simplifiedNum = num / gcd
+                let simplifiedDenom = denom / gcd
+                
+                let fractionStr = "\(simplifiedNum)/\(simplifiedDenom)"
+                return whole == 0 ? fractionStr : "\(whole) \(fractionStr)"
+            }
+        }
+        
+        return String(format: "%.3f", value) // fallback to decimal
+    }
+
+    func gcd(_ a: Int, _ b: Int) -> Int {
+        return b == 0 ? a : gcd(b, a % b)
     }
 }

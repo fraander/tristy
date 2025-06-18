@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
+		01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 01660B7C2E0348B300B5B695 /* AttributedTextEditor */; };
+		01660B892E034C3600B5B695 /* ShareActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660B882E034C3600B5B695 /* ShareActions.swift */; };
 		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
@@ -49,6 +51,7 @@
 /* Begin PBXFileReference section */
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
+		01660B882E034C3600B5B695 /* ShareActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActions.swift; sourceTree = "<group>"; };
 		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */,
 				01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +198,7 @@
 				01A438A42DFF6A8700679DDB /* Settings.swift */,
 				01D5051B2DFCE0BE003B8DBF /* DataActions.swift */,
 				01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */,
+				01660B882E034C3600B5B695 /* ShareActions.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 			mainGroup = BD13605C2BFD359200468A01;
 			packageReferences = (
 				01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */,
+				01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */,
 			);
 			productRefGroup = BD1360662BFD359200468A01 /* Products */;
 			projectDirPath = "";
@@ -348,6 +354,7 @@
 				012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */,
 				01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */,
 				01CC18BE2DFBC6E900BCD8A5 /* Metrics.swift in Sources */,
+				01660B892E034C3600B5B695 /* ShareActions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +619,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fraander/AttributedTextEditor.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ggruen/CloudKitSyncMonitor";
@@ -623,6 +638,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		01660B7C2E0348B300B5B695 /* AttributedTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */;
+			productName = AttributedTextEditor;
+		};
 		01E5C16B2DFC08B3007C9B38 /* CloudKitSyncMonitor */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */;

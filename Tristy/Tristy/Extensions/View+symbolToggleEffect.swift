@@ -30,7 +30,7 @@ struct SymbolToggleEffectViewModifier: ViewModifier {
 extension View {
     /// Show a filled version of the symbol when active, and a normal version of the symbol when inactive. Animate changes between when the given property changes.
     /// - Parameter property: property to animate the symbol for
-    func symbolToggleEffectViewModifier(_ property: Bool, activeVariant: SymbolVariants = .none, inactiveVariant: SymbolVariants = .none) -> some View {
+    func symbolToggleEffect(_ property: Bool, activeVariant: SymbolVariants = .none, inactiveVariant: SymbolVariants = .none) -> some View {
         modifier(
             SymbolToggleEffectViewModifier(
                 property: property,

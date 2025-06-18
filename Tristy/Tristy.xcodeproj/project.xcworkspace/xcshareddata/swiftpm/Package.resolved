@@ -1,6 +1,15 @@
 {
-  "originHash" : "65f5ca1e20eb20cd1bc51b8e721764443dfe3bd2a5039ebbf0d9983965cf7336",
+  "originHash" : "befacd06d5e152ab88048b74ef90a3c907289dea77ba8346805fef04c7580742",
   "pins" : [
+    {
+      "identity" : "attributedtexteditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fraander/AttributedTextEditor.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "01df0b28a6fcea1ec35eb38f704ced239dc79309"
+      }
+    },
     {
       "identity" : "cloudkitsyncmonitor",
       "kind" : "remoteSourceControl",
