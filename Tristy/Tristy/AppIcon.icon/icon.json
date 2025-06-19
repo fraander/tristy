@@ -5,96 +5,55 @@
       "blur-material" : 0.5,
       "layers" : [
         {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : {
-                "solid" : "srgb:0.00000,0.00000,0.00000,1.00000"
-              }
-            }
-          ],
           "glass" : true,
-          "image-name" : "Group 2.png",
-          "name" : "Group 2"
+          "image-name" : "Eyes.png",
+          "name" : "Eyes",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -63.078125,
+              -164.7734375
+            ]
+          }
         }
       ],
-      "name" : "Pupils",
+      "lighting" : "individual",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.3
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "srgb:0.57415,0.57416,0.57415,1.00000",
+              "srgb:0.37056,0.37056,0.37056,1.00000"
+            ]
+          },
+          "image-name" : "Cart.png",
+          "name" : "Cart"
+        }
+      ],
       "position" : {
         "scale" : 1,
         "translation-in-points" : [
-          -106.5703125,
-          -118.7578125
+          9.7265625,
+          55.640625
         ]
       },
       "shadow" : {
         "kind" : "layer-color",
         "opacity" : 0.5
       },
-      "translucency" : {
-        "enabled" : false,
-        "value" : 0.5
-      }
-    },
-    {
-      "blur-material" : null,
-      "layers" : [
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : {
-                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
-              }
-            }
-          ],
-          "image-name" : "Group 3.png",
-          "name" : "Group 3",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              -114.46875,
-              -144.34375
-            ]
-          }
-        }
-      ],
-      "lighting" : "individual",
-      "name" : "Eye Balls",
-      "shadow" : {
-        "kind" : "layer-color",
-        "opacity" : 0.5
-      },
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.2
-      }
-    },
-    {
-      "blur-material" : null,
-      "layers" : [
-        {
-          "fill" : {
-            "linear-gradient" : [
-              "display-p3:0.47411,0.49034,0.50000,1.00000",
-              "srgb:0.38210,0.39599,0.40287,1.00000"
-            ]
-          },
-          "image-name" : "Cart.svg",
-          "name" : "Cart",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              59.3046875,
-              32.84375
-            ]
-          }
-        }
-      ],
-      "name" : "Cart",
-      "shadow" : {
-        "kind" : "layer-color",
-        "opacity" : 0.5
-      },
+      "specular" : true,
       "translucency" : {
         "enabled" : false,
         "value" : 0.5
