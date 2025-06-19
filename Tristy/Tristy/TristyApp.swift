@@ -24,6 +24,17 @@ struct TristyApp: App {
         WindowGroup {
             ContentView()
                 .applyEnvironment(router: router, abStore: abStore)
+#if os(macOS)
+                .task {
+                    NSWindow.allowsAutomaticWindowTabbing = false
+                }
+#endif
+        }
+        .commands {
+            CommandGroup(replacing: .newItem) {
+                Button("New grocery", systemImage: Symbols.add) { router.presentSheet(.newGrocery) }
+                    .keyboardShortcut("n", modifiers: .command)
+            }
         }
         
 #if os(macOS)
