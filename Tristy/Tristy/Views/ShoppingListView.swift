@@ -27,6 +27,7 @@ struct ShoppingListView: View {
 #endif
         }
         .scrollContentBackground(.hidden)
+//        .listStyle(.plain)
     }
     
     var isEditing: Bool {
@@ -48,7 +49,9 @@ struct ShoppingListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                #if os(iOS)
                 BackgroundView(color: .accent)
+                #endif
                 
                 contents
             }

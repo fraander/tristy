@@ -45,146 +45,172 @@ struct GroceryDetailView: View {
     @State var showingDeleteConfirmation = false
     @State var selection = AttributedTextSelection()
     
-    var body: some View {
-        NavigationView {
-            Form {
-                Section("Grocery") {
-                    TextField("Title", text: $workingTitle)
+    var contents: some View {
+        Group {
+            Section("Grocery") {
+                TextField("Title", text: $workingTitle)
+                
+                Picker(selection: $workingList) {
+                    ForEach(GroceryList.allCases) { list in
+                        Label(list.name, systemImage: list.symbolName)
+                            .tint(list.color)
+                            .tag(list)
+                    }
+                } label: {
+                    Label("List", systemImage: workingList.symbolName)
+                        .contentTransition(.symbolEffect)
+                        .labelStyle(.tintedIcon(icon: workingList.color))
+                }
+                .tint(.secondary)
+            }
+            
+            if workingList == .active {
+                Section {
+                    Toggle("Completed", systemImage: Symbols.complete, isOn: $workingCompleted)
+                        .labelStyle(.tintedIcon(icon: .mint))
+                        .symbolToggleEffect(workingCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
                     
-                    Picker(selection: $workingList) {
-                        ForEach(GroceryList.allCases) { list in
-                            Label(list.name, systemImage: list.symbolName)
-                                .tint(list.color)
-                                .tag(list)
+                    Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
+                        .labelStyle(.tintedIcon(icon: .orange))
+                        .symbolToggleEffect(workingPinned)
+                    
+                    Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: $workingUncertain)
+                        .labelStyle(.tintedIcon(icon: .indigo))
+                        .symbolToggleEffect(workingUncertain)
+                    
+                    Picker(selection: $workingImportance) {
+                        ForEach(GroceryImportance.allCases) { importance in
+                            Label(importance.name, systemImage: importance.symbolName)
+                                .tag(importance)
                         }
                     } label: {
-                        Label("List", systemImage: workingList.symbolName)
+                        Label("Importance", systemImage: workingImportance.symbolName)
                             .contentTransition(.symbolEffect)
-                            .labelStyle(.tintedIcon(icon: workingList.color))
+                            .labelStyle(.tintedIcon(icon: workingImportance.color))
                     }
                     .tint(.secondary)
-                }
-                
-                if workingList == .active {
-                    Section {
-                        Toggle("Completed", systemImage: Symbols.complete, isOn: $workingCompleted)
-                            .labelStyle(.tintedIcon(icon: .mint))
-                            .symbolToggleEffect(workingCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
-                        
-                        Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
-                            .labelStyle(.tintedIcon(icon: .orange))
-                            .symbolToggleEffect(workingPinned)
-                        
-                        Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: $workingUncertain)
-                            .labelStyle(.tintedIcon(icon: .indigo))
-                            .symbolToggleEffect(workingUncertain)
-                        
-                        Picker(selection: $workingImportance) {
-                            ForEach(GroceryImportance.allCases) { importance in
-                                Label(importance.name, systemImage: importance.symbolName)
-                                    .tag(importance)
-                            }
-                        } label: {
-                            Label("Importance", systemImage: workingImportance.symbolName)
-                                .contentTransition(.symbolEffect)
-                                .labelStyle(.tintedIcon(icon: workingImportance.color))
-                        }
-                        .tint(.secondary)
-                        
-                        
-                        LabeledContent {
-                            let workingQuantityString = Binding<String>(
-                                get: { "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")" },
-                                set: {
-                                    if let new = Double($0) {
-                                        workingQuantity = new
-                                    }
+                    
+                    
+                    LabeledContent {
+                        let workingQuantityString = Binding<String>(
+                            get: { "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")" },
+                            set: {
+                                if let new = Double($0) {
+                                    workingQuantity = new
                                 }
-                            )
-                            
-                            let workingUnitsString = Binding<String>(
-                                get: { workingUnits.lowercased() },
-                                set: { workingUnits = $0.lowercased() }
-                            )
-                            
-                            HStack {
-                                TextField("2", text: workingQuantityString)
-                                    .numbersOnly(workingQuantityString, includeDecimal: true)
-                                
-                                TextField("cups", text: workingUnitsString)
-                                    .autocorrectionDisabled()
                             }
-                            .frame(maxWidth: 100)
-                        } label: {
-                            Label("Quantity", systemImage: Symbols.quantity)
-                                .labelStyle(.tintedIcon(icon: Color.primary.mix(with: Color.secondary, by: 0.75)))
-                        }
-                    } header: {
-                        HStack {
-                            Text("Properties")
-                            
-                            Spacer()
-                            
-                            if hasSetProperties {
-                                Button("Reset", systemImage: Symbols.reset, action: resetProperties)
-                                    .labelStyle(.iconOnly)
-                                    .foregroundStyle(.secondary)
-                                    .transition(.scale)
-                            }
-                        }
-                        .animation(.easeInOut, value: hasSetProperties)
-                    }
-                    .transition(.move(edge: .top))
-                }
-                
-                Section {
-                    ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: "You can use Markdown here. ...")
-                        .frame(minHeight: 160)
+                        )
                         
+                        let workingUnitsString = Binding<String>(
+                            get: { workingUnits.lowercased() },
+                            set: { workingUnits = $0.lowercased() }
+                        )
+                        
+                        HStack {
+                            TextField("2", text: workingQuantityString)
+                                .numbersOnly(workingQuantityString, includeDecimal: true)
+                            
+                            TextField("cups", text: workingUnitsString)
+                                .autocorrectionDisabled()
+                        }
+                        .frame(maxWidth: 100)
+                    } label: {
+                        Label("Quantity", systemImage: Symbols.quantity)
+                            .labelStyle(.tintedIcon(icon: Color.primary.mix(with: Color.secondary, by: 0.75)))
+                    }
                 } header: {
                     HStack {
-                        Text("Notes")
+                        Text("Properties")
+                        
                         Spacer()
                         
-                        if hasSetNotes {
-                            Button("Reset", systemImage: Symbols.reset) { workingNotes = "" }
+                        if hasSetProperties {
+                            Button("Reset", systemImage: Symbols.reset, action: resetProperties)
                                 .labelStyle(.iconOnly)
                                 .foregroundStyle(.secondary)
                                 .transition(.scale)
                         }
                     }
-                    .animation(.easeInOut, value: hasSetNotes)
+                    .frame(height: 24)
+                    .animation(.easeInOut, value: hasSetProperties)
                 }
-                
-                Button(role: .destructive) { showingDeleteConfirmation = true }
-                    .labelStyle(.tintedIcon(icon: .red, text: .primary))
-                    .confirmationDialog(
-                        "Are you sure you would like to delete this grocery?",
-                        isPresented: $showingDeleteConfirmation,
-                        titleVisibility: .visible,
-                    ) {
-                        Button("Yes, delete", role: .destructive, action: delete)
-                    } message: {
-                        Text("This cannot be reverted.")
-                    }
+                .transition(.move(edge: .top))
             }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(role: .cancel) { dismiss() }
-                }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(role: .confirm) {
-                        saveChanges()
+            
+            Section {
+                ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: "You can use Markdown here. ...")
+                    .frame(minHeight: 160)
+                    
+            } header: {
+                HStack {
+                    Text("Notes")
+                    Spacer()
+                    
+                    if hasSetNotes {
+                        Button("Reset", systemImage: Symbols.reset) { workingNotes = "" }
+                            .labelStyle(.iconOnly)
+                            .foregroundStyle(.secondary)
+                            .transition(.scale)
                     }
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    Text(grocery != nil ? "Edit" : "Create")
-                }
+                .frame(height: 24)
+                .animation(.easeInOut, value: hasSetNotes)
             }
+            
+            Button(role: .destructive) { showingDeleteConfirmation = true }
+                .labelStyle(.tintedIcon(icon: .red, text: .primary))
+                .confirmationDialog(
+                    "Are you sure you would like to delete this grocery?",
+                    isPresented: $showingDeleteConfirmation,
+                    titleVisibility: .visible,
+                ) {
+                    Button("Yes, delete", role: .destructive, action: delete)
+                } message: {
+                    Text("This cannot be reverted.")
+                }
+        }
+    }
+    
+    var toolbar: some ToolbarContent {
+        Group {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(role: .cancel) { dismiss() }
+            }
+            
+            ToolbarItem(placement: .confirmationAction) {
+                Button(role: .confirm) {
+                    saveChanges()
+                }
+                .disabled(workingTitle.isEmpty)
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(grocery != nil ? "Edit" : "Create")
+            }
+        }
+    }
+    
+    var body: some View {
+        #if os(iOS)
+        NavigationView {
+            Form {
+                contents
+            }
+            .toolbar { toolbar }
             .animation(.easeInOut, value: workingList == .active)
         }
+        #elseif os(macOS)
+        ScrollView {
+            VStack(alignment: .leading) {
+                contents
+            }
+            .padding()
+            .padding()
+        }
+        .background { BackgroundView() }
+        .toolbar { toolbar }
+        .animation(.easeInOut, value: workingList == .active)
+        #endif
     }
     
     var hasSetNotes: Bool { !workingNotes.characters.isEmpty }

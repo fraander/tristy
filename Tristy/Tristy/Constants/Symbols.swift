@@ -17,7 +17,7 @@ struct Symbols {
     static let filter = "line.3.horizontal.decrease"
     static let more = "ellipsis"
     static let addBarSuggestions = "list.dash.header.rectangle"
-    static let emptyList = "text.page.slash"
+    static let emptyList = "rectangle.and.pencil.and.ellipsis"
     static let completedToBottom = "inset.filled.bottomthird.square"
     static let completedToBottomInactive = "inset.filled.topthird.square"
     static let collapsibleSections = "chevron.right"

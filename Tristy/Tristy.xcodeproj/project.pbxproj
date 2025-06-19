@@ -12,6 +12,7 @@
 		01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 01660B7C2E0348B300B5B695 /* AttributedTextEditor */; };
 		01660B892E034C3600B5B695 /* ShareActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660B882E034C3600B5B695 /* ShareActions.swift */; };
 		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
+		019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 019E6B792E03BE7200652CC3 /* AppIcon.icon */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
 		01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A62DFF6FA700679DDB /* FocusOption.swift */; };
@@ -35,7 +36,6 @@
 		01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */; };
 		01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */; };
 		01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */; };
-		01D397DB2DFB7EE3003F9B5C /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */; };
 		01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D505172DFCD757003B8DBF /* Logger+subsystem.swift */; };
 		01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */; };
 		01D5051C2DFCE0BE003B8DBF /* DataActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5051B2DFCE0BE003B8DBF /* DataActions.swift */; };
@@ -53,6 +53,7 @@
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		01660B882E034C3600B5B695 /* ShareActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActions.swift; sourceTree = "<group>"; };
 		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
+		019E6B792E03BE7200652CC3 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		01A438A62DFF6FA700679DDB /* FocusOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusOption.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+systemGroupedBackground.swift"; sourceTree = "<group>"; };
 		01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		01CC18C72DFBD4F200BCD8A5 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
-		01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		01D505172DFCD757003B8DBF /* Logger+subsystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+subsystem.swift"; sourceTree = "<group>"; };
 		01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusView.swift; sourceTree = "<group>"; };
 		01D5051B2DFCE0BE003B8DBF /* DataActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataActions.swift; sourceTree = "<group>"; };
@@ -223,10 +223,10 @@
 			isa = PBXGroup;
 			children = (
 				BD13606E2BFD359300468A01 /* Tristy.entitlements */,
-				01D397DA2DFB7EE3003F9B5C /* AppIcon.icon */,
 				BDF1555F2BFD3F0100CAA145 /* Info.plist */,
 				BD1360A12BFD365500468A01 /* TristyApp.swift */,
 				BD1360792BFD363E00468A01 /* Assets.xcassets */,
+				019E6B792E03BE7200652CC3 /* AppIcon.icon */,
 				012A80EA2DFBE8EA005B4B70 /* Models */,
 				01CBC5B72DFBA08500E5B891 /* Constants */,
 				01CBC5AA2DFB89E700E5B891 /* Extensions */,
@@ -309,8 +309,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */,
-				01D397DB2DFB7EE3003F9B5C /* AppIcon.icon in Resources */,
 				BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */,
+				019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
