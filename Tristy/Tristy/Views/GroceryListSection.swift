@@ -88,6 +88,7 @@ struct GroceryListSection: View {
             ForEach(groceries) { grocery in
                 GroceryListRow(grocery: grocery)
                     .id(grocery.id)
+                    .listRowSeparator(grocery == groceries.last ? .hidden : .visible)
             }
         }
     }
@@ -97,24 +98,8 @@ struct GroceryListSection: View {
             QueriedList(list: list, completedToBottom: completedToBottom, hideCompleted: hideCompleted)
             
             if groceries.isEmpty {
-                ContentUnavailableView(
-                    label: {
-                        Label("The list is empty", systemImage: Symbols.emptyList)
-                    },
-                    description: {
-                        Text("Add some items to the list using the **Add Bar**.")
-                    },
-                    actions: {
-                        Button("Open Add Bar", systemImage: Symbols.add) {
-                            router.setFocus(to: .addBar)
-                            abStore.listToAddTo = list
-                        }
-                        .labelStyle(.titleAndIcon)
-                        .buttonStyle(.borderedProminent)
-                        .font(.headline)
-                        .labelIconToTitleSpacing(5)
-                    }
-                )
+                ContentUnavailableView("", systemImage: Symbols.emptyList)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }

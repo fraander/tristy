@@ -25,7 +25,9 @@ struct ArchiveView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                #if os(iOS)
                 BackgroundView(color: .secondary)
+                #endif
                 
                 contents
             }
