@@ -15,9 +15,7 @@ struct SettingsView: View {
     
     var content: some View {
         List {
-            Section("iCloud") {
-                SyncStatusView()
-            }
+            Section("Share") { ShareActions() }
             
             Section("Preferences") {
                 Settings.AddBarSuggestions.Toggle()
@@ -31,15 +29,15 @@ struct SettingsView: View {
                 }
                 
                 Settings.CompletedToBottom.Toggle()
+                
+                Settings.SortByCategory.Toggle()
             }
             
-            Section("Share") {
-                ShareActions()
-            }
+            IconActions()
             
-            Section("Data Actions") {
-                DataActions()
-            }
+            Section("iCloud") { SyncStatusView() }
+            
+            Section("Data Actions") { DataActions() }
         }
     }
     

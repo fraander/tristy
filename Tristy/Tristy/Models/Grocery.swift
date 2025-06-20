@@ -8,84 +8,6 @@
 import SwiftData
 import SwiftUI
 
-#Preview {
-    VStack {
-        ForEach(GroceryList.allCases) { gl in
-            gl.color
-        }
-        
-        Divider()
-        
-        ForEach(GroceryImportance.allCases) { gl in
-            gl.color
-        }
-    }
-}
-
-enum GroceryList: Int, RawRepresentable, CaseIterable, Identifiable {
-    case active = 0
-    case nextTime = 1
-    case archive = 2
-    
-    var id: Int { self.rawValue }
-    
-    var name: String {
-        switch self {
-        case .active: "Today"
-        case .nextTime: "Next Time"
-        case .archive: "Archive"
-        }
-    }
-    
-    var symbolName: String {
-        switch self {
-        case .active: "smallcircle.filled.circle"
-        case .nextTime: "arrow.right"
-        case .archive: "archivebox"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .active: .accentColor
-        case .nextTime: .indigo
-        case .archive: .secondary
-        }
-    }
-}
-
-enum GroceryImportance: Int, RawRepresentable, Identifiable, CaseIterable {
-    case none = 0
-    case somewhat = 1
-    case very = 2
-    
-    var id: Int { self.rawValue }
-    
-    var name: String {
-        switch self {
-        case .none: "None"
-        case .somewhat: "Somewhat"
-        case .very: "Very"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .none: .secondary
-        case .somewhat: .orange.mix(with: .yellow, by: 0.5)
-        case .very: .orange.mix(with: .red, by: 0.5)
-        }
-    }
-    
-    var symbolName: String {
-        switch self {
-        case .none: "circle.slash"
-        case .somewhat: "exclamationmark"
-        case .very: "exclamationmark.2"
-        }
-    }
-}
-
 /// A Grocery in the list
 @Model
 class Grocery {
@@ -114,6 +36,9 @@ class Grocery {
     /// Stored as String, could be anything of the user's choice.
     var unit: String?
     
+    /// Where in the store do you find this item?
+    var category: String?
+    
     // Read-only computed properties with nil handling
     var titleOrEmpty: String { title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" }
     var notesOrEmpty: String { notes ?? "" }
@@ -124,11 +49,13 @@ class Grocery {
     var importanceEnum: GroceryImportance { GroceryImportance(rawValue: importance ?? 0) ?? .none }
     var quantityOrEmpty: Double { self.quantity ?? 0.0 }
     var unitOrEmpty: String { self.unit?.lowercased() ?? "" }
+    var categoryEnum: GroceryCategory { GroceryCategory(from: category) }
     
     // Methods for updates
     func setCompleted(to value: Bool) { completed = value ? 1 : 0 }
     func setCertainty(to value: Bool) { certainty = value ? 1 : 0 }
     func setPinned(to value: Bool) { pinned = value ? 1 : 0 }
+    func setCategory(to value: GroceryCategory) { self.category = value.rawValue }
     func setList(_ value: GroceryList) {
         list = value.rawValue
         setCompleted(to: false)
@@ -137,7 +64,7 @@ class Grocery {
     
     // MARK: Initializers -
     
-    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "") {
+    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "", category: GroceryCategory = .other) {
         self.list = list.rawValue
         self.title = title
         self.completed = completed ? 1 : 0
@@ -147,14 +74,13 @@ class Grocery {
         self.pinned = pinned ? 1 : 0
         self.quantity = quantity
         self.unit = unit
+        self.category = category.rawValue
     }
     
     // MARK: Functions -
     
     /// Set complete to the opposite of its current value
-    func toggleCompleted() {
-        setCompleted(to: !isCompleted)
-    }
+    func toggleCompleted() { setCompleted(to: !isCompleted) }
     
     /// Clear all optional properties to default values.
     func clearOptionalData() {
@@ -164,7 +90,9 @@ class Grocery {
         quantity = 0
         unit = ""
     }
-    
+}
+
+extension Grocery {
     // MARK: Examples -
     static let examples: [Grocery] = [
         // Active list items

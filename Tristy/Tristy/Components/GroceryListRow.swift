@@ -46,42 +46,6 @@ struct GroceryListRow: View {
         }
     }
     
-    var iconsView: some View {
-        HStack {
-            let quantityCondition = grocery.quantityOrEmpty != 0
-            if (quantityCondition) {
-                Text("\(formatAsMixedNumber(grocery.quantityOrEmpty)) \(grocery.unitOrEmpty)")
-                    .font(.system(.caption, design: .monospaced))
-                    .foregroundStyle( Color.primary.mix(with: .secondary, by: 0.75) )
-            }
-            
-            if (grocery.isUncertain) {
-                Image(systemName: Symbols.uncertain)
-                    .symbolToggleEffect(grocery.isUncertain)
-                    .foregroundStyle(.indigo)
-            }
-            
-            let notesCondition = !grocery.notesOrEmpty.isEmpty
-            if (notesCondition) {
-                Image(systemName: Symbols.notes)
-                    .symbolToggleEffect(notesCondition)
-                    .foregroundStyle(.yellow)
-            }
-            
-            let importanceCondition = grocery.importanceEnum != .none
-            if (importanceCondition) {
-                Image(systemName: grocery.importanceEnum.symbolName)
-                    .foregroundStyle(grocery.importanceEnum.color)
-            }
-            
-            if (grocery.isPinned) {
-                Image(systemName: Symbols.pinned)
-                    .symbolToggleEffect(grocery.isPinned)
-                    .foregroundStyle(.orange)
-            }
-        }
-    }
-    
     // show text or textfield depending on completion state
     var textView: some View {
         ZStack(alignment: .leading) {
@@ -145,7 +109,7 @@ struct GroceryListRow: View {
                 
                 if list == .active {
                     Spacer()
-                    iconsView
+                    GroceryListRowIcons(grocery: grocery)
                 }
             }
         }
@@ -166,33 +130,5 @@ struct GroceryListRow: View {
             initialValue = grocery.titleOrEmpty
             newTitle = grocery.titleOrEmpty
         }
-    }
-
-    func formatAsMixedNumber(_ value: Double) -> String {
-        let whole = Int(value)
-        let fractional = value - Double(whole)
-        
-        if abs(fractional) < 0.001 { return "\(whole)" }
-        
-        // Common denominators to check
-        let denominators = [2, 3, 4, 5, 6, 8]
-        
-        for denom in denominators {
-            let num = Int(round(fractional * Double(denom)))
-            if abs(fractional - Double(num) / Double(denom)) < 0.001 {
-                let gcd = gcd(abs(num), denom)
-                let simplifiedNum = num / gcd
-                let simplifiedDenom = denom / gcd
-                
-                let fractionStr = "\(simplifiedNum)/\(simplifiedDenom)"
-                return whole == 0 ? fractionStr : "\(whole) \(fractionStr)"
-            }
-        }
-        
-        return String(format: "%.3f", value) // fallback to decimal
-    }
-
-    func gcd(_ a: Int, _ b: Int) -> Int {
-        return b == 0 ? a : gcd(b, a % b)
     }
 }

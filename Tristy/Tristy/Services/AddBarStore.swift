@@ -46,7 +46,7 @@ class AddBarStore {
     ///  ```
     /// - Parameter context: ModelContext for all existing groceries in the app
     @MainActor
-    func addGroceries(to context: ModelContext) throws {
+    func addGroceries(to context: ModelContext) async throws {
         if (!self.query.isEmpty) { // no action if no query
             
             // fetch existing groceries; otherwise fail quietly
@@ -65,6 +65,12 @@ class AddBarStore {
                 } else {
                     let grocery = Grocery(title: trimmed)
                     context.insert(grocery)
+                    print("inserted \(grocery.titleOrEmpty)")
+                    
+                    if let generatedCategory = try? await GroceryCategory.decideCategory(for: trimmed) {
+                        print(generatedCategory)
+                        grocery.setCategory(to: generatedCategory)
+                    }
                 }
             }
             

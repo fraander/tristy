@@ -17,8 +17,8 @@ extension EnvironmentValues {
 struct GroceryListSection: View {
     
     // MARK: Initializers -
-    private init(list: GroceryList, isExpanded: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>, filter: Predicate<Grocery>, sort: [SortDescriptor<Grocery>] = []) {
-        self._groceries = Query(filter: filter, sort: sort, animation: .default)
+    private init(list: GroceryList, isExpanded: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>, filter: Predicate<Grocery>) {
+        self._groceries = Query(filter: filter, animation: .default)
         self.list = list
         self._isExpanded = .init(initialValue: isExpanded)
         self._selectedGroceries = selectedGroceries
@@ -46,7 +46,6 @@ struct GroceryListSection: View {
     @Environment(AddBarStore.self) var abStore
     
     @AppStorage(Settings.HideCompleted.key) var hideCompleted = Settings.HideCompleted.defaultValue
-    @AppStorage(Settings.CompletedToBottom.key) var completedToBottom = Settings.CompletedToBottom.defaultValue
     @AppStorage(Settings.CollapsibleSections.key) var collapsibleSections = Settings.CollapsibleSections.defaultValue
     
     var list: GroceryList
@@ -69,33 +68,50 @@ struct GroceryListSection: View {
     
     struct QueriedList: View {
         
+        @AppStorage(Settings.CompletedToBottom.key) var completedToBottom = Settings.CompletedToBottom.defaultValue
+        @AppStorage(Settings.SortByCategory.key) var sortByCategory = Settings.SortByCategory.defaultValue
+        
         @Query var groceries: [Grocery]
 
         init(
             list: GroceryList,
-            completedToBottom: Bool,
             hideCompleted: Bool
         ) {
             
             let listInt = list.rawValue
             let filter: Predicate<Grocery> = hideCompleted && list == .active ? #Predicate { $0.list == listInt && $0.completed == 0 } : #Predicate { $0.list == listInt }
-            let sort: [SortDescriptor<Grocery>] = completedToBottom && list == .active ? [.init(\.completed, order: .forward), .init(\.title)] : [.init(\.title)]
             
-            self._groceries = Query(filter: filter, sort: sort, animation: .easeInOut)
+            self._groceries = Query(filter: filter, animation: .easeInOut)
+        }
+        
+        func sort() -> [Grocery] {
+            groceries.sorted(by: { grocery1, grocery2 in
+               if completedToBottom && (grocery1.isCompleted != grocery2.isCompleted) {
+                   return !grocery1.isCompleted // incomplete items first
+               }
+               
+               if sortByCategory && (grocery1.categoryEnum.sortOrder != grocery2.categoryEnum.sortOrder) {
+                   return grocery1.categoryEnum.sortOrder < grocery2.categoryEnum.sortOrder
+               }
+               
+               return grocery1.titleOrEmpty < grocery2.titleOrEmpty
+            })
         }
         
         var body: some View {
-            ForEach(groceries) { grocery in
-                GroceryListRow(grocery: grocery)
-                    .id(grocery.id)
-                    .listRowSeparator(grocery == groceries.last ? .hidden : .visible)
+            ForEach(sort()) { grocery in
+                if !grocery.titleOrEmpty.isEmpty {
+                    GroceryListRow(grocery: grocery)
+                        .id(grocery.id)
+                        .listRowSeparator(grocery == groceries.last ? .hidden : .visible)
+                }
             }
         }
     }
     
     var content: some View {
         Group {
-            QueriedList(list: list, completedToBottom: completedToBottom, hideCompleted: hideCompleted)
+            QueriedList(list: list, hideCompleted: hideCompleted)
             
             if groceries.isEmpty {
                 ContentUnavailableView("", systemImage: Symbols.emptyList)

@@ -159,4 +159,116 @@ struct Settings {
             }
         }
     }
+    
+    /// Should the `ShoppingList` sort by GroceryCategory.sortOrder?
+    ///
+    /// # Usage
+    /// ```swift
+    /// @AppStorage(Settings.SortByCategory.key) var sortByCategory = Settings.sortByCategory.defaultValue
+    /// ```
+    struct SortByCategory {
+        static let key = "sortByCategory"
+        static let defaultValue = true
+        static let iconName = Symbols.category
+        static let title = "Sort by Category"
+        static let caption = "Choose if the Shopping List should sort by Category in the list."
+        
+        /// SwiftUI-style Toggle to control the property
+        struct Toggle: View {
+            @AppStorage(SortByCategory.key) var sortByCategory = SortByCategory.defaultValue
+            
+            var body: some View {
+                SwiftUI.Toggle(SortByCategory.title, systemImage: SortByCategory.iconName, isOn: $sortByCategory)
+                    .symbolToggleEffect(sortByCategory)
+            }
+        }
+        
+        /// SwiftUI-style Button to control the property
+        struct Button: View {
+            
+            @AppStorage(SortByCategory.key) var sortByCategory = SortByCategory.defaultValue
+            
+            var body: some View {
+                SwiftUI.Button(SortByCategory.title, systemImage: SortByCategory.iconName) {
+                    sortByCategory.toggle()
+                }
+                .symbolToggleEffect(sortByCategory)
+            }
+        }
+    }
+    
+    /// What icons and in what order should they be shown on the `GroceryListRow` and in `GroceryListRowIcons`
+    ///
+    /// # Usage
+    /// ```swift
+    /// @AppStorage(Settings.Icons.key) var icons = Settings.Icons.defaultValue
+    /// ```
+    struct Icons {
+        
+        enum Icon: Identifiable, CaseIterable, Codable {
+            case qty, uncertain, note, importance, pin, category, none
+            
+            var id: Self { self }
+            
+            var name: String {
+                switch self {
+                case .qty: "Quantity"
+                case .uncertain: "Certainty"
+                case .note: "Note"
+                case .importance: "Importance"
+                case .pin: "Pinned"
+                case .category: "Category"
+                case .none: "None"
+                }
+            }
+            
+            var symbolName: String {
+                switch self {
+                case .qty: Symbols.quantity
+                case .uncertain: Symbols.uncertain
+                case .note: Symbols.notes
+                case .importance: GroceryImportance.somewhat.symbolName
+                case .pin: Symbols.pinned
+                case .category: Symbols.category
+                case .none: Symbols.none
+                }
+            }
+            
+            @ViewBuilder
+            func correspondingPreviewView() -> some View {
+                switch self {
+                case .qty:
+                    Text("1 cup")
+                        .font(.system(.caption, design: .monospaced))
+                        .foregroundStyle( Color.primary.mix(with: .secondary, by: 0.75))
+                case .uncertain:
+                    Image(systemName: Symbols.uncertain)
+                        .foregroundStyle(.indigo)
+                        .symbolVariant(.fill)
+                case .note:
+                    Image(systemName: Symbols.notes)
+                        .foregroundStyle(.yellow)
+                case .importance:
+                    Image(systemName: GroceryImportance.somewhat.symbolName)
+                        .foregroundStyle(GroceryImportance.somewhat.color)
+                case .pin:
+                    Image(systemName: Symbols.pinned)
+                        .foregroundStyle(.orange)
+                        .symbolVariant(.fill)
+                case .category:
+                    Image(systemName: Symbols.category)
+                        .foregroundStyle(.green)
+                        .symbolVariant(.fill)
+                case .none:
+                    Image(systemName: Symbols.none)
+                        .foregroundStyle(.secondary.opacity(0.7))
+                }
+            }
+        }
+        
+        static let key = "completedToBottom"
+        static let defaultValue: [Icon] = [.qty, .uncertain, .note, .importance, .pin, .category]
+        static let title = "Icons"
+        static let caption = "Tap on the icons to change which ones are shown in the Shopping List."
+    }
 }
