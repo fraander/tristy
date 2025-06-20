@@ -8,8 +8,6 @@
 import FoundationModels
 import SwiftUI
 
-#warning("add to sort options")
-
 @Generable
 enum GroceryCategory: String, CaseIterable, RawRepresentable, Identifiable {
     case produce = "Produce"

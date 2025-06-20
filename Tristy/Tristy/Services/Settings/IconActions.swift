@@ -41,10 +41,18 @@ struct IconActions: View {
         } label: {
             icons[index].correspondingPreviewView()
         }
+        #warning("need to replace this with a custom .plain menu - use button -> popover in custom view")
     }
     
     var sampleRow: some View {
-        HStack {
+        
+        #if os(iOS)
+        let backgroundColor = Color(uiColor: .systemGroupedBackground)
+        #elseif os(macOS)
+        let backgroundColor = Color(nsColor: .windowBackgroundColor)
+        #endif
+        
+        return HStack {
             Image(systemName: Symbols.complete)
                 .symbolVariant(.circle)
                 .font(.system(.title3))
@@ -63,7 +71,7 @@ struct IconActions: View {
         .frame(height: 24)
         .padding(15)
         .background(
-            Color(uiColor: .systemGroupedBackground),
+            backgroundColor,
             in: .containerRelative
         )
     }

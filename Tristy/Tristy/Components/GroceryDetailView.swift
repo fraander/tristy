@@ -8,6 +8,8 @@
 import SwiftUI
 import AttributedTextEditor
 
+#warning("add @model for grocerystore; let user set symbol, color, name. then pick from existing options. add under category in detail view.")
+
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
     

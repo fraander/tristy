@@ -8,6 +8,10 @@
 import SwiftUI
 import SwiftData
 
+#warning("let user pick if next time is its own tab or not.")
+#warning("let user filter list by store; sort by store.")
+#warning("upgrade the 'sort by' UI in settings - one multi-picker, not many toggles; reordering not yet required though.")
+
 struct ShoppingListView: View {
     
     @Environment(\.modelContext) var modelContext
