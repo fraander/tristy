@@ -7,18 +7,24 @@
 
 import SwiftUI
 
-enum TristyTab: String, CaseIterable, Codable, Identifiable {
-    case today = "Shop"
-    case archive = "Archive"
-//    case plan = "Plan"
-//    case search = "Search"
+enum TristyTab: Identifiable {
+    case today([GroceryList])
+    case nextTime([GroceryList])
+    case archive([GroceryList])
     
-    var id: String { self.rawValue }
+    var id: String {
+        switch self {
+        case .today(let v): "Today_\(v.map { String($0.id) }.joined(separator: "_"))"
+        case .nextTime(let v): "Next_\(v.map { String($0.id) }.joined(separator: "_"))"
+        case .archive(let v): "Archive_\(v.map { String($0.id) }.joined(separator: "_"))"
+        }
+    }
     
     var symbolName: String {
         switch self {
-        case .today: "cart.fill"
-        case .archive: "archivebox.fill"
+        case .today: GroceryList.active.symbolName
+        case .archive: GroceryList.archive.symbolName
+        case .nextTime: GroceryList.nextTime.symbolName
 //        case .plan: "calendar.day.timeline.left"
 //        case .search: "magnifyingglass"
         }
@@ -26,28 +32,8 @@ enum TristyTab: String, CaseIterable, Codable, Identifiable {
     
     var role: TabRole? {
         switch self {
-        case .today: return nil
-        case .archive: return nil
-//        case .plan: return nil
 //        case .search: return .search
+        default: return nil
         }
     }
-    
-    @ViewBuilder
-    var correspondingView: some View {
-        switch self {
-        case .today: ShoppingListView()
-        case .archive: ArchiveView()
-//        case .plan: Text("Plan")
-//        case .search: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
-    
-    /// Customized order for all cases in enum `Tab`
-    static let allCases: [TristyTab] = [
-        .today,
-        .archive,
-//        .plan,
-//        .search,
-    ]
 }

@@ -9,6 +9,7 @@ import Observation
 import SwiftUI
 import SwiftData
 import OSLog
+import FoundationModels
 
 
 
@@ -19,8 +20,8 @@ class AddBarStore {
     }
     
     private(set) var query: String = ""
-    var listToAddTo: GroceryList = .active
     
+    var listToAddTo: GroceryList = .active
     var listToAddToBinding: Binding<GroceryList> {
         .init(
             get: { self.listToAddTo },
@@ -67,7 +68,7 @@ class AddBarStore {
                     context.insert(grocery)
                     print("inserted \(grocery.titleOrEmpty)")
                     
-                    if let generatedCategory = try? await GroceryCategory.decideCategory(for: trimmed) {
+                    if let generatedCategory = try? await decideCategory(for: trimmed) {
                         print(generatedCategory)
                         grocery.setCategory(to: generatedCategory)
                     }
@@ -85,5 +86,23 @@ class AddBarStore {
     /// Reset the `addBarQuery` value to empty string
     func clearQuery() {
         query = ""
+    }
+    
+    /// For a given title, use the FoundationModel to generate a category from the set of choices.
+    /// - Parameter title: title of a grocery
+    /// - Returns: a GroceryCategory
+    func decideCategory(for title: String) async throws -> GroceryCategory {
+        do {
+            let session = LanguageModelSession(instructions: "You are categorizing groceries into what section of the grocery store you would find them. You will be given the name of the grocery, and you will respond with the section. Choose the most appropriate single category. If the item doesn't clearly fit into any of the first 11 categories, use 'other'.")
+            
+            let result = try await session.respond(
+                to: title,
+                generating: GroceryCategory.self,
+            )
+            
+            return result.content
+        } catch {
+            throw error
+        }
     }
 }

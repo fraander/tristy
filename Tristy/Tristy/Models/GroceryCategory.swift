@@ -95,26 +95,4 @@ enum GroceryCategory: String, CaseIterable, RawRepresentable, Identifiable {
     static var alphabeticalCases: [GroceryCategory] {
         allCases.sorted { $0.rawValue < $1.rawValue }
     }
-    
-    /// For a given title, use the FoundationModel to generate a category from the set of choices.
-    /// - Parameter title: title of a grocery
-    /// - Returns: a GroceryCategory
-    static func decideCategory(for title: String) async throws -> GroceryCategory {
-        
-        let prompt = """
-            Based on the grocery item title '\(title)', classify it into one of these categories: bakery, beverages, dairy, deli, frozen, household, meat, pantry, pharmacy, produce, snacks, or other. Choose the most appropriate single category. If the item doesn't clearly fit into any of the first 11 categories, use 'other'.
-            """
-        
-        let session = LanguageModelSession()
-        
-        do {
-            let result = try await session.respond(
-                to: prompt,
-                generating: GroceryCategory.self
-            )
-            return result.content
-        } catch {
-            throw error
-        }
-    }
 }

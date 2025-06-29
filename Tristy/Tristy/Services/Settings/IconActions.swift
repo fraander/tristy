@@ -7,16 +7,13 @@
 
 import SwiftUI
 
-struct IconActions: View {
+struct IconChoice: View {
+    let index: Int
+    @Binding var icons: [Settings.Icons.Icon]
     
-    @AppStorage(Settings.Icons.key) var icons = Settings.Icons.defaultValue
+    @State var showPopover = false
     
-    let message = """
-        Tap on the icons to change which ones are shown in the Shopping List.
-        """
-    
-    @ViewBuilder
-    func iconChoices(index: Int) -> some View {
+    var body: some View {
         
         let selection = Binding(
             get: { icons[index] },
@@ -29,6 +26,7 @@ struct IconActions: View {
             $0 == .none || $0 == icons[index] || !icons.contains($0)
         }
         
+#if os(iOS)
         Menu {
             Picker(selection: selection) {
                 ForEach(availableChoices) { icon in
@@ -41,8 +39,46 @@ struct IconActions: View {
         } label: {
             icons[index].correspondingPreviewView()
         }
-        #warning("need to replace this with a custom .plain menu - use button -> popover in custom view")
+#elseif os(macOS)
+        Button {
+            showPopover.toggle()
+        } label: {
+            icons[index].correspondingPreviewView()
+                .labelStyle(.iconOnly)
+                .contentTransition(.symbolEffect)
+        }
+        .popover(isPresented: $showPopover) {
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(availableChoices) { icon in
+                    Button(icon.name, systemImage: icon.symbolName) {
+                        withAnimation { icons[index] = icon }
+                    }
+                        .buttonStyle(.plain)
+                        .focusEffectDisabled()
+                        .foregroundStyle(icons[index] == icon ? .white : .primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(5)
+                        .background(icons[index] == icon ? .accent : .clear, in: .rect(cornerRadius: 15.0))
+                        .padding(2)
+                    
+                    if icon != availableChoices.last {
+                        Divider()
+                    }
+                }
+            }
+            .padding(5)
+        }
+#endif
     }
+}
+
+struct IconActions: View {
+    
+    @AppStorage(Settings.Icons.key) var icons = Settings.Icons.defaultValue
+    
+    let message = """
+        Tap on the icons to change which ones are shown in the Shopping List.
+        """
     
     var sampleRow: some View {
         
@@ -63,7 +99,7 @@ struct IconActions: View {
             Spacer()
             
             ForEach(0..<icons.count, id: \.self) { index in
-                iconChoices(index: index)
+                IconChoice(index: index, icons: $icons)
                     .imageScale(.small)
             }
             
@@ -114,7 +150,7 @@ struct IconActions: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    Form {
+    List {
         IconActions()
     }
 }

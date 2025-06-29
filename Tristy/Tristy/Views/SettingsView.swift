@@ -17,6 +17,11 @@ struct SettingsView: View {
         List {
             Section("Share") { ShareActions() }
             
+            Section("Lists") {
+                TabActions()
+                SortActions()
+            }
+            
             Section("Preferences") {
                 Settings.AddBarSuggestions.Toggle()
 
@@ -28,9 +33,8 @@ struct SettingsView: View {
                     Settings.CollapsibleSections.Toggle()
                 }
                 
-                Settings.CompletedToBottom.Toggle()
-                
-                Settings.SortByCategory.Toggle()
+//                Settings.CompletedToBottom.Toggle()
+//                Settings.SortByCategory.Toggle()
             }
             
             IconActions()
@@ -59,7 +63,6 @@ struct SettingsView: View {
         NavigationStack {
             content
         }
-        .frame(maxWidth: 360)
         #endif
     }
 }

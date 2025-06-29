@@ -11,6 +11,21 @@ struct ContentView: View {
     
     @Environment(Router.self) var router
     
+    @AppStorage(Settings.Tabs.key) var tabSetting = Settings.Tabs.defaultValue
+    
+    var tabs: [TristyTab] {
+        switch tabSetting {
+        case .singlePage:
+            [.today([.active, .nextTime, .archive])]
+        case .eachAsOwn:
+            [.today, .nextTime, .archive]
+        case .archiveAsOwn:
+            [.today, .archive]
+        case .activeAsOwn:
+            [.today, .archive]
+        }
+    }
+    
     var body: some View {
         TabView(selection: router.tabBinding) {
             ForEach(TristyTab.allCases) { tab in

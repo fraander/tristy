@@ -64,7 +64,7 @@ class Grocery {
     
     // MARK: Initializers -
     
-    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "", category: GroceryCategory = .other) {
+    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "", category: GroceryCategory? = nil) {
         self.list = list.rawValue
         self.title = title
         self.completed = completed ? 1 : 0
@@ -74,7 +74,7 @@ class Grocery {
         self.pinned = pinned ? 1 : 0
         self.quantity = quantity
         self.unit = unit
-        self.category = category.rawValue
+        self.category = category?.rawValue ?? ""
     }
     
     // MARK: Functions -

@@ -12,7 +12,7 @@ import AttributedTextEditor
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(AddBarStore.self) var abStore
     @Environment(\.modelContext) private var modelContext
     var grocery: Grocery?
     
@@ -53,8 +53,9 @@ struct GroceryDetailView: View {
     @State var showingDeleteConfirmation = false
     @State var selection = AttributedTextSelection()
     
+    @State var categoryDebounceTimer: Timer? = nil
+    private let debouceTimeIterval: TimeInterval = 0.3
     @State var hasSetCategory: SetCategoryStatus = .unset
-    
     enum SetCategoryStatus {
         case unset, generating, set
     }
@@ -132,6 +133,8 @@ struct GroceryDetailView: View {
         .transition(.move(edge: .top))
     }
     
+    @State var animationAngle: CGFloat = 0.0
+    
     var grocerySection: some View {
         Group {
             TextField("Title", text: $workingTitle)
@@ -163,12 +166,19 @@ struct GroceryDetailView: View {
                     Text("Category")
                 } icon: {
                     if hasSetCategory == .generating {
-                        ProgressView()
+                        Image(systemName: "apple.intelligence")
+                            .foregroundStyle(
+                                AngularGradient(colors: [.yellow, .pink, .cyan], center: .center)
+                            )
+                            .rotationEffect(.degrees(animationAngle))
+                            .contentTransition(.symbolEffect)
                     } else {
                         Image(systemName: workingCategory.symbolName)
                             .contentTransition(.symbolEffect)
                     }
                 }
+                .animation(.linear(duration: 1.5).repeatForever(autoreverses: false), value: animationAngle)
+                .onChange(of: hasSetCategory) { animationAngle = hasSetCategory == .generating ? 360 : 0 }
                 .labelStyle(.tintedIcon(icon: workingCategory.color))
                 .animation(.easeInOut, value: hasSetCategory == .generating)
             }
@@ -191,6 +201,14 @@ struct GroceryDetailView: View {
         }
     }
     
+    var placeholderText: String {
+        #if os(iOS)
+        "You can use Markdown here. ..."
+        #else
+        ""
+        #endif
+    }
+        
     var contents: some View {
         Group {
             Section("Grocery") {
@@ -202,9 +220,19 @@ struct GroceryDetailView: View {
             }
             
             Section {
-                ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: "You can use Markdown here. ...")
+                ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: placeholderText)
                     .frame(minHeight: 160)
-                    
+                #if os(macOS)
+                    .padding(5)
+                    .background {
+                        Color.systemGroupedBackground
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5.0)
+                            .stroke(.gray, lineWidth: 0.5)
+                            .fill(.clear)
+                    }
+                #endif 
             } header: {
                 HStack {
                     Text("Notes")
@@ -319,7 +347,7 @@ struct GroceryDetailView: View {
                 pinned: workingPinned,
                 quantity: workingQuantity,
                 unit: workingUnits,
-                category: workingCategory
+                category: hasSetCategory == .set ? workingCategory : nil
             )
             modelContext.insert(g)
         } else {
@@ -333,16 +361,36 @@ struct GroceryDetailView: View {
             grocery?.quantity = workingQuantity
             grocery?.unit = workingUnits
             grocery?.notes = String(workingNotes.characters)
-            grocery?.setCategory(to: workingCategory)
+            if hasSetCategory == .set {
+                grocery?.setCategory(to: workingCategory)
+            }
         }
         dismiss()
     }
     
     func generateCategoryOnAppear() async {
-        if !workingTitle.isEmpty && hasSetCategory == .unset {
+        if categoryDebounceTimer == nil || categoryDebounceTimer?.isValid == false {
+            categoryDebounceTimer = Timer.scheduledTimer(
+                withTimeInterval: debouceTimeIterval,
+                repeats: false) { timer in
+                        timer.invalidate()
+                        self.categoryDebounceTimer = nil
+                    }
+        }
+        
+        // don't generate if no title to generate for; category is not unset OR title has been changed so re-generate; or category "unset";
+        
+        // unset category & has title
+        // new title & category is already set
+        
+        if ((
+            !workingTitle.isEmpty && (grocery?.category ?? "").isEmpty
+        ) || (
+            workingTitle != grocery?.titleOrEmpty && hasSetCategory == .unset
+        )) {
             hasSetCategory = .generating
             do {
-                workingCategory = try await GroceryCategory.decideCategory(for: workingTitle)
+                workingCategory = try await abStore.decideCategory(for: workingTitle)
                 hasSetCategory = .set
             } catch {
                 print(error)
@@ -357,7 +405,13 @@ struct GroceryDetailView: View {
     BackgroundView()
         .sheet(isPresented: .constant(true)) {
             GroceryDetailView(
-                grocery: Grocery.examples.randomElement()
+//                grocery: Grocery.examples.randomElement()
+                grocery: Grocery(
+                    list: .active,
+                    title: "Crackers",
+                    completed: true,
+                    category: nil
+                )
             )
         }
         .applyEnvironment(prePopulate: true)

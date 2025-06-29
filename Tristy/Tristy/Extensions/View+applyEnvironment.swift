@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import OSLog
+import FoundationModels
 
 /// Apply the whole collection of Services as a single modifier, instead of duplicating work in both @main and previews.
 struct ApplyEnvironmentModifier: ViewModifier {
