@@ -15,7 +15,7 @@ struct StoreBrowser: View {
     
     var body: some View {
         if stores.isEmpty {
-            ContentUnavailableView("No stores. Add one to get started.", systemImage: Symbols.emptyList)
+            ContentUnavailableView("", systemImage: Symbols.emptyList)
         } else {
             ForEach(stores) { store in
                 Label(store.nameOrEmpty, systemImage: store.symbolOrDefault)

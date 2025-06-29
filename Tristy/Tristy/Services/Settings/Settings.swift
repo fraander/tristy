@@ -280,7 +280,7 @@ struct Settings {
     struct Tabs {
         
         static let key = "tabs"
-        static let defaultValue: Option = .eachAsOwn
+        static let defaultValue: Option = .archiveAsOwn
         static let title = "Tabs"
         static let caption = "How the lists and tabs should be organized."
         
