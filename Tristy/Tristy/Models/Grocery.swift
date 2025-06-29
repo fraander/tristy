@@ -39,6 +39,9 @@ class Grocery {
     /// Where in the store do you find this item?
     var category: String?
     
+    @Relationship(deleteRule: .nullify, inverse: \GroceryStore.groceries)
+    var store: GroceryStore? = nil
+    
     // Read-only computed properties with nil handling
     var titleOrEmpty: String { title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "" }
     var notesOrEmpty: String { notes ?? "" }
@@ -64,7 +67,19 @@ class Grocery {
     
     // MARK: Initializers -
     
-    init(list: GroceryList = .active, title: String = "", completed: Bool = false, notes: String = "", certainty: Bool = false, importance: GroceryImportance = .none, pinned: Bool = false, quantity: Double = 0, unit: String = "", category: GroceryCategory? = nil) {
+    init(
+        list: GroceryList = .active,
+        title: String = "",
+        completed: Bool = false,
+        notes: String = "",
+        certainty: Bool = false,
+        importance: GroceryImportance = .none,
+        pinned: Bool = false,
+        quantity: Double = 0,
+        unit: String = "",
+        category: GroceryCategory? = nil,
+        store: GroceryStore? = nil
+    ) {
         self.list = list.rawValue
         self.title = title
         self.completed = completed ? 1 : 0
@@ -75,6 +90,7 @@ class Grocery {
         self.quantity = quantity
         self.unit = unit
         self.category = category?.rawValue ?? ""
+        self.store = store
     }
     
     // MARK: Functions -
@@ -96,24 +112,24 @@ extension Grocery {
     // MARK: Examples -
     static let examples: [Grocery] = [
         // Active list items
-        Grocery(list: .active, title: "Milk", quantity: 1, unit: "gallon"),
+        Grocery(list: .active, title: "Milk", quantity: 1, unit: "gallon", store: GroceryStore.examples.randomElement()),
         Grocery(list: .active, title: "Bread", completed: true, pinned: true),
         Grocery(list: .active, title: "Eggs", importance: .very),
-        Grocery(list: .active, title: "Bananas", notes: "Not too ripe"),
+        Grocery(list: .active, title: "Bananas", notes: "Not too ripe", store: GroceryStore.examples.randomElement()),
         Grocery(list: .active, title: "Chicken Breast", notes: "Organic if available", importance: .somewhat, pinned: true, quantity: 2, unit: "lbs"),
-        Grocery(list: .active, title: "Rice", pinned: true),
+        Grocery(list: .active, title: "Rice", pinned: true, store: GroceryStore.examples.randomElement()),
         Grocery(list: .active, title: "Onions", completed: true),
         Grocery(list: .active, title: "Tomatoes", certainty: true),
         Grocery(list: .active, title: "Cheese", notes: "Sharp cheddar"),
         Grocery(list: .active, title: "Apples", completed: true),
         
         // Next time list
-        Grocery(list: .nextTime, title: "Ground Beef", notes: "85/15 lean"),
+        Grocery(list: .nextTime, title: "Ground Beef", notes: "85/15 lean", store: GroceryStore.examples.randomElement()),
         Grocery(list: .nextTime, title: "Pasta"),
         Grocery(list: .nextTime, title: "Olive Oil", notes: "Extra virgin", pinned: true),
         Grocery(list: .nextTime, title: "Yogurt", certainty: true, quantity: 6, unit: "cups"),
-        Grocery(list: .nextTime, title: "Spinach", importance: .somewhat),
-        Grocery(list: .nextTime, title: "Carrots"),
+        Grocery(list: .nextTime, title: "Spinach", importance: .somewhat, store: GroceryStore.examples.randomElement()),
+        Grocery(list: .nextTime, title: "Carrots", store: GroceryStore.examples.randomElement()),
         Grocery(list: .nextTime, title: "Bell Peppers", notes: "Mix of colors", pinned: true),
         Grocery(list: .nextTime, title: "Garlic"),
         Grocery(list: .nextTime, title: "Potatoes", quantity: 5, unit: "lbs"),
@@ -121,14 +137,14 @@ extension Grocery {
         
         // Archive
         Grocery(list: .archive, title: "Broccoli", completed: true, notes: "Got frozen instead", pinned: true),
-        Grocery(list: .archive, title: "Orange Juice", completed: true),
+        Grocery(list: .archive, title: "Orange Juice", completed: true, store: GroceryStore.examples.randomElement()),
         Grocery(list: .archive, title: "Butter", completed: true, notes: "Unsalted"),
-        Grocery(list: .archive, title: "Cereal", completed: true),
+        Grocery(list: .archive, title: "Cereal", completed: true, store: GroceryStore.examples.randomElement()),
         Grocery(list: .archive, title: "Strawberries", completed: true, pinned: true),
         Grocery(list: .archive, title: "Avocados", completed: true),
-        Grocery(list: .archive, title: "Lemon", completed: true),
+        Grocery(list: .archive, title: "Lemon", completed: true, store: GroceryStore.examples.randomElement()),
         Grocery(list: .archive, title: "Mushrooms", completed: true),
-        Grocery(list: .archive, title: "Frozen Peas", completed: true, pinned: true),
+        Grocery(list: .archive, title: "Frozen Peas", completed: true, pinned: true, store: GroceryStore.examples.randomElement()),
         Grocery(list: .archive, title: "Canned Beans", completed: true, notes: "Black beans and chickpeas")
     ]
 }

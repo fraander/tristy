@@ -206,12 +206,13 @@ struct Settings {
     struct Icons {
         
         enum Icon: Identifiable, CaseIterable, Codable {
-            case qty, uncertain, note, importance, pin, category, none
+            case qty, uncertain, note, importance, pin, category, none, store
             
             var id: Self { self }
             
             var name: String {
                 switch self {
+                case .store: "Store"
                 case .qty: "Quantity"
                 case .uncertain: "Certainty"
                 case .note: "Note"
@@ -231,6 +232,7 @@ struct Settings {
                 case .pin: Symbols.pinned
                 case .category: Symbols.category
                 case .none: Symbols.none
+                case .store: Symbols.basket
                 }
             }
             
@@ -262,12 +264,15 @@ struct Settings {
                 case .none:
                     Image(systemName: Symbols.none)
                         .foregroundStyle(.secondary.opacity(0.7))
+                case .store:
+                    Image(systemName: Symbols.basket)
+                        .foregroundStyle(.green)
                 }
             }
         }
         
-        static let key = "completedToBottom"
-        static let defaultValue: [Icon] = [.qty, .uncertain, .note, .importance, .pin, .category]
+        static let key = "icons"
+        static let defaultValue: [Icon] = [.qty, .note, .uncertain, .importance, .pin, .category, .store]
         static let title = "Icons"
         static let caption = "Tap on the icons to change which ones are shown in the Shopping List."
     }
@@ -390,7 +395,7 @@ struct Settings {
                 case .category: return "Category"
                 case .completed: return "Completed"
                 case .pinned: return "Pinned"
-                case .uncertain: return "Uncertain"
+                case .uncertain: return "Certainty"
                 case .importance: return "Importance"
                 }
             }

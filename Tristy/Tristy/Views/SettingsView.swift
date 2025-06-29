@@ -39,6 +39,8 @@ struct SettingsView: View {
             
             IconActions()
             
+            Section("Stores") { StoreActions() }
+            
             Section("iCloud") { SyncStatusView() }
             
             Section("Data Actions") { DataActions() }

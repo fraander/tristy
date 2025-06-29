@@ -26,4 +26,8 @@ extension LabelStyle where Self == IconTintLabelStyle {
     static func tintedIcon(icon iconColor: Color = .accentColor, text textColor: Color = .primary) -> Self {
         .init(iconColor: iconColor, textColor: textColor)
     }
+    
+    static func tintedIcon(_ iconColor: Color = .accentColor) -> Self {
+        .init(iconColor: iconColor, textColor: .primary)
+    }
 }

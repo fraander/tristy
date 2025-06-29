@@ -1,5 +1,5 @@
 {
-  "originHash" : "befacd06d5e152ab88048b74ef90a3c907289dea77ba8346805fef04c7580742",
+  "originHash" : "e518e87d3e6e67b940a5559f474fcc896504543722a8eac2f158de570f57d7cc",
   "pins" : [
     {
       "identity" : "attributedtexteditor",
@@ -17,6 +17,24 @@
       "state" : {
         "revision" : "a421ba7b38fa2e37bb78fc1425db491ca5e93c9a",
         "version" : "3.1.0"
+      }
+    },
+    {
+      "identity" : "searchbar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SzpakKamil/SearchBar.git",
+      "state" : {
+        "revision" : "4d439902b8b6cb8003d26e40e59e8516b64693f3",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "symbolpicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SzpakKamil/SymbolPicker",
+      "state" : {
+        "revision" : "7641f96e271930bb9719804212d604657ef31b98",
+        "version" : "0.7.1"
       }
     }
   ],

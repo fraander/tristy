@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012211FC2E11E7B600E86987 /* GroceryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012211FB2E11E7B400E86987 /* GroceryStore.swift */; };
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
 		012D949C2E04DBA8000CEEB4 /* IconActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012D949B2E04DBA1000CEEB4 /* IconActions.swift */; };
@@ -51,12 +52,15 @@
 		01E5C1692DFBFFC6007C9B38 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */; };
 		01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */ = {isa = PBXBuildFile; productRef = 01E5C16B2DFC08B3007C9B38 /* CloudKitSyncMonitor */; };
 		01EAC6172E00A28300363718 /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EAC6162E00A28000363718 /* GroceryDetailView.swift */; };
+		01F31D922E11F13800AE8B14 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 01F31D912E11F13800AE8B14 /* SymbolPicker */; };
+		01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F31D932E11F3B100AE8B14 /* StoreActions.swift */; };
 		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		012211FB2E11E7B400E86987 /* GroceryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryStore.swift; sourceTree = "<group>"; };
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		012D949B2E04DBA1000CEEB4 /* IconActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconActions.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 		01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabelStyle+IconTintLabelStyle.swift"; sourceTree = "<group>"; };
 		01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		01EAC6162E00A28000363718 /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
+		01F31D932E11F3B100AE8B14 /* StoreActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreActions.swift; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
 		BD1360702BFD359300468A01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 			files = (
 				01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */,
 				01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */,
+				01F31D922E11F13800AE8B14 /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +129,7 @@
 		012A80EA2DFBE8EA005B4B70 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				012211FB2E11E7B400E86987 /* GroceryStore.swift */,
 				01C0441A2E04E88300B51C2E /* GroceryImportance.swift */,
 				01C0441C2E04E8A700B51C2E /* GroceryList.swift */,
 				012A80EB2DFBE8EE005B4B70 /* Grocery.swift */,
@@ -223,6 +230,7 @@
 				01660B882E034C3600B5B695 /* ShareActions.swift */,
 				01AEED4F2E11BA01007C516A /* TabActions.swift */,
 				01AEED512E11BB50007C516A /* SortActions.swift */,
+				01F31D932E11F3B100AE8B14 /* StoreActions.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -317,6 +325,7 @@
 			packageReferences = (
 				01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */,
 				01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */,
+				01F31D902E11F13800AE8B14 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
 			);
 			productRefGroup = BD1360662BFD359200468A01 /* Products */;
 			projectDirPath = "";
@@ -352,11 +361,13 @@
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
 				01CC18912DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
+				01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */,
 				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
 				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,
 				012D949C2E04DBA8000CEEB4 /* IconActions.swift in Sources */,
 				01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */,
 				01C0441B2E04E88F00B51C2E /* GroceryImportance.swift in Sources */,
+				012211FC2E11E7B600E86987 /* GroceryStore.swift in Sources */,
 				01CC18972DFBB2DE00BCD8A5 /* AddBar.swift in Sources */,
 				01CC18C82DFBD4F800BCD8A5 /* ArchiveView.swift in Sources */,
 				01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */,
@@ -667,6 +678,14 @@
 				minimumVersion = 3.1.0;
 			};
 		};
+		01F31D902E11F13800AE8B14 /* XCRemoteSwiftPackageReference "SymbolPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SzpakKamil/SymbolPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -679,6 +698,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */;
 			productName = CloudKitSyncMonitor;
+		};
+		01F31D912E11F13800AE8B14 /* SymbolPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01F31D902E11F13800AE8B14 /* XCRemoteSwiftPackageReference "SymbolPicker" */;
+			productName = SymbolPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

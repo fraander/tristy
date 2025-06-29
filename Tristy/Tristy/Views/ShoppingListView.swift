@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-#warning("let user filter list by store; sort by store.")
+#warning("let user filter list by store")
 
 struct ShoppingListView: View {
     

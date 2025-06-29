@@ -20,20 +20,27 @@ struct ApplyEnvironmentModifier: ViewModifier {
     let prePopulate: Bool
     
     var modelContainer: ModelContainer {
-        
-        Logger.setup.info("Create modelContainer")
-        
         if prePopulate {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
-            let container = try! ModelContainer(for: Grocery.self, configurations: config)
+            let container = try! ModelContainer(
+                for: Grocery.self,
+                GroceryStore.self,
+                configurations: config
+            )
             
             for grocery in Grocery.examples {
                 container.mainContext.insert(grocery)
             }
             
+            for store in GroceryStore.examples {
+                container.mainContext.insert(store)
+            }
+            
+            try! container.mainContext.save()
+            
             return container
         } else {
-            return try! ModelContainer(for: Grocery.self)
+            return try! ModelContainer(for: Grocery.self, GroceryStore.self)
         }
     }
     
@@ -41,7 +48,7 @@ struct ApplyEnvironmentModifier: ViewModifier {
         content
             .environment(router)
             .environment(abStore)
-            .modelContainer(self.modelContainer)
+            .modelContainer(modelContainer)
     }
 }
 

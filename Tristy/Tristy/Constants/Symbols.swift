@@ -33,4 +33,5 @@ struct Symbols {
     static let quantity = "numbersign"
     static let none = "nosign"
     static let category = "carrot"
+    static let basket = "basket"
 }

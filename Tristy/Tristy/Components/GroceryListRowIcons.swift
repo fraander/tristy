@@ -71,6 +71,17 @@ struct GroceryListRowIcons: View {
     }
     
     @ViewBuilder
+    func storeIcon() -> some View {
+        if let s = grocery.store {
+            Image(systemName: s.symbolOrDefault)
+                .foregroundStyle(s.colorOrDefault)
+        } /* else {
+            Image(systemName: Symbols.none)
+                .foregroundStyle(.secondary)
+        } */
+    }
+    
+    @ViewBuilder
     func correspondingView(icon: Icon) -> some View {
         switch icon {
         case .qty: quantityIcon()
@@ -80,6 +91,7 @@ struct GroceryListRowIcons: View {
         case .pin: pinIcon()
         case .category: categoryIcon()
         case .none: Text("")
+        case .store: storeIcon()
         }
     }
     

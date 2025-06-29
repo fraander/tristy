@@ -7,14 +7,15 @@
 
 import SwiftUI
 import AttributedTextEditor
-
-#warning("add @model for grocerystore; let user set symbol, color, name. then pick from existing options. add under category in detail view.")
+import SwiftData
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(AddBarStore.self) var abStore
     @Environment(\.modelContext) private var modelContext
     var grocery: Grocery?
+    
+    @Query var allStores: [GroceryStore]
     
     init(grocery: Grocery? = nil) {
         
@@ -32,6 +33,7 @@ struct GroceryDetailView: View {
             _workingUnits = .init(initialValue: grocery.unitOrEmpty)
             _workingNotes = .init(initialValue: AttributedString(grocery.notesOrEmpty))
             _workingCategory = .init(initialValue: grocery.categoryEnum)
+            _workingStore = .init(initialValue: grocery.store)
             
             if (grocery.category ?? "").isEmpty {
                 self.hasSetCategory = .unset
@@ -41,6 +43,7 @@ struct GroceryDetailView: View {
     
     @State var workingTitle: String = ""
     @State var workingList: GroceryList = .active
+    @State var workingStore: GroceryStore? = nil
     @State var workingCompleted: Bool = false
     @State var workingPinned: Bool = false
     @State var workingUncertain: Bool = false
@@ -161,7 +164,6 @@ struct GroceryDetailView: View {
                         .tag(category)
                 }
             } label: {
-                
                 Label {
                     Text("Category")
                 } icon: {
@@ -185,6 +187,25 @@ struct GroceryDetailView: View {
             .tint(.secondary)
             .onAppear { Task { await generateCategoryOnAppear() } }
             .onChange(of: workingTitle) { Task { await generateCategoryOnAppear() } }
+            
+            Picker(selection: $workingStore) {
+                Label("None", systemImage: Symbols.none)
+                    .tint(.secondary)
+                    .tag(nil as GroceryStore?) // Generic parameter 'V' could not be inferred
+                
+                Divider()
+                
+                ForEach(allStores) { store in
+                    Label(store.nameOrEmpty, systemImage: store.symbolOrDefault)
+                        .tint(store.colorOrDefault)
+                        .tag(store as GroceryStore?)
+                }
+            } label: {
+                Label("Store", systemImage: workingStore?.symbolOrDefault ?? Symbols.none)
+                    .contentTransition(.symbolEffect)
+                    .labelStyle(.tintedIcon(icon: workingStore?.colorOrDefault ?? .secondary))
+            }
+            .tint(.secondary)
             
             Picker(selection: $workingList) {
                 ForEach(GroceryList.allCases) { list in
@@ -347,13 +368,15 @@ struct GroceryDetailView: View {
                 pinned: workingPinned,
                 quantity: workingQuantity,
                 unit: workingUnits,
-                category: hasSetCategory == .set ? workingCategory : nil
+                category: hasSetCategory == .set ? workingCategory : nil,
+                store: workingStore
             )
             modelContext.insert(g)
         } else {
             // Update all relevant fields
             grocery?.title = workingTitle.trimmingCharacters(in: .whitespacesAndNewlines)
             grocery?.setList(workingList)
+            grocery?.store = workingStore
             grocery?.setCompleted(to: workingCompleted)
             grocery?.setPinned(to: workingPinned)
             grocery?.setCertainty(to: workingUncertain)

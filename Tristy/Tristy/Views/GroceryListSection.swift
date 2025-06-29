@@ -68,8 +68,10 @@ struct GroceryListSection: View {
     
     struct QueriedList: View {
         
-        @AppStorage(Settings.CompletedToBottom.key) var completedToBottom = Settings.CompletedToBottom.defaultValue
-        @AppStorage(Settings.SortByCategory.key) var sortByCategory = Settings.SortByCategory.defaultValue
+//        @AppStorage(Settings.CompletedToBottom.key) var completedToBottom = Settings.CompletedToBottom.defaultValue
+//        @AppStorage(Settings.SortByCategory.key) var sortByCategory = Settings.SortByCategory.defaultValue
+
+        @AppStorage(Settings.ListSort.key) var listSortSetting = Settings.ListSort.defaultValue
         
         @Query var groceries: [Grocery]
 
@@ -85,16 +87,33 @@ struct GroceryListSection: View {
         }
         
         func sort() -> [Grocery] {
-            groceries.sorted(by: { grocery1, grocery2 in
-               if completedToBottom && (grocery1.isCompleted != grocery2.isCompleted) {
-                   return !grocery1.isCompleted // incomplete items first
-               }
-               
-               if sortByCategory && (grocery1.categoryEnum.sortOrder != grocery2.categoryEnum.sortOrder) {
-                   return grocery1.categoryEnum.sortOrder < grocery2.categoryEnum.sortOrder
-               }
-               
-               return grocery1.titleOrEmpty < grocery2.titleOrEmpty
+            groceries.sorted(by: { lhs, rhs in
+                
+                if listSortSetting.contains(where: { $0 == .completed }) && lhs.completed != rhs.completed {
+                    return lhs.completed ?? 0 < rhs.completed ?? 0
+                }
+                
+                if listSortSetting.contains(where: { $0 == .store }) && lhs.store != rhs.store {
+                    return !(lhs.store?.nameOrEmpty ?? "" < rhs.store?.nameOrEmpty ?? "")
+                }
+                
+                if listSortSetting.contains(where: { $0 == .category }) && lhs.category != rhs.category {
+                    return lhs.categoryEnum.sortOrder < rhs.categoryEnum.sortOrder
+                }
+                
+                if listSortSetting.contains(where: { $0 == .pinned }) && lhs.pinned != rhs.pinned {
+                    return !(lhs.pinned ?? 0 < rhs.pinned ?? 0)
+                }
+                
+                if listSortSetting.contains(where: { $0 == .importance }) && lhs.importance != rhs.importance {
+                    return !(lhs.importance ?? 0 < rhs.importance ?? 0)
+                }
+                
+                if listSortSetting.contains(where: { $0 == .uncertain }) && lhs.certainty != rhs.certainty {
+                    return !(lhs.certainty ?? 0 < rhs.certainty ?? 0)
+                }
+                
+                return lhs.titleOrEmpty < rhs.titleOrEmpty
             })
         }
         
