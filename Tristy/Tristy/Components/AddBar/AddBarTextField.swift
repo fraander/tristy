@@ -113,6 +113,7 @@ struct AddBarTextField: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 10) {
             leadingButton
+                .buttonBorderShape(.roundedRectangle)
             
             TextField(
                 prompt,
@@ -133,12 +134,14 @@ struct AddBarTextField: View {
             }
             .task { prompt = chooseRandomExampleGrocery() }
             .task { focus = router.focus }
+            .buttonBorderShape(.roundedRectangle)
             
             listPicker
             
             if (trailingButtonCondition) {
                 trailingButton
                     .transition(.scale)
+                    .buttonBorderShape(.roundedRectangle)
             }
         }
         .animation(.easeInOut(duration: Metrics.animationDuration), value: trailingButtonCondition)

@@ -16,16 +16,23 @@ struct ShoppingListView: View {
     @Environment(Router.self) var router
     @State var selectedGroceries: Set<PersistentIdentifier> = []
     
+    var showingLists: [GroceryList]
+    
 #if os(iOS)
     @Environment(\.editMode) var editMode
 #endif
     
     var contents: some View {
         List(selection: $selectedGroceries) {
-            GroceryListSection(list: .active, isExpanded: true, selectedGroceries: $selectedGroceries)
-            GroceryListSection(list: .nextTime, isExpanded: false, selectedGroceries: $selectedGroceries)
+            ForEach(showingLists) { l in
+                GroceryListSection(
+                    list: l,
+                    isExpanded: l == .active || showingLists.count == 1,
+                    selectedGroceries: $selectedGroceries
+                )
+                .listSectionMargins(.bottom, l == showingLists.last ? 120 : 20)
+            }
 #if os(iOS)
-                .listSectionMargins(.bottom, 120)
 #endif
         }
         .scrollContentBackground(.hidden)
@@ -56,8 +63,15 @@ struct ShoppingListView: View {
                 #endif
                 
                 contents
+                    .onChange(of: selectedGroceries) { oldValue, newValue in
+                        #if os(iOS)
+                        if !(editMode?.wrappedValue.isEditing ?? false) {
+                            selectedGroceries.removeAll()
+                        }
+                        #endif
+                    }
             }
-            .navigationTitle(TristyTab.today.rawValue)
+//            .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
                 if isEditing {
                     
@@ -121,6 +135,6 @@ struct ShoppingListView: View {
 
 #Preview {
     ContentView()
-        .environment(Router.init(tab: .today))
+        .environment(Router.init(tab: .list([.active])))
         .applyEnvironment(prePopulate: true)
 }

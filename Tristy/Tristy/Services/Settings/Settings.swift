@@ -336,21 +336,30 @@ struct Settings {
             var title: String { tabChoice.title }
             var symbol: String { tabChoice.symbolName }
             
-            var body: some View {
-                SwiftUI.Menu(title, systemImage: symbol) {
-                    Picker(title, selection: $tabChoice) {
-                        ForEach(Settings.Tabs.Option.allCases) { tab in
-                            Button {
-                                tabChoice = tab
-                            } label: {
-                                Image(systemName: tab.symbolName)
-                                Text(tab.title)
-                                Text(tab.description)
-                            }
-                            .tag(tab)
+            var picker: some View {
+                Picker(title, selection: $tabChoice) {
+                    ForEach(Settings.Tabs.Option.allCases) { tab in
+                        Button {
+                            tabChoice = tab
+                        } label: {
+                            Image(systemName: tab.symbolName)
+                            Text(tab.title)
+                            Text(tab.description)
                         }
+                        .tag(tab)
                     }
                 }
+            }
+            
+            var body: some View {
+                #if os(iOS)
+                SwiftUI.Menu(title, systemImage: symbol) {
+                    picker
+                }
+                #else
+                picker
+                    .labelsHidden()
+                #endif
             }
         }
     }

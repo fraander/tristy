@@ -7,26 +7,47 @@
 
 import SwiftUI
 
-enum TristyTab: Identifiable {
-    case today([GroceryList])
-    case nextTime([GroceryList])
-    case archive([GroceryList])
+enum TristyTab: Identifiable, Hashable {
+    case list([GroceryList])
+//    case settings
+    
+    var rawValue: String {
+        switch self {
+        case .list(let v):
+            if (v == [.active, .nextTime, .archive]) {
+                return "Shop"
+            } else if (v == [.active]) {
+                return GroceryList.active.name
+            } else if v.contains(.archive) {
+                return GroceryList.archive.name
+            } else if v == [.nextTime] {
+                return GroceryList.nextTime.name
+            } else {
+                return "Shop"
+            }
+        }
+    }
     
     var id: String {
         switch self {
-        case .today(let v): "Today_\(v.map { String($0.id) }.joined(separator: "_"))"
-        case .nextTime(let v): "Next_\(v.map { String($0.id) }.joined(separator: "_"))"
-        case .archive(let v): "Archive_\(v.map { String($0.id) }.joined(separator: "_"))"
+        case .list(let v): "List_\(v.map { String($0.id) }.joined(separator: "_"))"
         }
     }
     
     var symbolName: String {
         switch self {
-        case .today: GroceryList.active.symbolName
-        case .archive: GroceryList.archive.symbolName
-        case .nextTime: GroceryList.nextTime.symbolName
-//        case .plan: "calendar.day.timeline.left"
-//        case .search: "magnifyingglass"
+        case .list(let v):
+            if (v == [.active, .nextTime, .archive]) {
+                return "cart.fill"
+            } else if (v == [.active]) {
+                return GroceryList.active.symbolName
+            } else if v.contains(.archive) {
+                return GroceryList.archive.symbolName
+            } else if v == [.nextTime] {
+                return GroceryList.nextTime.symbolName
+            } else {
+                return "cart.fill"
+            }
         }
     }
     
@@ -34,6 +55,12 @@ enum TristyTab: Identifiable {
         switch self {
 //        case .search: return .search
         default: return nil
+        }
+    }
+    
+    var correspondingView: some View {
+        switch self {
+        case .list(let v): ShoppingListView(showingLists: v)
         }
     }
 }

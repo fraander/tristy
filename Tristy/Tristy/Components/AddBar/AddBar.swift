@@ -14,7 +14,7 @@ struct AddBar: View {
     var body: some View {
         VStack {
             if showAddBarSuggestions {
-                AddBarList()                
+                AddBarList()
             }
             AddBarTextField()
         }

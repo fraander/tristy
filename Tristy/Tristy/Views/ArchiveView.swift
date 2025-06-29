@@ -38,6 +38,6 @@ struct ArchiveView: View {
 
 #Preview {
     ContentView()
-        .environment(Router.init(tab: .archive))
+        .environment(Router.init(tab: .list([.archive])))
         .applyEnvironment()
 }
