@@ -19,6 +19,10 @@ struct DataActions: View {
     @State var isShowingPrePopulateConfirmation: Bool = false
     
     func insertExamples() {
+        for store in GroceryStore.examples {
+            modelContext.insert(store)
+        }
+        
         for grocery in Grocery.examples {
             modelContext.insert(grocery)
         }
@@ -27,6 +31,10 @@ struct DataActions: View {
     func deleteAll() async {
         do {
             try modelContext.fetch(FetchDescriptor<Grocery>()).forEach {
+                modelContext.delete($0)
+            }
+            
+            try modelContext.fetch(FetchDescriptor<GroceryStore>()).forEach {
                 modelContext.delete($0)
             }
         } catch {

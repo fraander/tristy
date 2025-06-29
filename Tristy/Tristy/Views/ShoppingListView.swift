@@ -14,16 +14,29 @@ struct ShoppingListView: View {
     @Environment(Router.self) var router
     @State var selectedGroceries: Set<PersistentIdentifier> = []
     
+    @Query var stores: [GroceryStore]
+    @SceneStorage("storeFilter") var storeFilter: [String] = []
+    
+    var showingLists: [GroceryList]
+    
 #if os(iOS)
     @Environment(\.editMode) var editMode
 #endif
     
     var contents: some View {
         List(selection: $selectedGroceries) {
-            GroceryListSection(list: .active, isExpanded: true, selectedGroceries: $selectedGroceries)
-            GroceryListSection(list: .nextTime, isExpanded: false, selectedGroceries: $selectedGroceries)
+            ForEach(showingLists) { l in
+                GroceryListSection(
+                    list: l,
+                    isExpanded: l == showingLists.first || showingLists.count == 1,
+                    canExpand: showingLists.count != 1,
+                    selectedGroceries: $selectedGroceries
+                )
+                #if os(iOS)
+                .listSectionMargins(.bottom, l == showingLists.last ? 120 : 20)
+                #endif
+            }
 #if os(iOS)
-                .listSectionMargins(.bottom, 120)
 #endif
         }
         .scrollContentBackground(.hidden)
@@ -54,8 +67,14 @@ struct ShoppingListView: View {
                 #endif
                 
                 contents
+                    .onChange(of: selectedGroceries) { oldValue, newValue in
+                        #if os(iOS)
+                        if !(editMode?.wrappedValue.isEditing ?? false) {
+                            selectedGroceries.removeAll()
+                        }
+                        #endif
+                    }
             }
-            .navigationTitle(TristyTab.today.rawValue)
             .toolbar {
                 if isEditing {
                     
@@ -94,6 +113,45 @@ struct ShoppingListView: View {
                         .tint(allComplete ? .mint : .accent)
                     }
                 } else {
+                    
+                    ToolbarItemGroup(placement: morePlacement) {
+                        if !stores.isEmpty {
+                            Menu {
+                                ForEach(stores) { store in
+                                    if storeFilter.contains(store.nameOrEmpty) {
+                                        Button(
+                                            store.nameOrEmpty,
+                                            systemImage: "checkmark"
+                                        ) {
+                                            storeFilter = []
+                                        }
+                                        .foregroundStyle(store.colorOrDefault)
+                                    } else {
+                                        Button(
+                                            store.nameOrEmpty,
+                                        ) {
+                                            storeFilter = [store.nameOrEmpty]
+                                            
+                                        }
+                                        .foregroundStyle(store.colorOrDefault)
+                                    }
+                                }
+                            } label: {
+                                Label("Filter",
+                                      systemImage: Symbols.filter)
+                                .symbolVariant(.circle)
+                                .symbolVariant(storeFilter.isEmpty ? .none : .fill)
+                                
+                            }
+                            .contentTransition(.symbolEffect)
+#if os(macOS)
+                            .menuStyle(.button)
+#endif
+                        }
+                    }
+                    
+                    ToolbarSpacer(placement: morePlacement)
+                    
                     ToolbarItemGroup(placement: morePlacement) {
                         Button("Plus", systemImage: Symbols.add) {
                             router.presentSheet(.newGrocery)
@@ -119,6 +177,6 @@ struct ShoppingListView: View {
 
 #Preview {
     ContentView()
-        .environment(Router.init(tab: .today))
+        .environment(Router.init(tab: .list([.active, .nextTime])))
         .applyEnvironment(prePopulate: true)
 }

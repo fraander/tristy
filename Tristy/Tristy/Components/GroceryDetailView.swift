@@ -7,12 +7,15 @@
 
 import SwiftUI
 import AttributedTextEditor
+import SwiftData
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(AddBarStore.self) var abStore
     @Environment(\.modelContext) private var modelContext
     var grocery: Grocery?
+    
+    @Query var allStores: [GroceryStore]
     
     init(grocery: Grocery? = nil) {
         
@@ -29,11 +32,18 @@ struct GroceryDetailView: View {
             _workingQuantity = .init(initialValue: grocery.quantityOrEmpty)
             _workingUnits = .init(initialValue: grocery.unitOrEmpty)
             _workingNotes = .init(initialValue: AttributedString(grocery.notesOrEmpty))
+            _workingCategory = .init(initialValue: grocery.categoryEnum)
+            _workingStore = .init(initialValue: grocery.store)
+            
+            if (grocery.category ?? "").isEmpty {
+                self.hasSetCategory = .unset
+            } else { self.hasSetCategory = .set }
         }
     }
     
     @State var workingTitle: String = ""
     @State var workingList: GroceryList = .active
+    @State var workingStore: GroceryStore? = nil
     @State var workingCompleted: Bool = false
     @State var workingPinned: Bool = false
     @State var workingUncertain: Bool = false
@@ -41,106 +51,209 @@ struct GroceryDetailView: View {
     @State var workingQuantity: Double = .zero
     @State var workingUnits: String = ""
     @State var workingNotes: AttributedString = ""
+    @State var workingCategory: GroceryCategory = .other
     
     @State var showingDeleteConfirmation = false
     @State var selection = AttributedTextSelection()
     
+    @State var categoryDebounceTimer: Timer? = nil
+    private let debouceTimeIterval: TimeInterval = 0.3
+    @State var hasSetCategory: SetCategoryStatus = .unset
+    enum SetCategoryStatus {
+        case unset, generating, set
+    }
+    
+    var propertiesSection: some View {
+        Section {
+            Toggle("Completed", systemImage: Symbols.complete, isOn: $workingCompleted)
+                .labelStyle(.tintedIcon(icon: .mint))
+                .symbolToggleEffect(workingCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
+            
+            Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
+                .labelStyle(.tintedIcon(icon: .orange))
+                .symbolToggleEffect(workingPinned)
+            
+            Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: $workingUncertain)
+                .labelStyle(.tintedIcon(icon: .indigo))
+                .symbolToggleEffect(workingUncertain)
+            
+            Picker(selection: $workingImportance) {
+                ForEach(GroceryImportance.allCases) { importance in
+                    Label(importance.name, systemImage: importance.symbolName)
+                        .tag(importance)
+                }
+            } label: {
+                Label("Importance", systemImage: workingImportance.symbolName)
+                    .contentTransition(.symbolEffect)
+                    .labelStyle(.tintedIcon(icon: workingImportance.color))
+            }
+            .tint(.secondary)
+            
+            
+            LabeledContent {
+                let workingQuantityString = Binding<String>(
+                    get: { "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")" },
+                    set: {
+                        if let new = Double($0) {
+                            workingQuantity = new
+                        }
+                    }
+                )
+                
+                let workingUnitsString = Binding<String>(
+                    get: { workingUnits.lowercased() },
+                    set: { workingUnits = $0.lowercased() }
+                )
+                
+                HStack {
+                    TextField("2", text: workingQuantityString)
+                        .numbersOnly(workingQuantityString, includeDecimal: true)
+                    
+                    TextField("cups", text: workingUnitsString)
+                        .autocorrectionDisabled()
+                }
+                .frame(maxWidth: 100)
+            } label: {
+                Label("Quantity", systemImage: Symbols.quantity)
+                    .labelStyle(.tintedIcon(icon: Color.primary.mix(with: Color.secondary, by: 0.75)))
+            }
+        } header: {
+            HStack {
+                Text("Properties")
+                
+                Spacer()
+                
+                if hasSetProperties {
+                    Button("Reset", systemImage: Symbols.reset, action: resetProperties)
+                        .labelStyle(.iconOnly)
+                        .foregroundStyle(.secondary)
+                        .transition(.scale)
+                }
+            }
+            .frame(height: 24)
+            .animation(.easeInOut, value: hasSetProperties)
+        }
+        .transition(.move(edge: .top))
+    }
+    
+    @State var animationAngle: CGFloat = 0.0
+    
+    var grocerySection: some View {
+        Group {
+            TextField("Title", text: $workingTitle)
+            
+            let workingCategoryBinding = Binding<GroceryCategory>(
+                get: { workingCategory },
+                set: {
+                    workingCategory = $0
+                    hasSetCategory = .set
+                }
+            )
+            
+            Picker(selection: workingCategoryBinding) {
+                ForEach(GroceryCategory.allCases) { category in
+                    if category == .other {
+                        Divider()
+                    }
+                    Label(
+                        category.rawValue,
+                        systemImage: category.symbolName
+                    )
+                        .tint(category.color)
+                        .symbolVariant(.fill)
+                        .tag(category)
+                }
+            } label: {
+                Label {
+                    Text("Category")
+                } icon: {
+                    if hasSetCategory == .generating {
+                        Image(systemName: "apple.intelligence")
+                            .foregroundStyle(
+                                AngularGradient(colors: [.yellow, .pink, .cyan], center: .center)
+                            )
+                            .rotationEffect(.degrees(animationAngle))
+                            .contentTransition(.symbolEffect)
+                    } else {
+                        Image(systemName: workingCategory.symbolName)
+                            .contentTransition(.symbolEffect)
+                    }
+                }
+                .animation(.linear(duration: 1.5).repeatForever(autoreverses: false), value: animationAngle)
+                .onChange(of: hasSetCategory) { animationAngle = hasSetCategory == .generating ? 360 : 0 }
+                .labelStyle(.tintedIcon(icon: workingCategory.color))
+                .animation(.easeInOut, value: hasSetCategory == .generating)
+            }
+            .tint(.secondary)
+            .onAppear { Task { await generateCategoryOnAppear() } }
+            .onChange(of: workingTitle) { Task { await generateCategoryOnAppear() } }
+            
+            Picker(selection: $workingStore) {
+                Label("None", systemImage: Symbols.none)
+                    .tint(.secondary)
+                    .tag(nil as GroceryStore?) // Generic parameter 'V' could not be inferred
+                
+                Divider()
+                
+                ForEach(allStores) { store in
+                    Label(store.nameOrEmpty, systemImage: store.symbolOrDefault)
+                        .tint(store.colorOrDefault)
+                        .tag(store as GroceryStore?)
+                }
+            } label: {
+                Label("Store", systemImage: workingStore?.symbolOrDefault ?? Symbols.none)
+                    .contentTransition(.symbolEffect)
+                    .labelStyle(.tintedIcon(icon: workingStore?.colorOrDefault ?? .secondary))
+            }
+            .tint(.secondary)
+            
+            Picker(selection: $workingList) {
+                ForEach(GroceryList.allCases) { list in
+                    Label(list.name, systemImage: list.symbolName)
+                        .tint(list.color)
+                        .tag(list)
+                }
+            } label: {
+                Label("List", systemImage: workingList.symbolName)
+                    .contentTransition(.symbolEffect)
+                    .labelStyle(.tintedIcon(icon: workingList.color))
+            }
+            .tint(.secondary)
+        }
+    }
+    
+    var placeholderText: String {
+        #if os(iOS)
+        "You can use Markdown here. ..."
+        #else
+        ""
+        #endif
+    }
+        
     var contents: some View {
         Group {
             Section("Grocery") {
-                TextField("Title", text: $workingTitle)
-                
-                Picker(selection: $workingList) {
-                    ForEach(GroceryList.allCases) { list in
-                        Label(list.name, systemImage: list.symbolName)
-                            .tint(list.color)
-                            .tag(list)
-                    }
-                } label: {
-                    Label("List", systemImage: workingList.symbolName)
-                        .contentTransition(.symbolEffect)
-                        .labelStyle(.tintedIcon(icon: workingList.color))
-                }
-                .tint(.secondary)
+                grocerySection
             }
             
             if workingList == .active {
-                Section {
-                    Toggle("Completed", systemImage: Symbols.complete, isOn: $workingCompleted)
-                        .labelStyle(.tintedIcon(icon: .mint))
-                        .symbolToggleEffect(workingCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
-                    
-                    Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
-                        .labelStyle(.tintedIcon(icon: .orange))
-                        .symbolToggleEffect(workingPinned)
-                    
-                    Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: $workingUncertain)
-                        .labelStyle(.tintedIcon(icon: .indigo))
-                        .symbolToggleEffect(workingUncertain)
-                    
-                    Picker(selection: $workingImportance) {
-                        ForEach(GroceryImportance.allCases) { importance in
-                            Label(importance.name, systemImage: importance.symbolName)
-                                .tag(importance)
-                        }
-                    } label: {
-                        Label("Importance", systemImage: workingImportance.symbolName)
-                            .contentTransition(.symbolEffect)
-                            .labelStyle(.tintedIcon(icon: workingImportance.color))
-                    }
-                    .tint(.secondary)
-                    
-                    
-                    LabeledContent {
-                        let workingQuantityString = Binding<String>(
-                            get: { "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")" },
-                            set: {
-                                if let new = Double($0) {
-                                    workingQuantity = new
-                                }
-                            }
-                        )
-                        
-                        let workingUnitsString = Binding<String>(
-                            get: { workingUnits.lowercased() },
-                            set: { workingUnits = $0.lowercased() }
-                        )
-                        
-                        HStack {
-                            TextField("2", text: workingQuantityString)
-                                .numbersOnly(workingQuantityString, includeDecimal: true)
-                            
-                            TextField("cups", text: workingUnitsString)
-                                .autocorrectionDisabled()
-                        }
-                        .frame(maxWidth: 100)
-                    } label: {
-                        Label("Quantity", systemImage: Symbols.quantity)
-                            .labelStyle(.tintedIcon(icon: Color.primary.mix(with: Color.secondary, by: 0.75)))
-                    }
-                } header: {
-                    HStack {
-                        Text("Properties")
-                        
-                        Spacer()
-                        
-                        if hasSetProperties {
-                            Button("Reset", systemImage: Symbols.reset, action: resetProperties)
-                                .labelStyle(.iconOnly)
-                                .foregroundStyle(.secondary)
-                                .transition(.scale)
-                        }
-                    }
-                    .frame(height: 24)
-                    .animation(.easeInOut, value: hasSetProperties)
-                }
-                .transition(.move(edge: .top))
+                propertiesSection
             }
             
             Section {
-                ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: "You can use Markdown here. ...")
+                ComposerTextEditorView(text: $workingNotes, selection: $selection, placeholder: placeholderText)
                     .frame(minHeight: 160)
-                    
+                #if os(macOS)
+                    .padding(5)
+                    .background {
+                        Color.systemGroupedBackground
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5.0)
+                            .stroke(.gray, lineWidth: 0.5)
+                            .fill(.clear)
+                    }
+                #endif 
             } header: {
                 HStack {
                     Text("Notes")
@@ -201,9 +314,7 @@ struct GroceryDetailView: View {
         }
         #elseif os(macOS)
         ScrollView {
-            VStack(alignment: .leading) {
-                contents
-            }
+            VStack(alignment: .leading) { contents }
             .padding()
             .padding()
         }
@@ -256,13 +367,16 @@ struct GroceryDetailView: View {
                 importance: workingImportance,
                 pinned: workingPinned,
                 quantity: workingQuantity,
-                unit: workingUnits
+                unit: workingUnits,
+                category: hasSetCategory == .set ? workingCategory : nil,
+                store: workingStore
             )
             modelContext.insert(g)
         } else {
             // Update all relevant fields
             grocery?.title = workingTitle.trimmingCharacters(in: .whitespacesAndNewlines)
             grocery?.setList(workingList)
+            grocery?.store = workingStore
             grocery?.setCompleted(to: workingCompleted)
             grocery?.setPinned(to: workingPinned)
             grocery?.setCertainty(to: workingUncertain)
@@ -270,8 +384,42 @@ struct GroceryDetailView: View {
             grocery?.quantity = workingQuantity
             grocery?.unit = workingUnits
             grocery?.notes = String(workingNotes.characters)
+            if hasSetCategory == .set {
+                grocery?.setCategory(to: workingCategory)
+            }
         }
         dismiss()
+    }
+    
+    func generateCategoryOnAppear() async {
+        if categoryDebounceTimer == nil || categoryDebounceTimer?.isValid == false {
+            categoryDebounceTimer = Timer.scheduledTimer(
+                withTimeInterval: debouceTimeIterval,
+                repeats: false) { timer in
+                        timer.invalidate()
+                        self.categoryDebounceTimer = nil
+                    }
+        }
+        
+        // don't generate if no title to generate for; category is not unset OR title has been changed so re-generate; or category "unset";
+        
+        // unset category & has title
+        // new title & category is already set
+        
+        if ((
+            !workingTitle.isEmpty && (grocery?.category ?? "").isEmpty
+        ) || (
+            workingTitle != grocery?.titleOrEmpty && hasSetCategory == .unset
+        )) {
+            hasSetCategory = .generating
+            do {
+                workingCategory = try await abStore.decideCategory(for: workingTitle)
+                hasSetCategory = .set
+            } catch {
+                print(error)
+                hasSetCategory = .unset
+            }
+        }
     }
 }
 
@@ -279,7 +427,15 @@ struct GroceryDetailView: View {
 #Preview {
     BackgroundView()
         .sheet(isPresented: .constant(true)) {
-            GroceryDetailView(grocery: nil)
+            GroceryDetailView(
+//                grocery: Grocery.examples.randomElement()
+                grocery: Grocery(
+                    list: .active,
+                    title: "Crackers",
+                    completed: true,
+                    category: nil
+                )
+            )
         }
         .applyEnvironment(prePopulate: true)
 }

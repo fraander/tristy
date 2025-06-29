@@ -7,47 +7,60 @@
 
 import SwiftUI
 
-enum TristyTab: String, CaseIterable, Codable, Identifiable {
-    case today = "Shop"
-    case archive = "Archive"
-//    case plan = "Plan"
-//    case search = "Search"
+enum TristyTab: Identifiable, Hashable {
+    case list([GroceryList])
+//    case settings
     
-    var id: String { self.rawValue }
+    var rawValue: String {
+        switch self {
+        case .list(let v):
+            if (v == [.active, .nextTime, .archive]) {
+                return "Shop"
+            } else if (v == [.active]) {
+                return GroceryList.active.name
+            } else if v.contains(.archive) {
+                return GroceryList.archive.name
+            } else if v == [.nextTime] {
+                return GroceryList.nextTime.name
+            } else {
+                return "Shop"
+            }
+        }
+    }
+    
+    var id: String {
+        switch self {
+        case .list(let v): "List_\(v.map { String($0.id) }.joined(separator: "_"))"
+        }
+    }
     
     var symbolName: String {
         switch self {
-        case .today: "cart.fill"
-        case .archive: "archivebox.fill"
-//        case .plan: "calendar.day.timeline.left"
-//        case .search: "magnifyingglass"
+        case .list(let v):
+            if (v == [.active, .nextTime, .archive]) {
+                return "cart.fill"
+            } else if (v == [.active]) {
+                return GroceryList.active.symbolName
+            } else if v.contains(.archive) {
+                return GroceryList.archive.symbolName
+            } else if v == [.nextTime] {
+                return GroceryList.nextTime.symbolName
+            } else {
+                return "cart.fill"
+            }
         }
     }
     
     var role: TabRole? {
         switch self {
-        case .today: return nil
-        case .archive: return nil
-//        case .plan: return nil
 //        case .search: return .search
+        default: return nil
         }
     }
     
-    @ViewBuilder
     var correspondingView: some View {
         switch self {
-        case .today: ShoppingListView()
-        case .archive: ArchiveView()
-//        case .plan: Text("Plan")
-//        case .search: ZStack {Text(self.rawValue)}.frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .list(let v): ShoppingListView(showingLists: v)
         }
     }
-    
-    /// Customized order for all cases in enum `Tab`
-    static let allCases: [TristyTab] = [
-        .today,
-        .archive,
-//        .plan,
-//        .search,
-    ]
 }

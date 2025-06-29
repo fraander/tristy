@@ -40,7 +40,7 @@ struct AddBarTextField: View {
             } else {
                 Button("Add", systemImage: Symbols.add) {
                     Task {
-                            try abStore.addGroceries(to: modelContext)
+                            try await abStore.addGroceries(to: modelContext)
                     }
                 }
                 .foregroundStyle(router.isAddBarFocused ? .accent : .secondary)
@@ -113,6 +113,7 @@ struct AddBarTextField: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 10) {
             leadingButton
+                .buttonBorderShape(.roundedRectangle)
             
             TextField(
                 prompt,
@@ -124,7 +125,7 @@ struct AddBarTextField: View {
                 router.updateFocus(from: oldValue, to: newValue, for: .addBar)
             })
             .onChange(of: router.focus, { focus = $1 })
-            .onSubmit { Task { try abStore.addGroceries(to: modelContext) } }
+            .onSubmit { Task { try await abStore.addGroceries(to: modelContext) } }
             .submitLabel(.done)
             .onChange(of: abStore.query, handleChange)
             .onKeyPress(.escape) {
@@ -133,12 +134,14 @@ struct AddBarTextField: View {
             }
             .task { prompt = chooseRandomExampleGrocery() }
             .task { focus = router.focus }
+            .buttonBorderShape(.roundedRectangle)
             
             listPicker
             
             if (trailingButtonCondition) {
                 trailingButton
                     .transition(.scale)
+                    .buttonBorderShape(.roundedRectangle)
             }
         }
         .animation(.easeInOut(duration: Metrics.animationDuration), value: trailingButtonCondition)
@@ -153,7 +156,7 @@ struct AddBarTextField: View {
     ///   - newValue: New value of the query
     func handleChange(oldValue: String, newValue: String) {
         if (oldValue != "" && oldValue.count < newValue.count && oldValue.last != "\n" && newValue.last == "\n") {
-            Task { try abStore.addGroceries(to: modelContext) }
+            Task { try await abStore.addGroceries(to: modelContext) }
         } else if (newValue == "\n") {
             dismissKeyboard()
             abStore.clearQuery()

@@ -31,4 +31,7 @@ struct Symbols {
     static let notes = "note.text"
     static let select = "cursor.rays"
     static let quantity = "numbersign"
+    static let none = "nosign"
+    static let category = "carrot"
+    static let basket = "basket"
 }

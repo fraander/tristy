@@ -16,10 +16,15 @@ struct ApplyAddBarModifier: ViewModifier {
     
     let hasSearch: Bool
     
-    let allowedTabs: Set<TristyTab> = [.today/*, .archive*/]
+    var condition: Bool {
+        if case let .list(v) = router.tab {
+            v.contains(.active)
+        } else {
+            false
+        }
+    }
     
     func body(content: Content) -> some View {
-        let condition = allowedTabs.contains(router.tab)
         
         return content
             .overlay(alignment: .bottom) {
@@ -48,7 +53,7 @@ struct ApplyAddBarModifier: ViewModifier {
     }
 }
 
-extension TabView {
+extension View {
     /// Adds an AddBar to the bottom of the TabView, aligned to the first item in the tabs list to pop in and out correctly positioned.
     /// - Parameter hasSearch: if a tab with .search is in the TabView, mark as true to correct the positioning
     func applyAddBar(hasSearch: Bool) -> some View {

@@ -13,12 +13,25 @@ struct ShareActions: View {
     
     @State var showConfirmationAlert: Bool = false
     
-    var body: some View {
+    var content: some View {
         Group {
             Button("Copy \(GroceryList.active.name)", systemImage: Symbols.copy, action: copyActive)
                 .labelStyle(.tintedIcon())
                 .alert("The list has been copied to your clipboard", isPresented: $showConfirmationAlert) {}
         }
+    }
+    
+    var body: some View {
+        #if os(iOS)
+        content
+        #elseif os(macOS)
+        LabeledContent {
+            content
+        } label: {
+            Label("Share", systemImage: "paperplane")
+        }
+
+        #endif
     }
     
     func copyActive() {

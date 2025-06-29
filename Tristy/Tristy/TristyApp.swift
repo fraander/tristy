@@ -38,10 +38,12 @@ struct TristyApp: App {
         }
         
 #if os(macOS)
-        SwiftUI.Settings {
+        SwiftUI.Settings { // <-- this window cannot be resized freely, why? please fix.
             SettingsView()
                 .applyEnvironment(router: router, abStore: abStore)
         }
+        .windowToolbarStyle(.unifiedCompact)
+        .defaultSize(width: 480, height: 600)
 #endif
     }
 }

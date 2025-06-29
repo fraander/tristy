@@ -11,7 +11,7 @@ import SwiftUI
 @Observable
 class Router {
     init(
-        tab: TristyTab = .today,
+        tab: TristyTab = .list([.active]),
         sheet: TristySheet? = nil,
         focus: FocusOption? = nil
     ) {
@@ -62,7 +62,7 @@ class Router {
     var isAddBarFocused: Bool { focus == .addBar }
     
     // MARK: TAB -
-    private(set) var tab: TristyTab = .today
+    private(set) var tab: TristyTab = .list([.active])
     var tabBinding: Binding<TristyTab> {
         .init(
             get: { self.tab },

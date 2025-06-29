@@ -7,24 +7,33 @@
 
 import SwiftUI
 
-struct CaptionedListRow<Content: View>: View {
+struct CaptionedListRow<C: View, L: View>: View {
     
-    var content: Content
-    var caption: String
-    
-    init(caption: String, @ViewBuilder content: (() -> Content)) {
-        self.content = content()
-        self.caption = caption
+    init(
+        caption: String,
+        @ViewBuilder content: (() -> C)
+    ) where L == Text {
+        self.init(content: content) {
+            Text(caption)
+        }
     }
+    
+    init(content: (() -> C), caption: (() -> L)) {
+        self.content = content()
+        self.caption = caption()
+    }
+    
+    var content: C
+    var caption: L
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             content
-            Text(caption)
+            caption
                 .font(.caption)
                 .foregroundStyle(.secondary)
+            
         }
     }
 }
-
 

@@ -15,8 +15,11 @@ struct SettingsView: View {
     
     var content: some View {
         List {
-            Section("iCloud") {
-                SyncStatusView()
+            Section("Share") { ShareActions() }
+            
+            Section("Lists") {
+                TabActions()
+                SortActions()
             }
             
             Section("Preferences") {
@@ -30,16 +33,17 @@ struct SettingsView: View {
                     Settings.CollapsibleSections.Toggle()
                 }
                 
-                Settings.CompletedToBottom.Toggle()
+//                Settings.CompletedToBottom.Toggle()
+//                Settings.SortByCategory.Toggle()
             }
             
-            Section("Share") {
-                ShareActions()
-            }
+            IconActions()
             
-            Section("Data Actions") {
-                DataActions()
-            }
+            Section("Stores") { StoreActions() }
+            
+            Section("iCloud") { SyncStatusView() }
+            
+            Section("Data Actions") { DataActions() }
         }
     }
     
@@ -61,7 +65,6 @@ struct SettingsView: View {
         NavigationStack {
             content
         }
-        .frame(maxWidth: 360)
         #endif
     }
 }
