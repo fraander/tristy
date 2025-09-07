@@ -20,11 +20,7 @@ struct SettingsView: View {
             Section("Lists") {
                 TabActions()
                 SortActions()
-            }
-            
-            Section("Preferences") {
-                Settings.AddBarSuggestions.Toggle()
-
+                
                 CaptionedListRow(caption: Settings.HideCompleted.caption) {
                     Settings.HideCompleted.Toggle()
                 }
@@ -32,6 +28,13 @@ struct SettingsView: View {
                 CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
                     Settings.CollapsibleSections.Toggle()
                 }
+            }
+            
+            Section("Preferences") {
+                Settings.AddBarSuggestions.Toggle()
+
+                Settings.ShowPasteButton.Toggle()
+                
                 
 //                Settings.CompletedToBottom.Toggle()
 //                Settings.SortByCategory.Toggle()
@@ -47,6 +50,8 @@ struct SettingsView: View {
         }
     }
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         #if os(iOS)
         NavigationView {
@@ -55,7 +60,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done", systemImage: Symbols.dismissSheet) {
-                        router.dismissSheet()
+                        dismiss()
                     }
                     .tint(.accent)
                 }

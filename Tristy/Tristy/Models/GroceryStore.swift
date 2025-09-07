@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import SymbolPicker
 
 @Model
 class GroceryStore {
@@ -17,7 +18,7 @@ class GroceryStore {
     var green: CGFloat?
     var blue: CGFloat?
     
-    @Relationship(deleteRule: .cascade) // Circular reference resolving attached macro 'Relationship'
+    @Relationship(deleteRule: .nullify) // Circular reference resolving attached macro 'Relationship'
     var groceries: [Grocery]? = []
     
     init(
@@ -39,7 +40,7 @@ class GroceryStore {
         if let r = red, let g = green, let b = blue {
             return Color(red: r, green: g, blue: b)
         } else {
-            return Color.secondary
+            return SymbolColor.moro.color
         }
     }
     

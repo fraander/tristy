@@ -89,10 +89,15 @@ struct GroceryListRow: View {
         }
     }
     
+    @Namespace var namespace
+    @State var showInfo = false
+    
     var infoButton: some View {
         Button("Info", systemImage: Symbols.info) {
-            router.presentSheet(TristySheet.groceryInfo(grocery))
+            showInfo = true
         }
+        .matchedTransitionSource(id: "info_\(grocery.persistentModelID)", in: namespace)
+        .tint(.gray)
     }
     
     var body: some View {
@@ -113,9 +118,15 @@ struct GroceryListRow: View {
                 }
             }
         }
+        .sheet(isPresented: $showInfo) {
+            GroceryDetailView(grocery: grocery)
+            #if os(iOS)
+                .navigationTransition(.zoom(sourceID: "info_\(grocery.persistentModelID)", in: namespace))
+            #endif
+        }
         .frame(minHeight: 24)
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) { groceryListButtons }
-        .swipeActions(edge: .leading, allowsFullSwipe: true) { infoButton }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) { groceryListButtons.labelStyle(.iconOnly) }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) { infoButton.labelStyle(.iconOnly) }
         .contextMenu {
             Section { groceryListButtons }
             Section { infoButton }

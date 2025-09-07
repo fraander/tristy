@@ -128,11 +128,11 @@ struct GroceryListSection: View {
         
         var body: some View {
             ForEach(sort()) { grocery in
-                if !grocery.titleOrEmpty.isEmpty {
+//                if !grocery.titleOrEmpty.isEmpty {
                     GroceryListRow(grocery: grocery)
                         .id(grocery.id)
                         .listRowSeparator(grocery == groceries.last ? .hidden : .visible)
-                }
+//                }
             }
         }
     }
@@ -243,6 +243,7 @@ struct GroceryListSection: View {
             content: { content },
             header: { header }
         )
+        .listSectionSeparator(.hidden, edges: [.top, .bottom])
         .environment(\.groceryList, list)
         .environment(\.selectedGroceries, selectedGroceries)
     }
