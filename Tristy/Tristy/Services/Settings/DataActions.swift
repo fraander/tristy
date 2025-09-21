@@ -37,6 +37,7 @@ struct DataActions: View {
             try modelContext.fetch(FetchDescriptor<GroceryStore>()).forEach {
                 modelContext.delete($0)
             }
+            let _ = try? modelContext.save()
         } catch {
             deleteAllAlertIsPresented = true
         }

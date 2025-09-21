@@ -401,4 +401,25 @@ struct Settings {
             }
         }
     }
+    
+    /// ```swift
+    /// // Usage ...
+    /// @AppStorage(Settings.ShowPasteButton.key) var showPasteButton = Settings.ShowPasteButton.defaultValue
+    /// ```
+    struct ShowPasteButton {
+        static let key = "showPasteButton"
+        static let defaultValue = true
+        static let title = "Show Paste Button"
+        static let iconName = "document.on.clipboard"
+        
+        struct Toggle: View {
+            
+            @AppStorage(Settings.ShowPasteButton.key) var showPasteButton = Settings.ShowPasteButton.defaultValue
+            
+            var body: some View {
+                
+                SwiftUI.Toggle(Settings.ShowPasteButton.title, systemImage: Settings.ShowPasteButton.iconName, isOn: $showPasteButton)
+            }
+        }
+    }
 }

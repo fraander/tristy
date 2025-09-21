@@ -28,9 +28,11 @@ struct AddBarTextField: View {
         return !(content.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty
     }
     
+    @AppStorage(Settings.ShowPasteButton.key) var showPasteButtonSetting = Settings.ShowPasteButton.defaultValue
+    
     /// Shows either a "Paste" button or an "Add" button
     var leadingButton: some View {
-        let decider = abStore.queryIsEmpty && clipboardHasUsefulContents
+        let decider = (abStore.queryIsEmpty && clipboardHasUsefulContents) && showPasteButtonSetting
         
         return ZStack(alignment: .center) {
             if (decider) {
@@ -39,12 +41,17 @@ struct AddBarTextField: View {
                     .transition(.scale)
             } else {
                 Button("Add", systemImage: Symbols.add) {
+                    print("pressedY")
                     Task {
                             try await abStore.addGroceries(to: modelContext)
                     }
                 }
                 .foregroundStyle(router.isAddBarFocused ? .accent : .secondary)
                 .transition(.scale)
+                .padding(20)
+                .contentShape(.circle)
+//                .buttonBorderShape(.roundedRectangle)
+//                .border(.red, width: 1)
             }
         }
         .labelStyle(.iconOnly)
@@ -100,6 +107,8 @@ struct AddBarTextField: View {
             }
             .labelStyle(.iconOnly)
             .foregroundStyle(showDismiss ? .accent : .secondary)
+            .padding(20)
+            .contentShape(.circle)
         }
         .animation(.easeInOut(duration: Metrics.animationDuration), value: abStore.queryIsEmpty && showDismiss)
         .animation(.easeInOut(duration: Metrics.animationDuration), value: !abStore.queryIsEmpty)

@@ -352,6 +352,7 @@ struct GroceryDetailView: View {
         if let grocery = grocery {
             modelContext.delete(grocery)
         }
+        let _ = try? modelContext.save()
         dismiss()
     }
     
