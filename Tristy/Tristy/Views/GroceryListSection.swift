@@ -94,7 +94,7 @@ struct GroceryListSection: View {
                 .filter {
                     storeFilter == [] || storeFilter.contains(
                         $0.store?.nameOrEmpty ?? ""
-                    )
+                    ) || ($0.store == nil && storeFilter.contains(""))
                 }
                 .sorted(by: { lhs, rhs in
                 

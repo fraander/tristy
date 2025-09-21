@@ -11,14 +11,28 @@ struct IconTintLabelStyle: LabelStyle {
 
     var iconColor: Color
     var textColor: Color
+    
+    @State var height: CGFloat = 0
 
     func makeBody(
         configuration: Configuration
     ) -> some View {
         Label(
-            title: { configuration.title.foregroundStyle(textColor) },
-            icon: { configuration.icon.foregroundStyle(iconColor) }
+            title: {
+                configuration.title.foregroundStyle(textColor)
+                    .readSize { updateHeight(with: $0.height) }
+                    .frame(height: height)
+            },
+            icon: {
+                configuration.icon.foregroundStyle(iconColor)
+                    .readSize { updateHeight(with: $0.height) }
+                    .frame(height: height)
+            }
         )
+    }
+    
+    func updateHeight(with viewHeight: CGFloat) {
+        self.height = max(self.height, viewHeight)
     }
 }
 

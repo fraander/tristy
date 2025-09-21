@@ -92,20 +92,17 @@ class AddBarStore {
     /// - Parameter title: title of a grocery
     /// - Returns: a GroceryCategory
     func decideCategory(for title: String) async throws -> GroceryCategory {
-        #warning("causes launch issue")
-//        do {
-//            let session = LanguageModelSession(instructions: "You are categorizing groceries into what section of the grocery store you would find them. You will be given the name of the grocery, and you will respond with the section. Choose the most appropriate single category. If the item doesn't clearly fit into any of the first 11 categories, use 'other'.")
-//            
-//            let result = try await session.respond(
-//                to: title,
-//                generating: GroceryCategory.self,
-//            )
-//            
-//            return result.content
-//        } catch {
-//            throw error
-//        }
-        
-        return .other
+        do {
+            let session = LanguageModelSession(instructions: "You are categorizing groceries into what section of the grocery store you would find them. You will be given the name of the grocery, and you will respond with the section. Choose the most appropriate single category. If the item doesn't clearly fit into any of the first 11 categories, use 'other'.")
+            
+            let result = try await session.respond(
+                to: title,
+                generating: GroceryCategory.self,
+            )
+            
+            return result.content
+        } catch {
+            throw error
+        }
     }
 }

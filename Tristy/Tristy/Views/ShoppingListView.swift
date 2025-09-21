@@ -139,17 +139,37 @@ struct ShoppingListView: View {
                                             store.nameOrEmpty,
                                             systemImage: "checkmark"
                                         ) {
-                                            storeFilter = []
+                                            storeFilter.removeAll { $0 == store.nameOrEmpty }
                                         }
                                         .foregroundStyle(store.colorOrDefault)
                                     } else {
                                         Button(
                                             store.nameOrEmpty,
                                         ) {
-                                            storeFilter = [store.nameOrEmpty]
+                                            storeFilter += [store.nameOrEmpty]
                                             
                                         }
                                         .foregroundStyle(store.colorOrDefault)
+                                    }
+                                }
+                                
+                                if stores.count > 0 {
+                                    if storeFilter.contains("") {
+                                        Button(
+                                            "No store",
+                                            systemImage: "checkmark"
+                                        ) {
+                                            storeFilter.removeAll { $0 == "" }
+                                        }
+                                        .foregroundStyle(.secondary)
+                                    } else {
+                                        Button(
+                                            "No store",
+                                        ) {
+                                            storeFilter += [""]
+                                            
+                                        }
+                                        .foregroundStyle(.secondary)
                                     }
                                 }
                                 

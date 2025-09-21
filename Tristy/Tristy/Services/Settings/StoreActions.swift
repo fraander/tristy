@@ -160,6 +160,33 @@ struct StoreAdderSheet: View {
     
     @Namespace var namespace
     
+    var closeButton: some View {
+        Button(role: .close) { dismiss() }
+    }
+    
+    var submitButton: some View {
+        Button(role: .confirm) {
+            
+            if existingStore == nil {
+                modelContext.insert(
+                    GroceryStore(
+                        name: newTitle,
+                        symbolName: newSymbol,
+                        color: newColor
+                    )
+                )
+            } else {
+                existingStore?.updateColor(with: newColor)
+                existingStore?.name = newTitle
+                existingStore?.symbolName = newSymbol
+            }
+            
+            let _ = try? modelContext.save()
+            dismiss()
+        }
+        .disabled(newTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -174,6 +201,9 @@ struct StoreAdderSheet: View {
                     .padding(30)
                     .background(newColor.gradient, in: .rect(cornerRadius: 20))
                     .contentTransition(.symbolEffect(.replace))
+#if os(macOS)
+                    .padding(.top, 40)
+#endif
                 
                 HStack {
                     TextField("Title", text: $newTitle)
@@ -192,10 +222,15 @@ struct StoreAdderSheet: View {
                 
                 iconsScroll
             }
+            
             .toolbar {
                 #if os(iOS)
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(role: .close) { dismiss() }
+                    closeButton
+                }
+                #else
+                ToolbarItem(placement: .cancellationAction) {
+                    closeButton
                 }
                 #endif
                 
@@ -205,25 +240,11 @@ struct StoreAdderSheet: View {
             
 #if os(iOS)
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(role: .confirm) {
-                        
-                        if existingStore == nil {
-                            modelContext.insert(
-                                GroceryStore(
-                                    name: newTitle,
-                                    symbolName: newSymbol,
-                                    color: newColor
-                                )
-                            )
-                        } else {
-                            existingStore?.updateColor(with: newColor)
-                            existingStore?.name = newTitle
-                            existingStore?.symbolName = newSymbol
-                        }
-                        
-                        let _ = try? modelContext.save()
-                        dismiss()
-                    }
+                    submitButton
+                }
+#else
+                ToolbarItem(placement: .confirmationAction) {
+                    submitButton
                 }
 #endif
             }
@@ -242,6 +263,7 @@ struct StoreAdder: View {
         .matchedTransitionSource(id: "add", in: namespace)
         .sheet(isPresented: $showNewStore) {
             StoreAdderSheet()
+                .frame(minHeight: 420)
 #if os(iOS)
                 .navigationTransition(.zoom(sourceID: "add", in: namespace))
             #endif
