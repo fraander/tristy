@@ -1,5 +1,5 @@
 //
-//  Sample.swift
+//  SampleData.swift
 //  Tristy
 //
 //  Created by frank on 12/26/25.

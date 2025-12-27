@@ -141,11 +141,11 @@ struct AddBarTextField: View {
                 focus = nil
                 return .handled
             }
-            .task { prompt = chooseRandomExampleGrocery() }
+            .task { prompt = Symbols.chooseRandomExampleGrocery() }
             .task { focus = router.focus }
             .buttonBorderShape(.roundedRectangle)
             
-            listPicker
+//            listPicker
             
             if (trailingButtonCondition) {
                 trailingButton
@@ -174,13 +174,6 @@ struct AddBarTextField: View {
     
     /// Dismiss the keyboard by removing focus from addBar
     func dismissKeyboard() { router.removeFocus() }
-    
-    /// Choose a random grocery to use as an example
-    /// - Returns: A random grocery from the list of 10
-    func chooseRandomExampleGrocery() -> String {
-        let groceries = ["Milk", "Bread", "Eggs", "Bananas", "Rice", "Onions", "Tomatoes", "Cheese", "Apples"]
-        return groceries.randomElement() ?? "..."
-    }
 }
 
 #Preview(traits: .sampleData) {

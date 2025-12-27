@@ -11,6 +11,7 @@ struct AddBar: View {
     
     @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
     
+    
     var body: some View {
         VStack {
             if showAddBarSuggestions {

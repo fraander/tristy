@@ -57,7 +57,7 @@ struct TristyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppView()
                 .modelContainer(container)
                 #if os(macOS)
                     .task {
@@ -77,7 +77,7 @@ struct TristyApp: App {
         #if os(macOS)
             SwiftUI.Settings {  // <-- this window cannot be resized freely, why? please fix.
                 SettingsView()
-                    .applyEnvironment(router: router, abStore: abStore)
+                    .modelContainer(container)
             }
             .windowToolbarStyle(.unifiedCompact)
             .defaultSize(width: 480, height: 600)

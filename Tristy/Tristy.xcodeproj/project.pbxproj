@@ -31,7 +31,6 @@
 		01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC59D2DFB818600E5B891 /* ContentView.swift */; };
 		01CBC5A02DFB880200E5B891 /* AddBarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC59F2DFB880200E5B891 /* AddBarStore.swift */; };
 		01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5A12DFB880F00E5B891 /* Router.swift */; };
-		01CBC5A82DFB88DD00E5B891 /* View+applyEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5A72DFB88D900E5B891 /* View+applyEnvironment.swift */; };
 		01CBC5AE2DFB8B1900E5B891 /* TristySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5AD2DFB8B1600E5B891 /* TristySheet.swift */; };
 		01CBC5B22DFB8FF800E5B891 /* AddBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5B12DFB8FF600E5B891 /* AddBarTextField.swift */; };
 		01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBC5B32DFB979600E5B891 /* Symbols.swift */; };
@@ -82,7 +81,6 @@
 		01CBC59D2DFB818600E5B891 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		01CBC59F2DFB880200E5B891 /* AddBarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarStore.swift; sourceTree = "<group>"; };
 		01CBC5A12DFB880F00E5B891 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		01CBC5A72DFB88D900E5B891 /* View+applyEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+applyEnvironment.swift"; sourceTree = "<group>"; };
 		01CBC5AD2DFB8B1600E5B891 /* TristySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristySheet.swift; sourceTree = "<group>"; };
 		01CBC5B12DFB8FF600E5B891 /* AddBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarTextField.swift; sourceTree = "<group>"; };
 		01CBC5B32DFB979600E5B891 /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
@@ -155,22 +153,21 @@
 				01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */,
 				01D505172DFCD757003B8DBF /* Logger+subsystem.swift */,
 				01CC18902DFBAB4E00BCD8A5 /* TabView+applyAddBar.swift */,
-				01CBC5A72DFB88D900E5B891 /* View+applyEnvironment.swift */,
 				01CBC5B92DFBA20800E5B891 /* View+readSize.swift */,
 				01C044162E04E5E900B51C2E /* Array+Codable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		01CBC5AB2DFB89ED00E5B891 /* Views */ = {
+		01CBC5AB2DFB89ED00E5B891 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
+				01EAC6162E00A28000363718 /* GroceryDetailView.swift */,
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
 				01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */,
 				01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */,
 			);
-			path = Views;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		01CBC5AC2DFB89FB00E5B891 /* Router */ = {
@@ -196,9 +193,9 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				01EAC6162E00A28000363718 /* GroceryDetailView.swift */,
 				01A438AD2DFF888900679DDB /* CaptionedListRow.swift */,
 				012A80E82DFBE782005B4B70 /* GroceryListRow.swift */,
+				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
 				01C044182E04E67700B51C2E /* GroceryListRowIcons.swift */,
 				01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */,
 				01CC18952DFBB2CE00BCD8A5 /* AddBar */,
@@ -270,7 +267,7 @@
 				01CBC5AA2DFB89E700E5B891 /* Extensions */,
 				01CBC5A92DFB89D900E5B891 /* Services */,
 				01CC18922DFBAC3900BCD8A5 /* Components */,
-				01CBC5AB2DFB89ED00E5B891 /* Views */,
+				01CBC5AB2DFB89ED00E5B891 /* Screens */,
 			);
 			path = Tristy;
 			sourceTree = "<group>";
@@ -370,7 +367,6 @@
 				01E5C1692DFBFFC6007C9B38 /* SettingsView.swift in Sources */,
 				01D5051F2DFCE6D4003B8DBF /* LabelStyle+IconTintLabelStyle.swift in Sources */,
 				01AEED502E11BA01007C516A /* TabActions.swift in Sources */,
-				01CBC5A82DFB88DD00E5B891 /* View+applyEnvironment.swift in Sources */,
 				01D5051C2DFCE0BE003B8DBF /* DataActions.swift in Sources */,
 				01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */,
 				01CBC5AE2DFB8B1900E5B891 /* TristySheet.swift in Sources */,

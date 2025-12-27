@@ -11,7 +11,6 @@ import SwiftData
 
 struct DataActions: View {
     @Environment(\.modelContext) var modelContext
-    @Environment(Router.self) var router
     
     @State var isShowingDeleteAllConfirmation: Bool = false
     @State var deleteAllAlertIsPresented: Bool = false
