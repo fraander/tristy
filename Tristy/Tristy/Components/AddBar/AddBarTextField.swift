@@ -183,7 +183,6 @@ struct AddBarTextField: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ContentView()
-        .applyEnvironment()
 }

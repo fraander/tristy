@@ -280,11 +280,10 @@ struct StoreActions: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
         Section {
             StoreActions()
         }
     }
-    .applyEnvironment(prePopulate: true)
 }

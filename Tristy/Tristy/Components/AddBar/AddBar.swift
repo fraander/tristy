@@ -21,7 +21,6 @@ struct AddBar: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ContentView()
-        .applyEnvironment()
 }

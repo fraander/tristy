@@ -74,7 +74,6 @@ struct SettingsView: View {
     }
 }
 
-#Preview("In SettingsView context") {
+#Preview("In SettingsView context", traits: .sampleData) {
     SettingsView()
-        .applyEnvironment()
 }

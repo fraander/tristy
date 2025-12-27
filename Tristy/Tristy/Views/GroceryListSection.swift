@@ -249,11 +249,10 @@ struct GroceryListSection: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
         GroceryListSection(list: .active, isExpanded: false, canExpand: true, selectedGroceries: .constant([]))
     }
-    .applyEnvironment(prePopulate: true)
     .onAppear {
         UserDefaults.standard.set(false, forKey: Settings.HideCompleted.key)
         UserDefaults.standard.set(false, forKey: Settings.CollapsibleSections.key)

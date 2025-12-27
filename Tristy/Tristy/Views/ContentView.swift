@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @Environment(Router.self) var router
     
     @AppStorage(Settings.Tabs.key) var tabSetting = Settings.Tabs.defaultValue
@@ -74,7 +73,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ContentView()
-        .applyEnvironment()
 }

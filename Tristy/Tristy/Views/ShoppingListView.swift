@@ -226,5 +226,4 @@ struct ShoppingListView: View {
 #Preview {
     ContentView()
         .environment(Router.init(tab: .list([.active, .nextTime])))
-        .applyEnvironment(prePopulate: true)
 }

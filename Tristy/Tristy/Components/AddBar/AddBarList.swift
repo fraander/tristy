@@ -125,7 +125,7 @@ struct AddBarList: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     @Previewable @State var abs = AddBarStore(query: "Milk")
     
     ZStack(alignment: .bottom) {
@@ -137,7 +137,6 @@ struct AddBarList: View {
         AddBar()
             .environment(AddBarStore(query: "Milk"))
             .environment(Router(focus: .addBar))
-            .applyEnvironment()
             .padding()
     }
 }

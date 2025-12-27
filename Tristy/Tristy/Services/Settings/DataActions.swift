@@ -84,9 +84,8 @@ struct DataActions: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
         DataActions()
     }
-    .applyEnvironment()
 }

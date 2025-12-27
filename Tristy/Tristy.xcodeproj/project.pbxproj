@@ -51,9 +51,9 @@
 		01E5C1692DFBFFC6007C9B38 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */; };
 		01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */ = {isa = PBXBuildFile; productRef = 01E5C16B2DFC08B3007C9B38 /* CloudKitSyncMonitor */; };
 		01EAC6172E00A28300363718 /* GroceryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EAC6162E00A28000363718 /* GroceryDetailView.swift */; };
+		01F1F6CF2EFF82AB00C76BA4 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F1F6CE2EFF82A800C76BA4 /* SampleData.swift */; };
 		01F31D922E11F13800AE8B14 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 01F31D912E11F13800AE8B14 /* SymbolPicker */; };
 		01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F31D932E11F3B100AE8B14 /* StoreActions.swift */; };
-		BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360702BFD359300468A01 /* Preview Assets.xcassets */; };
 		BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD1360792BFD363E00468A01 /* Assets.xcassets */; };
 		BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1360A12BFD365500468A01 /* TristyApp.swift */; };
 /* End PBXBuildFile section */
@@ -101,10 +101,10 @@
 		01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabelStyle+IconTintLabelStyle.swift"; sourceTree = "<group>"; };
 		01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		01EAC6162E00A28000363718 /* GroceryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDetailView.swift; sourceTree = "<group>"; };
+		01F1F6CE2EFF82A800C76BA4 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		01F31D932E11F3B100AE8B14 /* StoreActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreActions.swift; sourceTree = "<group>"; };
 		BD1360652BFD359200468A01 /* Tristy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tristy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD13606E2BFD359300468A01 /* Tristy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tristy.entitlements; sourceTree = "<group>"; };
-		BD1360702BFD359300468A01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BD1360792BFD363E00468A01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD1360A12BFD365500468A01 /* TristyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TristyApp.swift; sourceTree = "<group>"; };
 		BDF1555F2BFD3F0100CAA145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,6 +232,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		01F1F6D02EFF878C00C76BA4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				01F1F6CE2EFF82A800C76BA4 /* SampleData.swift */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		BD13605C2BFD359200468A01 = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				BD13606E2BFD359300468A01 /* Tristy.entitlements */,
+				01F1F6D02EFF878C00C76BA4 /* Preview Content */,
 				BDF1555F2BFD3F0100CAA145 /* Info.plist */,
 				BD1360A12BFD365500468A01 /* TristyApp.swift */,
 				BD1360792BFD363E00468A01 /* Assets.xcassets */,
@@ -262,17 +271,8 @@
 				01CBC5A92DFB89D900E5B891 /* Services */,
 				01CC18922DFBAC3900BCD8A5 /* Components */,
 				01CBC5AB2DFB89ED00E5B891 /* Views */,
-				BD13606F2BFD359300468A01 /* Preview Content */,
 			);
 			path = Tristy;
-			sourceTree = "<group>";
-		};
-		BD13606F2BFD359300468A01 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BD1360702BFD359300468A01 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,7 +339,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD13607A2BFD363E00468A01 /* Assets.xcassets in Resources */,
-				BD1360712BFD359300468A01 /* Preview Assets.xcassets in Resources */,
 				019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +359,7 @@
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */,
 				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
+				01F1F6CF2EFF82AB00C76BA4 /* SampleData.swift in Sources */,
 				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,
 				012D949C2E04DBA8000CEEB4 /* IconActions.swift in Sources */,
 				01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */,
