@@ -9,6 +9,7 @@ import SwiftUI
 
 enum TristyTab: Identifiable, Hashable {
     case list([GroceryList])
+    case search
 //    case settings
     
     var rawValue: String {
@@ -25,12 +26,16 @@ enum TristyTab: Identifiable, Hashable {
             } else {
                 return "Shop"
             }
+        case .search:
+            return "Search"
         }
     }
     
     var id: String {
         switch self {
         case .list(let v): "List_\(v.map { String($0.id) }.joined(separator: "_"))"
+        case .search:
+            "Search_"
         }
     }
     
@@ -48,12 +53,14 @@ enum TristyTab: Identifiable, Hashable {
             } else {
                 return "cart.fill"
             }
+        case .search:
+            return "magnifyingglass"
         }
     }
     
     var role: TabRole? {
         switch self {
-//        case .search: return .search
+        case .search: return .search
         default: return nil
         }
     }
@@ -61,6 +68,7 @@ enum TristyTab: Identifiable, Hashable {
     var correspondingView: some View {
         switch self {
         case .list(let v): ShoppingListView(showingLists: v)
+        case .search: ShoppingListView(showingLists: [])
         }
     }
 }

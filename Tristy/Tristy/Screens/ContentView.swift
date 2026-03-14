@@ -5,6 +5,7 @@
 //  Created by Frank Anderson on 6/12/25.
 //
 
+import FabBar
 import SwiftUI
 
 struct ContentView: View {
@@ -37,25 +38,47 @@ struct ContentView: View {
         }
     }
     
+    var fabs: [FabBarTab<TristyTab>] {
+        tabs.map { tristyTab in
+            FabBarTab(
+                value: tristyTab,
+                title: tristyTab.rawValue,
+                systemImage: tristyTab.symbolName
+            )
+        }
+    }
+    
     var body: some View {
-        Group {
-            if tabs.count == 1 {
-                ShoppingListView(showingLists: [.active, .nextTime, .archive])
-            } else {
-                TabView(selection: router.tabBinding) {
-                    ForEach(tabs) { tab in
-                        Tab(
-                            tab.rawValue,
-                            systemImage: tab.symbolName,
-                            value: tab,
-                            role: tab.role,
-                            content: { tab.correspondingView }
-                        )
-                    }
-                }
+        TabView(selection: router.tabBinding) {
+            ForEach(tabs) { tab in
+                Tab(
+                    tab.rawValue,
+                    systemImage: tab.symbolName,
+                    value: tab,
+                    role: tab.role,
+                    content: { tab.correspondingView }
+                )
+            }
+            
+            Tab(value: TristyTab.search, role: .search) {
+                Text("Error")
             }
         }
-        .applyAddBar(hasSearch: false)
+        .toolbar(tabs.count > 1 ? .visible : .hidden, for: .tabBar)
+        .fabBar(
+            selection: router.tabBinding,
+            tabs: fabs,
+            action: .init(
+                systemImage: "cart.badge.plus",
+                accessibilityLabel: "Prepare trip",
+                action: {
+                    #warning("This should show a list of all items in Next Time and Archive where you click the plus button; and have a searchable to quickly find stuff")
+                    #warning("Alternatively, get rid of this and just use a Searchable instead of the AddBar and add the same behaviors")
+                    print("testing")
+                }
+            ),
+            //isVisible: fabs.count > 1
+        )
         .tabViewStyle(.sidebarAdaptable)
         .sheet(isPresented: router.sheetBinding) {
             Group {

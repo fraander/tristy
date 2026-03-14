@@ -13,7 +13,6 @@ struct GroceryListRow: View {
     
     @Environment(\.groceryList) var list
     @Environment(\.modelContext) var modelContext
-    @Environment(AddBarStore.self) var abStore
     @Environment(Router.self) var router
     var grocery: Grocery
     

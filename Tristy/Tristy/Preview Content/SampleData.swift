@@ -27,7 +27,6 @@ struct SampleData: PreviewModifier {
     func body(content: Content, context: ModelContainer) -> some View {
         content
             .environment(Router())
-            .environment(AddBarStore())
             .modelContainer(context)
     }
 

@@ -8,41 +8,6 @@
 import SwiftUI
 
 struct Settings {
-    /// Should the `AddBar` show the suggestions pane above the bar?
-    ///
-    /// # Usage
-    /// ```swift
-    /// @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-    /// ```
-    struct AddBarSuggestions {
-        static let key = "showAddBarSuggestions"
-        static let defaultValue = true
-        static let iconName = Symbols.addBarSuggestions
-        static let title = "Add Bar suggestions"
-        
-        /// SwiftUI-style Toggle to control the property
-        struct Toggle: View {
-            @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-            
-            var body: some View {
-                SwiftUI.Toggle(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName, isOn: $showAddBarSuggestions)
-                    .symbolToggleEffect(showAddBarSuggestions)
-            }
-        }
-        
-        /// SwiftUI-style Button to control the property
-        struct Button: View {
-            
-            @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-            
-            var body: some View {
-                SwiftUI.Button(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName) {
-                    showAddBarSuggestions.toggle()
-                }
-                .symbolToggleEffect(showAddBarSuggestions)
-            }
-        }
-    }
     
     /// Should the `ShoppingList` show completed tasks in the expanded way?
     ///
@@ -209,6 +174,8 @@ struct Settings {
             case qty, uncertain, note, importance, pin, category, none, store
             
             var id: Self { self }
+            
+            #warning("Add fuller store controls like sorting")
             
             var name: String {
                 switch self {

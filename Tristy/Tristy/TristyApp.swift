@@ -12,12 +12,10 @@ import SwiftUI
 struct AppView: View {
 
     @State var router = Router()
-    @State var abStore = AddBarStore()
 
     var body: some View {
         ContentView()
             .environment(router)
-            .environment(abStore)
             .focusedSceneValue(\.router, router)
     }
 }

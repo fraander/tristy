@@ -13,7 +13,6 @@ import SwiftUI
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(AddBarStore.self) var abStore
     @Environment(\.modelContext) private var modelContext
     var grocery: Grocery?
 
@@ -226,10 +225,6 @@ struct GroceryDetailView: View {
                 .animation(.easeInOut, value: hasSetCategory == .generating)
             }
             .tint(.secondary)
-            .onAppear { Task { await generateCategoryOnAppear() } }
-            .onChange(of: workingTitle) {
-                Task { await generateCategoryOnAppear() }
-            }
 
             Picker(selection: $workingStore) {
                 Label("None", systemImage: Symbols.none)
@@ -452,41 +447,6 @@ struct GroceryDetailView: View {
             }
         }
         dismiss()
-    }
-
-    func generateCategoryOnAppear() async {
-        if categoryDebounceTimer == nil
-            || categoryDebounceTimer?.isValid == false
-        {
-            categoryDebounceTimer = Timer.scheduledTimer(
-                withTimeInterval: debouceTimeIterval,
-                repeats: false
-            ) { timer in
-                timer.invalidate()
-                self.categoryDebounceTimer = nil
-            }
-        }
-
-        // don't generate if no title to generate for; category is not unset OR title has been changed so re-generate; or category "unset";
-
-        // unset category & has title
-        // new title & category is already set
-
-        if (!workingTitle.isEmpty && (grocery?.category ?? "").isEmpty)
-            || (workingTitle != grocery?.titleOrEmpty
-                && hasSetCategory == .unset)
-        {
-            hasSetCategory = .generating
-            do {
-                workingCategory = try await abStore.decideCategory(
-                    for: workingTitle
-                )
-                hasSetCategory = .set
-            } catch {
-                print(error)
-                hasSetCategory = .unset
-            }
-        }
     }
 }
 

@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-//    @Environment(Router.self) var router
-    
-    @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-    
+
+        
     var content: some View {
         List {
             Section("Share") { ShareActions() }
@@ -30,15 +27,6 @@ struct SettingsView: View {
                 }
             }
             
-            Section("Preferences") {
-                Settings.AddBarSuggestions.Toggle()
-
-                Settings.ShowPasteButton.Toggle()
-                
-                
-//                Settings.CompletedToBottom.Toggle()
-//                Settings.SortByCategory.Toggle()
-            }
             
             IconActions()
             
