@@ -12,7 +12,6 @@ import SwiftData
 struct GroceryListRow: View {
     
     @Environment(\.groceryList) var list
-    @Environment(\.selectedGroceries) var selectedGroceries
     @Environment(\.modelContext) var modelContext
     @Environment(AddBarStore.self) var abStore
     @Environment(Router.self) var router

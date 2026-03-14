@@ -7,6 +7,7 @@
 
 import Observation
 import SwiftUI
+import SwiftData
 
 @Observable
 class Router {
@@ -93,5 +94,14 @@ class Router {
     
     func dismissSheet() {
         self.sheet = nil
+    }
+    
+    // MARK: - Selected groceries
+    var selectedGroceries: Set<PersistentIdentifier> = []
+    var selectedGroceriesBinding: Binding<Set<PersistentIdentifier>> {
+        .init(
+            get: { self.selectedGroceries },
+            set: { self.selectedGroceries = $0 }
+        )
     }
 }

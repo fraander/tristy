@@ -12,7 +12,6 @@ struct ShoppingListView: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
-    @State var selectedGroceries: Set<PersistentIdentifier> = []
     
     @Query var stores: [GroceryStore]
     @SceneStorage("storeFilter") var storeFilter: [String] = []
@@ -24,13 +23,12 @@ struct ShoppingListView: View {
 #endif
     
     var contents: some View {
-        List(selection: $selectedGroceries) {
+        List(selection: router.selectedGroceriesBinding) {
             ForEach(showingLists) { l in
                 GroceryListSection(
                     list: l,
                     isExpanded: l == showingLists.first || showingLists.count == 1,
                     canExpand: showingLists.count != 1,
-                    selectedGroceries: $selectedGroceries
                 )
                 #if os(iOS)
                 .listSectionMargins(.bottom, l == showingLists.last ? 120 : 20)
@@ -45,7 +43,7 @@ struct ShoppingListView: View {
     
     var isEditing: Bool {
         #if os(iOS)
-        editMode?.wrappedValue.isEditing ?? false || !selectedGroceries.isEmpty
+        editMode?.wrappedValue.isEditing ?? false || !router.selectedGroceries.isEmpty
         #else
         !selectedGroceries.isEmpty
         #endif
@@ -94,7 +92,8 @@ struct ShoppingListView: View {
             .toolbar {
                 if isEditing {
                     
-                    let descriptor: FetchDescriptor<Grocery> = .init(predicate: #Predicate { selectedGroceries.contains($0.id) } )
+                    let selected = router.selectedGroceries
+                    let descriptor: FetchDescriptor<Grocery> = .init(predicate: #Predicate { selected.contains($0.id) } )
                     let fetched = try? modelContext.fetch(descriptor)
                     let allPinned = fetched?.allSatisfy { $0.isPinned || $0.listEnum != .active } ?? false
                     let allComplete = fetched?.allSatisfy { $0.isCompleted } ?? false
@@ -107,7 +106,7 @@ struct ShoppingListView: View {
                                 fetched?.forEach {
                                     if allPinned || !$0.isPinned || $0.listEnum != .active {
                                         $0.setList(list)
-                                        selectedGroceries.remove($0.id)
+                                        router.selectedGroceries.remove($0.id)
                                     }
                                 }
                             }
@@ -121,7 +120,7 @@ struct ShoppingListView: View {
                         Button("Toggle completed", systemImage: Symbols.complete) {
                             fetched?.forEach {
                                 $0.setCompleted(to: !allComplete)
-                                selectedGroceries.remove($0.id)
+                                router.selectedGroceries.remove($0.id)
                             }
                         }
                         .symbolVariant(.circle)
