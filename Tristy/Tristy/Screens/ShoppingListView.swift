@@ -71,13 +71,6 @@ struct ShoppingListView: View {
                 #endif
                 
                 contents
-//                    .onChange(of: selectedGroceries) { oldValue, newValue in
-//                        #if os(iOS)
-//                        if !(editMode?.wrappedValue.isEditing ?? false) {
-//                            selectedGroceries.removeAll()
-//                        }
-//                        #endif
-//                    }
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
@@ -199,7 +192,6 @@ struct ShoppingListView: View {
                     ToolbarItemGroup(placement: morePlacement) {
                         Button("Plus", systemImage: Symbols.add) {
                             showNewGrocery = true
-//                            router.presentSheet(.newGrocery)
                         }
                         .matchedTransitionSource(id: "newGrocery", in: namespace)
                     }
