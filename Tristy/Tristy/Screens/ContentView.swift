@@ -49,37 +49,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView(selection: router.tabBinding) {
-            ForEach(tabs) { tab in
-                Tab(
-                    tab.rawValue,
-                    systemImage: tab.symbolName,
-                    value: tab,
-                    role: tab.role,
-                    content: { tab.correspondingView }
-                )
-            }
-            
-            Tab(value: TristyTab.search, role: .search) {
-                Text("Error")
-            }
-        }
-        .toolbar(tabs.count > 1 ? .visible : .hidden, for: .tabBar)
-        .fabBar(
-            selection: router.tabBinding,
-            tabs: fabs,
-            action: .init(
-                systemImage: "cart.badge.plus",
-                accessibilityLabel: "Prepare trip",
-                action: {
-                    #warning("This should show a list of all items in Next Time and Archive where you click the plus button; and have a searchable to quickly find stuff")
-                    #warning("Alternatively, get rid of this and just use a Searchable instead of the AddBar and add the same behaviors")
-                    print("testing")
-                }
-            ),
-            //isVisible: fabs.count > 1
-        )
-        .tabViewStyle(.sidebarAdaptable)
+        ShoppingListView(showingLists: [.active, .nextTime, .archive])
         .sheet(isPresented: router.sheetBinding) {
             Group {
                 if let sheet = router.sheet {
