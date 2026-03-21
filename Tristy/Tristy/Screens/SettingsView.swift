@@ -15,7 +15,7 @@ struct SettingsView: View {
             Section("Share") { ShareActions() }
             
             Section("Lists") {
-                TabActions()
+//                TabActions()
                 SortActions()
                 
                 CaptionedListRow(caption: Settings.HideCompleted.caption) {

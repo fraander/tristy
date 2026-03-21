@@ -126,6 +126,13 @@ struct TristyToolbar: ToolbarContent {
             }
 
             ToolbarSpacer(placement: morePlacement)
+            
+            ToolbarItem(placement: morePlacement) {
+                #warning("implement 'fresh trip' feature")
+                Button("Reset trip", systemImage: "arrow.counterclockwise") {
+                    print("refresh")
+                }
+            }
 
         }
 
