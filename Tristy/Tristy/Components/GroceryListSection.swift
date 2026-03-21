@@ -176,11 +176,11 @@ struct GroceryListSection: View {
                 gauge
             }
             
-            if predicate {
-                Image(systemName: Symbols.expanded)
-                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
-                    .transition(.scale)
-            }
+//            if predicate {
+//                Image(systemName: Symbols.expanded)
+//                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
+//                    .transition(.scale)
+//            }
         }
         .animation(.easeInOut, value: predicate)
         .animation(.easeInOut, value: selectPredicate)

@@ -57,10 +57,6 @@ struct GroceryListRow: View {
             })
             .lineLimit(1)
             .focused($focus, equals: .grocery(grocery.id))
-            .onChange(of: focus, { oldValue, newValue in
-                router.updateFocus(from: oldValue, to: newValue, for: .grocery(grocery.id))
-            })
-            .onChange(of: router.focus, { focus = $1 })
             .font(.system(.body, design: .rounded))
             
             Text(newTitle)

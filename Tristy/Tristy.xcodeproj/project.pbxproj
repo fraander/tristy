@@ -11,9 +11,11 @@
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
 		012D949C2E04DBA8000CEEB4 /* IconActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012D949B2E04DBA1000CEEB4 /* IconActions.swift */; };
-		0159BB132F65D23A001845CC /* FabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 0159BB122F65D23A001845CC /* FabBar */; };
 		01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 01660B7C2E0348B300B5B695 /* AttributedTextEditor */; };
 		01660B892E034C3600B5B695 /* ShareActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660B882E034C3600B5B695 /* ShareActions.swift */; };
+		0175FB462F6F3D840020E3F6 /* AddBarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB452F6F3D820020E3F6 /* AddBarService.swift */; };
+		0175FB482F6F3DD00020E3F6 /* AddBarSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */; };
+		0175FB502F6F41A00020E3F6 /* TristyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */; };
 		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
 		019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 019E6B792E03BE7200652CC3 /* AppIcon.icon */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
@@ -59,6 +61,9 @@
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		012D949B2E04DBA1000CEEB4 /* IconActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconActions.swift; sourceTree = "<group>"; };
 		01660B882E034C3600B5B695 /* ShareActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActions.swift; sourceTree = "<group>"; };
+		0175FB452F6F3D820020E3F6 /* AddBarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarService.swift; sourceTree = "<group>"; };
+		0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarSuggestions.swift; sourceTree = "<group>"; };
+		0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyToolbar.swift; sourceTree = "<group>"; };
 		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
 		019E6B792E03BE7200652CC3 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
@@ -104,7 +109,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0159BB132F65D23A001845CC /* FabBar in Frameworks */,
 				01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */,
 				01E5C16C2DFC08B3007C9B38 /* CloudKitSyncMonitor in Frameworks */,
 				01F31D922E11F13800AE8B14 /* SymbolPicker in Frameworks */,
@@ -129,6 +133,7 @@
 		01CBC5A92DFB89D900E5B891 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0175FB452F6F3D820020E3F6 /* AddBarService.swift */,
 				01D5051D2DFCE0CE003B8DBF /* Settings */,
 				01CBC5AC2DFB89FB00E5B891 /* Router */,
 			);
@@ -156,6 +161,7 @@
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
 				01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */,
 				01E5C1682DFBFFC3007C9B38 /* SettingsView.swift */,
+				0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -183,6 +189,7 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */,
 				01A438AD2DFF888900679DDB /* CaptionedListRow.swift */,
 				012A80E82DFBE782005B4B70 /* GroceryListRow.swift */,
 				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
@@ -299,7 +306,6 @@
 				01E5C16A2DFC08B3007C9B38 /* XCRemoteSwiftPackageReference "CloudKitSyncMonitor" */,
 				01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */,
 				01F31D902E11F13800AE8B14 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
-				0159BB112F65D23A001845CC /* XCRemoteSwiftPackageReference "FabBar" */,
 			);
 			productRefGroup = BD1360662BFD359200468A01 /* Products */;
 			projectDirPath = "";
@@ -330,10 +336,12 @@
 				01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */,
 				01C0441F2E04E8E400B51C2E /* GroceryCategory.swift in Sources */,
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,
+				0175FB482F6F3DD00020E3F6 /* AddBarSuggestions.swift in Sources */,
 				01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */,
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */,
+				0175FB502F6F41A00020E3F6 /* TristyToolbar.swift in Sources */,
 				01A438A72DFF6FA700679DDB /* FocusOption.swift in Sources */,
 				01F1F6CF2EFF82AB00C76BA4 /* SampleData.swift in Sources */,
 				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,
@@ -359,6 +367,7 @@
 				01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */,
 				01C0441D2E04E8A700B51C2E /* GroceryList.swift in Sources */,
 				01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */,
+				0175FB462F6F3D840020E3F6 /* AddBarService.swift in Sources */,
 				01EAC6172E00A28300363718 /* GroceryDetailView.swift in Sources */,
 				012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */,
 				01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */,
@@ -629,14 +638,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0159BB112F65D23A001845CC /* XCRemoteSwiftPackageReference "FabBar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ryanashcraft/FabBar";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
 		01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fraander/AttributedTextEditor.git";
@@ -664,11 +665,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0159BB122F65D23A001845CC /* FabBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0159BB112F65D23A001845CC /* XCRemoteSwiftPackageReference "FabBar" */;
-			productName = FabBar;
-		};
 		01660B7C2E0348B300B5B695 /* AttributedTextEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 01660B7B2E0348B300B5B695 /* XCRemoteSwiftPackageReference "AttributedTextEditor" */;

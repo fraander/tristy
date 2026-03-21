@@ -10,6 +10,7 @@ import SwiftData
 import SwiftUI
 
 
+#warning("let bulk edits be a thing")
 
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss

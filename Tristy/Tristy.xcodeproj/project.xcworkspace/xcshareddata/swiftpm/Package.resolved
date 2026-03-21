@@ -1,5 +1,5 @@
 {
-  "originHash" : "495412cc17190c967b4305d40ae01108215cfacec50768fce6b23606e8c56113",
+  "originHash" : "e518e87d3e6e67b940a5559f474fcc896504543722a8eac2f158de570f57d7cc",
   "pins" : [
     {
       "identity" : "attributedtexteditor",
@@ -17,15 +17,6 @@
       "state" : {
         "revision" : "a421ba7b38fa2e37bb78fc1425db491ca5e93c9a",
         "version" : "3.1.0"
-      }
-    },
-    {
-      "identity" : "fabbar",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ryanashcraft/FabBar",
-      "state" : {
-        "revision" : "4f05fc7815fc676683807574fec4a826f49588da",
-        "version" : "1.1.0"
       }
     },
     {
