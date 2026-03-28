@@ -10,28 +10,34 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(Router.self) var router
+    @Environment(\.modelContext) var modelContext
     
-    @Query var groceries: [Grocery]
-    @State var query: String = ""
-    @State var isShowingSearch: Bool = false
+    @State var addBarService = AddBarService()
     
     @Namespace var namespace
-    
-    var filteredItems: [Grocery] {
-        AddBarService.findClosestGroceries(for: query, in: groceries)
-    }
     
     var body: some View {
         NavigationView {
             ShoppingListView(showingLists: [.active, .nextTime, .archive])
                 .searchable(
-                    text: $query,
-                    isPresented: $isShowingSearch
+                    text: $addBarService.query,
+                    isPresented: $addBarService.isSearching
                 )
-                .overlay (alignment: .bottom) {
-                    AddBarSuggestions(filteredItems: filteredItems, query: $query, isSearching: $isShowingSearch)
+                .onSubmit(of: .search) {
+                    let newGrocery = Grocery(
+                        list: .active,
+                        title: addBarService.trimmedQuery
+                    )
+                    modelContext.insert(newGrocery)
                 }
-                .animation(.default, value: isShowingSearch)
+                .overlay (alignment: .bottom) {
+                    AddBarSuggestions(addBarService: addBarService)
+                        .padding(.bottom, addBarService.isSearching ? 80 : 0)
+                }
+                .animation(
+                    .default,
+                    value: addBarService.isSearching
+                )
                 .searchToolbarBehavior(.minimize)
                 .searchPresentationToolbarBehavior(.avoidHidingContent)
                 .toolbar {
@@ -56,6 +62,10 @@ struct ContentView: View {
                     }
                     .frame(minHeight: 360)
                 }
+        }
+        .onAppear {
+            addBarService.modelContext = modelContext
+            addBarService.fetchGroceries()
         }
     }
 }

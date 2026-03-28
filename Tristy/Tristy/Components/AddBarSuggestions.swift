@@ -9,18 +9,15 @@ import SwiftUI
 
 struct AddBarSuggestions: View {
     
-    var filteredItems: [Grocery]
-    @Binding var query: String
-    @Binding var isSearching: Bool
+    @Bindable var addBarService: AddBarService
     
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(filteredItems) { grocery in
+                ForEach(addBarService.filteredItems) { grocery in
                     Button {
                         withAnimation {
-                            query = ""
-                            grocery.setList(.active)
+                            addBarService.moveGroceryToActive(grocery: grocery)
                         }
                     } label: {
                         HStack {
@@ -30,21 +27,39 @@ struct AddBarSuggestions: View {
                             Spacer()
                         }
                         .padding(.vertical, 5)
-                        .padding(.top, grocery == filteredItems.first ? 15 : 0)
-                        .padding(.bottom, grocery == filteredItems.last ? 15 : 0)
+                        .padding(.top, grocery == addBarService.filteredItems.first ? 15 : 0)
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                     }
                     
-                    if grocery != filteredItems.last {
+                    if grocery != addBarService.filteredItems.last || addBarService.showPlusButton {
                         Divider()
+                    }
+                }
+                
+                if addBarService.showPlusButton {
+                    Button {
+                        withAnimation {
+                            addBarService.createGroceryFromQuery()
+                        }
+                    } label: {
+                        HStack {
+                            Label(addBarService.trimmedQuery, systemImage: "plus")
+                                .labelStyle(.tintedIcon(icon: .accentColor))
+                            
+                            Spacer()
+                        }
+                        .padding(.vertical, 5)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
                     }
                 }
             }
             .padding(10)
         }
-        .frame(maxWidth: .infinity, maxHeight: isSearching ? 240 : 0)
+        .frame(maxWidth: .infinity, maxHeight: addBarService.isSearching ? 240 : 0)
         .glassEffect(.regular, in: .containerRelative)
         .padding()
         
