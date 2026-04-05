@@ -18,6 +18,9 @@ class GroceryStore {
     var green: CGFloat?
     var blue: CGFloat?
     
+    // Drag-to-reorder support
+    var sortOrder: Double = 0
+    
     @Relationship(deleteRule: .nullify) // Circular reference resolving attached macro 'Relationship'
     var groceries: [Grocery]? = []
     
@@ -65,4 +68,8 @@ class GroceryStore {
         GroceryStore(name: "Star Market", symbolName: "star", color: .orange),
         GroceryStore(name: "Market Basket", symbolName: "basket", color: .purple)
     ]
+}
+
+extension GroceryStore: SortOrderable {
+    
 }

@@ -17,7 +17,7 @@ struct GroceryDetailView: View {
     @State var groceries: [GroceryDraft] = []
     let isBulkMode: Bool
     
-    @Query var allStores: [GroceryStore]
+    @Query(sort: [SortDescriptor(\GroceryStore.sortOrder, order: .forward)]) var stores: [GroceryStore]
     
     enum DetailViewTypes {
         case bulk([Grocery]), single(Grocery), new
@@ -255,7 +255,7 @@ struct GroceryDetailView: View {
                 
                 Divider()
                 
-                ForEach(allStores) { store in
+                ForEach(stores) { store in
                     Label(store.nameOrEmpty, systemImage: store.symbolOrDefault)
                         .tint(store.colorOrDefault)
                         .tag(store as GroceryStore?)

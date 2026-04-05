@@ -175,8 +175,6 @@ struct Settings {
             
             var id: Self { self }
             
-            #warning("Add fuller store controls like sorting")
-            
             var name: String {
                 switch self {
                 case .store: "Store"

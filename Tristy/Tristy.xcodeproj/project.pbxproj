@@ -18,6 +18,7 @@
 		0175FB502F6F41A00020E3F6 /* TristyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */; };
 		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
 		018E04422F81E25B00FBF755 /* GroceryDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E04412F81E23C00FBF755 /* GroceryDraft.swift */; };
+		018E04462F81F12100FBF755 /* SortOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E04452F81F12100FBF755 /* SortOrderService.swift */; };
 		019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 019E6B792E03BE7200652CC3 /* AppIcon.icon */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
@@ -67,6 +68,7 @@
 		0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyToolbar.swift; sourceTree = "<group>"; };
 		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
 		018E04412F81E23C00FBF755 /* GroceryDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDraft.swift; sourceTree = "<group>"; };
+		018E04452F81F12100FBF755 /* SortOrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderService.swift; sourceTree = "<group>"; };
 		019E6B792E03BE7200652CC3 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				012A80EB2DFBE8EE005B4B70 /* Grocery.swift */,
 				01C0441E2E04E8DE00B51C2E /* GroceryCategory.swift */,
 				018E04412F81E23C00FBF755 /* GroceryDraft.swift */,
+				018E04452F81F12100FBF755 /* SortOrderService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,
 				0175FB482F6F3DD00020E3F6 /* AddBarSuggestions.swift in Sources */,
 				01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */,
+				018E04462F81F12100FBF755 /* SortOrderService.swift in Sources */,
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
 				01F31D942E11F3B100AE8B14 /* StoreActions.swift in Sources */,

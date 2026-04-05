@@ -8,7 +8,7 @@ struct TristyToolbar: ToolbarContent {
     @Environment(\.editMode) private var editMode
     #endif
 
-    @Query private var stores: [GroceryStore]
+    @Query(sort: [SortDescriptor(\GroceryStore.sortOrder, order: .forward)]) var stores: [GroceryStore]
     @SceneStorage("storeFilter") private var storeFilter: [String] = []
 
     @Namespace private var namespace
@@ -126,14 +126,6 @@ struct TristyToolbar: ToolbarContent {
             }
 
             ToolbarSpacer(placement: morePlacement)
-            
-            ToolbarItem(placement: morePlacement) {
-                #warning("implement 'fresh trip' feature")
-                Button("Reset trip", systemImage: "arrow.counterclockwise") {
-                    print("refresh")
-                }
-            }
-
         }
 
         #if os(iOS)
@@ -143,7 +135,6 @@ struct TristyToolbar: ToolbarContent {
                     router.presentSheet(.settings)
                 }
                 .matchedTransitionSource(id: "settings", in: namespace)
-#warning("fix matched transition")
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
