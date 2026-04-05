@@ -10,7 +10,7 @@ import SwiftUI
 struct GroceryListRowIcons: View {
     
     @AppStorage(Settings.Icons.key) var icons = Settings.Icons.defaultValue
-    var grocery: Grocery
+    @Bindable var grocery: Grocery
     
     typealias Icon = Settings.Icons.Icon
     

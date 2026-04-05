@@ -14,7 +14,7 @@ struct GroceryListRow: View {
     @Environment(\.groceryList) var list
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
-    var grocery: Grocery
+    @Bindable var grocery: Grocery
     
     @State var newTitle = ""
     @State var initialValue = ""

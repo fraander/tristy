@@ -10,8 +10,10 @@ import SwiftData
 import SwiftUI
 
 struct GroceryDetailView: View {
+    @Environment(Router.self) var router
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.editMode) var editMode
     
     var originalGroceries: [Grocery]
     @State var groceries: [GroceryDraft] = []
@@ -540,6 +542,7 @@ struct GroceryDetailView: View {
             }
         }
         let _ = try? modelContext.save()
+        router.selectedGroceries.removeAll()
         dismiss()
     }
 }
