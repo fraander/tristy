@@ -113,7 +113,7 @@ struct GroceryListRow: View {
             }
         }
         .sheet(isPresented: $showInfo) {
-            GroceryDetailView(grocery: grocery)
+            GroceryDetailView(type: .single(grocery))
             #if os(iOS)
                 .navigationTransition(.zoom(sourceID: "info_\(grocery.persistentModelID)", in: namespace))
             #endif

@@ -9,130 +9,144 @@ import AttributedTextEditor
 import SwiftData
 import SwiftUI
 
-
-#warning("let bulk edits be a thing")
-
 struct GroceryDetailView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
-    var grocery: Grocery?
-
+    
+    var originalGroceries: [Grocery]
+    @State var groceries: [GroceryDraft] = []
+    let isBulkMode: Bool
+    
     @Query var allStores: [GroceryStore]
-
-    init(grocery: Grocery? = nil) {
-
-        self.grocery = grocery
-
-        // If given a grocery to populate with, use it ...
-        if let grocery {
-            _workingTitle = .init(initialValue: grocery.titleOrEmpty)
-            _workingList = .init(initialValue: grocery.listEnum)
-            _workingCompleted = .init(initialValue: grocery.isCompleted)
-            _workingPinned = .init(initialValue: grocery.isPinned)
-            _workingUncertain = .init(initialValue: grocery.isUncertain)
-            _workingImportance = .init(initialValue: grocery.importanceEnum)
-            _workingQuantity = .init(initialValue: grocery.quantityOrEmpty)
-            _workingUnits = .init(initialValue: grocery.unitOrEmpty)
-            _workingNotes = .init(
-                initialValue: AttributedString(grocery.notesOrEmpty)
+    
+    enum DetailViewTypes {
+        case bulk([Grocery]), single(Grocery), new
+    }
+    init(type: DetailViewTypes) {
+        switch type {
+            
+        case .bulk(let g):
+            _groceries = State(initialValue: g.map { GroceryDraft(from: $0) })
+            self.originalGroceries = g
+            self.isBulkMode = true
+        case .single(let g):
+            _groceries = State(initialValue: [ GroceryDraft(from: g) ]
             )
-            _workingCategory = .init(initialValue: grocery.categoryEnum)
-            _workingStore = .init(initialValue: grocery.store)
-
-            if (grocery.category ?? "").isEmpty {
-                self.hasSetCategory = .unset
-            } else {
-                self.hasSetCategory = .set
-            }
+            self.originalGroceries = [g]
+            self.isBulkMode = false
+        case .new:
+            _groceries = State(initialValue: [GroceryDraft()])
+            self.originalGroceries = []
+            self.isBulkMode = false
         }
     }
-
-    @State var workingTitle: String = ""
-    @State var workingList: GroceryList = .active
-    @State var workingStore: GroceryStore? = nil
-    @State var workingCompleted: Bool = false
-    @State var workingPinned: Bool = false
-    @State var workingUncertain: Bool = false
-    @State var workingImportance: GroceryImportance = .none
-    @State var workingQuantity: Double = .zero
-    @State var workingUnits: String = ""
-    @State var workingNotes: AttributedString = ""
-    @State var workingCategory: GroceryCategory = .other
-
+    
     @State var showingDeleteConfirmation = false
     @State var selection = AttributedTextSelection()
-
-    @State var categoryDebounceTimer: Timer? = nil
-    private let debouceTimeIterval: TimeInterval = 0.3
-    @State var hasSetCategory: SetCategoryStatus = .unset
-    enum SetCategoryStatus {
-        case unset, generating, set
-    }
-
+    
     var propertiesSection: some View {
         Section {
+            let completedBinding = Binding<Bool> {
+                groceries.first?.workingCompleted ?? false
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingCompleted = newValue
+                    groceries[idx].hasChangedWorkingCompleted = true
+                }
+            }
+            let pinnedBinding = Binding<Bool> {
+                groceries.first?.workingPinned ?? false
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingPinned = newValue
+                    groceries[idx].hasChangedWorkingPinned = true
+                }
+            }
+            let uncertainBinding = Binding<Bool> {
+                groceries.first?.workingUncertain ?? false
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingUncertain = newValue
+                    groceries[idx].hasChangedWorkingUncertain = true
+                }
+            }
+            let importanceBinding = Binding<GroceryImportance> {
+                groceries.first?.workingImportance ?? .none
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingImportance = newValue
+                    groceries[idx].hasChangedWorkingImportance = true
+                }
+            }
+            let quantityBinding = Binding<Double> {
+                groceries.first?.workingQuantity ?? 0
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingQuantity = newValue
+                    groceries[idx].hasChangedWorkingQuantity = true
+                }
+            }
+            let unitsBinding = Binding<String> {
+                groceries.first?.workingUnits ?? ""
+            } set: { newValue in
+                groceries.indices.forEach { idx in
+                    groceries[idx].workingUnits = newValue.lowercased()
+                    groceries[idx].hasChangedWorkingUnits = true
+                }
+            }
+            
             Toggle(
                 "Completed",
                 systemImage: Symbols.complete,
-                isOn: $workingCompleted
+                isOn: completedBinding
             )
             .labelStyle(.tintedIcon(icon: .mint))
             .symbolToggleEffect(
-                workingCompleted,
+                completedBinding.wrappedValue,
                 activeVariant: .circle.fill,
                 inactiveVariant: .circle
             )
-
-            Toggle("Pinned", systemImage: Symbols.pinned, isOn: $workingPinned)
+            
+            Toggle("Pinned", systemImage: Symbols.pinned, isOn: pinnedBinding)
                 .labelStyle(.tintedIcon(icon: .orange))
-                .symbolToggleEffect(workingPinned)
-
+                .symbolToggleEffect(pinnedBinding.wrappedValue)
+            
             Toggle(
                 "Uncertain",
                 systemImage: Symbols.uncertain,
-                isOn: $workingUncertain
+                isOn: uncertainBinding
             )
             .labelStyle(.tintedIcon(icon: .indigo))
-            .symbolToggleEffect(workingUncertain)
-
-            Picker(selection: $workingImportance) {
+            .symbolToggleEffect(uncertainBinding.wrappedValue)
+            
+            Picker(selection: importanceBinding) {
                 ForEach(GroceryImportance.allCases) { importance in
                     Label(importance.name, systemImage: importance.symbolName)
                         .tag(importance)
                 }
             } label: {
-                Label("Importance", systemImage: workingImportance.symbolName)
+                Label("Importance", systemImage: importanceBinding.wrappedValue.symbolName)
                     .contentTransition(.symbolEffect)
-                    .labelStyle(.tintedIcon(icon: workingImportance.color))
+                    .labelStyle(.tintedIcon(icon: importanceBinding.wrappedValue.color))
             }
             .tint(.secondary)
-
+            
             LabeledContent {
-                let workingQuantityString = Binding<String>(
-                    get: {
-                        "\(workingQuantity == .zero ? "" : "\(formatDouble(workingQuantity))")"
-                    },
-                    set: {
-                        if let new = Double($0) {
-                            workingQuantity = new
-                        }
-                    }
-                )
-
-                let workingUnitsString = Binding<String>(
-                    get: { workingUnits.lowercased() },
-                    set: { workingUnits = $0.lowercased() }
-                )
-
                 HStack {
-                    TextField("2", text: workingQuantityString)
-                        .numbersOnly(
-                            workingQuantityString,
-                            includeDecimal: true
-                        )
+                    TextField("2", text: Binding<String>(
+                        get: { quantityBinding.wrappedValue == .zero ? "" : formatDouble(quantityBinding.wrappedValue) },
+                        set: { if let new = Double($0) { quantityBinding.wrappedValue = new } }
+                    ))
+                    .numbersOnly(Binding<String>(
+                        get: { quantityBinding.wrappedValue == .zero ? "" : formatDouble(quantityBinding.wrappedValue) },
+                        set: { if let new = Double($0) { quantityBinding.wrappedValue = new } }
+                    ), includeDecimal: true)
 
-                    TextField("cups", text: workingUnitsString)
-                        .autocorrectionDisabled()
+                    TextField("cups", text: Binding<String>(
+                        get: { unitsBinding.wrappedValue.lowercased() },
+                        set: { unitsBinding.wrappedValue = $0 }
+                    ))
+                    .autocorrectionDisabled()
                 }
                 .frame(maxWidth: 100)
             } label: {
@@ -149,9 +163,9 @@ struct GroceryDetailView: View {
         } header: {
             HStack {
                 Text("Properties")
-
+                
                 Spacer()
-
+                
                 if hasSetProperties {
                     Button(
                         "Reset",
@@ -168,22 +182,36 @@ struct GroceryDetailView: View {
         }
         .transition(.move(edge: .top))
     }
-
+    
     @State var animationAngle: CGFloat = 0.0
-
+    
     var grocerySection: some View {
         Group {
-            TextField("Title", text: $workingTitle)
-
-            let workingCategoryBinding = Binding<GroceryCategory>(
-                get: { workingCategory },
-                set: {
-                    workingCategory = $0
-                    hasSetCategory = .set
+            
+            let titleBinding = Binding<String> {
+                groceries.first?.workingTitle ?? ""
+            } set: { newValue in
+                groceries.enumerated().forEach { index, _ in
+                    groceries[index].workingTitle = newValue
+                    groceries[index].hasChangedWorkingTitle = true
                 }
-            )
+            }
 
-            Picker(selection: workingCategoryBinding) {
+            if !isBulkMode {
+                TextField("Title", text: titleBinding)
+            }
+            
+            
+            let categoryBinding = Binding<GroceryCategory> {
+                groceries.first?.workingCategory ?? .other
+            } set: { newValue in
+                groceries.enumerated().forEach { index, _ in
+                    groceries[index].workingCategory = newValue
+                    groceries[index].hasChangedWorkingCategory = true
+                }
+            }
+            
+            Picker(selection: categoryBinding) {
                 ForEach(GroceryCategory.allCases) { category in
                     if category == .other {
                         Divider()
@@ -200,40 +228,33 @@ struct GroceryDetailView: View {
                 Label {
                     Text("Category")
                 } icon: {
-                    if hasSetCategory == .generating {
-                        Image(systemName: "apple.intelligence")
-                            .foregroundStyle(
-                                AngularGradient(
-                                    colors: [.yellow, .pink, .cyan],
-                                    center: .center
-                                )
-                            )
-                            .rotationEffect(.degrees(animationAngle))
-                            .contentTransition(.symbolEffect)
-                    } else {
-                        Image(systemName: workingCategory.symbolName)
-                            .contentTransition(.symbolEffect)
-                    }
+                    Image(systemName: categoryBinding.wrappedValue.symbolName)
+                        .contentTransition(.symbolEffect)
                 }
                 .animation(
                     .linear(duration: 1.5).repeatForever(autoreverses: false),
                     value: animationAngle
                 )
-                .onChange(of: hasSetCategory) {
-                    animationAngle = hasSetCategory == .generating ? 360 : 0
-                }
-                .labelStyle(.tintedIcon(icon: workingCategory.color))
-                .animation(.easeInOut, value: hasSetCategory == .generating)
+                .labelStyle(.tintedIcon(icon: categoryBinding.wrappedValue.color))
             }
             .tint(.secondary)
-
-            Picker(selection: $workingStore) {
+            
+            let storeBinding = Binding<GroceryStore?> {
+                groceries.first?.workingStore ?? nil
+            } set: { newValue in
+                groceries.enumerated().forEach { index, _ in
+                    groceries[index].workingStore = newValue
+                    groceries[index].hasChangedWorkingStore = true
+                }
+            }
+            
+            Picker(selection: storeBinding) {
                 Label("None", systemImage: Symbols.none)
                     .tint(.secondary)
-                    .tag(nil as GroceryStore?)  // Generic parameter 'V' could not be inferred
-
+                    .tag(nil as GroceryStore?)
+                
                 Divider()
-
+                
                 ForEach(allStores) { store in
                     Label(store.nameOrEmpty, systemImage: store.symbolOrDefault)
                         .tint(store.colorOrDefault)
@@ -242,76 +263,96 @@ struct GroceryDetailView: View {
             } label: {
                 Label(
                     "Store",
-                    systemImage: workingStore?.symbolOrDefault ?? Symbols.none
+                    systemImage: storeBinding.wrappedValue?.symbolOrDefault ?? Symbols.none
                 )
                 .contentTransition(.symbolEffect)
                 .labelStyle(
                     .tintedIcon(
-                        icon: workingStore?.colorOrDefault ?? .secondary
+                        icon: storeBinding.wrappedValue?.colorOrDefault ?? .secondary
                     )
                 )
             }
             .tint(.secondary)
-
-            Picker(selection: $workingList) {
+            
+            let listBinding = Binding<GroceryList> {
+                groceries.first?.workingList ?? .active
+            } set: { newValue in
+                groceries.enumerated().forEach { index, _ in
+                    groceries[index].workingList = newValue
+                    groceries[index].hasChangedWorkingList = true
+                }
+            }
+            
+            Picker(selection: listBinding) {
                 ForEach(GroceryList.allCases) { list in
                     Label(list.name, systemImage: list.symbolName)
                         .tint(list.color)
                         .tag(list)
                 }
             } label: {
-                Label("List", systemImage: workingList.symbolName)
+                Label("List", systemImage: listBinding.wrappedValue.symbolName)
                     .contentTransition(.symbolEffect)
-                    .labelStyle(.tintedIcon(icon: workingList.color))
+                    .labelStyle(.tintedIcon(icon: listBinding.wrappedValue.color))
             }
             .tint(.secondary)
         }
     }
-
+    
     var placeholderText: String {
-        #if os(iOS)
-            "You can use Markdown here. ..."
-        #else
-            ""
-        #endif
+#if os(iOS)
+        "You can use Markdown here. ..."
+#else
+        ""
+#endif
     }
-
+    
     var contents: some View {
         Group {
             Section("Grocery") {
                 grocerySection
             }
-
-            if workingList == .active {
+            
+            if (groceries.first?.workingList ?? .active) == .active {
                 propertiesSection
             }
-
+            
             Section {
+                let notesBinding = Binding<AttributedString> {
+                    groceries.first?.workingNotes ?? ""
+                } set: { newValue in
+                    groceries.indices.forEach { idx in
+                        groceries[idx].workingNotes = newValue
+                        groceries[idx].hasChangedWorkingNotes = true
+                    }
+                }
                 ComposerTextEditorView(
-                    text: $workingNotes,
+                    text: notesBinding,
                     selection: $selection,
                     placeholder: placeholderText
                 )
                 .frame(minHeight: 160)
-                #if os(macOS)
-                    .padding(5)
-                    .background {
-                        Color.systemGroupedBackground
-                    }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 5.0)
+#if os(macOS)
+                .padding(5)
+                .background {
+                    Color.systemGroupedBackground
+                }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 5.0)
                         .stroke(.gray, lineWidth: 0.5)
                         .fill(.clear)
-                    }
-                #endif
+                }
+#endif
             } header: {
                 HStack {
                     Text("Notes")
                     Spacer()
-
+                    
                     if hasSetNotes {
                         Button("Reset", systemImage: Symbols.reset) {
-                            workingNotes = ""
+                            groceries.indices.forEach { idx in
+                                groceries[idx].workingNotes = ""
+                                groceries[idx].hasChangedWorkingNotes = true
+                            }
                         }
                         .labelStyle(.iconOnly)
                         .foregroundStyle(.secondary)
@@ -321,11 +362,11 @@ struct GroceryDetailView: View {
                 .frame(height: 24)
                 .animation(.easeInOut, value: hasSetNotes)
             }
-
+            
             Button(role: .destructive) { showingDeleteConfirmation = true }
                 .labelStyle(.tintedIcon(icon: .red, text: .primary))
                 .confirmationDialog(
-                    "Are you sure you would like to delete this grocery?",
+                    "Are you sure you would like to delete?",
                     isPresented: $showingDeleteConfirmation,
                     titleVisibility: .visible,
                 ) {
@@ -335,118 +376,170 @@ struct GroceryDetailView: View {
                 }
         }
     }
-
+    
     var toolbar: some ToolbarContent {
         Group {
             ToolbarItem(placement: .cancellationAction) {
                 Button(role: .cancel) { dismiss() }
             }
-
+            
             ToolbarItem(placement: .confirmationAction) {
                 Button(role: .confirm) {
                     saveChanges()
                 }
-                .disabled(workingTitle.isEmpty)
+                .disabled((groceries.first?.workingTitle.isEmpty ?? true))
             }
-
+            
             ToolbarItem(placement: .principal) {
-                Text(grocery != nil ? "Edit" : "Create")
+                Text(isBulkMode ? "Edit (Bulk)" : (originalGroceries.isEmpty ? "Create" : "Edit"))
             }
         }
     }
-
+    
     var body: some View {
-        #if os(iOS)
-            NavigationView {
-                Form {
-                    contents
-                }
-                .toolbar { toolbar }
-                .animation(.easeInOut, value: workingList == .active)
+#if os(iOS)
+        NavigationView {
+            Form {
+                contents
             }
-        #elseif os(macOS)
-            ScrollView {
-                VStack(alignment: .leading) { contents }
-                    .padding()
-                    .padding()
-            }
-            .background { BackgroundView() }
             .toolbar { toolbar }
-            .animation(.easeInOut, value: workingList == .active)
-        #endif
+            .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
+        }
+#elseif os(macOS)
+        ScrollView {
+            VStack(alignment: .leading) { contents }
+                .padding()
+                .padding()
+        }
+        .background { BackgroundView() }
+        .toolbar { toolbar }
+        .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
+#endif
     }
-
-    var hasSetNotes: Bool { !workingNotes.characters.isEmpty }
-
+    
+    var hasSetNotes: Bool { !(groceries.first?.workingNotes.characters.isEmpty ?? true) }
+    
     var hasSetProperties: Bool {
-        !(workingCompleted == false && workingUncertain == false
-            && workingImportance == .none && workingPinned == false
-            && workingQuantity == 0 && workingUnits.isEmpty)
+        guard let g = groceries.first else { return false }
+        return !(g.workingCompleted == false && g.workingUncertain == false
+          && g.workingImportance == .none && g.workingPinned == false
+          && g.workingQuantity == 0 && g.workingUnits.isEmpty)
     }
-
+    
     func resetProperties() {
-        workingCompleted = false
-        workingUncertain = false
-        workingImportance = .none
-        workingPinned = false
-        workingQuantity = 0
-        workingUnits = ""
+        groceries.indices.forEach { idx in
+            // Properties
+            groceries[idx].workingCompleted = false
+            groceries[idx].hasChangedWorkingCompleted = true
+            groceries[idx].workingUncertain = false
+            groceries[idx].hasChangedWorkingUncertain = true
+            groceries[idx].workingImportance = .none
+            groceries[idx].hasChangedWorkingImportance = true
+            groceries[idx].workingPinned = false
+            groceries[idx].hasChangedWorkingPinned = true
+            groceries[idx].workingQuantity = 0
+            groceries[idx].hasChangedWorkingQuantity = true
+            groceries[idx].workingUnits = ""
+            groceries[idx].hasChangedWorkingUnits = true
+            
+            // Core fields
+            groceries[idx].workingTitle = ""
+            groceries[idx].hasChangedWorkingTitle = true
+            groceries[idx].workingList = .active
+            groceries[idx].hasChangedWorkingList = true
+            groceries[idx].workingStore = nil
+            groceries[idx].hasChangedWorkingStore = true
+            groceries[idx].workingCategory = .other
+            groceries[idx].hasChangedWorkingCategory = true
+        }
     }
-
+    
     func resetNotes() {
-        workingNotes = ""
+        groceries.indices.forEach { idx in
+            groceries[idx].workingNotes = ""
+            groceries[idx].hasChangedWorkingNotes = true
+        }
     }
-
+    
     func formatDouble(_ value: Double) -> String {
         let str = String(value)
         return str.hasSuffix(".0") ? String(str.dropLast(2)) : str
     }
-
+    
     func delete() {
-        if let grocery = grocery {
-            modelContext.delete(grocery)
+        if isBulkMode {
+            originalGroceries.forEach { modelContext.delete($0) }
+        } else if let g = originalGroceries.first {
+            modelContext.delete(g)
         }
         let _ = try? modelContext.save()
         dismiss()
     }
-
+    
     func saveChanges() {
-        if grocery == nil {
-            // create a new grocery
-            let g = Grocery(
-                list: workingList,
-                title: workingTitle.trimmingCharacters(
-                    in: .whitespacesAndNewlines
-                ),
-                completed: workingCompleted,
-                notes: String(workingNotes.characters),
-                certainty: workingUncertain,
-                importance: workingImportance,
-                pinned: workingPinned,
-                quantity: workingQuantity,
-                unit: workingUnits,
-                category: hasSetCategory == .set ? workingCategory : nil,
-                store: workingStore
-            )
-            modelContext.insert(g)
+        if originalGroceries.isEmpty {
+            // create new from first draft
+            if let d = groceries.first {
+                let g = Grocery(
+                    list: d.workingList,
+                    title: d.workingTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+                    completed: d.workingCompleted,
+                    notes: String(d.workingNotes.characters),
+                    certainty: d.workingUncertain,
+                    importance: d.workingImportance,
+                    pinned: d.workingPinned,
+                    quantity: d.workingQuantity,
+                    unit: d.workingUnits,
+                    category: d.workingCategory,
+                    store: d.workingStore
+                )
+                modelContext.insert(g)
+            }
         } else {
-            // Update all relevant fields
-            grocery?.title = workingTitle.trimmingCharacters(
-                in: .whitespacesAndNewlines
-            )
-            grocery?.setList(workingList)
-            grocery?.store = workingStore
-            grocery?.setCompleted(to: workingCompleted)
-            grocery?.setPinned(to: workingPinned)
-            grocery?.setCertainty(to: workingUncertain)
-            grocery?.setImportance(workingImportance)
-            grocery?.quantity = workingQuantity
-            grocery?.unit = workingUnits
-            grocery?.notes = String(workingNotes.characters)
-            if hasSetCategory == .set {
-                grocery?.setCategory(to: workingCategory)
+            // update existing (bulk or single) from first draft's shared fields
+            if let d = groceries.first {
+                originalGroceries.forEach { g in
+                    if d.hasChangedWorkingTitle {
+                        g.title = d.workingTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    }
+                    
+                    if d.hasChangedWorkingList {
+                        g.setList(d.workingList)
+                    }
+                    
+                    if d.hasChangedWorkingStore {
+                        g.store = d.workingStore
+                    }
+                    
+                    // apply only fields that changed in the draft
+                    if d.hasChangedWorkingCompleted {
+                        g.setCompleted(to: d.workingCompleted)
+                    }
+                    if d.hasChangedWorkingPinned {
+                        g.setPinned(to: d.workingPinned)
+                    }
+                    if d.hasChangedWorkingUncertain {
+                        g.setCertainty(to: d.workingUncertain)
+                    }
+                    if d.hasChangedWorkingImportance {
+                        g.setImportance(d.workingImportance)
+                    }
+                    if d.hasChangedWorkingQuantity {
+                        g.quantity = d.workingQuantity
+                    }
+                    if d.hasChangedWorkingUnits {
+                        g.unit = d.workingUnits
+                    }
+                    if d.hasChangedWorkingNotes {
+                        g.notes = String(d.workingNotes.characters)
+                    }
+                    if d.hasChangedWorkingCategory {
+                        g.setCategory(to: d.workingCategory)
+                    }
+                }
             }
         }
+        let _ = try? modelContext.save()
         dismiss()
     }
 }
@@ -455,13 +548,15 @@ struct GroceryDetailView: View {
     BackgroundView()
         .sheet(isPresented: .constant(true)) {
             GroceryDetailView(
-                //                grocery: Grocery.examples.randomElement()
-                grocery: Grocery(
-                    list: .active,
-                    title: "Crackers",
-                    completed: true,
-                    category: nil
+                type: .single(
+                    Grocery(
+                        list: .active,
+                        title: "Crackers",
+                        completed: true,
+                        category: nil
+                    )
                 )
             )
         }
 }
+

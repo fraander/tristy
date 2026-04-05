@@ -389,4 +389,34 @@ struct Settings {
             }
         }
     }
+    
+    struct MinimizeAddBar {
+        
+        static let key = "minimizeAddBar"
+        static let defaultValue = true
+        static let iconName = "text.magnifyingglass"
+        static let title = "Minimize Add Bar"
+        static let caption = "Minimize the search/add bar while scrolling."
+        
+        struct Toggle: View {
+            
+            @AppStorage(Settings.MinimizeAddBar.key) var minimizeAddBar = Settings.MinimizeAddBar.defaultValue
+            var body: some View {
+                SwiftUI.Toggle(isOn: $minimizeAddBar) {
+                    Label(Settings.MinimizeAddBar.title, systemImage: Settings.MinimizeAddBar.iconName)
+                }
+                .help(Settings.MinimizeAddBar.caption)
+            }
+        }
+        struct Button: View {
+            
+            @AppStorage(Settings.MinimizeAddBar.key) var minimizeAddBar = Settings.MinimizeAddBar.defaultValue
+            var body: some View {
+                SwiftUI.Button(action: { minimizeAddBar.toggle() }) {
+                    Label(Settings.MinimizeAddBar.title, systemImage: Settings.MinimizeAddBar.iconName)
+                }
+                .help(Settings.MinimizeAddBar.caption)
+            }
+        }
+    }
 }

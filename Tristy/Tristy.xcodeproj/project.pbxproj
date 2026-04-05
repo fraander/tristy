@@ -17,6 +17,7 @@
 		0175FB482F6F3DD00020E3F6 /* AddBarSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */; };
 		0175FB502F6F41A00020E3F6 /* TristyToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */; };
 		017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */; };
+		018E04422F81E25B00FBF755 /* GroceryDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E04412F81E23C00FBF755 /* GroceryDraft.swift */; };
 		019E6B7A2E03BE7200652CC3 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 019E6B792E03BE7200652CC3 /* AppIcon.icon */; };
 		01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */; };
 		01A438A52DFF6A8700679DDB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A438A42DFF6A8700679DDB /* Settings.swift */; };
@@ -65,6 +66,7 @@
 		0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarSuggestions.swift; sourceTree = "<group>"; };
 		0175FB4F2F6F41A00020E3F6 /* TristyToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TristyToolbar.swift; sourceTree = "<group>"; };
 		017E8D2C2E013FA3001D42FF /* View+numbersOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+numbersOnly.swift"; sourceTree = "<group>"; };
+		018E04412F81E23C00FBF755 /* GroceryDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryDraft.swift; sourceTree = "<group>"; };
 		019E6B792E03BE7200652CC3 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		01A438A12DFF699500679DDB /* View+symbolToggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+symbolToggleEffect.swift"; sourceTree = "<group>"; };
 		01A438A42DFF6A8700679DDB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				01C0441C2E04E8A700B51C2E /* GroceryList.swift */,
 				012A80EB2DFBE8EE005B4B70 /* Grocery.swift */,
 				01C0441E2E04E8DE00B51C2E /* GroceryCategory.swift */,
+				018E04412F81E23C00FBF755 /* GroceryDraft.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				01C0441B2E04E88F00B51C2E /* GroceryImportance.swift in Sources */,
 				012211FC2E11E7B600E86987 /* GroceryStore.swift in Sources */,
 				01CBC5B42DFB979900E5B891 /* Symbols.swift in Sources */,
+				018E04422F81E25B00FBF755 /* GroceryDraft.swift in Sources */,
 				01E5C1692DFBFFC6007C9B38 /* SettingsView.swift in Sources */,
 				01D5051F2DFCE6D4003B8DBF /* LabelStyle+IconTintLabelStyle.swift in Sources */,
 				01AEED502E11BA01007C516A /* TabActions.swift in Sources */,

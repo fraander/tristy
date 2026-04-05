@@ -147,18 +147,25 @@ struct TristyToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                #warning("turning this on turns off isEditing; need to fix")
-                Menu {
-                    Button("Action 1") {}
-                    Button("Action 2") {}
-                    Button("Action 3") {}
-                    Divider()
-                    Button("Action 4") {}
-                    Button("Action 5") {}
-                } label: {
-                    Label("Bulk actions", systemImage: "rectangle.3.group.dashed")
+                Button("Info", systemImage: Symbols.info) {
+                    if !router.selectedGroceries.isEmpty {
+                        
+                        let r = router.selectedGroceries
+                        let predicate = #Predicate<Grocery> { grocery in
+                            r.contains(grocery.persistentModelID)
+                        }
+                        let items = (try? modelContext.fetch(FetchDescriptor<Grocery>(predicate: predicate))) ?? []
+                        
+                        if router.selectedGroceries.count == 1 {
+                            if let first = items.first {
+                                router.presentSheet(.grocery(.single(first)))
+                            }
+                        } else if router.selectedGroceries.count > 1 {
+                            router.presentSheet(.grocery(.bulk(items)))
+                        }
+                    }
                 }
-
+                .disabled(router.selectedGroceries.isEmpty)
             }
         }
 

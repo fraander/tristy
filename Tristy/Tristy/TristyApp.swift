@@ -66,7 +66,7 @@ struct TristyApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button("New grocery", systemImage: Symbols.add) {
-                    router?.presentSheet(.newGrocery)
+                    router?.presentSheet(.grocery(.new))
                 }
                 .keyboardShortcut("n", modifiers: .command)
                 .disabled(router == nil)

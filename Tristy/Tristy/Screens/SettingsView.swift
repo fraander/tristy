@@ -14,6 +14,10 @@ struct SettingsView: View {
         List {
             Section("Share") { ShareActions() }
             
+            CaptionedListRow(caption: Settings.MinimizeAddBar.caption) {
+                Settings.MinimizeAddBar.Toggle()
+            }
+            
             Section("Lists") {
 //                TabActions()
                 SortActions()
@@ -25,6 +29,8 @@ struct SettingsView: View {
                 CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
                     Settings.CollapsibleSections.Toggle()
                 }
+                
+                
             }
             
             
