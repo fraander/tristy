@@ -35,7 +35,7 @@ struct TristyToolbar: ToolbarContent {
             let descriptor: FetchDescriptor<Grocery> = .init(predicate: #Predicate { selected.contains($0.id) } )
             let fetched = try? modelContext.fetch(descriptor)
             let allPinned = fetched?.allSatisfy { $0.isPinned || $0.listEnum != .active } ?? false
-            let allComplete = fetched?.allSatisfy { $0.isCompleted } ?? false
+            let allComplete = !(fetched ?? []).isEmpty && fetched?.allSatisfy { $0.isCompleted } ?? false
 
             ToolbarSpacer(.fixed, placement: morePlacement)
 
@@ -49,6 +49,7 @@ struct TristyToolbar: ToolbarContent {
                             }
                         }
                     }
+                    .disabled(router.selectedGroceries.isEmpty)
                 }
             }
 
@@ -64,6 +65,7 @@ struct TristyToolbar: ToolbarContent {
                 .symbolVariant(.circle)
                 .symbolVariant(allComplete ? .fill : .none)
                 .tint(allComplete ? .mint : .accent)
+                .disabled(router.selectedGroceries.isEmpty)
             }
         } else {
             ToolbarItemGroup(placement: morePlacement) {

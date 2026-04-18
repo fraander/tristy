@@ -97,24 +97,36 @@ struct GroceryListRow: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                if list == .active {
-                    HStack {
-                        checkboxView
-                        textView
+                Group {
+                    if list == .active {
+                        HStack {
+                            checkboxView
+                            textView
+                        }
+                    } else {
+                        Text(grocery.titleOrEmpty)
                     }
-                } else {
-                    Text(grocery.titleOrEmpty)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if list == .active {
-                    Spacer()
-                    GroceryListRowIcons(grocery: grocery)
-                }
+                GroceryListRowIcons(grocery: grocery)
             }
         }
         .sheet(isPresented: $showInfo) {
-            GroceryDetailView(type: .single(grocery))
-            #if os(iOS)
+            Group {
+                if router.selectedGroceries.count <= 1 {
+                    GroceryDetailView(type: .single(grocery))
+                } else {
+                    let r = router.selectedGroceries
+                    let predicate = #Predicate<Grocery> { grocery in
+                        r.contains(grocery.persistentModelID)
+                    }
+                    let items = (try? modelContext.fetch(FetchDescriptor<Grocery>(predicate: predicate))) ?? []
+                    
+                    GroceryDetailView(type: .bulk(items))
+                }
+            }
+#if os(iOS)
                 .navigationTransition(.zoom(sourceID: "info_\(grocery.persistentModelID)", in: namespace))
             #endif
         }

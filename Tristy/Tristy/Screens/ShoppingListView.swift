@@ -9,9 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ShoppingListView: View {
-    
-#warning("Add by-store grouping with folds; 2nd level list (and turn on off in settings)")
-    
+        
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
     

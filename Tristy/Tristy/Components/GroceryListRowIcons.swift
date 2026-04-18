@@ -97,7 +97,9 @@ struct GroceryListRowIcons: View {
     
     var body: some View {
         HStack {
-            ForEach(icons) { icon in
+            ForEach(icons.filter { icon in
+                Settings.Icons.iconsToIncludeInArchive.contains(icon)
+            }) { icon in
                 if icon != .none {
                     correspondingView(icon: icon)
                 }

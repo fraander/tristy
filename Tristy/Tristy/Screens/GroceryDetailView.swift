@@ -46,106 +46,214 @@ struct GroceryDetailView: View {
     @State var showingDeleteConfirmation = false
     @State var selection = AttributedTextSelection()
     
+    // MARK: - Consensus helpers for bulk editing
+    var consensusCompleted: Bool? {
+        let values = groceries.map { $0.workingCompleted }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var consensusPinned: Bool? {
+        let values = groceries.map { $0.workingPinned }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var consensusUncertain: Bool? {
+        let values = groceries.map { $0.workingUncertain }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var consensusImportance: GroceryImportance? {
+        let values = groceries.map { $0.workingImportance }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var consensusQuantity: Double? {
+        let values = groceries.map { $0.workingQuantity }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var consensusUnits: String? {
+        let values = groceries.map { $0.workingUnits }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    
+    // Added consensus helpers for category, store, list to support bulk editing of these fields
+    var consensusCategory: GroceryCategory? {
+        let values = groceries.map { $0.workingCategory }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    var hasConsensusStore: Bool {
+        let values = groceries.map { $0.workingStore }
+        return values.allSatisfy { $0 == values.first }
+    }
+    var consensusList: GroceryList? {
+        let values = groceries.map { $0.workingList }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    
+    // Consensus helper for notes (bulk editing support)
+    var consensusNotes: AttributedString? {
+        let values = groceries.map { $0.workingNotes }
+        return values.allSatisfy { $0 == values.first } ? values.first : nil
+    }
+    
+    var multipleTag: some View {
+        Text("Multiple")
+            .font(.caption)
+            .italic()
+            .foregroundStyle(.secondary)
+    }
+    
     var propertiesSection: some View {
         Section {
-            let completedBinding = Binding<Bool> {
-                groceries.first?.workingCompleted ?? false
+            let completedBinding = Binding<Bool?> {
+                consensusCompleted
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingCompleted = newValue
+                    groceries[idx].workingCompleted = newValue ?? false
                     groceries[idx].hasChangedWorkingCompleted = true
                 }
             }
-            let pinnedBinding = Binding<Bool> {
-                groceries.first?.workingPinned ?? false
+            let pinnedBinding = Binding<Bool?> {
+                consensusPinned
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingPinned = newValue
+                    groceries[idx].workingPinned = newValue ?? false
                     groceries[idx].hasChangedWorkingPinned = true
                 }
             }
-            let uncertainBinding = Binding<Bool> {
-                groceries.first?.workingUncertain ?? false
+            let uncertainBinding = Binding<Bool?> {
+                consensusUncertain
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingUncertain = newValue
+                    groceries[idx].workingUncertain = newValue ?? false
                     groceries[idx].hasChangedWorkingUncertain = true
                 }
             }
-            let importanceBinding = Binding<GroceryImportance> {
-                groceries.first?.workingImportance ?? .none
+            let importanceBinding = Binding<GroceryImportance?> {
+                consensusImportance
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingImportance = newValue
+                    groceries[idx].workingImportance = newValue ?? .none
                     groceries[idx].hasChangedWorkingImportance = true
                 }
             }
-            let quantityBinding = Binding<Double> {
-                groceries.first?.workingQuantity ?? 0
+            let quantityBinding = Binding<Double?> {
+                consensusQuantity
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingQuantity = newValue
+                    groceries[idx].workingQuantity = newValue ?? 0
                     groceries[idx].hasChangedWorkingQuantity = true
                 }
             }
-            let unitsBinding = Binding<String> {
-                groceries.first?.workingUnits ?? ""
+            let unitsBinding = Binding<String?> {
+                consensusUnits
             } set: { newValue in
                 groceries.indices.forEach { idx in
-                    groceries[idx].workingUnits = newValue.lowercased()
+                    groceries[idx].workingUnits = newValue?.lowercased() ?? ""
                     groceries[idx].hasChangedWorkingUnits = true
                 }
             }
             
-            Toggle(
-                "Completed",
-                systemImage: Symbols.complete,
-                isOn: completedBinding
-            )
-            .labelStyle(.tintedIcon(icon: .mint))
-            .symbolToggleEffect(
-                completedBinding.wrappedValue,
-                activeVariant: .circle.fill,
-                inactiveVariant: .circle
-            )
+            LabeledContent {
+                HStack {
+                    if completedBinding.wrappedValue == nil {
+                        multipleTag
+                    }
+                    Toggle("Completed", systemImage: Symbols.complete, isOn: Binding(
+                        get: { completedBinding.wrappedValue ?? false },
+                        set: { completedBinding.wrappedValue = $0 }
+                    ))
+                    .labelsHidden()
+                }
+            } label: {
+                Label("Completed", systemImage: Symbols.complete)
+                    .labelStyle(.tintedIcon(icon: .mint))
+                    .symbolToggleEffect(completedBinding.wrappedValue ?? false, activeVariant: .circle.fill, inactiveVariant: .circle)
+            }
             
-            Toggle("Pinned", systemImage: Symbols.pinned, isOn: pinnedBinding)
-                .labelStyle(.tintedIcon(icon: .orange))
-                .symbolToggleEffect(pinnedBinding.wrappedValue)
+            HStack {
+                LabeledContent {
+                    HStack {
+                        if pinnedBinding.wrappedValue == nil {
+                            multipleTag
+                        }
+                        
+                        Toggle("Pinned", systemImage: Symbols.pinned, isOn: Binding(
+                            get: { pinnedBinding.wrappedValue ?? false },
+                            set: { pinnedBinding.wrappedValue = $0 }
+                        ))
+                        .labelsHidden()
+                    }
+                } label: {
+                    Label("Pinned", systemImage: Symbols.pinned)
+                        .labelStyle(.tintedIcon(icon: .orange))
+                        .symbolToggleEffect(pinnedBinding.wrappedValue ?? false)
+                }
+            }
             
-            Toggle(
-                "Uncertain",
-                systemImage: Symbols.uncertain,
-                isOn: uncertainBinding
-            )
-            .labelStyle(.tintedIcon(icon: .indigo))
-            .symbolToggleEffect(uncertainBinding.wrappedValue)
+            LabeledContent {
+                HStack {
+                    if uncertainBinding.wrappedValue == nil {
+                        multipleTag
+                    }
+                    Toggle("Uncertain", systemImage: Symbols.uncertain, isOn: Binding(
+                        get: { uncertainBinding.wrappedValue ?? false },
+                        set: { uncertainBinding.wrappedValue = $0 }
+                    ))
+                    .labelsHidden()
+                }
+            } label: {
+                Label("Uncertain", systemImage: Symbols.uncertain)
+                    .labelStyle(.tintedIcon(icon: .indigo))
+                    .symbolToggleEffect(uncertainBinding.wrappedValue ?? false)
+            }
             
-            Picker(selection: importanceBinding) {
+            Picker(selection: Binding(
+                get: { importanceBinding.wrappedValue ?? GroceryImportance?.none },
+                set: { importanceBinding.wrappedValue = $0 }
+            )) {
                 ForEach(GroceryImportance.allCases) { importance in
                     Label(importance.name, systemImage: importance.symbolName)
                         .tag(importance)
                 }
+                
+                if importanceBinding.wrappedValue == nil {
+                    multipleTag
+                        .tag(GroceryImportance?.none) // Generic parameter 'V' could not be inferred
+                }
             } label: {
-                Label("Importance", systemImage: importanceBinding.wrappedValue.symbolName)
+                Label("Importance", systemImage: (importanceBinding.wrappedValue ?? .none).symbolName)
                     .contentTransition(.symbolEffect)
-                    .labelStyle(.tintedIcon(icon: importanceBinding.wrappedValue.color))
+                    .labelStyle(.tintedIcon(icon: (importanceBinding.wrappedValue ?? .none).color))
             }
             .tint(.secondary)
             
             LabeledContent {
                 HStack {
+                    
+                    if consensusUnits == nil || consensusQuantity == nil {
+                        multipleTag
+                    }
+                        
                     TextField("2", text: Binding<String>(
-                        get: { quantityBinding.wrappedValue == .zero ? "" : formatDouble(quantityBinding.wrappedValue) },
+                        get: {
+                            if let quantity = quantityBinding.wrappedValue, quantity != .zero {
+                                return formatDouble(quantity)
+                            } else {
+                                return ""
+                            }
+                        },
                         set: { if let new = Double($0) { quantityBinding.wrappedValue = new } }
                     ))
                     .numbersOnly(Binding<String>(
-                        get: { quantityBinding.wrappedValue == .zero ? "" : formatDouble(quantityBinding.wrappedValue) },
+                        get: {
+                            if let quantity = quantityBinding.wrappedValue, quantity != .zero {
+                                return formatDouble(quantity)
+                            } else {
+                                return ""
+                            }
+                        },
                         set: { if let new = Double($0) { quantityBinding.wrappedValue = new } }
                     ), includeDecimal: true)
 
                     TextField("cups", text: Binding<String>(
-                        get: { unitsBinding.wrappedValue.lowercased() },
+                        get: { unitsBinding.wrappedValue ?? "" },
                         set: { unitsBinding.wrappedValue = $0 }
                     ))
                     .autocorrectionDisabled()
@@ -198,22 +306,25 @@ struct GroceryDetailView: View {
                     groceries[index].hasChangedWorkingTitle = true
                 }
             }
-
+            
             if !isBulkMode {
                 TextField("Title", text: titleBinding)
             }
             
-            
-            let categoryBinding = Binding<GroceryCategory> {
-                groceries.first?.workingCategory ?? .other
+            // Using consensus bindings for bulk editing support for category, store, and list.
+            let categoryBinding = Binding<GroceryCategory?> {
+                consensusCategory
             } set: { newValue in
                 groceries.enumerated().forEach { index, _ in
-                    groceries[index].workingCategory = newValue
+                    groceries[index].workingCategory = newValue ?? .other
                     groceries[index].hasChangedWorkingCategory = true
                 }
             }
             
-            Picker(selection: categoryBinding) {
+            Picker(selection: Binding(
+                get: { categoryBinding.wrappedValue ?? GroceryCategory?.none },
+                set: { categoryBinding.wrappedValue = $0 }
+            )) {
                 ForEach(GroceryCategory.allCases) { category in
                     if category == .other {
                         Divider()
@@ -225,24 +336,39 @@ struct GroceryDetailView: View {
                     .tint(category.color)
                     .symbolVariant(.fill)
                     .tag(category)
+                    
+                    if categoryBinding.wrappedValue == nil {
+                        Label(
+                            "Multiple",
+                            systemImage: "ellipsis"
+                        )
+                        .tint(.secondary)
+                        .tag(GroceryCategory?.none)
+                    }
                 }
             } label: {
                 Label {
                     Text("Category")
                 } icon: {
-                    Image(systemName: categoryBinding.wrappedValue.symbolName)
+                    Image(systemName: categoryBinding.wrappedValue?.symbolName ?? GroceryCategory.other.symbolName)
                         .contentTransition(.symbolEffect)
                 }
                 .animation(
                     .linear(duration: 1.5).repeatForever(autoreverses: false),
                     value: animationAngle
                 )
-                .labelStyle(.tintedIcon(icon: categoryBinding.wrappedValue.color))
+                .labelStyle(.tintedIcon(icon: categoryBinding.wrappedValue?.color ?? GroceryCategory.other.color))
             }
             .tint(.secondary)
             
+            let nilStore = GroceryStore(name: "Multiple", symbolName: "ellipsis", color: .secondary)
             let storeBinding = Binding<GroceryStore?> {
-                groceries.first?.workingStore ?? nil
+                if hasConsensusStore {
+                    let values = groceries.map { $0.workingStore }
+                    return values.allSatisfy { $0 == values.first } ? values.first ?? nil : nil
+                } else {
+                    
+                }
             } set: { newValue in
                 groceries.enumerated().forEach { index, _ in
                     groceries[index].workingStore = newValue
@@ -262,6 +388,10 @@ struct GroceryDetailView: View {
                         .tint(store.colorOrDefault)
                         .tag(store as GroceryStore?)
                 }
+                
+                Label(nilStore.nameOrEmpty, systemImage: nilStore.symbolOrDefault)
+                    .tint(nilStore.colorOrDefault)
+                    .tag(nilStore as GroceryStore?)
             } label: {
                 Label(
                     "Store",
@@ -276,25 +406,28 @@ struct GroceryDetailView: View {
             }
             .tint(.secondary)
             
-            let listBinding = Binding<GroceryList> {
-                groceries.first?.workingList ?? .active
+            let listBinding = Binding<GroceryList?> {
+                consensusList
             } set: { newValue in
                 groceries.enumerated().forEach { index, _ in
-                    groceries[index].workingList = newValue
+                    groceries[index].workingList = newValue ?? .active
                     groceries[index].hasChangedWorkingList = true
                 }
             }
             
-            Picker(selection: listBinding) {
+            Picker(selection: Binding(
+                get: { listBinding.wrappedValue ?? .active },
+                set: { listBinding.wrappedValue = $0 }
+            )) {
                 ForEach(GroceryList.allCases) { list in
                     Label(list.name, systemImage: list.symbolName)
                         .tint(list.color)
                         .tag(list)
                 }
             } label: {
-                Label("List", systemImage: listBinding.wrappedValue.symbolName)
+                Label("List", systemImage: listBinding.wrappedValue?.symbolName ?? GroceryList.active.symbolName)
                     .contentTransition(.symbolEffect)
-                    .labelStyle(.tintedIcon(icon: listBinding.wrappedValue.color))
+                    .labelStyle(.tintedIcon(icon: listBinding.wrappedValue?.color ?? GroceryList.active.color))
             }
             .tint(.secondary)
         }
@@ -318,9 +451,11 @@ struct GroceryDetailView: View {
                 propertiesSection
             }
             
+            
             Section {
+                // Using consensus binding for notes to support bulk editing
                 let notesBinding = Binding<AttributedString> {
-                    groceries.first?.workingNotes ?? ""
+                    consensusNotes ?? ""
                 } set: { newValue in
                     groceries.indices.forEach { idx in
                         groceries[idx].workingNotes = newValue
@@ -382,6 +517,7 @@ struct GroceryDetailView: View {
     var toolbar: some ToolbarContent {
         Group {
             ToolbarItem(placement: .cancellationAction) {
+                // Cancel: Do NOT clear selectedGroceries here. Only dismiss.
                 Button(role: .cancel) { dismiss() }
             }
             
@@ -405,6 +541,9 @@ struct GroceryDetailView: View {
                 contents
             }
             .toolbar { toolbar }
+            .onAppear {
+                print("[GroceryDetailView] Bindings on appear -- completed: \(consensusCompleted as Any), pinned: \(consensusPinned as Any), uncertain: \(consensusUncertain as Any), importance: \(consensusImportance as Any), quantity: \(consensusQuantity as Any), units: \(consensusUnits as Any), category: \(consensusCategory as Any), store: \(consensusStore as Any), list: \(consensusList as Any)")
+            }
             .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
         }
 #elseif os(macOS)
@@ -415,6 +554,9 @@ struct GroceryDetailView: View {
         }
         .background { BackgroundView() }
         .toolbar { toolbar }
+        .onAppear {
+            print("[GroceryDetailView] Bindings on appear -- completed: \(consensusCompleted as Any), pinned: \(consensusPinned as Any), uncertain: \(consensusUncertain as Any), importance: \(consensusImportance as Any), quantity: \(consensusQuantity as Any), units: \(consensusUnits as Any), category: \(consensusCategory as Any), store: \(consensusStore as Any), list: \(consensusList as Any)")
+        }
         .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
 #endif
     }
@@ -542,6 +684,7 @@ struct GroceryDetailView: View {
             }
         }
         let _ = try? modelContext.save()
+        // Deselect groceries only on save — not on cancel.
         router.selectedGroceries.removeAll()
         dismiss()
     }

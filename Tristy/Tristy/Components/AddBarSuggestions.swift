@@ -18,6 +18,7 @@ struct AddBarSuggestions: View {
                     Button {
                         withAnimation {
                             addBarService.moveGroceryToActive(grocery: grocery)
+                            addBarService.query.removeAll()
                         }
                     } label: {
                         HStack {
@@ -59,7 +60,8 @@ struct AddBarSuggestions: View {
             }
             .padding(10)
         }
-        .frame(maxWidth: .infinity, maxHeight: addBarService.isSearching ? 240 : 0)
+        .frame(maxWidth: .infinity, maxHeight: addBarService.isSearching ? 180 : 0)
+        .clipShape(.containerRelative)
         .glassEffect(.regular, in: .containerRelative)
         .padding()
         

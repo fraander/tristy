@@ -240,6 +240,7 @@ struct Settings {
         static let defaultValue: [Icon] = [.qty, .note, .uncertain, .importance, .pin, .category, .store]
         static let title = "Icons"
         static let caption = "Tap on the icons to change which ones are shown in the Shopping List."
+        static let iconsToIncludeInArchive: [Icon] = [.note, .pin, .category, .store]
     }
     
     struct Tabs {
