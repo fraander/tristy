@@ -34,4 +34,11 @@ struct Symbols {
     static let none = "nosign"
     static let category = "carrot"
     static let basket = "basket"
+    
+    /// Choose a random grocery to use as an example
+    /// - Returns: A random grocery from the list of 10
+    static func chooseRandomExampleGrocery() -> String {
+        let groceries = ["Milk", "Bread", "Eggs", "Bananas", "Rice", "Onions", "Tomatoes", "Cheese", "Apples"]
+        return groceries.randomElement() ?? "..."
+    }
 }

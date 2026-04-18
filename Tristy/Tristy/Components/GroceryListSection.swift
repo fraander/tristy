@@ -11,32 +11,28 @@ import SwiftData
 
 extension EnvironmentValues {
     @Entry var groceryList: GroceryList? = nil
-    @Entry var selectedGroceries: Set<PersistentIdentifier> = []
 }
 
 struct GroceryListSection: View {
     
     // MARK: Initializers -
-    private init(list: GroceryList, isExpanded: Bool, canExpand: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>, filter: Predicate<Grocery>) {
+    private init(list: GroceryList, isExpanded: Bool, canExpand: Bool, filter: Predicate<Grocery>) {
         self._groceries = Query(filter: filter, animation: .default)
         self.list = list
         self.canExpand = canExpand
         self._isExpanded = .init(initialValue: isExpanded)
-        self._selectedGroceries = selectedGroceries
     }
     
     /// Creates a section in a parent list which queries a grocery list
     /// - Parameters:
     ///   - list: Which Grocery List to query
     ///   - isExpanded: Should the section be expanded
-    ///   - selectedGroceries: Use `@State var selectedGroceries: Set<PersistientIdentifier> = []` in the parent list for this section.
-    init(list: GroceryList, isExpanded: Bool, canExpand: Bool, selectedGroceries: Binding<Set<PersistentIdentifier>>) {
+    init(list: GroceryList, isExpanded: Bool, canExpand: Bool) {
         let intValue = list.rawValue
         self.init(
             list: list,
             isExpanded: isExpanded,
             canExpand: canExpand,
-            selectedGroceries: selectedGroceries,
             filter: #Predicate { $0.list == intValue }
         )
     }
@@ -45,7 +41,6 @@ struct GroceryListSection: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(Router.self) var router
-    @Environment(AddBarStore.self) var abStore
     
     @AppStorage(Settings.HideCompleted.key) var hideCompleted = Settings.HideCompleted.defaultValue
     @AppStorage(Settings.CollapsibleSections.key) var collapsibleSections = Settings.CollapsibleSections.defaultValue
@@ -55,7 +50,6 @@ struct GroceryListSection: View {
     
     @State var isExpanded = true
     var canExpand: Bool
-    @Binding var selectedGroceries: Set<PersistentIdentifier>
     
     var countCompleted: Int {
         groceries
@@ -153,7 +147,7 @@ struct GroceryListSection: View {
 #endif
     var isEditing: Bool {
 #if os(iOS)
-        editMode?.wrappedValue.isEditing ?? false || !selectedGroceries.isEmpty
+        editMode?.wrappedValue.isEditing ?? false || !router.selectedGroceries.isEmpty
 #else
         !selectedGroceries.isEmpty
 #endif
@@ -162,14 +156,14 @@ struct GroceryListSection: View {
     var header: some View {
         
         let predicate = collapsibleSections && !(hideCompleted && completionProgress == 1) && canExpand
-        let allSelected = groceries.map(\.id).allSatisfy { selectedGroceries.contains($0) }
+        let allSelected = groceries.map(\.id).allSatisfy { router.selectedGroceries.contains($0) }
         let selectPredicate = isEditing && !allSelected
         
         return HStack {
             
             if selectPredicate {
                 Button("Select", systemImage: Symbols.select) {
-                    groceries.map(\.id).forEach { selectedGroceries.insert($0) }
+                    groceries.map(\.id).forEach { router.selectedGroceries.insert($0) }
                 }
                 .labelStyle(.iconOnly)
                 .transition(.scale)
@@ -182,11 +176,11 @@ struct GroceryListSection: View {
                 gauge
             }
             
-            if predicate {
-                Image(systemName: Symbols.expanded)
-                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
-                    .transition(.scale)
-            }
+//            if predicate {
+//                Image(systemName: Symbols.expanded)
+//                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
+//                    .transition(.scale)
+//            }
         }
         .animation(.easeInOut, value: predicate)
         .animation(.easeInOut, value: selectPredicate)
@@ -245,15 +239,13 @@ struct GroceryListSection: View {
         )
         .listSectionSeparator(.hidden, edges: [.top, .bottom])
         .environment(\.groceryList, list)
-        .environment(\.selectedGroceries, selectedGroceries)
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
-        GroceryListSection(list: .active, isExpanded: false, canExpand: true, selectedGroceries: .constant([]))
+        GroceryListSection(list: .active, isExpanded: false, canExpand: true)
     }
-    .applyEnvironment(prePopulate: true)
     .onAppear {
         UserDefaults.standard.set(false, forKey: Settings.HideCompleted.key)
         UserDefaults.standard.set(false, forKey: Settings.CollapsibleSections.key)

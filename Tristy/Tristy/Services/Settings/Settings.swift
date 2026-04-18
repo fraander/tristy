@@ -8,41 +8,6 @@
 import SwiftUI
 
 struct Settings {
-    /// Should the `AddBar` show the suggestions pane above the bar?
-    ///
-    /// # Usage
-    /// ```swift
-    /// @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-    /// ```
-    struct AddBarSuggestions {
-        static let key = "showAddBarSuggestions"
-        static let defaultValue = true
-        static let iconName = Symbols.addBarSuggestions
-        static let title = "Add Bar suggestions"
-        
-        /// SwiftUI-style Toggle to control the property
-        struct Toggle: View {
-            @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-            
-            var body: some View {
-                SwiftUI.Toggle(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName, isOn: $showAddBarSuggestions)
-                    .symbolToggleEffect(showAddBarSuggestions)
-            }
-        }
-        
-        /// SwiftUI-style Button to control the property
-        struct Button: View {
-            
-            @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-            
-            var body: some View {
-                SwiftUI.Button(Settings.AddBarSuggestions.title, systemImage: Settings.AddBarSuggestions.iconName) {
-                    showAddBarSuggestions.toggle()
-                }
-                .symbolToggleEffect(showAddBarSuggestions)
-            }
-        }
-    }
     
     /// Should the `ShoppingList` show completed tasks in the expanded way?
     ///
@@ -275,6 +240,7 @@ struct Settings {
         static let defaultValue: [Icon] = [.qty, .note, .uncertain, .importance, .pin, .category, .store]
         static let title = "Icons"
         static let caption = "Tap on the icons to change which ones are shown in the Shopping List."
+        static let iconsToIncludeInArchive: [Icon] = [.note, .pin, .category, .store]
     }
     
     struct Tabs {
@@ -419,6 +385,36 @@ struct Settings {
             var body: some View {
                 
                 SwiftUI.Toggle(Settings.ShowPasteButton.title, systemImage: Settings.ShowPasteButton.iconName, isOn: $showPasteButton)
+            }
+        }
+    }
+    
+    struct MinimizeAddBar {
+        
+        static let key = "minimizeAddBar"
+        static let defaultValue = true
+        static let iconName = "text.magnifyingglass"
+        static let title = "Minimize Add Bar"
+        static let caption = "Minimize the search/add bar while scrolling."
+        
+        struct Toggle: View {
+            
+            @AppStorage(Settings.MinimizeAddBar.key) var minimizeAddBar = Settings.MinimizeAddBar.defaultValue
+            var body: some View {
+                SwiftUI.Toggle(isOn: $minimizeAddBar) {
+                    Label(Settings.MinimizeAddBar.title, systemImage: Settings.MinimizeAddBar.iconName)
+                }
+                .help(Settings.MinimizeAddBar.caption)
+            }
+        }
+        struct Button: View {
+            
+            @AppStorage(Settings.MinimizeAddBar.key) var minimizeAddBar = Settings.MinimizeAddBar.defaultValue
+            var body: some View {
+                SwiftUI.Button(action: { minimizeAddBar.toggle() }) {
+                    Label(Settings.MinimizeAddBar.title, systemImage: Settings.MinimizeAddBar.iconName)
+                }
+                .help(Settings.MinimizeAddBar.caption)
             }
         }
     }

@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @Environment(Router.self) var router
-    
-    @AppStorage(Settings.AddBarSuggestions.key) var showAddBarSuggestions = Settings.AddBarSuggestions.defaultValue
-    
+
+        
     var content: some View {
         List {
             Section("Share") { ShareActions() }
             
+            CaptionedListRow(caption: Settings.MinimizeAddBar.caption) {
+                Settings.MinimizeAddBar.Toggle()
+            }
+            
             Section("Lists") {
-                TabActions()
+//                TabActions()
                 SortActions()
                 
                 CaptionedListRow(caption: Settings.HideCompleted.caption) {
@@ -28,17 +29,10 @@ struct SettingsView: View {
                 CaptionedListRow(caption: Settings.CollapsibleSections.caption) {
                     Settings.CollapsibleSections.Toggle()
                 }
+                
+                
             }
             
-            Section("Preferences") {
-                Settings.AddBarSuggestions.Toggle()
-
-                Settings.ShowPasteButton.Toggle()
-                
-                
-//                Settings.CompletedToBottom.Toggle()
-//                Settings.SortByCategory.Toggle()
-            }
             
             IconActions()
             
@@ -74,7 +68,6 @@ struct SettingsView: View {
     }
 }
 
-#Preview("In SettingsView context") {
+#Preview("In SettingsView context", traits: .sampleData) {
     SettingsView()
-        .applyEnvironment()
 }

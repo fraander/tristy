@@ -12,11 +12,9 @@ import SwiftData
 struct GroceryListRow: View {
     
     @Environment(\.groceryList) var list
-    @Environment(\.selectedGroceries) var selectedGroceries
     @Environment(\.modelContext) var modelContext
-    @Environment(AddBarStore.self) var abStore
     @Environment(Router.self) var router
-    var grocery: Grocery
+    @Bindable var grocery: Grocery
     
     @State var newTitle = ""
     @State var initialValue = ""
@@ -59,10 +57,6 @@ struct GroceryListRow: View {
             })
             .lineLimit(1)
             .focused($focus, equals: .grocery(grocery.id))
-            .onChange(of: focus, { oldValue, newValue in
-                router.updateFocus(from: oldValue, to: newValue, for: .grocery(grocery.id))
-            })
-            .onChange(of: router.focus, { focus = $1 })
             .font(.system(.body, design: .rounded))
             
             Text(newTitle)
@@ -103,24 +97,36 @@ struct GroceryListRow: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                if list == .active {
-                    HStack {
-                        checkboxView
-                        textView
+                Group {
+                    if list == .active {
+                        HStack {
+                            checkboxView
+                            textView
+                        }
+                    } else {
+                        Text(grocery.titleOrEmpty)
                     }
-                } else {
-                    Text(grocery.titleOrEmpty)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if list == .active {
-                    Spacer()
-                    GroceryListRowIcons(grocery: grocery)
-                }
+                GroceryListRowIcons(grocery: grocery)
             }
         }
         .sheet(isPresented: $showInfo) {
-            GroceryDetailView(grocery: grocery)
-            #if os(iOS)
+            Group {
+                if router.selectedGroceries.count <= 1 {
+                    GroceryDetailView(type: .single(grocery))
+                } else {
+                    let r = router.selectedGroceries
+                    let predicate = #Predicate<Grocery> { grocery in
+                        r.contains(grocery.persistentModelID)
+                    }
+                    let items = (try? modelContext.fetch(FetchDescriptor<Grocery>(predicate: predicate))) ?? []
+                    
+                    GroceryDetailView(type: .bulk(items))
+                }
+            }
+#if os(iOS)
                 .navigationTransition(.zoom(sourceID: "info_\(grocery.persistentModelID)", in: namespace))
             #endif
         }

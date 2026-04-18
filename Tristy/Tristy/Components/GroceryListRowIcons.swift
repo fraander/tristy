@@ -10,7 +10,7 @@ import SwiftUI
 struct GroceryListRowIcons: View {
     
     @AppStorage(Settings.Icons.key) var icons = Settings.Icons.defaultValue
-    var grocery: Grocery
+    @Bindable var grocery: Grocery
     
     typealias Icon = Settings.Icons.Icon
     
@@ -97,7 +97,9 @@ struct GroceryListRowIcons: View {
     
     var body: some View {
         HStack {
-            ForEach(icons) { icon in
+            ForEach(icons.filter { icon in
+                Settings.Icons.iconsToIncludeInArchive.contains(icon)
+            }) { icon in
                 if icon != .none {
                     correspondingView(icon: icon)
                 }

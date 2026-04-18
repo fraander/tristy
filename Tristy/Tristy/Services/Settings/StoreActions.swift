@@ -78,7 +78,8 @@ struct StoreBrowserRow: View {
 }
 
 struct StoreBrowser: View {
-    @Query var stores: [GroceryStore]
+    @Environment(\.modelContext) var modelContext
+    @Query(sort: [SortDescriptor(\GroceryStore.sortOrder, order: .forward)]) var stores: [GroceryStore]
     
     var body: some View {
         if stores.isEmpty {
@@ -87,6 +88,59 @@ struct StoreBrowser: View {
             ForEach(stores) { store in
                 StoreBrowserRow(store: store)
             }
+            .onMove(perform: moveStores)
+        }
+    }
+    
+    private func moveStores(from source: IndexSet, to destination: Int) {
+        // Work on a local copy sorted by current sortOrder
+        var ordered = stores
+        ordered.move(fromOffsets: source, toOffset: destination)
+
+        // Identify the moved indices and compute new sortOrder for each moved item
+        for from in source {
+            // After move, find the new index of the moved item
+            let newIndex = destination > from ? destination - 1 : destination
+            let newOrder: Double
+            if ordered.isEmpty {
+                newOrder = 0
+            } else if newIndex <= 0 {
+                newOrder = SortOrderService.sortOrderForInsert(at: 0, in: ordered, get: { $0.sortOrder })
+            } else if newIndex >= ordered.count {
+                newOrder = SortOrderService.sortOrderForInsert(at: ordered.count, in: ordered, get: { $0.sortOrder })
+            } else {
+                let prev = ordered[newIndex - 1].sortOrder
+                let next = ordered[newIndex].sortOrder
+                newOrder = SortOrderService<GroceryStore>.midpoint(between: prev, and: next)
+            }
+
+            // Assign to the moved store (the one at newIndex after the move)
+            ordered[newIndex].sortOrder = newOrder
+        }
+
+        // Persist assignments in modelContext by applying back to actual stores by identity
+        for o in ordered {
+            if let s = stores.first(where: { $0.persistentModelID == o.persistentModelID }) {
+                s.sortOrder = o.sortOrder
+            }
+        }
+
+        let _ = try? modelContext.save()
+
+        // If the gap between adjacent items is too small, rebalance
+        let minGap = zip(ordered.dropLast(), ordered.dropFirst()).map { $1.sortOrder - $0.sortOrder }.min() ?? 1
+        if minGap < 0.001 {
+            var mutable = ordered
+            SortOrderService.rebalance(items: &mutable, start: 0, step: 1) { (item: inout GroceryStore, value: Double) in
+                item.sortOrder = value
+            }
+            // write back and save again
+            for m in mutable {
+                if let s = stores.first(where: { $0.persistentModelID == m.persistentModelID }) {
+                    s.sortOrder = m.sortOrder
+                }
+            }
+            let _ = try? modelContext.save()
         }
     }
 }
@@ -280,11 +334,11 @@ struct StoreActions: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
         Section {
             StoreActions()
         }
     }
-    .applyEnvironment(prePopulate: true)
 }
+

@@ -61,9 +61,8 @@ struct ShareActions: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     List {
         ShareActions()
     }
-    .applyEnvironment()
 }
