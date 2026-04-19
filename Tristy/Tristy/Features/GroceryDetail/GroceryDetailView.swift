@@ -362,18 +362,23 @@ struct GroceryDetailView: View {
             .tint(.secondary)
             
             let nilStore = GroceryStore(name: "Multiple", symbolName: "ellipsis", color: .secondary)
-            let storeBinding = Binding<GroceryStore?> {
-                if hasConsensusStore {
-                    let values = groceries.map { $0.workingStore }
-                    return values.allSatisfy { $0 == values.first } ? values.first ?? nil : nil
-                } else {
-                    
-                }
-            } set: { newValue in
-                groceries.enumerated().forEach { index, _ in
-                    groceries[index].workingStore = newValue
-                    groceries[index].hasChangedWorkingStore = true
-                }
+            var storeBinding: Binding<GroceryStore?> {
+                Binding(
+                    get: {
+                        if hasConsensusStore {
+                            let values = groceries.map { $0.workingStore }
+                            return values.allSatisfy { $0 == values.first } ? values.first ?? nil : nil
+                        } else {
+                            return nilStore
+                        }
+                    },
+                    set: { newValue in
+                        groceries.enumerated().forEach { index, _ in
+                            groceries[index].workingStore = newValue
+                            groceries[index].hasChangedWorkingStore = true
+                        }
+                    }
+                )
             }
             
             Picker(selection: storeBinding) {
@@ -541,9 +546,6 @@ struct GroceryDetailView: View {
                 contents
             }
             .toolbar { toolbar }
-            .onAppear {
-                print("[GroceryDetailView] Bindings on appear -- completed: \(consensusCompleted as Any), pinned: \(consensusPinned as Any), uncertain: \(consensusUncertain as Any), importance: \(consensusImportance as Any), quantity: \(consensusQuantity as Any), units: \(consensusUnits as Any), category: \(consensusCategory as Any), store: \(consensusStore as Any), list: \(consensusList as Any)")
-            }
             .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
         }
 #elseif os(macOS)
@@ -554,9 +556,6 @@ struct GroceryDetailView: View {
         }
         .background { BackgroundView() }
         .toolbar { toolbar }
-        .onAppear {
-            print("[GroceryDetailView] Bindings on appear -- completed: \(consensusCompleted as Any), pinned: \(consensusPinned as Any), uncertain: \(consensusUncertain as Any), importance: \(consensusImportance as Any), quantity: \(consensusQuantity as Any), units: \(consensusUnits as Any), category: \(consensusCategory as Any), store: \(consensusStore as Any), list: \(consensusList as Any)")
-        }
         .animation(.easeInOut, value: (groceries.first?.workingList ?? .active) == .active)
 #endif
     }
