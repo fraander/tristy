@@ -13,7 +13,10 @@ struct GroceryDetailView: View {
     @Environment(Router.self) var router
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
+    
+    #if os(iOS)
     @Environment(\.editMode) var editMode
+    #endif
     
     var originalGroceries: [Grocery]
     @State var groceries: [GroceryDraft] = []

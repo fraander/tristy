@@ -45,7 +45,7 @@ struct ShoppingListView: View {
 #if os(iOS)
         editMode?.wrappedValue.isEditing ?? false || !router.selectedGroceries.isEmpty
 #else
-        !selectedGroceries.isEmpty
+        !router.selectedGroceries.isEmpty
 #endif
     }
     

@@ -149,7 +149,7 @@ struct GroceryListSection: View {
 #if os(iOS)
         editMode?.wrappedValue.isEditing ?? false || !router.selectedGroceries.isEmpty
 #else
-        !selectedGroceries.isEmpty
+        !router.selectedGroceries.isEmpty
 #endif
     }
     
@@ -160,7 +160,7 @@ struct GroceryListSection: View {
         let selectPredicate = isEditing && !allSelected
         
         return HStack {
-            
+            #if os(iOS)
             if selectPredicate {
                 Button("Select", systemImage: Symbols.select) {
                     groceries.map(\.id).forEach { router.selectedGroceries.insert($0) }
@@ -168,19 +168,21 @@ struct GroceryListSection: View {
                 .labelStyle(.iconOnly)
                 .transition(.scale)
             }
-            
+            #endif
             Text(list.name)
             Spacer()
             
             if list == .active {
                 gauge
             }
-            
-//            if predicate {
-//                Image(systemName: Symbols.expanded)
-//                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
-//                    .transition(.scale)
-//            }
+
+            #if os(macOS)
+            if predicate {
+                Image(systemName: Symbols.expanded)
+                    .rotationEffect(isExpanded ? .degrees(0) : .degrees(-90))
+                    .transition(.scale)
+            }
+            #endif
         }
         .animation(.easeInOut, value: predicate)
         .animation(.easeInOut, value: selectPredicate)

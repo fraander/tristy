@@ -11,6 +11,7 @@
 		012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80E82DFBE782005B4B70 /* GroceryListRow.swift */; };
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
 		012D949C2E04DBA8000CEEB4 /* IconActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012D949B2E04DBA1000CEEB4 /* IconActionsView.swift */; };
+		01377A982F9716A800820B9C /* StoresFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01377A972F9716A800820B9C /* StoresFilterMenu.swift */; };
 		01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 01660B7C2E0348B300B5B695 /* AttributedTextEditor */; };
 		01660B892E034C3600B5B695 /* ShareActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660B882E034C3600B5B695 /* ShareActionsView.swift */; };
 		0175FB462F6F3D840020E3F6 /* AddBarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB452F6F3D820020E3F6 /* AddBarService.swift */; };
@@ -62,6 +63,7 @@
 		012A80E82DFBE782005B4B70 /* GroceryListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListRow.swift; sourceTree = "<group>"; };
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		012D949B2E04DBA1000CEEB4 /* IconActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconActionsView.swift; sourceTree = "<group>"; };
+		01377A972F9716A800820B9C /* StoresFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresFilterMenu.swift; sourceTree = "<group>"; };
 		01660B882E034C3600B5B695 /* ShareActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActionsView.swift; sourceTree = "<group>"; };
 		0175FB452F6F3D820020E3F6 /* AddBarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarService.swift; sourceTree = "<group>"; };
 		0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarSuggestions.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		01CC18922DFBAC3900BCD8A5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				01377A972F9716A800820B9C /* StoresFilterMenu.swift */,
 				01A438AD2DFF888900679DDB /* CaptionedListRow.swift */,
 				01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */,
 				01CBC5B52DFB990F00E5B891 /* TristyPasteButton.swift */,
@@ -395,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01377A982F9716A800820B9C /* StoresFilterMenu.swift in Sources */,
 				01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */,
 				01C0441F2E04E8E400B51C2E /* GroceryCategory.swift in Sources */,
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,

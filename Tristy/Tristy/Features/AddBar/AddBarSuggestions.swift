@@ -28,11 +28,17 @@ struct AddBarSuggestions: View {
                             Spacer()
                         }
                         .padding(.vertical, 5)
+                        #if os(iOS)
                         .padding(.top, grocery == addBarService.filteredItems.first ? 15 : 0)
+                        #else
+                        .padding(.top, grocery == addBarService.filteredItems.first ? 10 : 0)
+                        .padding(.bottom, grocery == addBarService.filteredItems.last ? 10 : 0)
+                        #endif
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
                     
                     if grocery != addBarService.filteredItems.last || addBarService.showPlusButton {
                         Divider()
@@ -58,12 +64,21 @@ struct AddBarSuggestions: View {
                     }
                 }
             }
+            #if os(iOS)
             .padding(10)
+            #endif
         }
-        .frame(maxWidth: .infinity, maxHeight: addBarService.isSearching ? 180 : 0)
+        .frame(maxWidth: 360, maxHeight: addBarService.isSearching ? 180 : 0)
         .clipShape(.containerRelative)
-        .glassEffect(.regular, in: .containerRelative)
+        .glassEffect(.regular, in: .rect(
+                               corners: .concentric(minimum: .fixed(16)), // Fixed minimum fallback
+                               isUniform: true
+                           ))
+        #if os(iOS)
         .padding()
+        #else
+        .padding(.trailing, 5)
+        #endif
         
     }
 }
