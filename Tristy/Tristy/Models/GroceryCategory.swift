@@ -21,7 +21,7 @@ enum GroceryCategory: String, CaseIterable, RawRepresentable, Identifiable {
     case snacks = "Snacks"
     case household = "Household"
     case pharmacy = "Pharmacy"
-    case other = "Other"
+    case other = "None"
     
     var id: String { self.rawValue }
     
@@ -55,7 +55,7 @@ enum GroceryCategory: String, CaseIterable, RawRepresentable, Identifiable {
        case .snacks: "bag"
        case .household: "house"
        case .pharmacy: "cross"
-       case .other: "questionmark.circle"
+       case .other: "slash.circle"
        }
     }
     
