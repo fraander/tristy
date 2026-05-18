@@ -109,6 +109,22 @@ class Grocery {
 }
 
 extension Grocery {
+    func getGroceriesForIDs(_ groceries: Set<PersistentIdentifier>, router: Router, in modelContext: ModelContext) -> [Grocery] {
+        
+        let selected = router.selectedGroceries
+        let descriptor: FetchDescriptor<Grocery> = .init(
+            predicate: #Predicate { selected.contains($0.id) }
+        )
+        guard let fetched = try? modelContext.fetch(descriptor) else {
+            print("Could not fetch for IDs: \(groceries)")
+            return []
+        }
+        
+        return fetched
+    }
+}
+
+extension Grocery {
     // MARK: Examples -
     static let examples: [Grocery] = [
         // Active list items
