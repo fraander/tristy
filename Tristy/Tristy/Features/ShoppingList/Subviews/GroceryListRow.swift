@@ -71,17 +71,41 @@ struct GroceryListRow: View {
     }
     
     var groceryListButtons: some View {
-        Group {
+        
+        
+        
+        return Group {
             ForEach(GroceryList.allCases) { gl in
-                if list != gl {
+                if !listInSelection(gl) {
                     Button("Move to \(gl.name)", systemImage: gl.symbolName) {
-                        grocery.setList(gl)
+                        let selected = router.selectedGroceries
+                        let descriptor: FetchDescriptor<Grocery> = .init(
+                            predicate: #Predicate { selected.contains($0.id) }
+                        )
+                        let fetched = try? modelContext.fetch(descriptor)
+                        
+                        fetched?.forEach { grocery in
+                            grocery.setList(gl)
+                        }
                     }
                     .tint(gl.color)
                 }
             }
         }
     }
+    
+    func listInSelection(_ list: GroceryList) -> Bool {
+        let selected = router.selectedGroceries
+        let descriptor: FetchDescriptor<Grocery> = .init(
+            predicate: #Predicate { selected.contains($0.id) }
+        )
+        guard let fetched = try? modelContext.fetch(descriptor) else { return false }
+        
+        return fetched.contains { grocery in
+            grocery.listEnum == list
+        }
+    }
+    
     
     @Namespace var namespace
     @State var showInfo = false
