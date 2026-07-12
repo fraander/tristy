@@ -21,102 +21,8 @@ struct GroceryListRow: View {
     
     @FocusState var focus: FocusOption?
     
-    // button with checkmark to show tag is complete/incomplete
-    var checkboxView: some View {
-        
-        Button("Complete grocery", systemImage: Symbols.complete) { grocery.toggleCompleted()
-        }
-        .symbolToggleEffect(grocery.isCompleted, activeVariant: .circle.fill, inactiveVariant: .circle)
-        .labelStyle(.iconOnly)
-        .buttonStyle(.plain)
-        .foregroundColor(grocery.isCompleted ? .mint : .accentColor)
-        .animation(.easeOut(duration: 0.25), value: grocery.completed)
-        .font(.system(.title2))
-    }
-    
-    // line to strikethrough tag title (draw in/out instead of fade with normal .strikethrough() )
-    var strikethroughView: some View {
-        HStack {
-            Capsule()
-                .frame(maxWidth: grocery.isCompleted ? .infinity : 0, maxHeight: 2, alignment: .leading)
-                .opacity(grocery.isCompleted ? 1 : 0)
-            Spacer()
-        }
-    }
-    
-    // show text or textfield depending on completion state
-    var textView: some View {
-        ZStack(alignment: .leading) {
-            TextField("", text: $newTitle, onEditingChanged: { _ in
-                if (newTitle.isEmpty) { // check not left empty
-                    newTitle = initialValue // reset to initial value so not blank
-                } else { // update
-                    grocery.title = newTitle // set the title
-                    initialValue = grocery.titleOrEmpty // set new initial value checkpoint
-                }
-            })
-            .lineLimit(1)
-            .focused($focus, equals: .grocery(grocery.id))
-            .font(.system(.body, design: .rounded))
-            
-            Text(newTitle)
-                .opacity(0.0)
-                .padding(.trailing, 10)
-                .lineLimit(1)
-                .overlay { strikethroughView }
-                .animation(.easeOut(duration: 0.25), value: grocery.completed)
-            
-        }
-        .foregroundColor(grocery.isCompleted ? .secondary : .primary)
-    }
-    
-    var groceryListButtons: some View {
-        
-        
-        
-        return Group {
-            ForEach(GroceryList.allCases) { gl in
-                if !listInSelection(gl) {
-                    Button("Move to \(gl.name)", systemImage: gl.symbolName) {
-                        let selected = router.selectedGroceries
-                        let descriptor: FetchDescriptor<Grocery> = .init(
-                            predicate: #Predicate { selected.contains($0.id) }
-                        )
-                        let fetched = try? modelContext.fetch(descriptor)
-                        
-                        fetched?.forEach { grocery in
-                            grocery.setList(gl)
-                        }
-                    }
-                    .tint(gl.color)
-                }
-            }
-        }
-    }
-    
-    func listInSelection(_ list: GroceryList) -> Bool {
-        let selected = router.selectedGroceries
-        let descriptor: FetchDescriptor<Grocery> = .init(
-            predicate: #Predicate { selected.contains($0.id) }
-        )
-        guard let fetched = try? modelContext.fetch(descriptor) else { return false }
-        
-        return fetched.contains { grocery in
-            grocery.listEnum == list
-        }
-    }
-    
-    
     @Namespace var namespace
     @State var showInfo = false
-    
-    var infoButton: some View {
-        Button("Info", systemImage: Symbols.info) {
-            showInfo = true
-        }
-        .matchedTransitionSource(id: "info_\(grocery.persistentModelID)", in: namespace)
-        .tint(.gray)
-    }
     
     var body: some View {
         VStack(spacing: 8) {
@@ -124,8 +30,8 @@ struct GroceryListRow: View {
                 Group {
                     if list == .active {
                         HStack {
-                            checkboxView
-                            textView
+                            CheckboxView(grocery: grocery)
+                            TextEditView(newTitle: $newTitle, initialValue: $initialValue, grocery: grocery, focus: _focus)
                         }
                     } else {
                         Text(grocery.titleOrEmpty)
@@ -155,11 +61,17 @@ struct GroceryListRow: View {
             #endif
         }
         .frame(minHeight: 24)
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) { groceryListButtons.labelStyle(.iconOnly) }
-        .swipeActions(edge: .leading, allowsFullSwipe: true) { infoButton.labelStyle(.iconOnly) }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            GroceryListButtonsView()
+                .labelStyle(.iconOnly)
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            InfoButtonView(showInfo: $showInfo, grocery: grocery, namespace: namespace)
+                .labelStyle(.iconOnly)
+        }
         .contextMenu {
-            Section { groceryListButtons }
-            Section { infoButton }
+            Section { GroceryListButtonsView() }
+            Section { InfoButtonView(showInfo: $showInfo, grocery: grocery, namespace: namespace) }
         }
         .font(.system(.body, design: .rounded))
         .task {

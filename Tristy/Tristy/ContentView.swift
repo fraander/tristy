@@ -14,7 +14,7 @@ struct ContentView: View {
     
     @AppStorage(Settings.MinimizeAddBar.key) var minimizeAddBar: Bool = Settings.MinimizeAddBar.defaultValue
     
-    @State var addBarService = AddBarService()
+    @Environment(AddBarService.self) var addBarService
     
     @Namespace var namespace
     
@@ -24,10 +24,19 @@ struct ContentView: View {
     
     
     var sharedContents: some View {
-        ShoppingListView(showingLists: [.active, .nextTime, .archive])
+        let absQuery = Binding {
+            addBarService.query
+        } set: { addBarService.query = $0 }
+        
+        let absIsSearching = Binding {
+            addBarService.isSearching
+        } set: { addBarService.isSearching = $0 }
+
+        
+        return ShoppingListView(showingLists: [.active, .nextTime, .archive])
             .searchable(
-                text: $addBarService.query,
-                isPresented: $addBarService.isSearching,
+                text: absQuery,
+                isPresented: absIsSearching,
                 prompt: Text("Add groceries ...")
             )
             .onSubmit(of: .search) {
@@ -66,20 +75,11 @@ struct ContentView: View {
 #endif
             }
             .sheet(isPresented: router.sheetBinding) {
-                Group {
-                    if let sheet = router.sheet {
-                        switch sheet {
-                        case .settings: SettingsView()
-#if os(iOS)
-                                .navigationTransition(.zoom(sourceID: "settings", in: namespace))
-                            #endif
-                        case .grocery(let type): GroceryDetailView(type: type)
-                        }
-                    }
-                }
-                .frame(minHeight: 360)
+                SheetSwitchView(namespace: namespace)
+                    .frame(minHeight: 360)
             }
             .onAppear {
+                // Set up addBarService
                 addBarService.modelContext = modelContext
                 addBarService.fetchGroceries()
             }

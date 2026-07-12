@@ -12,6 +12,14 @@
 		012A80EC2DFBE8F0005B4B70 /* Grocery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012A80EB2DFBE8EE005B4B70 /* Grocery.swift */; };
 		012D949C2E04DBA8000CEEB4 /* IconActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012D949B2E04DBA1000CEEB4 /* IconActionsView.swift */; };
 		01377A982F9716A800820B9C /* StoresFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01377A972F9716A800820B9C /* StoresFilterMenu.swift */; };
+		0158DBF23003C75C00FD3676 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBF13003C75C00FD3676 /* AppView.swift */; };
+		0158DBF630040C5400FD3676 /* SheetSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBF530040C5400FD3676 /* SheetSwitchView.swift */; };
+		0158DBF830040D6800FD3676 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBF730040D6800FD3676 /* CheckboxView.swift */; };
+		0158DBFA30040D6B00FD3676 /* StrikethroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBF930040D6B00FD3676 /* StrikethroughView.swift */; };
+		0158DBFC30040D6F00FD3676 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBFB30040D6F00FD3676 /* TextEditView.swift */; };
+		0158DBFE30040D7400FD3676 /* InfoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBFD30040D7400FD3676 /* InfoButtonView.swift */; };
+		0158DC0030040D7700FD3676 /* GroceryListButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DBFF30040D7700FD3676 /* GroceryListButtonsView.swift */; };
+		0158DC0630040E6800FD3676 /* GrocerySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158DC0530040E6800FD3676 /* GrocerySectionView.swift */; };
 		01660B7D2E0348B300B5B695 /* AttributedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 01660B7C2E0348B300B5B695 /* AttributedTextEditor */; };
 		01660B892E034C3600B5B695 /* ShareActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660B882E034C3600B5B695 /* ShareActionsView.swift */; };
 		0175FB462F6F3D840020E3F6 /* AddBarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0175FB452F6F3D820020E3F6 /* AddBarService.swift */; };
@@ -44,7 +52,6 @@
 		01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */; };
 		01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */; };
 		01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */; };
-		01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D505172DFCD757003B8DBF /* Logger+subsystem.swift */; };
 		01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */; };
 		01D5051C2DFCE0BE003B8DBF /* DataActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5051B2DFCE0BE003B8DBF /* DataActionsView.swift */; };
 		01D5051F2DFCE6D4003B8DBF /* LabelStyle+IconTintLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */; };
@@ -64,6 +71,14 @@
 		012A80EB2DFBE8EE005B4B70 /* Grocery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grocery.swift; sourceTree = "<group>"; };
 		012D949B2E04DBA1000CEEB4 /* IconActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconActionsView.swift; sourceTree = "<group>"; };
 		01377A972F9716A800820B9C /* StoresFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresFilterMenu.swift; sourceTree = "<group>"; };
+		0158DBF13003C75C00FD3676 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		0158DBF530040C5400FD3676 /* SheetSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetSwitchView.swift; sourceTree = "<group>"; };
+		0158DBF730040D6800FD3676 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
+		0158DBF930040D6B00FD3676 /* StrikethroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughView.swift; sourceTree = "<group>"; };
+		0158DBFB30040D6F00FD3676 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
+		0158DBFD30040D7400FD3676 /* InfoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonView.swift; sourceTree = "<group>"; };
+		0158DBFF30040D7700FD3676 /* GroceryListButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListButtonsView.swift; sourceTree = "<group>"; };
+		0158DC0530040E6800FD3676 /* GrocerySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrocerySectionView.swift; sourceTree = "<group>"; };
 		01660B882E034C3600B5B695 /* ShareActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActionsView.swift; sourceTree = "<group>"; };
 		0175FB452F6F3D820020E3F6 /* AddBarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarService.swift; sourceTree = "<group>"; };
 		0175FB472F6F3DCD0020E3F6 /* AddBarSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBarSuggestions.swift; sourceTree = "<group>"; };
@@ -95,7 +110,6 @@
 		01CC18C12DFBD19000BCD8A5 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		01CC18C32DFBD3EE00BCD8A5 /* Color+systemGroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+systemGroupedBackground.swift"; sourceTree = "<group>"; };
 		01CC18C52DFBD4DA00BCD8A5 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
-		01D505172DFCD757003B8DBF /* Logger+subsystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+subsystem.swift"; sourceTree = "<group>"; };
 		01D505192DFCDD3E003B8DBF /* SyncStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusView.swift; sourceTree = "<group>"; };
 		01D5051B2DFCE0BE003B8DBF /* DataActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataActionsView.swift; sourceTree = "<group>"; };
 		01D5051E2DFCE53C003B8DBF /* LabelStyle+IconTintLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabelStyle+IconTintLabelStyle.swift"; sourceTree = "<group>"; };
@@ -134,8 +148,24 @@
 				01C0441E2E04E8DE00B51C2E /* GroceryCategory.swift */,
 				018E04412F81E23C00FBF755 /* GroceryDraft.swift */,
 				018E04452F81F12100FBF755 /* SortOrder.swift */,
+				01B850642FF94DDF000823BC /* Samples */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		014878A52FF94FB1004DA771 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		01B850642FF94DDF000823BC /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				01F1F6CE2EFF82A800C76BA4 /* SampleData.swift */,
+			);
+			path = Samples;
 			sourceTree = "<group>";
 		};
 		01CBC5AA2DFB89E700E5B891 /* Style Extensions */ = {
@@ -157,6 +187,8 @@
 				01CBC5A12DFB880F00E5B891 /* Router.swift */,
 				01AEED552E11D11F007C516A /* TristyTab.swift */,
 				01CBC5AD2DFB8B1600E5B891 /* TristySheet.swift */,
+				0158DBF530040C5400FD3676 /* SheetSwitchView.swift */,
+				0158DC0530040E6800FD3676 /* GrocerySectionView.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -194,14 +226,6 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		01F1F6D02EFF878C00C76BA4 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				01F1F6CE2EFF82A800C76BA4 /* SampleData.swift */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		01FB15632F952F93001025B4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				01C044162E04E5E900B51C2E /* Array+Codable.swift */,
-				01D505172DFCD757003B8DBF /* Logger+subsystem.swift */,
 			);
 			path = "Util Extensions";
 			sourceTree = "<group>";
@@ -227,6 +250,11 @@
 				012A80E82DFBE782005B4B70 /* GroceryListRow.swift */,
 				01A438AB2DFF7CD800679DDB /* GroceryListSection.swift */,
 				01C044182E04E67700B51C2E /* GroceryListRowIcons.swift */,
+				0158DBF730040D6800FD3676 /* CheckboxView.swift */,
+				0158DBF930040D6B00FD3676 /* StrikethroughView.swift */,
+				0158DBFB30040D6F00FD3676 /* TextEditView.swift */,
+				0158DBFD30040D7400FD3676 /* InfoButtonView.swift */,
+				0158DBFF30040D7700FD3676 /* GroceryListButtonsView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -307,7 +335,7 @@
 		BD1360672BFD359200468A01 /* Tristy */ = {
 			isa = PBXGroup;
 			children = (
-				01F1F6D02EFF878C00C76BA4 /* Preview Content */,
+				014878A52FF94FB1004DA771 /* Preview Content */,
 				BDF1555F2BFD3F0100CAA145 /* Info.plist */,
 				BD13606E2BFD359300468A01 /* Tristy.entitlements */,
 				BD1360792BFD363E00468A01 /* Assets.xcassets */,
@@ -318,6 +346,7 @@
 				01FB15672F953085001025B4 /* Features */,
 				01FB15632F952F93001025B4 /* Core */,
 				BD1360A12BFD365500468A01 /* TristyApp.swift */,
+				0158DBF13003C75C00FD3676 /* AppView.swift */,
 				01CBC59D2DFB818600E5B891 /* ContentView.swift */,
 			);
 			path = Tristy;
@@ -402,8 +431,8 @@
 				01CC18C22DFBD19000BCD8A5 /* ShoppingListView.swift in Sources */,
 				01C0441F2E04E8E400B51C2E /* GroceryCategory.swift in Sources */,
 				01CBC5B62DFB992A00E5B891 /* TristyPasteButton.swift in Sources */,
+				0158DBF23003C75C00FD3676 /* AppView.swift in Sources */,
 				0175FB482F6F3DD00020E3F6 /* AddBarSuggestions.swift in Sources */,
-				01D505182DFCD75D003B8DBF /* Logger+subsystem.swift in Sources */,
 				018E04462F81F12100FBF755 /* SortOrder.swift in Sources */,
 				01D5051A2DFCDD3E003B8DBF /* SyncStatusView.swift in Sources */,
 				01CBC59E2DFB818800E5B891 /* ContentView.swift in Sources */,
@@ -413,6 +442,7 @@
 				01F1F6CF2EFF82AB00C76BA4 /* SampleData.swift in Sources */,
 				017E8D2D2E013FA3001D42FF /* View+numbersOnly.swift in Sources */,
 				012D949C2E04DBA8000CEEB4 /* IconActionsView.swift in Sources */,
+				0158DC0630040E6800FD3676 /* GrocerySectionView.swift in Sources */,
 				01A438AE2DFF888900679DDB /* CaptionedListRow.swift in Sources */,
 				01C0441B2E04E88F00B51C2E /* GroceryImportance.swift in Sources */,
 				012211FC2E11E7B600E86987 /* GroceryStore.swift in Sources */,
@@ -423,16 +453,21 @@
 				01AEED502E11BA01007C516A /* TabActionsView.swift in Sources */,
 				01D5051C2DFCE0BE003B8DBF /* DataActionsView.swift in Sources */,
 				01CC18C62DFBD4DA00BCD8A5 /* BackgroundView.swift in Sources */,
+				0158DBF630040C5400FD3676 /* SheetSwitchView.swift in Sources */,
 				01CBC5AE2DFB8B1900E5B891 /* TristySheet.swift in Sources */,
+				0158DBFA30040D6B00FD3676 /* StrikethroughView.swift in Sources */,
 				01AEED562E11D11F007C516A /* TristyTab.swift in Sources */,
 				01CC18C42DFBD3F200BCD8A5 /* Color+systemGroupedBackground.swift in Sources */,
+				0158DBF830040D6800FD3676 /* CheckboxView.swift in Sources */,
 				BD1360A22BFD365500468A01 /* TristyApp.swift in Sources */,
 				01C044192E04E67A00B51C2E /* GroceryListRowIcons.swift in Sources */,
 				01C044172E04E5F300B51C2E /* Array+Codable.swift in Sources */,
 				01A438A52DFF6A8700679DDB /* SettingsConfiguration.swift in Sources */,
+				0158DBFC30040D6F00FD3676 /* TextEditView.swift in Sources */,
 				012A80E92DFBE782005B4B70 /* GroceryListRow.swift in Sources */,
 				01CBC5A22DFB880F00E5B891 /* Router.swift in Sources */,
 				01A438AC2DFF7CD800679DDB /* GroceryListSection.swift in Sources */,
+				0158DBFE30040D7400FD3676 /* InfoButtonView.swift in Sources */,
 				01C0441D2E04E8A700B51C2E /* GroceryList.swift in Sources */,
 				01A438A22DFF699500679DDB /* View+symbolToggleEffect.swift in Sources */,
 				0175FB462F6F3D840020E3F6 /* AddBarService.swift in Sources */,
@@ -441,6 +476,7 @@
 				01CBC5BA2DFBA20800E5B891 /* View+readSize.swift in Sources */,
 				01AEED522E11BB50007C516A /* SortActionsView.swift in Sources */,
 				01CC18BE2DFBC6E900BCD8A5 /* Metrics.swift in Sources */,
+				0158DC0030040D7700FD3676 /* GroceryListButtonsView.swift in Sources */,
 				01660B892E034C3600B5B695 /* ShareActionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,7 +611,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
@@ -612,7 +648,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -632,7 +668,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tristy/Tristy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Tristy/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
@@ -669,7 +705,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frank.TristyGroceries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

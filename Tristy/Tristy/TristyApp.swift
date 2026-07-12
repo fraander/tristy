@@ -9,28 +9,6 @@ import CloudKitSyncMonitor
 import SwiftData
 import SwiftUI
 
-struct AppView: View {
-
-    @State var router = Router()
-
-    var body: some View {
-        ContentView()
-            .environment(router)
-            .focusedSceneValue(\.router, router)
-    }
-}
-
-struct RouterKey: FocusedValueKey {
-    typealias Value = Router
-}
-
-extension FocusedValues {
-    var router: Router? {
-        get { self[RouterKey.self] }
-        set { self[RouterKey.self] = newValue }
-    }
-}
-
 @main
 struct TristyApp: App {
 
@@ -51,10 +29,13 @@ struct TristyApp: App {
 
     }
     
-    @FocusedValue(\.router) private var router
+    @FocusedValue(Router.self) var focusedRouter: Router?
+    @FocusedValue(AddBarService.self) var addBarService: AddBarService?
 
+    @Environment(\.openWindow) var openWindow
+    
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: "main") {
             AppView()
                 .modelContainer(container)
                 #if os(macOS)
@@ -65,15 +46,27 @@ struct TristyApp: App {
         }
         .commands {
             CommandGroup(replacing: .newItem) {
-                Button("New grocery", systemImage: Symbols.add) {
-                    router?.presentSheet(.grocery(.new))
+                Button("New Window") {
+                    openWindow(id: "main")
                 }
-                .keyboardShortcut("n", modifiers: .command)
-                .disabled(router == nil)
+                
+                Button("Create New Grocery") {
+                    // focus router.new
+                    focusedRouter?.presentSheet(.grocery(.new))
+                }
+                .disabled(focusedRouter == nil)
+                .keyboardShortcut("n", modifiers: [.command, .shift])
+                
+                Button("Add Grocery to List") {
+                    // focus add bar
+                    addBarService?.isSearching = true
+                }
+                .disabled(addBarService == nil)
+                .keyboardShortcut("n", modifiers: [.command])
             }
         }
         #if os(macOS)
-            SwiftUI.Settings {  // <-- this window cannot be resized freely, why? please fix.
+            SwiftUI.Settings {  // <-- this window cannot be resized freely, why?
                 SettingsView()
                     .modelContainer(container)
             }
