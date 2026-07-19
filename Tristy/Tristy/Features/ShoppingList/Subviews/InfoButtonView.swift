@@ -7,7 +7,7 @@ import SwiftUI
 
 struct InfoButtonView: View {
     @Binding var showInfo: Bool
-    let grocery: Grocery
+    var grocery: Grocery
     var namespace: Namespace.ID
     
     var body: some View {

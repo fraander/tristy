@@ -62,7 +62,7 @@ struct GroceryListRow: View {
         }
         .frame(minHeight: 24)
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            GroceryListButtonsView()
+            GroceryListButtonsView(grocery: grocery)
                 .labelStyle(.iconOnly)
         }
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -70,7 +70,7 @@ struct GroceryListRow: View {
                 .labelStyle(.iconOnly)
         }
         .contextMenu {
-            Section { GroceryListButtonsView() }
+            Section { GroceryListButtonsView(grocery: grocery) }
             Section { InfoButtonView(showInfo: $showInfo, grocery: grocery, namespace: namespace) }
         }
         .font(.system(.body, design: .rounded))
@@ -85,3 +85,4 @@ struct GroceryListRow: View {
         }
     }
 }
+

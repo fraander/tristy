@@ -1,4 +1,3 @@
-
 import SwiftData
 import SwiftUI
 
@@ -37,16 +36,13 @@ struct TristyToolbar: ToolbarContent {
     var body: some ToolbarContent {
         if isEditing || isMac {
             let selected = router.selectedGroceries
-            let descriptor: FetchDescriptor<Grocery> = .init(
-                predicate: #Predicate { selected.contains($0.id) }
-            )
-            let fetched = try? modelContext.fetch(descriptor)
+            let fetchedAll = try? modelContext.fetch(FetchDescriptor<Grocery>())
+            let fetched = fetchedAll?.filter { selected.contains($0.persistentModelID) }
             let allPinned =
-            fetched?.allSatisfy { $0.isPinned || $0.listEnum != .active }
-            ?? false
+            (fetched ?? []).allSatisfy { $0.isPinned || $0.listEnum != .active }
             let allComplete =
             !(fetched ?? []).isEmpty
-            && fetched?.allSatisfy { $0.isCompleted } ?? false
+            && (fetched ?? []).allSatisfy { $0.isCompleted }
             
             ToolbarSpacer(.fixed, placement: morePlacement)
             
@@ -108,15 +104,8 @@ struct TristyToolbar: ToolbarContent {
                     if !router.selectedGroceries.isEmpty {
                         
                         let r = router.selectedGroceries
-                        let predicate = #Predicate<Grocery> { grocery in
-                            r.contains(grocery.persistentModelID)
-                        }
-                        let items =
-                        (try? modelContext.fetch(
-                            FetchDescriptor<Grocery>(
-                                predicate: predicate
-                            )
-                        )) ?? []
+                        let all = try? modelContext.fetch(FetchDescriptor<Grocery>())
+                        let items = (all ?? []).filter { r.contains($0.persistentModelID) }
                         
                         if router.selectedGroceries.count == 1 {
                             if let first = items.first {
@@ -141,3 +130,4 @@ struct TristyToolbar: ToolbarContent {
 #endif
     }
 }
+

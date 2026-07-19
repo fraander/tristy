@@ -112,14 +112,11 @@ extension Grocery {
     func getGroceriesForIDs(_ groceries: Set<PersistentIdentifier>, router: Router, in modelContext: ModelContext) -> [Grocery] {
         
         let selected = router.selectedGroceries
-        let descriptor: FetchDescriptor<Grocery> = .init(
-            predicate: #Predicate { selected.contains($0.id) }
-        )
-        guard let fetched = try? modelContext.fetch(descriptor) else {
+        let all = try? modelContext.fetch(FetchDescriptor<Grocery>())
+        let fetched = (all ?? []).filter { selected.contains($0.persistentModelID) }
+        if fetched.isEmpty {
             print("Could not fetch for IDs: \(groceries)")
-            return []
         }
-        
         return fetched
     }
 }
